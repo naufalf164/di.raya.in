@@ -93,7 +93,7 @@
         <input type="text" 
                id="clientSearchInput" 
                oninput="filterClients()" 
-               placeholder="Cari nama pengantin atau lokasi (misal: Velin, Devan, Bandung)..." 
+               placeholder="Cari nama pengantin atau lokasi (misal: Velin, Rachmi, Bandung)..." 
                class="w-full pl-12 pr-10 py-3.5 rounded-full border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-goldDark shadow-sm placeholder:text-brand-muted/70">
         <button id="clearSearchBtn" onclick="clearClientSearch()" class="hidden absolute right-4 text-brand-muted hover:text-brand-charcoal">
           <i data-lucide="x" class="w-4 h-4"></i>
@@ -137,9 +137,9 @@
       <div class="p-6 sm:p-8 bg-brand-warm/80 border-b border-brand-sand flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div class="inline-block px-3 py-1 bg-brand-goldDark text-white rounded-full text-[10px] font-bold tracking-widest uppercase mb-2" id="modalClientPkg">
-            Vow Package
+            Eternal Package
           </div>
-          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-brand-charcoal" id="modalClientName">Velin & Devan</h2>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-brand-charcoal" id="modalClientName">Sarah & Dimas</h2>
           <p class="text-xs text-brand-muted mt-1 flex items-center gap-2" id="modalClientMeta">
             <span><i data-lucide="calendar" class="w-3.5 h-3.5 inline"></i> 09 Mei 2026</span>
           </p>
@@ -220,6 +220,7 @@
 
     // ================= DATA MASTER KLIEN DI.RAYA.IN =================
     const clientsData = [
+      // KLIEN 1: RACHMI & TAUFIK
       {
         id: "rachmi-taufik",
         name: "Rachmi & Taufik",
@@ -267,7 +268,9 @@
           { title: "-", url: "https://lh3.googleusercontent.com/d/1Dj3XGgiASh9OaFOhlq5h4hdh31GRyfwL" },
           { title: "-", url: "https://lh3.googleusercontent.com/d/1sGYvuDRcHmV9b9JoMIMfaerd02_vcuGt" }
         ]
-      };
+      },
+
+      // KLIEN 2: VELIN & DEVAN
       {
         id: "velin-devan",
         name: "Velin & Devan",
@@ -421,7 +424,7 @@
       document.getElementById('countPhotos').innerText = client.randomPhotos.length;
       document.getElementById('modalBookingBtn').href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Halo di.raya.in, saya melihat portofolio pernikahan ${client.name} (${client.packageName}) dan ingin konsultasi jadwal.`)}`;
 
-     // Render Video List
+      // Render Video List
       const videoContainer = document.getElementById('modalVideoList');
       videoContainer.innerHTML = '';
       client.editedVideos.forEach(v => {
@@ -430,16 +433,11 @@
         item.onclick = () => openMediaViewer('video', v.url, `${client.name} — ${v.title}`);
         
         item.innerHTML = `
-          <!-- Iframe Preview Video Asli (Otomatis memuat frame video tersebut) -->
           <iframe src="${v.url}" class="w-full h-full border-0 pointer-events-none scale-105 opacity-90" scrolling="no"></iframe>
-          
-          <!-- Lapisan Tombol & Judul -->
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white z-10">
             <span class="text-[10px] tracking-widest uppercase bg-brand-goldDark px-2 py-0.5 rounded w-max mb-1">Play Video</span>
             <h5 class="font-serif text-sm font-bold">${v.title}</h5>
           </div>
-          
-          <!-- Ikon Play -->
           <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 flex items-center justify-center text-white z-10 group-hover:scale-110 transition-transform">
             <i data-lucide="play" class="w-4 h-4 fill-white"></i>
           </div>
