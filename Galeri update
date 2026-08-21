@@ -1,18 +1,26 @@
 {
-  id: "rina-doni",
-  name: "Rina & Doni",
-  date: "20 September 2026",
-  venue: "Gedung Harmoni, Cianjur",
-  packageKey: "eternal", // pilih: eternal, vow, memory, atau story
-  packageName: "Eternal Package (± 8 Jam)",
-  cover: "LINK_FOTO_COVER_PENGANTIN.jpg",
-  rawDriveUrl: "LINK_FOLDER_GDRIVE_RAW",
-  rawCountText: "200+ Raw Videos & Photos",
-  editedVideos: [
-    { title: "Recap Video", url: "https://drive.google.com/file/d/ID/preview", cover: "THUMBNAIL.jpg" }
-  ],
-  randomPhotos: [
-    { title: "Candid Dazzcam 1", url: "FOTO_HD_1.jpg" },
-    { title: "Candid Dazzcam 2", url: "FOTO_HD_2.jpg" }
-  ]
-}
+        id: "dina-rizky", // ID unik (huruf kecil tanpa spasi)
+        name: "Dina & Rizky", // Nama pasangan pengantin
+        date: "12 September 2026", // Tanggal pernikahan
+        venue: "Gedung Assakinah, Cianjur", // Lokasi / Kota
+        packageKey: "eternal", // Pilihan: "eternal", "vow", "memory", atau "story"
+        packageName: "Eternal Package (± 8 Jam)", // Nama paket lengkap
+        cover: "LINK_FOTO_COVER_KLIEN.jpg", // Foto cover kartu depan
+        editedVideos: [
+          { 
+            title: "Recap Video (1-2 Menit)", 
+            url: "https://drive.google.com/file/d/ID_GDRIVE_VIDEO_1/preview", 
+            cover: "LINK_THUMBNAIL_VIDEO_1.jpg" 
+          },
+          { 
+            title: "Reels Akad & Sungkeman", 
+            url: "https://drive.google.com/file/d/ID_GDRIVE_VIDEO_2/preview", 
+            cover: "LINK_THUMBNAIL_VIDEO_2.jpg" 
+          }
+        ],
+        randomPhotos: [
+          { title: "Candid Dazzcam Pelaminan", url: "LINK_FOTO_HD_1.jpg" },
+          { title: "Morning Makeup Details", url: "LINK_FOTO_HD_2.jpg" },
+          { title: "Bridesmaids Laughter", url: "LINK_FOTO_HD_3.jpg" }
+        ]
+      },
