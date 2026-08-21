@@ -93,7 +93,7 @@
         <input type="text" 
                id="clientSearchInput" 
                oninput="filterClients()" 
-               placeholder="Cari nama pengantin atau lokasi (misal: Sarah, Bandung)..." 
+               placeholder="Cari nama pengantin atau lokasi (misal: Velin, Devan, Bandung)..." 
                class="w-full pl-12 pr-10 py-3.5 rounded-full border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-goldDark shadow-sm placeholder:text-brand-muted/70">
         <button id="clearSearchBtn" onclick="clearClientSearch()" class="hidden absolute right-4 text-brand-muted hover:text-brand-charcoal">
           <i data-lucide="x" class="w-4 h-4"></i>
@@ -137,13 +137,11 @@
       <div class="p-6 sm:p-8 bg-brand-warm/80 border-b border-brand-sand flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div class="inline-block px-3 py-1 bg-brand-goldDark text-white rounded-full text-[10px] font-bold tracking-widest uppercase mb-2" id="modalClientPkg">
-            Eternal Package
+            Vow Package
           </div>
-          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-brand-charcoal" id="modalClientName">Sarah & Dimas</h2>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-brand-charcoal" id="modalClientName">Velin & Devan</h2>
           <p class="text-xs text-brand-muted mt-1 flex items-center gap-2" id="modalClientMeta">
-            <span><i data-lucide="calendar" class="w-3.5 h-3.5 inline"></i> 15 Agustus 2026</span>
-            <span>•</span>
-            <span><i data-lucide="map-pin" class="w-3.5 h-3.5 inline"></i> Gedung Merdeka, Bandung</span>
+            <span><i data-lucide="calendar" class="w-3.5 h-3.5 inline"></i> 09 Mei 2026</span>
           </p>
         </div>
 
@@ -221,31 +219,30 @@
     let activePkgFilter = 'all';
 
     // ================= DATA MASTER KLIEN DI.RAYA.IN =================
-    // Tambah atau edit data pengantin di sini:
     const clientsData = [
       {
-        id: "velin-devan", // ID unik (huruf kecil tanpa spasi)
-        name: "Velin & Devan", // Nama pasangan pengantin
-        date: "09 Mei 2026", // Tanggal pernikahan
-        venue: "-", // Lokasi / Kota
-        packageKey: "vow", // Pilihan: "eternal", "vow", "memory", atau "story"
-        packageName: "-", // Nama paket lengkap
-        cover: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=80", // Foto cover kartu depan
+        id: "velin-devan",
+        name: "Velin & Devan",
+        date: "09 Mei 2026",
+        venue: "Bandung",
+        packageKey: "vow",
+        packageName: "Vow Package (Akad ± 4 Jam)",
+        cover: "https://lh3.googleusercontent.com/d/1tmAEhJiu8wPQGpuuTAYuxFsVDTehtEYj",
         editedVideos: [
           { 
-            title: "-", 
+            title: "Reels Recap 1", 
             url: "https://drive.google.com/file/d/1PvFpXSK1FTY8VDsE8rC8PEH4j2NATBLY/preview" 
           },
           { 
-            title: "-", 
-            url: "https://drive.google.com/file/d/1tCt9FQBR_lGCxhL4ur4rIRFiUe8MrkNo/preview"
+            title: "Reels Recap 2", 
+            url: "https://drive.google.com/file/d/1tCt9FQBR_lGCxhL4ur4rIRFiUe8MrkNo/preview" 
           },
           { 
-            title: "-", 
-            url: "https://drive.google.com/file/d/1aT8qLEf_3Clon8JiMzxyDL_Ugie8wFbk/preview"
+            title: "Reels Recap 3", 
+            url: "https://drive.google.com/file/d/1aT8qLEf_3Clon8JiMzxyDL_Ugie8wFbk/preview" 
           }
         ],
-       randomPhotos: [
+        randomPhotos: [
           { title: "-", url: "https://lh3.googleusercontent.com/d/1tmAEhJiu8wPQGpuuTAYuxFsVDTehtEYj" },
           { title: "-", url: "https://lh3.googleusercontent.com/d/1Qaukcm8C3t32TZwJrxghx1SGxsyI9mSZ" },
           { title: "-", url: "https://lh3.googleusercontent.com/d/1t_4cBSFWTNoVi_73HkDFgpn3IrrSNPMs" },
@@ -270,7 +267,7 @@
           { title: "-", url: "https://lh3.googleusercontent.com/d/1Dj3XGgiASh9OaFOhlq5h4hdh31GRyfwL" },
           { title: "-", url: "https://lh3.googleusercontent.com/d/1sGYvuDRcHmV9b9JoMIMfaerd02_vcuGt" }
         ]
-      },
+      }
     ];
 
     // 1. RENDER DAFTAR KLIEN
@@ -284,7 +281,7 @@
 
       clientsData.forEach(client => {
         const matchesPkg = (activePkgFilter === 'all' || client.packageKey === activePkgFilter);
-        const matchesSearch = client.name.toLowerCase().includes(query) || client.venue.toLowerCase().includes(query);
+        const matchesSearch = client.name.toLowerCase().includes(query) || (client.venue && client.venue.toLowerCase().includes(query));
 
         if (matchesPkg && matchesSearch) {
           count++;
@@ -304,7 +301,7 @@
                 <h3 class="font-serif text-2xl font-bold text-brand-charcoal group-hover:text-brand-goldDark transition-colors">${client.name}</h3>
                 <div class="text-xs text-brand-muted mt-2 space-y-1">
                   <div class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> <span>${client.date}</span></div>
-                  <div class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> <span>${client.venue}</span></div>
+                  <div class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> <span>${client.venue || "-"}</span></div>
                 </div>
               </div>
               
@@ -357,7 +354,7 @@
       filterClients();
     }
 
-   // 3. BUKA DETAIL KLIEN
+    // 3. BUKA DETAIL KLIEN
     function openClientDetail(clientId) {
       const client = clientsData.find(c => c.id === clientId);
       if (!client) return;
@@ -367,17 +364,16 @@
       document.getElementById('modalClientMeta').innerHTML = `
         <span><i data-lucide="calendar" class="w-3.5 h-3.5 inline"></i> ${client.date}</span>
         <span>•</span>
-        <span><i data-lucide="map-pin" class="w-3.5 h-3.5 inline"></i> ${client.venue}</span>
+        <span><i data-lucide="map-pin" class="w-3.5 h-3.5 inline"></i> ${client.venue || "-"}</span>
       `;
       document.getElementById('countVideos').innerText = client.editedVideos.length;
       document.getElementById('countPhotos').innerText = client.randomPhotos.length;
       document.getElementById('modalBookingBtn').href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Halo di.raya.in, saya melihat portofolio pernikahan ${client.name} (${client.packageName}) dan ingin konsultasi jadwal.`)}`;
 
-      // Render Video List (Otomatis Ambil Cover dari Google Drive)
+      // Render Video List
       const videoContainer = document.getElementById('modalVideoList');
       videoContainer.innerHTML = '';
       client.editedVideos.forEach(v => {
-        // Ambil ID Google Drive secara aman
         const match = v.url.match(/\/d\/([^/]+)/);
         const fileId = match ? match : null;
         const autoThumbnail = fileId 
@@ -406,55 +402,7 @@
       client.randomPhotos.forEach(p => {
         const item = document.createElement('div');
         item.className = "group relative rounded-xl overflow-hidden aspect-[9/16] bg-brand-sand shadow-sm cursor-pointer";
-        item.onclick = () => openMediaViewer('foto', p.url, `${client.name} — ${p.title}`);
-        item.innerHTML = `
-          <img src="${p.url}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
-            <i data-lucide="zoom-in" class="w-6 h-6"></i>
-          </div>
-        `;
-        photoContainer.appendChild(item);
-      });
-
-      switchContentTab('videoTab');
-
-      const modal = document.getElementById('clientDetailModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      lucide.createIcons();
-    }
-
-      // Render Foto List
-      const photoContainer = document.getElementById('modalPhotoList');
-      photoContainer.innerHTML = '';
-      client.randomPhotos.forEach(p => {
-        const item = document.createElement('div');
-        item.className = "group relative rounded-xl overflow-hidden aspect-[9/16] bg-brand-sand shadow-sm cursor-pointer";
-        item.onclick = () => openMediaViewer('foto', p.url, `${client.name} — ${p.title}`);
-        item.innerHTML = `
-          <img src="${p.url}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
-            <i data-lucide="zoom-in" class="w-6 h-6"></i>
-          </div>
-        `;
-        photoContainer.appendChild(item);
-      });
-
-      switchContentTab('videoTab');
-
-      const modal = document.getElementById('clientDetailModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      lucide.createIcons();
-    }
-
-      // Render Foto List
-      const photoContainer = document.getElementById('modalPhotoList');
-      photoContainer.innerHTML = '';
-      client.randomPhotos.forEach(p => {
-        const item = document.createElement('div');
-        item.className = "group relative rounded-xl overflow-hidden aspect-[9/16] bg-brand-sand shadow-sm cursor-pointer";
-        item.onclick = () => openMediaViewer('foto', p.url, `${client.name} — ${p.title}`);
+        item.onclick = () => openMediaViewer('foto', p.url, `${client.name}`);
         item.innerHTML = `
           <img src="${p.url}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
           <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
