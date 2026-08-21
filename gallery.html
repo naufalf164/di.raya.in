@@ -227,7 +227,7 @@
         venue: "Bandung",
         packageKey: "vow",
         packageName: "Vow Package (Akad ± 4 Jam)",
-        cover: "https://lh3.googleusercontent.com/d/1tmAEhJiu8wPQGpuuTAYuxFsVDTehtEYj",
+        cover: "https://lh3.googleusercontent.com/d/1PYPYqepRyb1iWiDG8DEBJhGQbTWIwq6w",
         editedVideos: [
           { 
             title: "Reels Recap 1", 
@@ -370,26 +370,26 @@
       document.getElementById('countPhotos').innerText = client.randomPhotos.length;
       document.getElementById('modalBookingBtn').href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Halo di.raya.in, saya melihat portofolio pernikahan ${client.name} (${client.packageName}) dan ingin konsultasi jadwal.`)}`;
 
-      // Render Video List
+     // Render Video List
       const videoContainer = document.getElementById('modalVideoList');
       videoContainer.innerHTML = '';
       client.editedVideos.forEach(v => {
-        const match = v.url.match(/\/d\/([^/]+)/);
-        const fileId = match ? match : null;
-        const autoThumbnail = fileId 
-          ? `https://drive.google.com/thumbnail?id=${fileId}&sz=w800` 
-          : client.cover;
-
         const item = document.createElement('div');
         item.className = "group relative rounded-2xl overflow-hidden aspect-[9/16] bg-black shadow-sm cursor-pointer";
         item.onclick = () => openMediaViewer('video', v.url, `${client.name} — ${v.title}`);
+        
         item.innerHTML = `
-          <img src="${autoThumbnail}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85" onerror="this.src='${client.cover}'">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
+          <!-- Iframe Preview Video Asli (Otomatis memuat frame video tersebut) -->
+          <iframe src="${v.url}" class="w-full h-full border-0 pointer-events-none scale-105 opacity-90" scrolling="no"></iframe>
+          
+          <!-- Lapisan Tombol & Judul -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white z-10">
             <span class="text-[10px] tracking-widest uppercase bg-brand-goldDark px-2 py-0.5 rounded w-max mb-1">Play Video</span>
             <h5 class="font-serif text-sm font-bold">${v.title}</h5>
           </div>
-          <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 flex items-center justify-center text-white">
+          
+          <!-- Ikon Play -->
+          <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 flex items-center justify-center text-white z-10 group-hover:scale-110 transition-transform">
             <i data-lucide="play" class="w-4 h-4 fill-white"></i>
           </div>
         `;
