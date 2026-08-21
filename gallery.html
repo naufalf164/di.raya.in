@@ -83,7 +83,7 @@
     <span class="text-xs font-semibold tracking-widest text-brand-goldDark uppercase">Portofolio Pernikahan</span>
     <h1 class="font-serif text-4xl sm:text-6xl font-normal mt-2 text-brand-charcoal">Cerita Cinta Klien Kami</h1>
     <p class="text-brand-muted mt-3 text-sm sm:text-base max-w-xl mx-auto">
-      Cari nama pasangan atau pilih paket layanan untuk melihat dokumentasi video reels, foto dazzcam, dan raw footage.
+      Temukan inspirasi konsep pernikahan melalui koleksi video reels dan foto candid aesthetic dari pasangan yang telah kami abadikan.
     </p>
 
     <!-- SEARCH BAR NAMA KLIEN / LOKASI -->
@@ -114,7 +114,7 @@
   <!-- ================= GRID DAFTAR KLIEN ================= -->
   <section class="py-12 max-w-7xl mx-auto px-4 sm:px-6">
     
-    <!-- Pesan jika tidak ditemukan -->
+    <!-- Pesan jika pencarian kosong -->
     <div id="noClientsFound" class="hidden text-center py-16">
       <div class="w-16 h-16 rounded-full bg-brand-warm flex items-center justify-center text-brand-muted mx-auto mb-4">
         <i data-lucide="search-x" class="w-8 h-8"></i>
@@ -152,8 +152,8 @@
         </button>
       </div>
 
-      <!-- Sub-Tab Navigasi di Dalam Klien -->
-      <div class="px-6 sm:px-8 pt-6 border-b border-brand-sand flex gap-6 overflow-x-auto no-scrollbar">
+      <!-- 2 Sub-Tab Navigasi: Videos & Photos -->
+      <div class="px-6 sm:px-8 pt-6 border-b border-brand-sand flex gap-8 overflow-x-auto no-scrollbar">
         <button onclick="switchContentTab('videoTab')" id="btnTabVideo" class="content-tab-btn active pb-3 text-xs uppercase tracking-wider font-bold text-brand-goldDark border-b-2 border-brand-goldDark transition-all flex items-center gap-2">
           <i data-lucide="video" class="w-4 h-4"></i>
           <span>Edited Videos (<span id="countVideos">0</span>)</span>
@@ -161,10 +161,6 @@
         <button onclick="switchContentTab('photoTab')" id="btnTabPhoto" class="content-tab-btn pb-3 text-xs uppercase tracking-wider font-bold text-brand-muted hover:text-brand-charcoal transition-all flex items-center gap-2">
           <i data-lucide="camera" class="w-4 h-4"></i>
           <span>Random Foto Dazzcam (<span id="countPhotos">0</span>)</span>
-        </button>
-        <button onclick="switchContentTab('rawTab')" id="btnTabRaw" class="content-tab-btn pb-3 text-xs uppercase tracking-wider font-bold text-brand-muted hover:text-brand-charcoal transition-all flex items-center gap-2">
-          <i data-lucide="folder" class="w-4 h-4"></i>
-          <span>Raw Footage</span>
         </button>
       </div>
 
@@ -185,26 +181,9 @@
           </div>
         </div>
 
-        <!-- 3. TAB RAW FOOTAGE -->
-        <div id="rawTab" class="tab-pane hidden">
-          <div class="bg-brand-warm p-6 sm:p-8 rounded-2xl border border-brand-sand text-center max-w-lg mx-auto">
-            <div class="w-14 h-14 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-goldDark mx-auto mb-4">
-              <i data-lucide="folder-check" class="w-7 h-7"></i>
-            </div>
-            <h4 class="font-serif text-2xl font-bold text-brand-charcoal">Semua Raw Footage Diserahkan</h4>
-            <p class="text-xs text-brand-muted mt-2 leading-relaxed" id="modalRawDesc">
-              Seluruh video mentah tanpa edit dan foto resolusi tinggi telah diunggah ke Google Drive pribadi pengantin.
-            </p>
-            <a id="modalDriveBtn" href="#" target="_blank" class="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-brand-charcoal text-white rounded-full text-xs font-semibold hover:bg-brand-goldDark transition-all shadow-md">
-              <i data-lucide="external-link" class="w-4 h-4"></i>
-              <span>Buka Google Drive Pengantin</span>
-            </a>
-          </div>
-        </div>
-
       </div>
 
-      <!-- Modal Footer (Tombol Booking Cepat) -->
+      <!-- Modal Footer (Tombol Booking Cepat WhatsApp) -->
       <div class="p-4 sm:p-6 bg-brand-warm/60 border-t border-brand-sand flex flex-col sm:flex-row items-center justify-between gap-4">
         <p class="text-xs text-brand-muted text-center sm:text-left">
           Tertarik dengan konsep dokumentasi pasangan ini?
@@ -242,7 +221,7 @@
     let activePkgFilter = 'all';
 
     // ================= DATA MASTER KLIEN DI.RAYA.IN =================
-    // Anda cukup menambah / mengedit klien di daftar ini:
+    // Tambah atau edit data pengantin di sini:
     const clientsData = [
       {
         id: "sarah-dimas",
@@ -252,8 +231,6 @@
         packageKey: "eternal",
         packageName: "Eternal Package (± 8 Jam)",
         cover: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80",
-        rawDriveUrl: "https://drive.google.com/drive/folders/1b_mP6LR0hxworkDBQrilWXgDw2VAtr_q",
-        rawCountText: "280+ Raw Videos & 150+ Raw Photos",
         editedVideos: [
           { title: "Recap Video (1-2 Menit)", url: "https://drive.google.com/file/d/1n2IuyM9iwNOgEBGuRF2UfR__Uw3ty-_n/preview", cover: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80" },
           { title: "Reels Akad Moment", url: "https://drive.google.com/file/d/1n2IuyM9iwNOgEBGuRF2UfR__Uw3ty-_n/preview", cover: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=400&q=80" }
@@ -273,8 +250,6 @@
         packageKey: "vow",
         packageName: "Vow Package (Akad ± 4 Jam)",
         cover: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80",
-        rawDriveUrl: "https://drive.google.com/drive/folders/1b_mP6LR0hxworkDBQrilWXgDw2VAtr_q",
-        rawCountText: "140+ Raw Clips (Akad & Sungkeman)",
         editedVideos: [
           { title: "Akad Recap Video (45 Detik)", url: "https://drive.google.com/file/d/1n2IuyM9iwNOgEBGuRF2UfR__Uw3ty-_n/preview", cover: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=400&q=80" }
         ],
@@ -291,8 +266,6 @@
         packageKey: "memory",
         packageName: "Memory Package (4 Jam)",
         cover: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=80",
-        rawDriveUrl: "https://drive.google.com/drive/folders/1b_mP6LR0hxworkDBQrilWXgDw2VAtr_q",
-        rawCountText: "180+ Raw Video Clips & Photos",
         editedVideos: [
           { title: "Outdoor Party Recap", url: "https://drive.google.com/file/d/1n2IuyM9iwNOgEBGuRF2UfR__Uw3ty-_n/preview", cover: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=400&q=80" }
         ],
@@ -309,8 +282,6 @@
         packageKey: "story",
         packageName: "Story Package (2 Jam)",
         cover: "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=600&q=80",
-        rawDriveUrl: "https://drive.google.com/drive/folders/1b_mP6LR0hxworkDBQrilWXgDw2VAtr_q",
-        rawCountText: "90+ Raw Short Clips",
         editedVideos: [
           { title: "Short Highlight Reel", url: "https://drive.google.com/file/d/1n2IuyM9iwNOgEBGuRF2UfR__Uw3ty-_n/preview", cover: "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=400&q=80" }
         ],
@@ -418,8 +389,6 @@
       `;
       document.getElementById('countVideos').innerText = client.editedVideos.length;
       document.getElementById('countPhotos').innerText = client.randomPhotos.length;
-      document.getElementById('modalRawDesc').innerText = `Terdapat ${client.rawCountText} yang telah diserahkan lengkap kepada pasangan ${client.name}.`;
-      document.getElementById('modalDriveBtn').href = client.rawDriveUrl;
       document.getElementById('modalBookingBtn').href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Halo di.raya.in, saya melihat portofolio pernikahan ${client.name} (${client.packageName}) dan ingin konsultasi jadwal.`)}`;
 
       // Render Video List
@@ -472,7 +441,7 @@
       modal.classList.add('hidden');
     }
 
-    // 4. SUB-TAB SWITCHER DI MODAL
+    // 4. SUB-TAB SWITCHER (HANYA VIDEO & FOTO)
     function switchContentTab(tabId) {
       document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
       document.getElementById(tabId).classList.remove('hidden');
@@ -486,8 +455,6 @@
         document.getElementById('btnTabVideo').classList.add('text-brand-goldDark', 'border-b-2', 'border-brand-goldDark');
       } else if (tabId === 'photoTab') {
         document.getElementById('btnTabPhoto').classList.add('text-brand-goldDark', 'border-b-2', 'border-brand-goldDark');
-      } else {
-        document.getElementById('btnTabRaw').classList.add('text-brand-goldDark', 'border-b-2', 'border-brand-goldDark');
       }
       lucide.createIcons();
     }
