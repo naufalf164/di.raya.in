@@ -357,7 +357,7 @@
       filterClients();
     }
 
-    // 3. BUKA DETAIL KLIEN
+   // 3. BUKA DETAIL KLIEN (DENGAN COVER OTOMATIS DARI VIDEO)
     function openClientDetail(clientId) {
       const client = clientsData.find(c => c.id === clientId);
       if (!client) return;
@@ -373,15 +373,21 @@
       document.getElementById('countPhotos').innerText = client.randomPhotos.length;
       document.getElementById('modalBookingBtn').href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Halo di.raya.in, saya melihat portofolio pernikahan ${client.name} (${client.packageName}) dan ingin konsultasi jadwal.`)}`;
 
-      // Render Video List
+      // Render Video List (Otomatis Menampilkan Cuplikan Video Sebagai Cover)
       const videoContainer = document.getElementById('modalVideoList');
       videoContainer.innerHTML = '';
       client.editedVideos.forEach(v => {
+        // Ekstrak ID Google Drive otomatis untuk thumbnail
+        const fileId = v.url.match(/\/d\/([^/]+)/)?.;
+        const autoThumbnail = fileId 
+          ? `https://drive.google.com/thumbnail?id=${fileId}&sz=w800` 
+          : client.cover;
+
         const item = document.createElement('div');
         item.className = "group relative rounded-2xl overflow-hidden aspect-[9/16] bg-black shadow-sm cursor-pointer";
         item.onclick = () => openMediaViewer('video', v.url, `${client.name} — ${v.title}`);
         item.innerHTML = `
-          <img src="${v.cover}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80">
+          <img src="${autoThumbnail}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85" onerror="this.src='${client.cover}'">
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
             <span class="text-[10px] tracking-widest uppercase bg-brand-goldDark px-2 py-0.5 rounded w-max mb-1">Play Video</span>
             <h5 class="font-serif text-sm font-bold">${v.title}</h5>
@@ -392,6 +398,30 @@
         `;
         videoContainer.appendChild(item);
       });
+
+      // Render Foto List
+      const photoContainer = document.getElementById('modalPhotoList');
+      photoContainer.innerHTML = '';
+      client.randomPhotos.forEach(p => {
+        const item = document.createElement('div');
+        item.className = "group relative rounded-xl overflow-hidden aspect-[9/16] bg-brand-sand shadow-sm cursor-pointer";
+        item.onclick = () => openMediaViewer('foto', p.url, `${client.name} — ${p.title}`);
+        item.innerHTML = `
+          <img src="${p.url}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+            <i data-lucide="zoom-in" class="w-6 h-6"></i>
+          </div>
+        `;
+        photoContainer.appendChild(item);
+      });
+
+      switchContentTab('videoTab');
+
+      const modal = document.getElementById('clientDetailModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      lucide.createIcons();
+    }
 
       // Render Foto List
       const photoContainer = document.getElementById('modalPhotoList');
