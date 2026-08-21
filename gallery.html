@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Galeri Klien — di.raya.in</title>
+  <title>Galeri Portofolio Klien — di.raya.in</title>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,6 +38,23 @@
       }
     }
   </script>
+  <style>
+    body {
+      background-color: #FAF8F5;
+      color: #23201E;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-serif {
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
 </head>
 <body class="bg-brand-cream text-brand-charcoal antialiased">
 
@@ -62,221 +79,425 @@
   </header>
 
   <!-- ================= HEADER SECTION ================= -->
-  <section class="pt-16 pb-10 text-center max-w-4xl mx-auto px-4 sm:px-6">
-    <span class="text-xs font-semibold tracking-widest text-brand-goldDark uppercase">Portofolio Lengkap</span>
-    <h1 class="font-serif text-4xl sm:text-6xl font-normal mt-2 text-brand-charcoal">Galeri Cerita & Momen</h1>
+  <section class="pt-16 pb-8 text-center max-w-4xl mx-auto px-4 sm:px-6">
+    <span class="text-xs font-semibold tracking-widest text-brand-goldDark uppercase">Portofolio Pernikahan</span>
+    <h1 class="font-serif text-4xl sm:text-6xl font-normal mt-2 text-brand-charcoal">Cerita Cinta Klien Kami</h1>
     <p class="text-brand-muted mt-3 text-sm sm:text-base max-w-xl mx-auto">
-      Koleksi video cuplikan reels dan tangkapan foto candid aesthetic dari berbagai pernikahan yang kami abadikan.
+      Cari nama pasangan atau pilih paket layanan untuk melihat dokumentasi video reels, foto dazzcam, dan raw footage.
     </p>
 
-    <!-- SEARCH BAR REAL-TIME -->
+    <!-- SEARCH BAR NAMA KLIEN / LOKASI -->
     <div class="mt-8 max-w-lg mx-auto relative">
       <div class="relative flex items-center">
         <i data-lucide="search" class="w-5 h-5 text-brand-muted absolute left-4 pointer-events-none"></i>
         <input type="text" 
-               id="searchInput" 
-               oninput="handleSearchAndFilter()" 
-               placeholder="Cari nama pasangan, konsep, atau acara (misal: Sarah, Resepsi, Dazzcam)..." 
+               id="clientSearchInput" 
+               oninput="filterClients()" 
+               placeholder="Cari nama pengantin atau lokasi (misal: Sarah, Bandung)..." 
                class="w-full pl-12 pr-10 py-3.5 rounded-full border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-goldDark shadow-sm placeholder:text-brand-muted/70">
-        <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-4 text-brand-muted hover:text-brand-charcoal">
+        <button id="clearSearchBtn" onclick="clearClientSearch()" class="hidden absolute right-4 text-brand-muted hover:text-brand-charcoal">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
     </div>
 
-    <!-- TOMBOL FILTER KATEGORI -->
+    <!-- TAB FILTER BERDASARKAN PAKET LAYANAN -->
     <div class="flex flex-wrap items-center justify-center gap-2 mt-6">
-      <button onclick="setCategory('all')" class="filter-btn active px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-brand-charcoal text-white transition-all">Semua</button>
-      <button onclick="setCategory('video')" class="filter-btn px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-brand-warm text-brand-charcoal hover:bg-brand-sand transition-all flex items-center gap-1.5">
-        <i data-lucide="play-circle" class="w-3.5 h-3.5"></i> <span>Video Reels</span>
-      </button>
-      <button onclick="setCategory('foto')" class="filter-btn px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-brand-warm text-brand-charcoal hover:bg-brand-sand transition-all flex items-center gap-1.5">
-        <i data-lucide="camera" class="w-3.5 h-3.5"></i> <span>Foto Dazzcam</span>
-      </button>
-      <button onclick="setCategory('akad')" class="filter-btn px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-brand-warm text-brand-charcoal hover:bg-brand-sand transition-all">Akad</button>
-      <button onclick="setCategory('resepsi')" class="filter-btn px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-brand-warm text-brand-charcoal hover:bg-brand-sand transition-all">Resepsi</button>
+      <button onclick="setPackageFilter('all')" class="pkg-btn active px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-brand-charcoal text-white transition-all">Semua Paket</button>
+      <button onclick="setPackageFilter('eternal')" class="pkg-btn px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-brand-warm text-brand-charcoal hover:bg-brand-sand transition-all">Eternal Package</button>
+      <button onclick="setPackageFilter('vow')" class="pkg-btn px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-brand-warm text-brand-charcoal hover:bg-brand-sand transition-all">Vow Package</button>
+      <button onclick="setPackageFilter('memory')" class="pkg-btn px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-brand-warm text-brand-charcoal hover:bg-brand-sand transition-all">Memory Package</button>
+      <button onclick="setPackageFilter('story')" class="pkg-btn px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-brand-warm text-brand-charcoal hover:bg-brand-sand transition-all">Story Package</button>
     </div>
   </section>
 
-  <!-- ================= GRID GALERI (FOTO & VIDEO) ================= -->
-  <section class="pb-24 max-w-7xl mx-auto px-4 sm:px-6">
+  <!-- ================= GRID DAFTAR KLIEN ================= -->
+  <section class="py-12 max-w-7xl mx-auto px-4 sm:px-6">
     
-    <!-- Pesan jika pencarian tidak ditemukan -->
-    <div id="noResults" class="hidden text-center py-16">
+    <!-- Pesan jika tidak ditemukan -->
+    <div id="noClientsFound" class="hidden text-center py-16">
       <div class="w-16 h-16 rounded-full bg-brand-warm flex items-center justify-center text-brand-muted mx-auto mb-4">
         <i data-lucide="search-x" class="w-8 h-8"></i>
       </div>
-      <h3 class="font-serif text-2xl font-bold text-brand-charcoal">Tidak Ada Hasil Ditemukan</h3>
-      <p class="text-xs text-brand-muted mt-1">Coba gunakan kata kunci lain seperti nama pasangan atau jenis acara.</p>
+      <h3 class="font-serif text-2xl font-bold text-brand-charcoal">Klien Tidak Ditemukan</h3>
+      <p class="text-xs text-brand-muted mt-1">Coba cari dengan kata kunci nama pasangan atau kota lainnya.</p>
     </div>
 
-    <!-- Grid Konten -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6" id="galleryGrid">
-      
-      <!-- ITEM 1: VIDEO (Akad) -->
-      <div onclick="openMedia('video', 'https://drive.google.com/file/d/1n2IuyM9iwNOgEBGuRF2UfR__Uw3ty-_n/preview', 'Sarah & Dimas — Akad Moment')" 
-           class="gallery-card video akad group relative rounded-2xl overflow-hidden aspect-[9/16] bg-brand-sand shadow-sm cursor-pointer"
-           data-title="Sarah & Dimas" data-tags="video akad holy matrimony reels">
-        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80" alt="Sarah & Dimas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
-          <span class="text-[10px] tracking-widest uppercase bg-brand-goldDark/90 px-2 py-0.5 rounded w-max mb-1">Video • Akad</span>
-          <h4 class="font-serif text-lg font-bold">Sarah & Dimas</h4>
-        </div>
-        <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white">
-          <i data-lucide="play" class="w-4 h-4 fill-white"></i>
-        </div>
-      </div>
-
-      <!-- ITEM 2: FOTO DAZZCAM (Candid Makeup) -->
-      <div onclick="openMedia('foto', 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=80', 'Alya & Fikri — Morning Makeup')" 
-           class="gallery-card foto akad group relative rounded-2xl overflow-hidden aspect-[9/16] bg-brand-sand shadow-sm cursor-pointer"
-           data-title="Alya & Fikri" data-tags="foto dazzcam candid makeup bts akad">
-        <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=80" alt="Alya & Fikri" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
-          <span class="text-[10px] tracking-widest uppercase bg-white/20 backdrop-blur-md px-2 py-0.5 rounded w-max mb-1">Foto • Dazzcam</span>
-          <h4 class="font-serif text-lg font-bold">Alya & Fikri</h4>
-        </div>
-        <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white">
-          <i data-lucide="image" class="w-4 h-4"></i>
-        </div>
-      </div>
-
-      <!-- ITEM 3: VIDEO (Resepsi) -->
-      <div onclick="openMedia('video', 'https://drive.google.com/file/d/1n2IuyM9iwNOgEBGuRF2UfR__Uw3ty-_n/preview', 'Nadia & Kevin — First Dance')" 
-           class="gallery-card video resepsi group relative rounded-2xl overflow-hidden aspect-[9/16] bg-brand-sand shadow-sm cursor-pointer"
-           data-title="Nadia & Kevin" data-tags="video resepsi reception party first dance reels">
-        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80" alt="Nadia & Kevin" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
-          <span class="text-[10px] tracking-widest uppercase bg-brand-goldDark/90 px-2 py-0.5 rounded w-max mb-1">Video • Resepsi</span>
-          <h4 class="font-serif text-lg font-bold">Nadia & Kevin</h4>
-        </div>
-        <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white">
-          <i data-lucide="play" class="w-4 h-4 fill-white"></i>
-        </div>
-      </div>
-
-      <!-- ITEM 4: FOTO DAZZCAM (Resepsi Sunset) -->
-      <div onclick="openMedia('foto', 'https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=1200&q=80', 'Clara & Rio — Sunset Vibe')" 
-           class="gallery-card foto resepsi group relative rounded-2xl overflow-hidden aspect-[9/16] bg-brand-sand shadow-sm cursor-pointer"
-           data-title="Clara & Rio" data-tags="foto dazzcam sunset outdoor resepsi candid">
-        <img src="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=600&q=80" alt="Clara & Rio" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
-          <span class="text-[10px] tracking-widest uppercase bg-white/20 backdrop-blur-md px-2 py-0.5 rounded w-max mb-1">Foto • Dazzcam</span>
-          <h4 class="font-serif text-lg font-bold">Clara & Rio</h4>
-        </div>
-        <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white">
-          <i data-lucide="image" class="w-4 h-4"></i>
-        </div>
-      </div>
-
+    <!-- Grid Kartu Klien -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" id="clientsGrid">
+      <!-- Diisi otomatis oleh JavaScript -->
     </div>
   </section>
 
-  <!-- ================= MODAL MEDIA VIEWER (FOTO & VIDEO) ================= -->
-  <div id="mediaModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-4">
-    <div class="relative w-full max-w-sm sm:max-w-md aspect-[9/16] bg-black rounded-3xl overflow-hidden shadow-2xl flex flex-col justify-between border border-white/20">
+  <!-- ================= MODAL DETAIL PORTOFOLIO KLIEN ================= -->
+  <div id="clientDetailModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto">
+    <div class="relative w-full max-w-4xl bg-brand-cream rounded-3xl overflow-hidden shadow-2xl my-8 border border-brand-sand">
       
-      <!-- Header Modal -->
-      <div class="absolute top-0 inset-x-0 z-20 p-4 bg-gradient-to-b from-black/80 to-transparent flex items-center justify-between text-white">
-        <span id="modalTitle" class="text-xs font-semibold truncate"></span>
-        <button onclick="closeMedia()" class="p-1.5 rounded-full bg-black/50 hover:bg-black text-white transition-all">
+      <!-- Modal Header -->
+      <div class="p-6 sm:p-8 bg-brand-warm/80 border-b border-brand-sand flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div class="inline-block px-3 py-1 bg-brand-goldDark text-white rounded-full text-[10px] font-bold tracking-widest uppercase mb-2" id="modalClientPkg">
+            Eternal Package
+          </div>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-brand-charcoal" id="modalClientName">Sarah & Dimas</h2>
+          <p class="text-xs text-brand-muted mt-1 flex items-center gap-2" id="modalClientMeta">
+            <span><i data-lucide="calendar" class="w-3.5 h-3.5 inline"></i> 15 Agustus 2026</span>
+            <span>•</span>
+            <span><i data-lucide="map-pin" class="w-3.5 h-3.5 inline"></i> Gedung Merdeka, Bandung</span>
+          </p>
+        </div>
+
+        <button onclick="closeClientDetail()" class="self-end sm:self-auto p-2 rounded-full bg-white text-brand-charcoal hover:bg-brand-sand transition-all border border-brand-sand">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <!-- Wadah Media -->
-      <div class="w-full h-full flex items-center justify-center bg-black">
-        <img id="modalImg" src="" class="hidden w-full h-full object-contain">
-        <iframe id="modalVideo" src="" class="hidden w-full h-full border-0" allow="autoplay; fullscreen"></iframe>
+      <!-- Sub-Tab Navigasi di Dalam Klien -->
+      <div class="px-6 sm:px-8 pt-6 border-b border-brand-sand flex gap-6 overflow-x-auto no-scrollbar">
+        <button onclick="switchContentTab('videoTab')" id="btnTabVideo" class="content-tab-btn active pb-3 text-xs uppercase tracking-wider font-bold text-brand-goldDark border-b-2 border-brand-goldDark transition-all flex items-center gap-2">
+          <i data-lucide="video" class="w-4 h-4"></i>
+          <span>Edited Videos (<span id="countVideos">0</span>)</span>
+        </button>
+        <button onclick="switchContentTab('photoTab')" id="btnTabPhoto" class="content-tab-btn pb-3 text-xs uppercase tracking-wider font-bold text-brand-muted hover:text-brand-charcoal transition-all flex items-center gap-2">
+          <i data-lucide="camera" class="w-4 h-4"></i>
+          <span>Random Foto Dazzcam (<span id="countPhotos">0</span>)</span>
+        </button>
+        <button onclick="switchContentTab('rawTab')" id="btnTabRaw" class="content-tab-btn pb-3 text-xs uppercase tracking-wider font-bold text-brand-muted hover:text-brand-charcoal transition-all flex items-center gap-2">
+          <i data-lucide="folder" class="w-4 h-4"></i>
+          <span>Raw Footage</span>
+        </button>
       </div>
 
-      <!-- Tombol WA Cepat di Bawah -->
-      <div class="absolute bottom-0 inset-x-0 z-20 p-4 bg-gradient-to-t from-black/80 to-transparent">
-        <a id="modalWaBtn" href="https://wa.me/6285128007096" target="_blank" class="w-full py-3 bg-brand-gold hover:bg-brand-goldDark text-brand-charcoal font-semibold rounded-full text-xs flex items-center justify-center gap-2 transition-all">
-          <i data-lucide="message-circle" class="w-4 h-4 text-[#25D366]"></i>
-          <span>Tanya Jadwal untuk Konsep Ini</span>
+      <!-- Isi Konten Tab -->
+      <div class="p-6 sm:p-8 min-h-[350px] max-h-[60vh] overflow-y-auto">
+        
+        <!-- 1. TAB EDITED VIDEOS -->
+        <div id="videoTab" class="tab-pane">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" id="modalVideoList">
+            <!-- Diisi JS -->
+          </div>
+        </div>
+
+        <!-- 2. TAB RANDOM FOTO DAZZCAM -->
+        <div id="photoTab" class="tab-pane hidden">
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3" id="modalPhotoList">
+            <!-- Diisi JS -->
+          </div>
+        </div>
+
+        <!-- 3. TAB RAW FOOTAGE -->
+        <div id="rawTab" class="tab-pane hidden">
+          <div class="bg-brand-warm p-6 sm:p-8 rounded-2xl border border-brand-sand text-center max-w-lg mx-auto">
+            <div class="w-14 h-14 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-goldDark mx-auto mb-4">
+              <i data-lucide="folder-check" class="w-7 h-7"></i>
+            </div>
+            <h4 class="font-serif text-2xl font-bold text-brand-charcoal">Semua Raw Footage Diserahkan</h4>
+            <p class="text-xs text-brand-muted mt-2 leading-relaxed" id="modalRawDesc">
+              Seluruh video mentah tanpa edit dan foto resolusi tinggi telah diunggah ke Google Drive pribadi pengantin.
+            </p>
+            <a id="modalDriveBtn" href="#" target="_blank" class="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-brand-charcoal text-white rounded-full text-xs font-semibold hover:bg-brand-goldDark transition-all shadow-md">
+              <i data-lucide="external-link" class="w-4 h-4"></i>
+              <span>Buka Google Drive Pengantin</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer (Tombol Booking Cepat) -->
+      <div class="p-4 sm:p-6 bg-brand-warm/60 border-t border-brand-sand flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-brand-muted text-center sm:text-left">
+          Tertarik dengan konsep dokumentasi pasangan ini?
+        </p>
+        <a id="modalBookingBtn" href="https://wa.me/6285128007096" target="_blank" class="w-full sm:w-auto px-6 py-3 bg-[#25D366] hover:bg-[#1ebc57] text-white font-semibold text-xs rounded-full transition-all flex items-center justify-center gap-2 shadow-md">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Tanya Jadwal & Booking Paket Ini</span>
         </a>
       </div>
 
     </div>
   </div>
 
-  <!-- ================= JAVASCRIPT LOGIKA ================= -->
+  <!-- ================= POPUP PEMUTAR VIDEO / FOTO BESAR ================= -->
+  <div id="mediaViewerModal" class="fixed inset-0 z-[60] bg-black/95 hidden items-center justify-center p-4">
+    <div class="relative w-full max-w-sm sm:max-w-md aspect-[9/16] bg-black rounded-3xl overflow-hidden shadow-2xl flex flex-col justify-between border border-white/20">
+      <div class="absolute top-0 inset-x-0 z-20 p-4 bg-gradient-to-b from-black/80 to-transparent flex items-center justify-between text-white">
+        <span id="mediaViewerTitle" class="text-xs font-semibold truncate"></span>
+        <button onclick="closeMediaViewer()" class="p-1.5 rounded-full bg-black/50 hover:bg-black text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="w-full h-full flex items-center justify-center bg-black">
+        <img id="viewerImg" src="" class="hidden w-full h-full object-contain">
+        <iframe id="viewerVideo" src="" class="hidden w-full h-full border-0" allow="autoplay; fullscreen"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT LOGIKA LENGKAP ================= -->
   <script>
     lucide.createIcons();
 
-    let activeCategory = 'all';
+    const WA_NUMBER = "6285128007096";
+    let activePkgFilter = 'all';
 
-    // 1. FILTER KATEGORI
-    function setCategory(category) {
-      activeCategory = category;
+    // ================= DATA MASTER KLIEN DI.RAYA.IN =================
+    // Anda cukup menambah / mengedit klien di daftar ini:
+    const clientsData = [
+      {
+        id: "sarah-dimas",
+        name: "Sarah & Dimas",
+        date: "15 Agustus 2026",
+        venue: "Gedung Merdeka, Bandung",
+        packageKey: "eternal",
+        packageName: "Eternal Package (± 8 Jam)",
+        cover: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80",
+        rawDriveUrl: "https://drive.google.com/drive/folders/1b_mP6LR0hxworkDBQrilWXgDw2VAtr_q",
+        rawCountText: "280+ Raw Videos & 150+ Raw Photos",
+        editedVideos: [
+          { title: "Recap Video (1-2 Menit)", url: "https://drive.google.com/file/d/1n2IuyM9iwNOgEBGuRF2UfR__Uw3ty-_n/preview", cover: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80" },
+          { title: "Reels Akad Moment", url: "https://drive.google.com/file/d/1n2IuyM9iwNOgEBGuRF2UfR__Uw3ty-_n/preview", cover: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=400&q=80" }
+        ],
+        randomPhotos: [
+          { title: "Candid Senyum Pelaminan", url: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80" },
+          { title: "Morning Makeup Details", url: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=80" },
+          { title: "First Dance Moment", url: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=80" },
+          { title: "Sunset Bride Portrait", url: "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=1200&q=80" }
+        ]
+      },
+      {
+        id: "nadia-kevin",
+        name: "Nadia & Kevin",
+        date: "08 Agustus 2026",
+        venue: "Hotel Papandayan, Bandung",
+        packageKey: "vow",
+        packageName: "Vow Package (Akad ± 4 Jam)",
+        cover: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80",
+        rawDriveUrl: "https://drive.google.com/drive/folders/1b_mP6LR0hxworkDBQrilWXgDw2VAtr_q",
+        rawCountText: "140+ Raw Clips (Akad & Sungkeman)",
+        editedVideos: [
+          { title: "Akad Recap Video (45 Detik)", url: "https://drive.google.com/file/d/1n2IuyM9iwNOgEBGuRF2UfR__Uw3ty-_n/preview", cover: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=400&q=80" }
+        ],
+        randomPhotos: [
+          { title: "Ijab Qabul Tears", url: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80" },
+          { title: "Cincin & Mahar Aesthetic", url: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=80" }
+        ]
+      },
+      {
+        id: "alya-fikri",
+        name: "Alya & Fikri",
+        date: "25 Juli 2026",
+        venue: "Pine Hill, Lembang",
+        packageKey: "memory",
+        packageName: "Memory Package (4 Jam)",
+        cover: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=80",
+        rawDriveUrl: "https://drive.google.com/drive/folders/1b_mP6LR0hxworkDBQrilWXgDw2VAtr_q",
+        rawCountText: "180+ Raw Video Clips & Photos",
+        editedVideos: [
+          { title: "Outdoor Party Recap", url: "https://drive.google.com/file/d/1n2IuyM9iwNOgEBGuRF2UfR__Uw3ty-_n/preview", cover: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=400&q=80" }
+        ],
+        randomPhotos: [
+          { title: "Pine Forest Candid", url: "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=1200&q=80" },
+          { title: "Bridesmaids Laughter", url: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=80" }
+        ]
+      },
+      {
+        id: "clara-rio",
+        name: "Clara & Rio",
+        date: "12 Juli 2026",
+        venue: "Intimate Garden, Cianjur",
+        packageKey: "story",
+        packageName: "Story Package (2 Jam)",
+        cover: "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=600&q=80",
+        rawDriveUrl: "https://drive.google.com/drive/folders/1b_mP6LR0hxworkDBQrilWXgDw2VAtr_q",
+        rawCountText: "90+ Raw Short Clips",
+        editedVideos: [
+          { title: "Short Highlight Reel", url: "https://drive.google.com/file/d/1n2IuyM9iwNOgEBGuRF2UfR__Uw3ty-_n/preview", cover: "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=400&q=80" }
+        ],
+        randomPhotos: [
+          { title: "Warm Tone Dazzcam", url: "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=1200&q=80" }
+        ]
+      }
+    ];
 
-      const buttons = document.querySelectorAll('.filter-btn');
+    // 1. RENDER DAFTAR KLIEN
+    function renderClients() {
+      const grid = document.getElementById('clientsGrid');
+      const query = document.getElementById('clientSearchInput').value.toLowerCase().trim();
+      const noFound = document.getElementById('noClientsFound');
+      grid.innerHTML = '';
+
+      let count = 0;
+
+      clientsData.forEach(client => {
+        const matchesPkg = (activePkgFilter === 'all' || client.packageKey === activePkgFilter);
+        const matchesSearch = client.name.toLowerCase().includes(query) || client.venue.toLowerCase().includes(query);
+
+        if (matchesPkg && matchesSearch) {
+          count++;
+          const card = document.createElement('div');
+          card.className = "bg-brand-cream rounded-3xl overflow-hidden border border-brand-sand shadow-sm hover:shadow-xl hover:border-brand-gold transition-all duration-300 flex flex-col justify-between group cursor-pointer";
+          card.onclick = () => openClientDetail(client.id);
+
+          card.innerHTML = `
+            <div class="relative aspect-[4/3] overflow-hidden bg-brand-sand">
+              <img src="${client.cover}" alt="${client.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute top-3 left-3 bg-brand-charcoal/80 backdrop-blur-md text-brand-sand text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+                ${client.packageName}
+              </div>
+            </div>
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-serif text-2xl font-bold text-brand-charcoal group-hover:text-brand-goldDark transition-colors">${client.name}</h3>
+                <div class="text-xs text-brand-muted mt-2 space-y-1">
+                  <div class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> <span>${client.date}</span></div>
+                  <div class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> <span>${client.venue}</span></div>
+                </div>
+              </div>
+              
+              <div class="mt-6 pt-4 border-t border-brand-sand/60 flex items-center justify-between text-xs font-semibold text-brand-goldDark">
+                <span>${client.editedVideos.length} Video • ${client.randomPhotos.length} Foto Dazzcam</span>
+                <span class="inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">Lihat Karya <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
+              </div>
+            </div>
+          `;
+          grid.appendChild(card);
+        }
+      });
+
+      if (count === 0) {
+        noFound.classList.remove('hidden');
+      } else {
+        noFound.classList.add('hidden');
+      }
+
+      lucide.createIcons();
+    }
+
+    // 2. FILTER PAKET & PENCARIAN
+    function setPackageFilter(pkg) {
+      activePkgFilter = pkg;
+      const buttons = document.querySelectorAll('.pkg-btn');
       buttons.forEach(btn => {
         btn.classList.remove('bg-brand-charcoal', 'text-white');
         btn.classList.add('bg-brand-warm', 'text-brand-charcoal');
       });
-
       event.currentTarget.classList.remove('bg-brand-warm', 'text-brand-charcoal');
       event.currentTarget.classList.add('bg-brand-charcoal', 'text-white');
 
-      handleSearchAndFilter();
+      renderClients();
     }
 
-    // 2. SEARCH & FILTER GABUNGAN
-    function handleSearchAndFilter() {
-      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+    function filterClients() {
+      const query = document.getElementById('clientSearchInput').value.trim();
       const clearBtn = document.getElementById('clearSearchBtn');
-      const cards = document.querySelectorAll('.gallery-card');
-      const noResults = document.getElementById('noResults');
-
-      // Tampilkan/sembunyikan tombol X pembersih
       if (query.length > 0) {
         clearBtn.classList.remove('hidden');
       } else {
         clearBtn.classList.add('hidden');
       }
+      renderClients();
+    }
 
-      let visibleCount = 0;
+    function clearClientSearch() {
+      document.getElementById('clientSearchInput').value = '';
+      filterClients();
+    }
 
-      cards.forEach(card => {
-        const title = card.getAttribute('data-title').toLowerCase();
-        const tags = card.getAttribute('data-tags').toLowerCase();
-        const matchesCategory = (activeCategory === 'all' || card.classList.contains(activeCategory));
-        const matchesSearch = (title.includes(query) || tags.includes(query));
+    // 3. BUKA DETAIL KLIEN
+    function openClientDetail(clientId) {
+      const client = clientsData.find(c => c.id === clientId);
+      if (!client) return;
 
-        if (matchesCategory && matchesSearch) {
-          card.style.display = 'block';
-          visibleCount++;
-        } else {
-          card.style.display = 'none';
-        }
+      document.getElementById('modalClientPkg').innerText = client.packageName;
+      document.getElementById('modalClientName').innerText = client.name;
+      document.getElementById('modalClientMeta').innerHTML = `
+        <span><i data-lucide="calendar" class="w-3.5 h-3.5 inline"></i> ${client.date}</span>
+        <span>•</span>
+        <span><i data-lucide="map-pin" class="w-3.5 h-3.5 inline"></i> ${client.venue}</span>
+      `;
+      document.getElementById('countVideos').innerText = client.editedVideos.length;
+      document.getElementById('countPhotos').innerText = client.randomPhotos.length;
+      document.getElementById('modalRawDesc').innerText = `Terdapat ${client.rawCountText} yang telah diserahkan lengkap kepada pasangan ${client.name}.`;
+      document.getElementById('modalDriveBtn').href = client.rawDriveUrl;
+      document.getElementById('modalBookingBtn').href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Halo di.raya.in, saya melihat portofolio pernikahan ${client.name} (${client.packageName}) dan ingin konsultasi jadwal.`)}`;
+
+      // Render Video List
+      const videoContainer = document.getElementById('modalVideoList');
+      videoContainer.innerHTML = '';
+      client.editedVideos.forEach(v => {
+        const item = document.createElement('div');
+        item.className = "group relative rounded-2xl overflow-hidden aspect-[9/16] bg-black shadow-sm cursor-pointer";
+        item.onclick = () => openMediaViewer('video', v.url, `${client.name} — ${v.title}`);
+        item.innerHTML = `
+          <img src="${v.cover}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
+            <span class="text-[10px] tracking-widest uppercase bg-brand-goldDark px-2 py-0.5 rounded w-max mb-1">Play Video</span>
+            <h5 class="font-serif text-sm font-bold">${v.title}</h5>
+          </div>
+          <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 flex items-center justify-center text-white">
+            <i data-lucide="play" class="w-4 h-4 fill-white"></i>
+          </div>
+        `;
+        videoContainer.appendChild(item);
       });
 
-      // Tampilkan pesan jika tidak ada hasil
-      if (visibleCount === 0) {
-        noResults.classList.remove('hidden');
+      // Render Foto List
+      const photoContainer = document.getElementById('modalPhotoList');
+      photoContainer.innerHTML = '';
+      client.randomPhotos.forEach(p => {
+        const item = document.createElement('div');
+        item.className = "group relative rounded-xl overflow-hidden aspect-[9/16] bg-brand-sand shadow-sm cursor-pointer";
+        item.onclick = () => openMediaViewer('foto', p.url, `${client.name} — ${p.title}`);
+        item.innerHTML = `
+          <img src="${p.url}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+            <i data-lucide="zoom-in" class="w-6 h-6"></i>
+          </div>
+        `;
+        photoContainer.appendChild(item);
+      });
+
+      switchContentTab('videoTab');
+
+      const modal = document.getElementById('clientDetailModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      lucide.createIcons();
+    }
+
+    function closeClientDetail() {
+      const modal = document.getElementById('clientDetailModal');
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
+
+    // 4. SUB-TAB SWITCHER DI MODAL
+    function switchContentTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+      document.getElementById(tabId).classList.remove('hidden');
+
+      document.querySelectorAll('.content-tab-btn').forEach(btn => {
+        btn.classList.remove('text-brand-goldDark', 'border-b-2', 'border-brand-goldDark');
+        btn.classList.add('text-brand-muted');
+      });
+
+      if (tabId === 'videoTab') {
+        document.getElementById('btnTabVideo').classList.add('text-brand-goldDark', 'border-b-2', 'border-brand-goldDark');
+      } else if (tabId === 'photoTab') {
+        document.getElementById('btnTabPhoto').classList.add('text-brand-goldDark', 'border-b-2', 'border-brand-goldDark');
       } else {
-        noResults.classList.add('hidden');
+        document.getElementById('btnTabRaw').classList.add('text-brand-goldDark', 'border-b-2', 'border-brand-goldDark');
       }
+      lucide.createIcons();
     }
 
-    // 3. BERSIHKAN PENCARIAN
-    function clearSearch() {
-      document.getElementById('searchInput').value = '';
-      handleSearchAndFilter();
-    }
-
-    // 4. BUKA FOTO / VIDEO DI POP-UP
-    function openMedia(type, url, title) {
-      const modal = document.getElementById('mediaModal');
-      const img = document.getElementById('modalImg');
-      const video = document.getElementById('modalVideo');
-      const modalTitle = document.getElementById('modalTitle');
-      const modalWaBtn = document.getElementById('modalWaBtn');
-
-      modalTitle.innerText = title;
-      modalWaBtn.href = `https://wa.me/6285128007096?text=${encodeURIComponent(`Halo di.raya.in, saya melihat portofolio "${title}" di galeri dan tertarik dengan konsepnya.`)}`;
+    // 5. MEDIA VIEWER (PLAY VIDEO / ZOOM FOTO)
+    function openMediaViewer(type, url, title) {
+      const viewer = document.getElementById('mediaViewerModal');
+      const img = document.getElementById('viewerImg');
+      const video = document.getElementById('viewerVideo');
+      document.getElementById('mediaViewerTitle').innerText = title;
 
       if (type === 'foto') {
         img.src = url;
@@ -290,19 +511,23 @@
         img.src = '';
       }
 
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
+      viewer.classList.remove('hidden');
+      viewer.classList.add('flex');
+      lucide.createIcons();
     }
 
-    function closeMedia() {
-      const modal = document.getElementById('mediaModal');
-      const img = document.getElementById('modalImg');
-      const video = document.getElementById('modalVideo');
+    function closeMediaViewer() {
+      const viewer = document.getElementById('mediaViewerModal');
+      const video = document.getElementById('viewerVideo');
+      const img = document.getElementById('viewerImg');
       video.src = '';
       img.src = '';
-      modal.classList.remove('flex');
-      modal.classList.add('hidden');
+      viewer.classList.remove('flex');
+      viewer.classList.add('hidden');
     }
+
+    // Inisialisasi awal
+    renderClients();
   </script>
 </body>
 </html>
