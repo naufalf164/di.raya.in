@@ -1,0 +1,18 @@
+{
+  id: "rina-doni",
+  name: "Rina & Doni",
+  date: "20 September 2026",
+  venue: "Gedung Harmoni, Cianjur",
+  packageKey: "eternal", // pilih: eternal, vow, memory, atau story
+  packageName: "Eternal Package (± 8 Jam)",
+  cover: "LINK_FOTO_COVER_PENGANTIN.jpg",
+  rawDriveUrl: "LINK_FOLDER_GDRIVE_RAW",
+  rawCountText: "200+ Raw Videos & Photos",
+  editedVideos: [
+    { title: "Recap Video", url: "https://drive.google.com/file/d/ID/preview", cover: "THUMBNAIL.jpg" }
+  ],
+  randomPhotos: [
+    { title: "Candid Dazzcam 1", url: "FOTO_HD_1.jpg" },
+    { title: "Candid Dazzcam 2", url: "FOTO_HD_2.jpg" }
+  ]
+}
