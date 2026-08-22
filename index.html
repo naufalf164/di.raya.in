@@ -229,9 +229,22 @@
         <p class="text-brand-muted mt-3 text-sm">Klik lingkaran highlight di bawah untuk menonton video cuplikan ala Instagram Story.</p>
       </div>
 
-      <!-- Deretan Lingkaran Highlight (Otomatis dibuat dari clientsData) -->
-      <div class="flex gap-6 sm:gap-8 overflow-x-auto pb-6 pt-2 justify-start md:justify-center no-scrollbar" id="highlightsList">
-        <!-- Diisi otomatis oleh JavaScript -->
+      <!-- Wrapper dengan Tombol Panah Kiri & Kanan -->
+      <div class="relative max-w-5xl mx-auto">
+        <!-- Tombol Geser Kiri (Desktop) -->
+        <button onclick="scrollHighlights('left')" aria-label="Geser Kiri" class="hidden md:flex absolute -left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/95 shadow-lg border border-brand-sand items-center justify-center text-brand-charcoal hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all cursor-pointer">
+          <i data-lucide="chevron-left" class="w-5 h-5"></i>
+        </button>
+
+        <!-- Deretan Lingkaran Highlight (Sudah diperbaiki: justify-start & support Drag) -->
+        <div class="flex gap-6 sm:gap-8 overflow-x-auto pb-6 pt-2 px-2 justify-start no-scrollbar scroll-smooth cursor-grab active:cursor-grabbing select-none" id="highlightsList">
+          <!-- Diisi otomatis oleh JavaScript -->
+        </div>
+
+        <!-- Tombol Geser Kanan (Desktop) -->
+        <button onclick="scrollHighlights('right')" aria-label="Geser Kanan" class="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/95 shadow-lg border border-brand-sand items-center justify-center text-brand-charcoal hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all cursor-pointer">
+          <i data-lucide="chevron-right" class="w-5 h-5"></i>
+        </button>
       </div>
 
       <div class="text-center mt-10">
@@ -654,6 +667,9 @@
 
     let currentStoryIndex = 0;
 
+    // VARIABEL GLOBAL UNTUK MENDETEKSI DRAG
+    let isDragging = false;
+
     function renderHighlights() {
       const container = document.getElementById('highlightsList');
       if (!container) return;
@@ -662,18 +678,80 @@
       storyHighlights.forEach((item, index) => {
         const bubble = document.createElement('div');
         bubble.className = "flex flex-col items-center group cursor-pointer shrink-0";
-        bubble.onclick = () => openStory(index);
+        
+        // Hanya buka story jika tidak sedang menggeser/drag
+        bubble.onclick = () => {
+          if (!isDragging) {
+            openStory(index);
+          }
+        };
 
         bubble.innerHTML = `
           <div class="w-20 h-20 sm:w-24 sm:h-24 p-[3px] rounded-full bg-gradient-to-tr from-brand-goldDark via-brand-gold to-red-400 group-hover:scale-105 transition-transform shadow-md">
             <div class="w-full h-full rounded-full border-2 border-brand-cream overflow-hidden bg-brand-sand">
-              <img src="${item.cover}" alt="${item.title}" class="w-full h-full object-cover">
+              <img src="${item.cover}" alt="${item.title}" class="w-full h-full object-cover pointer-events-none">
             </div>
           </div>
           <span class="text-xs font-semibold mt-2.5 text-brand-charcoal group-hover:text-brand-gold text-center truncate max-w-[90px]">${item.title}</span>
         `;
         container.appendChild(bubble);
       });
+
+      setupHighlightsInteraction();
+    }
+
+    // FUNGSI TOMBOL PANAH KIRI & KANAN
+    function scrollHighlights(direction) {
+      const container = document.getElementById('highlightsList');
+      const scrollAmount = 280;
+      if (direction === 'left') {
+        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      } else {
+        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+    }
+
+    // FITUR GESER DENGAN MOUSE (DRAG TO SCROLL & RODA MOUSE)
+    function setupHighlightsInteraction() {
+      const slider = document.getElementById('highlightsList');
+      if (!slider) return;
+
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+
+      slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        isDragging = false;
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+      });
+
+      slider.addEventListener('mouseleave', () => {
+        isDown = false;
+      });
+
+      slider.addEventListener('mouseup', () => {
+        setTimeout(() => { isDown = false; isDragging = false; }, 50);
+      });
+
+      slider.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 1.5; // Kecepatan geser
+        if (Math.abs(walk) > 5) {
+          isDragging = true;
+        }
+        slider.scrollLeft = scrollLeft - walk;
+      });
+
+      // Dukungan scroll roda mouse horizontal
+      slider.addEventListener('wheel', (e) => {
+        if (e.deltaY !== 0) {
+          e.preventDefault();
+          slider.scrollLeft += e.deltaY;
+        }
+      }, { passive: false });
     }
 
     function openStory(index) {
