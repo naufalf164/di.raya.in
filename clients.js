@@ -53,7 +53,7 @@ const clientsData = [
     venue: "Cipanas",
     packageKey: "vow",
     packageName: "Vow Package (Akad ± 4 Jam)",
-    cover: "https://lh3.googleusercontent.com/d/10BZE_RaRKwoRS9SGBjABCzUefzsxoP31",
+    cover: "https://lh3.googleusercontent.com/d/1tvzvSU6V_LfpqM5AJ8Z5D4Rmicjl4WZb",
     editedVideos: [
       { url: "https://drive.google.com/file/d/1mN42iH-d9qgruuCF-6Q8JRrIb2O-fSfQ/preview" },
       { url: "https://drive.google.com/file/d/1yXCIqQQN23hiXbcGR2tx-t9hu_WuSI2z/preview" },
