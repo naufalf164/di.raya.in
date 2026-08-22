@@ -191,18 +191,18 @@ const clientsData = [
     venue: "Campaka, Cianjur",
     packageKey: "eternal",
     packageName: "Eternal Package (± 8 Jam)",
-    cover: "https://lh3.googleusercontent.com/d/1NCcgv4cCwzrZ85gFAGAVL-aHCbbKJ1tO",
+    cover: "https://lh3.googleusercontent.com/d/1X_FqvS6AxPxfGcPcvy8bpmyMddQjX3JE",
     editedVideos: [
-      { url: "https://drive.google.com/file/d/1oWG0BMHgbgEqIPCbcvHkhztZjfLEN-gn/preview" },
-      { url: "https://drive.google.com/file/d/1FGPS5Av2Bom1KNJm5FTMU1nh679WST3L/preview" },
-      { url: "https://drive.google.com/file/d/1bP4u5zadAE3ivivhVN8keV1dcSQmDunq/preview" },
-      { url: "https://drive.google.com/file/d/1rwLpUmceBU2u_rIfbkwoOuflzJ7N71pb/preview" }
-    ],
+  { url: "https://drive.google.com/file/d/1aWaqX4ZDyRk0L0Frz9Zo1N9VsZH6Z-qw/preview" },
+  { url: "https://drive.google.com/file/d/1vQgDxBbJVpNHK3PWF9lQW0QGjk477dWw/preview" },
+  { url: "https://drive.google.com/file/d/128wtr5AlsIdcZbL-5AeORJfj8IqNqHhu/preview" },
+  { url: "https://drive.google.com/file/d/14QF93cDajW7o44uIYOtyglaWMSreECmo/preview" }
+]    
     randomPhotos: [
-      "1icrFk_3nMB3MzlaR_UBuRQZswBD1laEa",
-      "1NCcgv4cCwzrZ85gFAGAVL-aHCbbKJ1tO",
-      "1EsVIVdNnWbqEWa-vpSChcDpyEi5r1QP8",
-      "1dw8YomebiVgFVVWUI8BbeKNVImWZgUP-"
-    ].map(id => ({ url: `https://lh3.googleusercontent.com/d/${id}` }))
+  { url: "https://lh3.googleusercontent.com/d/1X_FqvS6AxPxfGcPcvy8bpmyMddQjX3JE" },
+  { url: "https://lh3.googleusercontent.com/d/1hJhD-zkTHacCtEmvBAxi3qml-xYcavbM" },
+  { url: "https://lh3.googleusercontent.com/d/184aoskRRdnw2KTqqARPgKSLtnJV4UUDx" },
+  { url: "https://lh3.googleusercontent.com/d/1OuDmeOHIackrHPO3k36o9N0e34r6NQjE" }
+]
   }
 ];
