@@ -84,7 +84,7 @@
         <input type="text" 
                id="clientSearchInput" 
                oninput="filterClients()" 
-               placeholder="Cari nama pengantin atau lokasi (misal: Velin, Lina, Rachmi)..." 
+               placeholder="Cari nama pengantin atau lokasi" 
                class="w-full pl-12 pr-10 py-3.5 rounded-full border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold shadow-sm placeholder:text-brand-muted/70">
         <button id="clearSearchBtn" onclick="clearClientSearch()" class="hidden absolute right-4 text-brand-muted hover:text-brand-charcoal">
           <i data-lucide="x" class="w-4 h-4"></i>
@@ -199,12 +199,11 @@
 
     // ================= DATA MASTER KLIEN DI.RAYA.IN =================
     const clientsData = [
-      // 1. RACHMI & TAUFIK
+      // 1. VELIN & DEVAN
       {
-        id: "rachmi-taufik",
-        name: "Rachmi & Taufik",
+        id: "velin-devan",
+        name: "Velin & Devan",
         date: "03 Juni 2026",
-        venue: "-",
         packageKey: "vow",
         packageName: "Vow Package (Akad ± 4 Jam)",
         cover: "https://lh3.googleusercontent.com/d/1PYPYqepRyb1iWiDG8DEBJhGQbTWIwq6w",
@@ -214,40 +213,20 @@
           { title: "Reels Recap 3", url: "https://drive.google.com/file/d/1aT8qLEf_3Clon8JiMzxyDL_Ugie8wFbk/preview" }
         ],
         randomPhotos: [
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1tmAEhJiu8wPQGpuuTAYuxFsVDTehtEYj" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1Qaukcm8C3t32TZwJrxghx1SGxsyI9mSZ" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1t_4cBSFWTNoVi_73HkDFgpn3IrrSNPMs" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/10XDLQCcSRxG-AzrjkDLfGLO4vql1JlcC" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1el8Lqu8qiLzIoMJwonOkXcvBKzuNaO3s" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1GLS7LPrX87ixYFBqfpLeLvaGXS1yzh3B" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1c61t_lvGXPy59appNlKJ18N_bR-YVom4" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1VAO21A8Ec01MampdSpKmOvvf_g1IsfUD" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1aVnNA_IyM6DlTai1SX9VG1uUZIdIDO7b" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1jItFbL50yUqbS6-m_DKdLyLHLX94EeL2" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1IQEIdGM0yDqNeD3zx5nPprMUinTg0I84" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1TcrlDLe8tw6674gmGFicJwKS_DjXGSJ8" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1X9mY2FHRFnc9r0N9cctjRbmbwyTzeb77" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1Hp1AhwShB7BpmzD73bZP-AKfmZNpxo8f" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1PYPYqepRyb1iWiDG8DEBJhGQbTWIwq6w" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1DVBFu5MXKdtg_iGDKwqOfcVT6YNeKCa7" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1x95S3gvwIOnb-n_uGVLXUoiqbqvPFVVq" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1cNJ7wucbbgz4_RXxILv1xxTDOW46j49-" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1TXneM30Sup2LAiyzChRSaEHhr3KJn5Qx" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1AsNh_STG4fG6iJ-_Qw4a1GBt6iUPgHY3" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1huKHxNxgoRnGZQcpGSlzX3tHe2GZ7-pu" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1Dj3XGgiASh9OaFOhlq5h4hdh31GRyfwL" },
-          { title: "-", url: "https://lh3.googleusercontent.com/d/1sGYvuDRcHmV9b9JoMIMfaerd02_vcuGt" }
-        ]
+          "1Hp1AhwShB7BpmzD73bZP-AKfmZNpxo8f",
+          "1AsNh_STG4fG6iJ-_Qw4a1GBt6iUPgHY3",
+          "1sGYvuDRcHmV9b9JoMIMfaerd02_vcuGt",
+          "1GLS7LPrX87ixYFBqfpLeLvaGXS1yzh3B"
+        ].map(id => ({ url: `https://lh3.googleusercontent.com/d/${id}` }))
       },
 
-      // 2. VELIN & DEVAN
+      // 2. RACHMA & TAUFIK
       {
-        id: "velin-devan",
-        name: "Velin & Devan",
+        id: "rachma-taufik",
+        name: "Rachma & Taufik",
         date: "09 Mei 2026",
-        venue: "Bandung",
-        packageKey: "eternal",
-        packageName: "Eternal Package (± 8 Jam)",
+        packageKey: "vow",
+        packageName: "Vow Package (Akad ± 4 Jam)",
         cover: "https://lh3.googleusercontent.com/d/132D58IeLk3Yi5UKMEju-pipP_4dNTdsW",
         editedVideos: [
           { title: "Rekap Video", url: "https://drive.google.com/file/d/1n2IuyM9iwNOgEBGuRF2UfR__Uw3ty-_n/preview" },
