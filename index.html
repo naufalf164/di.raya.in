@@ -229,7 +229,7 @@
         <p class="text-brand-muted mt-3 text-sm">Klik lingkaran highlight di bawah untuk menonton video cuplikan ala Instagram Story.</p>
       </div>
 
-      <!-- Deretan Lingkaran Highlight -->
+      <!-- Deretan Lingkaran Highlight (Otomatis dibuat dari clientsData) -->
       <div class="flex gap-6 sm:gap-8 overflow-x-auto pb-6 pt-2 justify-start md:justify-center no-scrollbar" id="highlightsList">
         <!-- Diisi otomatis oleh JavaScript -->
       </div>
@@ -628,6 +628,9 @@
   </div>
 
   <!-- ================= LOGIKA JAVASCRIPT ================= -->
+  <!-- Memanggil Data Master Klien -->
+  <script src="clients.js"></script>
+
   <script>
     lucide.createIcons();
 
@@ -640,30 +643,14 @@
       lucide.createIcons();
     }
 
-    // DATA HIGHLIGHTS PENGANTIN
-    const storyHighlights = [
-      {
-        id: 1,
-        title: "Velin & Devan",
-        subtitle: "Eternal Package",
-        cover: "https://lh3.googleusercontent.com/d/132D58IeLk3Yi5UKMEju-pipP_4dNTdsW",
-        videoUrl: "https://drive.google.com/file/d/1n2IuyM9iwNOgEBGuRF2UfR__Uw3ty-_n/preview"
-      },
-      {
-        id: 2,
-        title: "Lina & Usma",
-        subtitle: "Eternal Package",
-        cover: "https://lh3.googleusercontent.com/d/10BZE_RaRKwoRS9SGBjABCzUefzsxoP31",
-        videoUrl: "https://drive.google.com/file/d/1lhL3CsSkGYC1zeiRDyW3iVZ_fa6thvOi/preview"
-      },
-      {
-        id: 3,
-        title: "Rachmi & Taufik",
-        subtitle: "Vow Package",
-        cover: "https://lh3.googleusercontent.com/d/1PYPYqepRyb1iWiDG8DEBJhGQbTWIwq6w",
-        videoUrl: "https://drive.google.com/file/d/1PvFpXSK1FTY8VDsE8rC8PEH4j2NATBLY/preview"
-      }
-    ];
+    // GENERATE STORY HIGHLIGHTS OTOMATIS DARI clientsData (clients.js)
+    const storyHighlights = (typeof clientsData !== 'undefined') ? clientsData.map((client, index) => ({
+      id: index + 1,
+      title: client.name,
+      subtitle: client.packageName,
+      cover: client.cover,
+      videoUrl: (client.editedVideos && client.editedVideos.length > 0) ? client.editedVideos[0].url : ''
+    })) : [];
 
     let currentStoryIndex = 0;
 
@@ -699,6 +686,8 @@
 
     function loadStoryContent() {
       const story = storyHighlights[currentStoryIndex];
+      if (!story) return;
+
       const video = document.getElementById('storyVideo');
       const avatar = document.getElementById('storyAvatar');
       const title = document.getElementById('storyTitle');
@@ -754,7 +743,7 @@
       const year = currentDate.getFullYear();
       const month = currentDate.getMonth();
 
-      document.getElementById('calMonthYear').innerText = `${monthNames[month]}${year}`;
+      document.getElementById('calMonthYear').innerText = `${monthNames[month]} ${year}`;
 
       const firstDayIndex = new Date(year, month, 1).getDay();
       const totalDays = new Date(year, month + 1, 0).getDate();
@@ -780,7 +769,7 @@
 
         cell.onclick = () => {
           selectedDay = { day, month, year };
-          const formattedDate = `${day} ${monthNames[month]}${year}`;
+          const formattedDate = `${day} ${monthNames[month]} ${year}`;
           document.getElementById('weddingDate').value = formattedDate;
           renderCalendar();
         };
@@ -830,6 +819,7 @@
 Apakah jadwal di tanggal tersebut masih tersedia? Terima kasih!`;
 
       const encodedUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(encodedUrl, '_blank');`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
       window.open(encodedUrl, '_blank');
     }
   </script>
