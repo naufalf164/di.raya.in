@@ -229,7 +229,7 @@
         venue: "Cibeber",
         packageKey: "vow",
         packageName: "Vow Package (Akad ± 4 Jam)",
-        cover: "https://drive.google.com/file/d/1pJbXrKat0OvGZlVXlurwMuoYFfWTAfTS/view?usp=drive_link",
+        cover: "https://lh3.googleusercontent.com/d/1pJbXrKat0OvGZlVXlurwMuoYFfWTAfTS",
         editedVideos: [
           { url: "https://drive.google.com/file/d/1jZ2p6YINqrRwtuZ-KiA0iBcBWOKi-UP7/preview" },
           { url: "https://drive.google.com/file/d/111dt-aU-tL6jBiI9MhLLRYwjHCbWNuBp/preview" },
@@ -390,13 +390,16 @@
       client.editedVideos.forEach(v => {
         const item = document.createElement('div');
         item.className = "group relative rounded-2xl overflow-hidden aspect-[9/16] bg-black shadow-sm cursor-pointer";
-        item.onclick = () => openMediaViewer('video', v.url, `${client.name} — ${v.title}`);
+        item.onclick = () => openMediaViewer('video', v.url, `${client.name}`);
         
         item.innerHTML = `
           <iframe src="${v.url}" class="w-full h-full border-0 pointer-events-none scale-105 opacity-90" scrolling="no"></iframe>
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white z-10">
             <span class="text-[10px] tracking-widest uppercase bg-brand-gold px-2 py-0.5 rounded w-max mb-1">Play Video</span>
-            <h5 class="text-sm font-bold">${v.title}</h5>
+            
+            <!-- TARUH DI SINI: -->
+            <h5 class="text-sm font-bold">${v.title || ""}</h5>
+            
           </div>
           <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 flex items-center justify-center text-white z-10 group-hover:scale-110 transition-transform">
             <i data-lucide="play" class="w-4 h-4 fill-white"></i>
@@ -404,7 +407,7 @@
         `;
         videoContainer.appendChild(item);
       });
-
+      
       // Render Foto List
       const photoContainer = document.getElementById('modalPhotoList');
       photoContainer.innerHTML = '';
