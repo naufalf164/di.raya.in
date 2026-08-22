@@ -5,14 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>di.raya.in — Wedding Content Creator</title>
   
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -25,15 +19,15 @@
               cream: '#FAF8F5',
               warm: '#F4EFEA',
               sand: '#E8DFD8',
-              gold: '#C5A880',
-              goldDark: '#A6875D',
+              gold: '#662626',      /* Merah Marun Utama */
+              goldDark: '#4D1B1B',  /* Merah Marun Gelap */
               charcoal: '#23201E',
               muted: '#716B67'
             }
           },
           fontFamily: {
-            serif: ['"Cormorant Garamond"', 'serif'],
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            termes: ['"TeX Gyre Termes"', '"Times New Roman"', 'Times', 'serif'],
+            sans: ['"Helvetica World"', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
           }
         }
       }
@@ -44,10 +38,10 @@
     body {
       background-color: #FAF8F5;
       color: #23201E;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Helvetica World', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
-    .font-serif {
-      font-family: 'Cormorant Garamond', serif;
+    .font-termes {
+      font-family: 'TeX Gyre Termes', 'Times New Roman', Times, serif;
     }
     .no-scrollbar::-webkit-scrollbar {
       display: none;
@@ -66,74 +60,112 @@
   </div>
 
   <!-- ================= NAVBAR ================= -->
-  <header class="sticky top-0 z-40 bg-brand-cream/90 backdrop-blur-md border-b border-brand-sand/60">
+  <header class="sticky top-0 z-40 bg-brand-cream/95 backdrop-blur-md border-b border-brand-sand/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
       <!-- Logo -->
-      <a href="#" class="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-brand-charcoal">
-        di.raya.in<span class="text-brand-gold"></span>
+      <a href="#" class="text-3xl sm:text-4xl font-bold tracking-tight text-brand-charcoal font-sans">
+        di.raya.in<span class="text-brand-gold">.</span>
       </a>
 
-      <!-- Nav Links -->
+      <!-- Desktop Nav Links -->
       <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-brand-muted">
-        <a href="#about" class="hover:text-brand-goldDark transition-colors">Tentang Kami</a>
-        <a href="gallery.html" class="hover:text-brand-goldDark transition-colors">Galeri Klien</a>
-        <a href="#pricelist" class="hover:text-brand-goldDark transition-colors">Paket & Harga</a>
-        <a href="#booking" class="hover:text-brand-goldDark transition-colors">Cek Jadwal & Booking</a>
+        <a href="#about" class="hover:text-brand-gold transition-colors">Tentang Kami</a>
+        <a href="#gallery" class="hover:text-brand-gold transition-colors">Highlights Story</a>
+        <a href="gallery.html" class="text-brand-gold font-semibold hover:underline flex items-center gap-1">
+          <i data-lucide="grid" class="w-4 h-4"></i>
+          <span>Galeri Klien</span>
+        </a>
+        <a href="#pricelist" class="hover:text-brand-gold transition-colors">Paket & Harga</a>
+        <a href="#booking" class="hover:text-brand-gold transition-colors">Cek Jadwal & Booking</a>
       </nav>
 
-      <!-- CTA Nav -->
-      <div class="flex items-center gap-3">
-        <a href="#booking" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 bg-brand-charcoal text-brand-cream text-xs uppercase tracking-widest font-semibold rounded-full hover:bg-brand-goldDark transition-all">
+      <!-- Right Buttons -->
+      <div class="flex items-center gap-2.5">
+        <a href="gallery.html" class="md:hidden px-3.5 py-1.5 bg-brand-warm border border-brand-sand text-brand-charcoal text-xs font-semibold rounded-full flex items-center gap-1 shadow-sm">
+          <i data-lucide="grid" class="w-3.5 h-3.5 text-brand-gold"></i>
+          <span>Galeri</span>
+        </a>
+        
+        <a href="#booking" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 bg-brand-charcoal text-brand-cream text-xs uppercase tracking-widest font-semibold rounded-full hover:bg-brand-gold transition-all">
           <span>Booking Order</span>
           <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+        </a>
+
+        <!-- Hamburger Button (HP) -->
+        <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-xl bg-brand-warm border border-brand-sand text-brand-charcoal hover:bg-brand-sand transition-all">
+          <i id="menuIcon" data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Dropdown Menu Ponsel -->
+    <div id="mobileMenu" class="hidden md:hidden bg-brand-cream border-b border-brand-sand px-6 py-5 space-y-4 shadow-lg transition-all">
+      <a href="#about" onclick="toggleMobileMenu()" class="block text-sm font-medium text-brand-charcoal hover:text-brand-gold">Tentang Kami</a>
+      <a href="#gallery" onclick="toggleMobileMenu()" class="block text-sm font-medium text-brand-charcoal hover:text-brand-gold">Highlights Story</a>
+      <a href="gallery.html" class="block text-sm font-bold text-brand-gold flex items-center justify-between bg-brand-warm p-3 rounded-xl border border-brand-sand">
+        <span class="flex items-center gap-2"><i data-lucide="grid" class="w-4 h-4"></i> Galeri Portofolio Lengkap</span>
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
+      <a href="#pricelist" onclick="toggleMobileMenu()" class="block text-sm font-medium text-brand-charcoal hover:text-brand-gold">Paket & Harga Layanan</a>
+      <a href="#booking" onclick="toggleMobileMenu()" class="block text-sm font-medium text-brand-charcoal hover:text-brand-gold">Cek Jadwal & Booking Order</a>
+      
+      <div class="pt-3 border-t border-brand-sand">
+        <a href="https://wa.me/6285128007096" target="_blank" class="w-full py-3 bg-[#25D366] text-white font-semibold text-xs rounded-full flex items-center justify-center gap-2 shadow-sm">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Konsultasi WhatsApp (085128007096)</span>
         </a>
       </div>
     </div>
   </header>
 
   <!-- ================= HERO SECTION ================= -->
-  <section class="relative pt-16 pb-20 overflow-hidden">
+  <section class="relative pt-12 pb-20 overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-warm border border-brand-sand text-xs font-semibold tracking-wider uppercase text-brand-goldDark mb-6">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-warm border border-brand-sand text-xs font-semibold tracking-wider uppercase text-brand-gold mb-6">
         <i data-lucide="camera" class="w-3.5 h-3.5"></i>
         <span>Wedding Content Creator</span>
       </div>
 
-      <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-normal leading-[1.1] mb-6 text-brand-charcoal max-w-4xl mx-auto">
-        Abadikan keaslian tawa, haru, & cinta di hari <span class="italic font-semibold text-brand-goldDark">pernikahanmu</span>.
+      <!-- HEADLINE KHUSUS: FONT TEX GYRE TERMES -->
+      <h1 class="font-termes text-4xl sm:text-6xl md:text-7xl font-normal leading-[1.1] mb-6 text-brand-charcoal max-w-4xl mx-auto">
+        Abadikan keaslian tawa, haru, & cinta di hari <span class="italic font-semibold text-brand-gold">pernikahanmu</span>.
       </h1>
 
-      <p class="text-brand-muted text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+      <p class="text-brand-muted text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed font-sans">
         Dokumentasi vertikal siap tayang untuk Instagram Reels & TikTok. Video candid tanpa skrip, footage mentah lengkap, dan selesai di hari yang sama (*Same Day Delivery*).
       </p>
 
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="#booking" class="w-full sm:w-auto px-8 py-3.5 bg-brand-goldDark text-white font-medium text-sm rounded-full hover:bg-brand-charcoal transition-all shadow-sm inline-flex items-center justify-center gap-2">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3.5">
+        <a href="#booking" class="w-full sm:w-auto px-8 py-3.5 bg-brand-gold text-white font-medium text-sm rounded-full hover:bg-brand-goldDark transition-all shadow-sm inline-flex items-center justify-center gap-2">
           <i data-lucide="calendar" class="w-4 h-4"></i>
           <span>Cek Ketersediaan Tanggal</span>
         </a>
+        <a href="gallery.html" class="w-full sm:w-auto px-8 py-3.5 bg-brand-charcoal text-white font-medium text-sm rounded-full hover:bg-brand-gold transition-all shadow-sm inline-flex items-center justify-center gap-2">
+          <i data-lucide="grid" class="w-4 h-4"></i>
+          <span>Buka Galeri Klien</span>
+        </a>
         <a href="#gallery" class="w-full sm:w-auto px-8 py-3.5 bg-brand-warm text-brand-charcoal border border-brand-sand font-medium text-sm rounded-full hover:bg-brand-sand transition-all inline-flex items-center justify-center gap-2">
           <i data-lucide="play-circle" class="w-4 h-4"></i>
-          <span>Lihat Highlights Story</span>
+          <span>Highlights Story</span>
         </a>
       </div>
 
       <!-- Stats -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-12 border-t border-brand-sand/70 max-w-4xl mx-auto text-left">
         <div>
-          <div class="font-serif text-3xl font-bold text-brand-charcoal">Same Day</div>
+          <div class="text-3xl font-bold text-brand-charcoal">Same Day</div>
           <div class="text-xs text-brand-muted uppercase tracking-wider mt-1">Story Edit Langsung Tayang</div>
         </div>
         <div>
-          <div class="font-serif text-3xl font-bold text-brand-charcoal">1-2 Menit</div>
+          <div class="text-3xl font-bold text-brand-charcoal">1-2 Menit</div>
           <div class="text-xs text-brand-muted uppercase tracking-wider mt-1">Recap Video Kualitas Tinggi</div>
         </div>
         <div>
-          <div class="font-serif text-3xl font-bold text-brand-charcoal">100% GDrive</div>
+          <div class="text-3xl font-bold text-brand-charcoal">100% GDrive</div>
           <div class="text-xs text-brand-muted uppercase tracking-wider mt-1">Semua Foto & Video Mentah</div>
         </div>
         <div>
-          <div class="font-serif text-3xl font-bold text-brand-charcoal">Dazz Cam</div>
+          <div class="text-3xl font-bold text-brand-charcoal">Dazz Cam</div>
           <div class="text-xs text-brand-muted uppercase tracking-wider mt-1">Random Aesthetic Photos</div>
         </div>
       </div>
@@ -144,8 +176,8 @@
   <section id="about" class="py-20 bg-brand-warm/60 border-y border-brand-sand/50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="text-center max-w-2xl mx-auto mb-16">
-        <span class="text-xs font-semibold tracking-widest text-brand-goldDark uppercase">Kenapa Harus di.raya.in?</span>
-        <h2 class="font-serif text-3xl sm:text-5xl font-normal mt-2 text-brand-charcoal">
+        <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Kenapa Harus di.raya.in?</span>
+        <h2 class="text-3xl sm:text-5xl font-bold mt-2 text-brand-charcoal">
           Bukan Pengganti, Tapi Pelengkap Momen
         </h2>
         <p class="text-brand-muted mt-3 text-sm sm:text-base">
@@ -155,30 +187,30 @@
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="bg-brand-cream p-8 rounded-2xl border border-brand-sand/70 shadow-sm">
-          <div class="w-12 h-12 rounded-xl bg-brand-warm flex items-center justify-center text-brand-goldDark mb-6">
+          <div class="w-12 h-12 rounded-xl bg-brand-warm flex items-center justify-center text-brand-gold mb-6">
             <i data-lucide="zap" class="w-6 h-6"></i>
           </div>
-          <h3 class="font-serif text-2xl font-bold mb-3">Same Day Simple Edit</h3>
+          <h3 class="text-2xl font-bold mb-3">Same Day Simple Edit</h3>
           <p class="text-sm text-brand-muted leading-relaxed">
             Tidak perlu menunggu lama. Pengantin dan keluarga bisa langsung membagikan keseruan pernikahan di Instagram Story saat acara berlangsung.
           </p>
         </div>
 
         <div class="bg-brand-cream p-8 rounded-2xl border border-brand-sand/70 shadow-sm">
-          <div class="w-12 h-12 rounded-xl bg-brand-warm flex items-center justify-center text-brand-goldDark mb-6">
+          <div class="w-12 h-12 rounded-xl bg-brand-warm flex items-center justify-center text-brand-gold mb-6">
             <i data-lucide="camera" class="w-6 h-6"></i>
           </div>
-          <h3 class="font-serif text-2xl font-bold mb-3">Foto Aesthetic Dazz Cam</h3>
+          <h3 class="text-2xl font-bold mb-3">Foto Aesthetic Dazz Cam</h3>
           <p class="text-sm text-brand-muted leading-relaxed">
             Dilengkapi sentuhan foto estetik *vintage/candid* ala Dazz Cam untuk nuansa kenangan yang hangat dan berkarakter.
           </p>
         </div>
 
         <div class="bg-brand-cream p-8 rounded-2xl border border-brand-sand/70 shadow-sm">
-          <div class="w-12 h-12 rounded-xl bg-brand-warm flex items-center justify-center text-brand-goldDark mb-6">
+          <div class="w-12 h-12 rounded-xl bg-brand-warm flex items-center justify-center text-brand-gold mb-6">
             <i data-lucide="sparkles" class="w-6 h-6"></i>
           </div>
-          <h3 class="font-serif text-2xl font-bold mb-3">Request Tren TikTok/IG</h3>
+          <h3 class="text-2xl font-bold mb-3">Request Tren TikTok/IG</h3>
           <p class="text-sm text-brand-muted leading-relaxed">
             Bisa request tren dan transisi video TikTok/Reels favorit yang ingin Anda buat bersama pasangan dan *bridesmaids/groomsmen*.
           </p>
@@ -192,8 +224,8 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       
       <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="text-xs font-semibold tracking-widest text-brand-goldDark uppercase">Wedding Stories</span>
-        <h2 class="font-serif text-3xl sm:text-5xl font-normal mt-2 text-brand-charcoal">Highlights Hari Bahagia</h2>
+        <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Wedding Stories</span>
+        <h2 class="text-3xl sm:text-5xl font-bold mt-2 text-brand-charcoal">Highlights Hari Bahagia</h2>
         <p class="text-brand-muted mt-3 text-sm">Klik lingkaran highlight di bawah untuk menonton video cuplikan ala Instagram Story.</p>
       </div>
 
@@ -202,57 +234,64 @@
         <!-- Diisi otomatis oleh JavaScript -->
       </div>
 
+      <div class="text-center mt-10">
+        <a href="gallery.html" class="inline-flex items-center gap-2 px-8 py-3.5 bg-brand-charcoal hover:bg-brand-gold text-white text-xs uppercase tracking-widest font-semibold rounded-full transition-all shadow-md">
+          <i data-lucide="grid" class="w-4 h-4"></i>
+          <span>Buka Galeri Foto & Video Klien Lengkap</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+
     </div>
   </section>
 
-  <!-- ================= PRICELIST SECTION (4 PAKET) ================= -->
+  <!-- ================= PRICELIST SECTION ================= -->
   <section id="pricelist" class="py-24 bg-brand-warm/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="text-center max-w-2xl mx-auto mb-16">
-        <span class="text-xs font-semibold tracking-widest text-brand-goldDark uppercase">Pricelist & Paket Layanan</span>
-        <h2 class="font-serif text-3xl sm:text-5xl font-normal mt-2 text-brand-charcoal">Pilihan Paket Dokumentasi</h2>
+        <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Pricelist & Paket Layanan</span>
+        <h2 class="text-3xl sm:text-5xl font-bold mt-2 text-brand-charcoal">Pilihan Paket Dokumentasi</h2>
         <p class="text-brand-muted mt-3 text-sm sm:text-base">Pilih paket Wedding Content Creator yang paling sesuai dengan susunan acaramu.</p>
       </div>
 
-      <!-- Grid 4 Kolom -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
         
         <!-- Paket 1: Story Package (2 Jam) -->
         <div class="bg-brand-cream rounded-3xl p-6 border border-brand-sand/80 flex flex-col justify-between shadow-sm hover:border-brand-gold transition-all">
           <div>
             <div class="text-[11px] font-bold uppercase tracking-widest text-brand-muted mb-2">Short Session</div>
-            <h3 class="font-serif text-2xl font-bold text-brand-charcoal">Story Package</h3>
-            <div class="inline-block mt-2 px-3 py-1 bg-brand-warm rounded-full text-xs font-semibold text-brand-goldDark">
+            <h3 class="text-2xl font-bold text-brand-charcoal">Story Package</h3>
+            <div class="inline-block mt-2 px-3 py-1 bg-brand-warm rounded-full text-xs font-semibold text-brand-gold">
               Durasi: 2 Jam
             </div>
 
             <ul class="space-y-3 text-xs text-brand-charcoal my-6 pt-4 border-t border-brand-sand/60">
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span><strong>6 – 8 Story Instagram</strong></span>
               </li>
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span>Story IG Same Day Simple Edit</span>
               </li>
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span><strong>1 Video Recap</strong> (30–90 detik)</span>
               </li>
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span><strong>1 Tren TikTok/IG</strong> (Request)</span>
               </li>
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span>Random Foto Aesthetic (Raw/Dazzcam)</span>
               </li>
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span>Semua Foto & Video via Google Drive</span>
               </li>
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span>Free Transport ≤ 5 KM</span>
               </li>
             </ul>
@@ -266,38 +305,38 @@
         <div class="bg-brand-cream rounded-3xl p-6 border border-brand-sand/80 flex flex-col justify-between shadow-sm hover:border-brand-gold transition-all">
           <div>
             <div class="text-[11px] font-bold uppercase tracking-widest text-brand-muted mb-2">Medium Session</div>
-            <h3 class="font-serif text-2xl font-bold text-brand-charcoal">Memory Package</h3>
-            <div class="inline-block mt-2 px-3 py-1 bg-brand-warm rounded-full text-xs font-semibold text-brand-goldDark">
+            <h3 class="text-2xl font-bold text-brand-charcoal">Memory Package</h3>
+            <div class="inline-block mt-2 px-3 py-1 bg-brand-warm rounded-full text-xs font-semibold text-brand-gold">
               Durasi: 4 Jam
             </div>
 
             <ul class="space-y-3 text-xs text-brand-charcoal my-6 pt-4 border-t border-brand-sand/60">
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span><strong>8 – 10 Story Instagram</strong></span>
               </li>
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span>Story IG Same Day Simple Edit</span>
               </li>
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span><strong>1 Video Recap</strong> (45–90 detik)</span>
               </li>
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span><strong>1–2 Tren TikTok/IG</strong> (Request)</span>
               </li>
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span>Random Foto Aesthetic (Raw/Dazzcam)</span>
               </li>
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span>Semua Foto & Video via Google Drive</span>
               </li>
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span>Free Transport ≤ 5 KM</span>
               </li>
             </ul>
@@ -311,38 +350,38 @@
         <div class="bg-brand-cream rounded-3xl p-6 border border-brand-sand/80 flex flex-col justify-between shadow-sm hover:border-brand-gold transition-all">
           <div>
             <div class="text-[11px] font-bold uppercase tracking-widest text-brand-muted mb-2">Khusus Akad</div>
-            <h3 class="font-serif text-2xl font-bold text-brand-charcoal">Vow Package</h3>
-            <div class="inline-block mt-2 px-3 py-1 bg-brand-warm rounded-full text-xs font-semibold text-brand-goldDark">
+            <h3 class="text-2xl font-bold text-brand-charcoal">Vow Package</h3>
+            <div class="inline-block mt-2 px-3 py-1 bg-brand-warm rounded-full text-xs font-semibold text-brand-gold">
               Durasi: ± 4 Jam
             </div>
 
             <ul class="space-y-3 text-xs text-brand-charcoal my-6 pt-4 border-t border-brand-sand/60">
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span><strong>8 – 12 Story Instagram</strong></span>
               </li>
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span>Story IG Same Day Simple Edit</span>
               </li>
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span><strong>1 Video Recap</strong> (30–60 detik)</span>
               </li>
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span><strong>1–2 Tren TikTok/IG</strong> (Request)</span>
               </li>
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span>Random Foto Aesthetic (Raw/Dazzcam)</span>
               </li>
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span>Semua Foto & Video via Google Drive</span>
               </li>
               <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-goldDark shrink-0 mt-0.5"></i>
+                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
                 <span>Free Transport ≤ 5 KM</span>
               </li>
             </ul>
@@ -352,14 +391,14 @@
           </button>
         </div>
 
-        <!-- Paket 4: Eternal Package (Akad + Resepsi ±8 Jam - Best Value) -->
+        <!-- Paket 4: Eternal Package (Akad + Resepsi ±8 Jam) -->
         <div class="bg-brand-charcoal text-white rounded-3xl p-6 border-2 border-brand-gold flex flex-col justify-between shadow-xl relative lg:-translate-y-2 z-10">
-          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-goldDark text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full whitespace-nowrap">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-gold text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full whitespace-nowrap">
             Akad + Resepsi
           </div>
           <div>
             <div class="text-[11px] font-bold uppercase tracking-widest text-brand-sand/80 mb-2">Paket Lengkap</div>
-            <h3 class="font-serif text-2xl font-bold text-white">Eternal Package</h3>
+            <h3 class="text-2xl font-bold text-white">Eternal Package</h3>
             <div class="inline-block mt-2 px-3 py-1 bg-white/10 rounded-full text-xs font-semibold text-brand-gold">
               Durasi: ± 8 Jam
             </div>
@@ -395,7 +434,7 @@
               </li>
             </ul>
           </div>
-          <button onclick="selectPackage('Eternal Package (Akad + Resepsi - ±8 Jam)')" class="w-full py-3.5 text-xs uppercase tracking-widest font-semibold rounded-full bg-brand-gold hover:bg-brand-goldDark text-brand-charcoal transition-all text-center">
+          <button onclick="selectPackage('Eternal Package (Akad + Resepsi - ±8 Jam)')" class="w-full py-3.5 text-xs uppercase tracking-widest font-semibold rounded-full bg-brand-gold hover:bg-brand-goldDark text-white transition-all text-center">
             Pilih Paket Populer
           </button>
         </div>
@@ -409,8 +448,8 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       
       <div class="text-center max-w-2xl mx-auto mb-16">
-        <span class="text-xs font-semibold tracking-widest text-brand-goldDark uppercase">Reservasi Jadwal</span>
-        <h2 class="font-serif text-3xl sm:text-5xl font-normal mt-2 text-brand-charcoal">Cek Tanggal & Booking</h2>
+        <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Reservasi Jadwal</span>
+        <h2 class="text-3xl sm:text-5xl font-bold mt-2 text-brand-charcoal">Cek Tanggal & Booking</h2>
         <p class="text-brand-muted mt-3 text-sm sm:text-base">Pilih tanggal pernikahanmu pada kalender dan isi formulir pemesanan di bawah.</p>
       </div>
 
@@ -420,7 +459,7 @@
         <div class="lg:col-span-5 bg-brand-cream p-6 rounded-2xl border border-brand-sand/80 shadow-sm flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-6">
-              <h3 class="font-serif text-xl font-bold" id="calMonthYear">September 2026</h3>
+              <h3 class="text-xl font-bold" id="calMonthYear">September 2026</h3>
               <div class="flex gap-1">
                 <button onclick="prevMonth()" class="p-2 rounded-lg hover:bg-brand-sand text-brand-charcoal"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
                 <button onclick="nextMonth()" class="p-2 rounded-lg hover:bg-brand-sand text-brand-charcoal"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
@@ -436,7 +475,7 @@
 
           <div class="mt-8 pt-4 border-t border-brand-sand text-xs text-brand-muted space-y-2">
             <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-brand-goldDark"></span>
+              <span class="w-3 h-3 rounded-full bg-brand-gold"></span>
               <span>Tanggal Terpilih</span>
             </div>
             <div class="flex items-center gap-2">
@@ -453,11 +492,11 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Nama Pasangan Pengantin *</label>
-                <input type="text" id="clientName" required placeholder="Contoh: Raya & Naufal" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-goldDark">
+                <input type="text" id="clientName" required placeholder="Contoh: Sarah & Dimas" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
               </div>
               <div>
                 <label class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Nomor WhatsApp Kamu *</label>
-                <input type="tel" id="clientPhone" required placeholder="Contoh: 08123456789" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-goldDark">
+                <input type="tel" id="clientPhone" required placeholder="Contoh: 08123456789" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
               </div>
             </div>
 
@@ -468,13 +507,13 @@
               </div>
               <div>
                 <label class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Kota & Lokasi / Venue *</label>
-                <input type="text" id="weddingVenue" required placeholder="Contoh: Gedung Merdeka, Bandung" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-goldDark">
+                <input type="text" id="weddingVenue" required placeholder="Contoh: Gedung Merdeka, Bandung" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
               </div>
             </div>
 
             <div>
               <label class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Pilihan Paket Layanan *</label>
-              <select id="selectedPackage" required class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-goldDark">
+              <select id="selectedPackage" required class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
                 <option value="">-- Pilih Paket Layanan --</option>
                 <option value="Story Package (Durasi 2 Jam)">Story Package (Durasi 2 Jam)</option>
                 <option value="Memory Package (Durasi 4 Jam)">Memory Package (Durasi 4 Jam)</option>
@@ -485,7 +524,7 @@
 
             <div>
               <label class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Catatan Tambahan (Opsional)</label>
-              <textarea id="clientNotes" rows="3" placeholder="Ceritakan konsep pernikahan, lagu favorit, atau pertanyaan lain..." class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-goldDark"></textarea>
+              <textarea id="clientNotes" rows="3" placeholder="Ceritakan konsep pernikahan, lagu favorit, atau pertanyaan lain..." class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold"></textarea>
             </div>
 
             <button type="submit" class="w-full py-4 bg-[#25D366] hover:bg-[#1ebc57] text-white font-semibold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
@@ -505,7 +544,7 @@
   <!-- ================= FOOTER ================= -->
   <footer class="bg-brand-charcoal text-brand-sand py-12 border-t border-brand-sand/20 text-center">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="font-serif text-3xl font-bold text-white mb-2">di.raya.in<span class="text-brand-gold">.</span></div>
+      <div class="text-3xl font-bold text-white mb-2 font-sans">di.raya.in<span class="text-brand-gold">.</span></div>
       <p class="text-xs text-brand-sand/70 mb-6">Documenting your unscripted love stories with aesthetic precision.</p>
       
       <!-- Logo-Only Social Media Links -->
@@ -545,7 +584,6 @@
 
   <!-- ================= MODAL INSTAGRAM STORY VIEWER ================= -->
   <div id="storyModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md hidden items-center justify-center p-0 sm:p-4 select-none">
-    
     <div class="relative w-full h-full sm:h-[90vh] sm:max-w-sm aspect-[9/16] bg-brand-charcoal sm:rounded-3xl overflow-hidden shadow-2xl flex flex-col justify-between border sm:border-white/15">
       
       <!-- Top Bar: Profil & Tombol Tutup -->
@@ -555,7 +593,7 @@
             <img id="storyAvatar" src="" class="w-full h-full object-cover">
           </div>
           <div>
-            <div class="text-xs font-bold leading-tight" id="storyTitle">Rachmi & Taufik</div>
+            <div class="text-xs font-bold leading-tight" id="storyTitle">Sarah & Dimas</div>
             <div class="text-[10px] text-brand-sand/80" id="storySubtitle">Akad & Resepsi</div>
           </div>
         </div>
@@ -581,7 +619,7 @@
           </button>
         </div>
 
-        <a id="storyWaBtn" href="#" target="_blank" class="w-full py-3 bg-brand-gold hover:bg-brand-goldDark text-brand-charcoal font-semibold rounded-full text-xs flex items-center justify-center gap-2 transition-all shadow-lg">
+        <a id="storyWaBtn" href="#" target="_blank" class="w-full py-3 bg-brand-gold hover:bg-brand-goldDark text-white font-semibold rounded-full text-xs flex items-center justify-center gap-2 transition-all shadow-lg">
           <i data-lucide="message-circle" class="w-4 h-4 text-[#25D366]"></i>
           <span>Tanya Jadwal Tanggal Ini</span>
         </a>
@@ -594,21 +632,38 @@
   <script>
     lucide.createIcons();
 
-    // 1. NOMOR WHATSAPP RESMI DI.RAYA.IN
     const WA_NUMBER = "6285128007096";
-
-    // Set link tombol floating WhatsApp
     document.getElementById('floatingWaBtn').href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("Halo di.raya.in, saya ingin konsultasi mengenai paket Wedding Content Creator.")}`;
 
-    // 2. DATA HIGHLIGHTS PENGANTIN & LINK GOOGLE DRIVE
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+      lucide.createIcons();
+    }
+
+    // DATA HIGHLIGHTS PENGANTIN
     const storyHighlights = [
       {
         id: 1,
-        title: "Rachmi & Taufik",
-        subtitle: "Eternal Package (Akad + Resepsi)",
-        cover: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80",
+        title: "Velin & Devan",
+        subtitle: "Eternal Package",
+        cover: "https://lh3.googleusercontent.com/d/132D58IeLk3Yi5UKMEju-pipP_4dNTdsW",
         videoUrl: "https://drive.google.com/file/d/1n2IuyM9iwNOgEBGuRF2UfR__Uw3ty-_n/preview"
       },
+      {
+        id: 2,
+        title: "Lina & Usma",
+        subtitle: "Eternal Package",
+        cover: "https://lh3.googleusercontent.com/d/10BZE_RaRKwoRS9SGBjABCzUefzsxoP31",
+        videoUrl: "https://drive.google.com/file/d/1lhL3CsSkGYC1zeiRDyW3iVZ_fa6thvOi/preview"
+      },
+      {
+        id: 3,
+        title: "Rachmi & Taufik",
+        subtitle: "Vow Package",
+        cover: "https://lh3.googleusercontent.com/d/1PYPYqepRyb1iWiDG8DEBJhGQbTWIwq6w",
+        videoUrl: "https://drive.google.com/file/d/1PvFpXSK1FTY8VDsE8rC8PEH4j2NATBLY/preview"
+      }
     ];
 
     let currentStoryIndex = 0;
@@ -624,12 +679,12 @@
         bubble.onclick = () => openStory(index);
 
         bubble.innerHTML = `
-          <div class="w-20 h-20 sm:w-24 sm:h-24 p-[3px] rounded-full bg-gradient-to-tr from-brand-goldDark via-brand-gold to-amber-200 group-hover:scale-105 transition-transform shadow-md">
+          <div class="w-20 h-20 sm:w-24 sm:h-24 p-[3px] rounded-full bg-gradient-to-tr from-brand-goldDark via-brand-gold to-red-400 group-hover:scale-105 transition-transform shadow-md">
             <div class="w-full h-full rounded-full border-2 border-brand-cream overflow-hidden bg-brand-sand">
               <img src="${item.cover}" alt="${item.title}" class="w-full h-full object-cover">
             </div>
           </div>
-          <span class="text-xs font-semibold mt-2.5 text-brand-charcoal group-hover:text-brand-goldDark text-center truncate max-w-[90px]">${item.title}</span>
+          <span class="text-xs font-semibold mt-2.5 text-brand-charcoal group-hover:text-brand-gold text-center truncate max-w-[90px]">${item.title}</span>
         `;
         container.appendChild(bubble);
       });
@@ -687,7 +742,7 @@
 
     renderHighlights();
 
-    // 3. KALENDER INTERAKTIF
+    // KALENDER INTERAKTIF
     let currentDate = new Date(2026, 8, 1);
     let selectedDay = null;
 
@@ -700,7 +755,7 @@
       const year = currentDate.getFullYear();
       const month = currentDate.getMonth();
 
-      document.getElementById('calMonthYear').innerText = `${monthNames[month]} ${year}`;
+      document.getElementById('calMonthYear').innerText = `${monthNames[month]}${year}`;
 
       const firstDayIndex = new Date(year, month, 1).getDay();
       const totalDays = new Date(year, month + 1, 0).getDate();
@@ -721,12 +776,12 @@
         cell.className = "py-2.5 rounded-lg font-medium transition-all hover:bg-brand-sand/60";
 
         if (selectedDay && selectedDay.day === day && selectedDay.month === month && selectedDay.year === year) {
-          cell.className += " bg-brand-goldDark text-white font-bold shadow-sm";
+          cell.className += " bg-brand-gold text-white font-bold shadow-sm";
         }
 
         cell.onclick = () => {
           selectedDay = { day, month, year };
-          const formattedDate = `${day} ${monthNames[month]} ${year}`;
+          const formattedDate = `${day} ${monthNames[month]}${year}`;
           document.getElementById('weddingDate').value = formattedDate;
           renderCalendar();
         };
@@ -747,14 +802,12 @@
 
     renderCalendar();
 
-    // 4. PILIH PAKET
     function selectPackage(packageName) {
       const select = document.getElementById('selectedPackage');
       select.value = packageName;
       document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // 5. SUBMIT FORM KE WHATSAPP
     function handleBookingSubmit(e) {
       e.preventDefault();
 
