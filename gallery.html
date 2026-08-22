@@ -5,11 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Galeri Portofolio Klien — di.raya.in</title>
   
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
@@ -24,15 +19,14 @@
               cream: '#FAF8F5',
               warm: '#F4EFEA',
               sand: '#E8DFD8',
-              gold: '#C5A880',
-              goldDark: '#A6875D',
+              gold: '#662626',      /* Merah Marun Utama */
+              goldDark: '#4D1B1B',  /* Merah Marun Gelap */
               charcoal: '#23201E',
               muted: '#716B67'
             }
           },
           fontFamily: {
-            serif: ['"Cormorant Garamond"', 'serif'],
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            sans: ['"Helvetica World"', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
           }
         }
       }
@@ -42,10 +36,7 @@
     body {
       background-color: #FAF8F5;
       color: #23201E;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-    .font-serif {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Helvetica World', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
     .no-scrollbar::-webkit-scrollbar {
       display: none;
@@ -61,12 +52,12 @@
   <!-- ================= NAVBAR ================= -->
   <header class="sticky top-0 z-40 bg-brand-cream/90 backdrop-blur-md border-b border-brand-sand/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
-      <a href="index.html" class="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-brand-charcoal">
+      <a href="index.html" class="text-3xl sm:text-4xl font-bold tracking-tight text-brand-charcoal">
         di.raya.in<span class="text-brand-gold">.</span>
       </a>
 
       <div class="flex items-center gap-4 sm:gap-6">
-        <a href="index.html" class="text-sm font-medium text-brand-muted hover:text-brand-goldDark flex items-center gap-1.5 transition-colors">
+        <a href="index.html" class="text-sm font-medium text-brand-muted hover:text-brand-gold flex items-center gap-1.5 transition-colors">
           <i data-lucide="arrow-left" class="w-4 h-4"></i>
           <span>Kembali ke Beranda</span>
         </a>
@@ -80,28 +71,28 @@
 
   <!-- ================= HEADER SECTION ================= -->
   <section class="pt-16 pb-8 text-center max-w-4xl mx-auto px-4 sm:px-6">
-    <span class="text-xs font-semibold tracking-widest text-brand-goldDark uppercase">Portofolio Pernikahan</span>
-    <h1 class="font-serif text-4xl sm:text-6xl font-normal mt-2 text-brand-charcoal">Cerita Cinta Klien Kami</h1>
+    <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Portofolio Pernikahan</span>
+    <h1 class="text-4xl sm:text-6xl font-bold mt-2 text-brand-charcoal">Cerita Cinta Klien Kami</h1>
     <p class="text-brand-muted mt-3 text-sm sm:text-base max-w-xl mx-auto">
       Temukan inspirasi konsep pernikahan melalui koleksi video reels dan foto candid aesthetic dari pasangan yang telah kami abadikan.
     </p>
 
-    <!-- SEARCH BAR NAMA KLIEN / LOKASI -->
+    <!-- SEARCH BAR -->
     <div class="mt-8 max-w-lg mx-auto relative">
       <div class="relative flex items-center">
         <i data-lucide="search" class="w-5 h-5 text-brand-muted absolute left-4 pointer-events-none"></i>
         <input type="text" 
                id="clientSearchInput" 
                oninput="filterClients()" 
-               placeholder="Cari nama pengantin atau lokasi" 
-               class="w-full pl-12 pr-10 py-3.5 rounded-full border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-goldDark shadow-sm placeholder:text-brand-muted/70">
+               placeholder="Cari nama pengantin atau lokasi (misal: Velin, Lina, Rachmi)..." 
+               class="w-full pl-12 pr-10 py-3.5 rounded-full border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold shadow-sm placeholder:text-brand-muted/70">
         <button id="clearSearchBtn" onclick="clearClientSearch()" class="hidden absolute right-4 text-brand-muted hover:text-brand-charcoal">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
     </div>
 
-    <!-- TAB FILTER BERDASARKAN PAKET LAYANAN -->
+    <!-- TAB FILTER PAKET -->
     <div class="flex flex-wrap items-center justify-center gap-2 mt-6">
       <button onclick="setPackageFilter('all')" class="pkg-btn active px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-brand-charcoal text-white transition-all">Semua Paket</button>
       <button onclick="setPackageFilter('eternal')" class="pkg-btn px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-brand-warm text-brand-charcoal hover:bg-brand-sand transition-all">Eternal Package</button>
@@ -113,17 +104,14 @@
 
   <!-- ================= GRID DAFTAR KLIEN ================= -->
   <section class="py-12 max-w-7xl mx-auto px-4 sm:px-6">
-    
-    <!-- Pesan jika pencarian kosong -->
     <div id="noClientsFound" class="hidden text-center py-16">
       <div class="w-16 h-16 rounded-full bg-brand-warm flex items-center justify-center text-brand-muted mx-auto mb-4">
         <i data-lucide="search-x" class="w-8 h-8"></i>
       </div>
-      <h3 class="font-serif text-2xl font-bold text-brand-charcoal">Klien Tidak Ditemukan</h3>
+      <h3 class="text-2xl font-bold text-brand-charcoal">Klien Tidak Ditemukan</h3>
       <p class="text-xs text-brand-muted mt-1">Coba cari dengan kata kunci nama pasangan atau kota lainnya.</p>
     </div>
 
-    <!-- Grid Kartu Klien -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" id="clientsGrid">
       <!-- Diisi otomatis oleh JavaScript -->
     </div>
@@ -136,10 +124,10 @@
       <!-- Modal Header -->
       <div class="p-6 sm:p-8 bg-brand-warm/80 border-b border-brand-sand flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div class="inline-block px-3 py-1 bg-brand-goldDark text-white rounded-full text-[10px] font-bold tracking-widest uppercase mb-2" id="modalClientPkg">
+          <div class="inline-block px-3 py-1 bg-brand-gold text-white rounded-full text-[10px] font-bold tracking-widest uppercase mb-2" id="modalClientPkg">
             Eternal Package
           </div>
-          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-brand-charcoal" id="modalClientName">Sarah & Dimas</h2>
+          <h2 class="text-3xl sm:text-4xl font-bold text-brand-charcoal" id="modalClientName">Sarah & Dimas</h2>
           <p class="text-xs text-brand-muted mt-1 flex items-center gap-2" id="modalClientMeta">
             <span><i data-lucide="calendar" class="w-3.5 h-3.5 inline"></i> 09 Mei 2026</span>
           </p>
@@ -150,9 +138,9 @@
         </button>
       </div>
 
-      <!-- 2 Sub-Tab Navigasi: Videos & Photos -->
+      <!-- 2 Sub-Tab: Videos & Photos -->
       <div class="px-6 sm:px-8 pt-6 border-b border-brand-sand flex gap-8 overflow-x-auto no-scrollbar">
-        <button onclick="switchContentTab('videoTab')" id="btnTabVideo" class="content-tab-btn active pb-3 text-xs uppercase tracking-wider font-bold text-brand-goldDark border-b-2 border-brand-goldDark transition-all flex items-center gap-2">
+        <button onclick="switchContentTab('videoTab')" id="btnTabVideo" class="content-tab-btn active pb-3 text-xs uppercase tracking-wider font-bold text-brand-gold border-b-2 border-brand-gold transition-all flex items-center gap-2">
           <i data-lucide="video" class="w-4 h-4"></i>
           <span>Edited Videos (<span id="countVideos">0</span>)</span>
         </button>
@@ -164,24 +152,15 @@
 
       <!-- Isi Konten Tab -->
       <div class="p-6 sm:p-8 min-h-[350px] max-h-[60vh] overflow-y-auto">
-        
-        <!-- 1. TAB EDITED VIDEOS -->
         <div id="videoTab" class="tab-pane">
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" id="modalVideoList">
-            <!-- Diisi JS -->
-          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" id="modalVideoList"></div>
         </div>
-
-        <!-- 2. TAB RANDOM FOTO DAZZCAM -->
         <div id="photoTab" class="tab-pane hidden">
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3" id="modalPhotoList">
-            <!-- Diisi JS -->
-          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3" id="modalPhotoList"></div>
         </div>
-
       </div>
 
-      <!-- Modal Footer (Tombol Booking Cepat WhatsApp) -->
+      <!-- Modal Footer -->
       <div class="p-4 sm:p-6 bg-brand-warm/60 border-t border-brand-sand flex flex-col sm:flex-row items-center justify-between gap-4">
         <p class="text-xs text-brand-muted text-center sm:text-left">
           Tertarik dengan konsep dokumentasi pasangan ini?
@@ -220,7 +199,7 @@
 
     // ================= DATA MASTER KLIEN DI.RAYA.IN =================
     const clientsData = [
-      // KLIEN 1: RACHMI & TAUFIK
+      // 1. RACHMI & TAUFIK
       {
         id: "rachmi-taufik",
         name: "Rachmi & Taufik",
@@ -230,18 +209,9 @@
         packageName: "Vow Package (Akad ± 4 Jam)",
         cover: "https://lh3.googleusercontent.com/d/1PYPYqepRyb1iWiDG8DEBJhGQbTWIwq6w",
         editedVideos: [
-          { 
-            title: "Reels Recap 1", 
-            url: "https://drive.google.com/file/d/1PvFpXSK1FTY8VDsE8rC8PEH4j2NATBLY/preview" 
-          },
-          { 
-            title: "Reels Recap 2", 
-            url: "https://drive.google.com/file/d/1tCt9FQBR_lGCxhL4ur4rIRFiUe8MrkNo/preview" 
-          },
-          { 
-            title: "Reels Recap 3", 
-            url: "https://drive.google.com/file/d/1aT8qLEf_3Clon8JiMzxyDL_Ugie8wFbk/preview" 
-          }
+          { title: "Reels Recap 1", url: "https://drive.google.com/file/d/1PvFpXSK1FTY8VDsE8rC8PEH4j2NATBLY/preview" },
+          { title: "Reels Recap 2", url: "https://drive.google.com/file/d/1tCt9FQBR_lGCxhL4ur4rIRFiUe8MrkNo/preview" },
+          { title: "Reels Recap 3", url: "https://drive.google.com/file/d/1aT8qLEf_3Clon8JiMzxyDL_Ugie8wFbk/preview" }
         ],
         randomPhotos: [
           { title: "-", url: "https://lh3.googleusercontent.com/d/1tmAEhJiu8wPQGpuuTAYuxFsVDTehtEYj" },
@@ -270,12 +240,12 @@
         ]
       },
 
-      // KLIEN 2: VELIN & DEVAN
+      // 2. VELIN & DEVAN
       {
         id: "velin-devan",
         name: "Velin & Devan",
         date: "09 Mei 2026",
-        venue: "-",
+        venue: "Bandung",
         packageKey: "eternal",
         packageName: "Eternal Package (± 8 Jam)",
         cover: "https://lh3.googleusercontent.com/d/132D58IeLk3Yi5UKMEju-pipP_4dNTdsW",
@@ -323,78 +293,7 @@
         ].map(id => ({ title: "-", url: `https://lh3.googleusercontent.com/d/${id}` }))
       },
 
-      //KLIEN 3: NESA & ANDRI
-      {
-        id: "nesa-andri",
-        name: "Nesa & Andri",
-        date: "18 Agustus 2026",
-        venue: "-",
-        packageKey: "eternal",
-        packageName: "Eternal Package (± 8 Jam)",
-        cover: "https://lh3.googleusercontent.com/d/1mauyZVg34WfK69OtY-h4fSkM_1BFkNlV",
-        editedVideos: [
-          { title: "Adat Sunda", url: "https://drive.google.com/file/d/1CfssthqorjQfmnVQy4T4S8aiN8OLSdrJ/preview" },
-          { title: "After Akad", url: "https://drive.google.com/file/d/1WjNqOG3YRle1VzvY7NwzpQ_cbJ3i6ofT/preview" },
-          { title: "Akad", url: "https://drive.google.com/file/d/1iQkttNuyU_SrIONgBPnEaESpDfTLMrlr/preview" },
-          { title: "Balon + Wedding Entrance + Bouquet", url: "https://drive.google.com/file/d/12qelC3Ju1CCDOrjvKHJK533sG-RYuIko/preview" },
-          { title: "Beauty Shot", url: "https://drive.google.com/file/d/1wjnRiaSDhgsDLOhuOWE-BBaXB8iTLdh2/preview" },
-          { title: "Cake", url: "https://drive.google.com/file/d/1sjCEoP0sD49B-2N21lMLJkTCkUIBwyO7/preview" },
-          { title: "Dekorasi", url: "https://drive.google.com/file/d/16X3wM3mSyYJxyrH7pmURaPUdORe-6Swg/preview" },
-          { title: "First look", url: "https://drive.google.com/file/d/1-xbO-NPs-3slMj9nBFXl6Sxx0cCAgZpO/preview" },
-          { title: "Groom", url: "https://drive.google.com/file/d/1AtSFM8eSQ2CCT1cf7MYypu8pORvwaoQd/preview" },
-          { title: "Kedatangan CPP", url: "https://drive.google.com/file/d/1Pg6WEfXbO-lM-RBQAk_R-7EPkSzesN52/preview" },
-          { title: "Make Up", url: "https://drive.google.com/file/d/1lb-U5TWAVmNfuEf-L3yzjtEzw_QL7d7F/preview" },
-          { title: "Pose Akad", url: "https://drive.google.com/file/d/1nW-NN0qdd-s4eFbR0qhDzqMTBLDHoqCD/preview" },
-          { title: "Pose Akad 2", url: "https://drive.google.com/file/d/10AGDPWfka05SnTza-wSk2ofu6_0k5l6w/preview" },
-          { title: "Pose Resepsi", url: "https://drive.google.com/file/d/1al3XxPMwfS9TVLmuTMmt3hKLfcPblVoG/preview" },
-          { title: "Ramah Tamah", url: "https://drive.google.com/file/d/1mTS6ZqV8MKUbxBqDDM9xSkwNvRbf2T-v/preview" },
-          { title: "Resepsi", url: "https://drive.google.com/file/d/1nPCaiEclbFAywrNQS9n4tk7VEkvSrt1u/preview" },
-          { title: "Sungkeman", url: "https://drive.google.com/file/d/1lS9wVjGBS5LDenhK83fgXO01RmJdyeOh/preview" },
-          { title: "Tren", url: "https://drive.google.com/file/d/1luYIGFYJkhxkSUtT4UH_JGPiHV_RXY21/preview" }
-        ],
-        randomPhotos: [
-          "1X7xyGPvQkRJf7vIqQmTl35r3142d1d_6", "1lFIq8v_siAD4g6Se12hWV8hzdvllzm5M", "1jtx7-X2mqjFhV5u2bQDNLmEJyT8vOQbT",
-          "1ReAMFm2DlAAfANfi-gHdEWq6jZqlhcsd", "15PjW0-I6drGAB-t4DKkoGg5dkNZZv5DK", "1RkcYF_vvR3d5pTeE0MUli25gVAzbg3J5",
-          "1Gs1NHIFxzLDZPLQR6x_L7ABG6omjqIwM", "17v-h_jv67Hdv-XBRxbpRp7PPjPoTNh8o", "1N-nvC4abZ8NgFp1Bsbcl1xRpnJBnIDwp",
-          "1XMlayysps2AaoZncaNHg7fqr6tOhXGYN", "1V5FZOXJhcHHOc0dDpsgawHNxVxx0T_49", "1krqDcqPaNudTC8hBQtESWlfFYkRHAsTL",
-          "11KXCYI6atcVFvsCJNwpvZ1bzz6MJLPou", "183YbOqJbYaGeM-1yia4j7HICAIpJLFKt", "12KyOExgSGEOYeSVBI5WxN6qB13FI7GoT",
-          "1XjiAIiQ6vyN4-gg1jrKeRu6QB1_xrPdh", "1aA_B8Gyv6ffrtmA_54DJe7LqGCfMif0o", "1JwhB_UwmIk19_kvwBpBx8U3PHayamiYK",
-          "1TQpjGKlgbJbwiYcgJ6PEHfdx-mpThKug", "1IrMiRI3k_xwC2hHlTOYnr-kAOEZr_wM2", "18n_KwMs-9N3_-3wsJ8naDnGzSnLWxlEK",
-          "14QRbPtkbZbGfs3itiljQoU-9yioiIm1U", "1qGGh163XsqQ5T0_jSjrUZfXw8wff0hrO", "1EmbG897zDqGePFnOpjb3Rkwy0Mjaq7Ph",
-          "1CbI_etlbblYtyIvtW-HEG8zr2H14goqI", "1YsB6-gXf4kKXvTx1uRkknz2vFNtzgFAP", "16so1Z_R1Xxp49zVxdN0oDHtmi3euWiMC",
-          "1wKN6spOSSzka1ZbrIZ7eW6KYlV0mnsbs", "196m6vkAiGRtra1OEm2gjvSn-Qu-1iOea", "1QKbUmy7AZ71PhMHne633oX3SnXJ6SzZL",
-          "1ddONvZj_zqT36nvw9aKccS-Wp5wAm6mM", "1qyyHhLEC7j9yGkRxyt3eHMvM3E3Ace0T", "1ZCf-KjNPDBMGQMfYamuUZi8-IqGI26Fq",
-          "1pk4jY6UlF_qvKDa9X8Pl130epzjEzbbk", "1-FN3koT6yeHZrBaHKqx0z4YnMEDIXMkD", "1mauyZVg34WfK69OtY-h4fSkM_1BFkNlV",
-          "1bMo2qwuvFEw6T_Oh3rA8m_WgCdQN0dmM", "1nbehiRLpPJ9jwVnRCUisX2UNRhIObPwY", "1rYi_vxn6CBmKJoczmvASzSYExWrYg74Z",
-          "1L1hgP37Xqe4ENA409m4VF0dFUI39TLHj", "1ggk2sLIljbtThDtXKBpkbDivLjsxjEie", "1E1gKEAwWOXsYq5WM5oUCdZWU321-Q677",
-          "1tz9Qwl7vQhBhdqBKgnXBGESX9k1p-TYA", "1C0oyHj47EKbNXV4LzeTieXBdvuTCn2gM", "1zF-s-wFURBot1wHmSK662H8ViBVuBoI4",
-          "1rwFY3a7BSsIg4mM4nemyZ3EaCR2qhJea", "1E-cxqyzD1WmVftNVPFXQCmorgmMZ0Xj8", "1huC6HUdBUSkK_m3KTbjYCt4ls4AdvudQ",
-          "1Xe1lpaSebZ4sxzn67ztmOQzc9KIfZgOP", "1X6g5lr34NBPXIV4ikrmQYbpJLqGm_xIG", "1En_iPqbuc8kvZWiwG4X1XoCcnPOB8FqX",
-          "1py5K4xBhPNHx6e1p-2HNfnoCLxwWRRkX", "1KtAfdjMq_v4b5Z1GQfKEaZcmQ6QjEzmj", "10xmKtbd2uIFLOn4U6nAayN4egIwDYigW",
-          "1p-1Z9QjdNjQE6y9LdetTHSYxny8zqCD0", "14V563SQcdnameH92ta0tLTBkIkfD9l32", "1ug3JShy9FmMhswHIF10WnUOLIbmob3Ms",
-          "1AlAjwIxDfPLvbKz20BOhyj1nBQnlPqKN", "1rhRWTzRWbw-CZylALZiHgg4sgzSgl418", "1-NpTvODo_FA17K02rIJDgvTpflM6I8Nd",
-          "1av-i_lXiLwucAquSUSRVF0PaHh2HohsX", "1_zxaYvcbwtxSR5BWRsqMjgQ8LmiSuDSL", "1zoGNYFEloilnLBVcFTEdjseRS_XeFkOH",
-          "19Z4C2utCDIqTWLMXiW-0UbezeRPUVy95", "1tsmTZB4QFlzXyN-4P99qusLq9wKoI-QZ", "1WnQYU1II3OFO8V6EUq2_VCBzH96RJlu5",
-          "177cFs2r8BnGFNA6h94FNgG6AyuldXMcG", "1shmEEDZ7PhzOdnXOSYQ4TW4KoQ8Mg1_h", "11RJEV7hVia19qUjEpkWUdGzJP7Geb0an",
-          "1Bpc_cHablXf6rmInZrPofSHKtnyax0tS", "1OWz4gWVRtzdU61fi7jwqltpDXfd1gUUJ", "1liC9MHl7rV4nF_awv_Az7-vSaqHUNRmm",
-          "1UyB34FoMYLAQLFJrsxCY9bU6OEkHWUuS", "1S46W0-Lo_zvCW7gJGPc98poi30bXnTao", "1fgybjFJuh7F7NCUnND3ZrOamSfVbwCRq",
-          "1Np9ilOy7VBkgyaDldA8ZzP-G2s4ewBak", "1zsPnoD1fF4lKGKK4IiQdGWLrEM0wiYm2", "1mzXiUxzIiTDz65lCgCvbfPMl841C1grn",
-          "1jM4ygZ2DHS5wrBdAs9BGHJ9Xd8YB9Y29", "1zOMke35M_L_X3PCPUI9RnkwINLxHUHb6", "197tb0VKPU7QqIBR--s0sYnEPo1FgDMrU",
-          "1Cq6cCgz8pqzYq7FogkggOIsb6UB7Ykm1", "1XwFNrgbT75vwym1eorlOQTxWqUCzKVMz", "1YLkRG_XBtmINog0Ejtg3TdMH-oXYclm6",
-          "1PjeCwAhfKCUoS2d6PS4bp9rjshHXnObM", "1TaIWZNLFjBMB_1J5cynbIs-yfOsseDIr", "1c5ton9HgZSjNjTd4VKv3q2jJtLGcm_8j",
-          "1OY1Z6K3WDnBy0sHMcdXMUdvZNGCrJu8p", "1SxjYk3JoA9Ur44VF-jEONn9HkJ2bLNH9", "1hDccSwlCpIc2-q3_TJdDXYmC1qJMfn16",
-          "19bmZPCaUKd56XanM7ZgSuteI8Gqodyhc", "1ksg5_-xfkSkFfRqBvPSDewJg-huc1Ggv", "1od1Q4EqfVjCPos5iN_cECD_r3nH0_Jpy",
-          "1M9-H9QUvZ3pTkONOzcMzY-Hy2Rzxa3xj", "1lfFRna1qIxIXcd67-Ul2VLUxi7ju8VIn", "1cs5v8w_OHYJXgcVkxiihzgXHsBD0AyI4",
-          "1Pk_0ilczdS3Hy8YRxlQhIz_jFKXqVHmX", "1J-9t2qUat1tS1kj2wkdFMrJiStAGqDDG", "1KWJzrfWCwChrzLy-334dqWMufgrz-Eeg",
-          "1FhBhOD_8CNaZNqeK_FDIn0mm4ALqAa6K", "1LDWUiIeg4abwTL7l0sW2Vc7mzb1tPz34", "1357Nj239Io9ogqvRL7u0FIEhPZsV1Dal",
-          "1fx6YcvldTMGfDfzrrbo2K0lGhLxCf1dJ", "1fVcR7q-4NIQNn6Wdfk03M5Sf-Z5Uxtpr", "1JnpfyhIs7PBmFbjIsZ6asqLiuo13fnv9",
-          "1FXpHbsJrLGI9wao634kKFCsKy9EZNRcW", "11dx60ySUPLyOoS0Z5M30r1eJ5XJTIfoZ", "1u_ufdWq8nyISl9DwUXmX3wEIbUPp-ErH",
-          "19Bc0gjR21knn9_bgJADzA20hLBKztLBC", "1p1T_Q7NazgbZv_V6VDU1Gj7O9vKcLSDe", "1Sf9imR6fooAZms_Dl3n7x0SvbMvnhd2g",
-          "1WZNFdadOaMQEDRk6SW5GAtcIYhC76C_4", "1CeXm6SvrQBmKUhxRNYOM5I374dEkm73p", "1PHNqNLjy5qvSsN0StBqbeCy97-kpI2-I"
-        ].map(id => ({ title: "-", url: `https://lh3.googleusercontent.com/d/${id}` }))
-      },
-
-      // KLIEN 4: LINA & USMA
+      // 3. LINA & USMA
       {
         id: "lina-usma",
         name: "Lina & Usma",
@@ -402,7 +301,7 @@
         venue: "-",
         packageKey: "eternal",
         packageName: "Eternal Package (± 8 Jam)",
-        cover: "https://lh3.googleusercontent.com/d/1ld9JzwqFFkSKj26sWH9uuq2JgGvXrPwv",
+        cover: "https://lh3.googleusercontent.com/d/10BZE_RaRKwoRS9SGBjABCzUefzsxoP31",
         editedVideos: [
           { title: "Adat Sunda", url: "https://drive.google.com/file/d/1lhL3CsSkGYC1zeiRDyW3iVZ_fa6thvOi/preview" },
           { title: "After Akad", url: "https://drive.google.com/file/d/16cP6DIw2SzcoH4THoyoo7MVhWIB053wc/preview" },
@@ -436,7 +335,7 @@
       }
     ];
 
-    // 1. RENDER DAFTAR KLIEN
+    // RENDER DAFTAR KLIEN
     function renderClients() {
       const grid = document.getElementById('clientsGrid');
       const query = document.getElementById('clientSearchInput').value.toLowerCase().trim();
@@ -464,14 +363,14 @@
             </div>
             <div class="p-6 flex-1 flex flex-col justify-between">
               <div>
-                <h3 class="font-serif text-2xl font-bold text-brand-charcoal group-hover:text-brand-goldDark transition-colors">${client.name}</h3>
+                <h3 class="text-2xl font-bold text-brand-charcoal group-hover:text-brand-gold transition-colors">${client.name}</h3>
                 <div class="text-xs text-brand-muted mt-2 space-y-1">
                   <div class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> <span>${client.date}</span></div>
                   <div class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> <span>${client.venue || "-"}</span></div>
                 </div>
               </div>
               
-              <div class="mt-6 pt-4 border-t border-brand-sand/60 flex items-center justify-between text-xs font-semibold text-brand-goldDark">
+              <div class="mt-6 pt-4 border-t border-brand-sand/60 flex items-center justify-between text-xs font-semibold text-brand-gold">
                 <span>${client.editedVideos.length} Video • ${client.randomPhotos.length} Foto Dazzcam</span>
                 <span class="inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">Lihat Karya <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
               </div>
@@ -490,7 +389,6 @@
       lucide.createIcons();
     }
 
-    // 2. FILTER PAKET & PENCARIAN
     function setPackageFilter(pkg) {
       activePkgFilter = pkg;
       const buttons = document.querySelectorAll('.pkg-btn');
@@ -520,7 +418,6 @@
       filterClients();
     }
 
-    // 3. BUKA DETAIL KLIEN
     function openClientDetail(clientId) {
       const client = clientsData.find(c => c.id === clientId);
       if (!client) return;
@@ -547,8 +444,8 @@
         item.innerHTML = `
           <iframe src="${v.url}" class="w-full h-full border-0 pointer-events-none scale-105 opacity-90" scrolling="no"></iframe>
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white z-10">
-            <span class="text-[10px] tracking-widest uppercase bg-brand-goldDark px-2 py-0.5 rounded w-max mb-1">Play Video</span>
-            <h5 class="font-serif text-sm font-bold">${v.title}</h5>
+            <span class="text-[10px] tracking-widest uppercase bg-brand-gold px-2 py-0.5 rounded w-max mb-1">Play Video</span>
+            <h5 class="text-sm font-bold">${v.title}</h5>
           </div>
           <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 flex items-center justify-center text-white z-10 group-hover:scale-110 transition-transform">
             <i data-lucide="play" class="w-4 h-4 fill-white"></i>
@@ -587,25 +484,23 @@
       modal.classList.add('hidden');
     }
 
-    // 4. SUB-TAB SWITCHER (HANYA VIDEO & FOTO)
     function switchContentTab(tabId) {
       document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
       document.getElementById(tabId).classList.remove('hidden');
 
       document.querySelectorAll('.content-tab-btn').forEach(btn => {
-        btn.classList.remove('text-brand-goldDark', 'border-b-2', 'border-brand-goldDark');
+        btn.classList.remove('text-brand-gold', 'border-b-2', 'border-brand-gold');
         btn.classList.add('text-brand-muted');
       });
 
       if (tabId === 'videoTab') {
-        document.getElementById('btnTabVideo').classList.add('text-brand-goldDark', 'border-b-2', 'border-brand-goldDark');
+        document.getElementById('btnTabVideo').classList.add('text-brand-gold', 'border-b-2', 'border-brand-gold');
       } else if (tabId === 'photoTab') {
-        document.getElementById('btnTabPhoto').classList.add('text-brand-goldDark', 'border-b-2', 'border-brand-goldDark');
+        document.getElementById('btnTabPhoto').classList.add('text-brand-gold', 'border-b-2', 'border-brand-gold');
       }
       lucide.createIcons();
     }
 
-    // 5. MEDIA VIEWER (PLAY VIDEO / ZOOM FOTO)
     function openMediaViewer(type, url, title) {
       const viewer = document.getElementById('mediaViewerModal');
       const img = document.getElementById('viewerImg');
@@ -639,7 +534,6 @@
       viewer.classList.add('hidden');
     }
 
-    // Inisialisasi awal
     renderClients();
   </script>
 </body>
