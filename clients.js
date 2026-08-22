@@ -204,5 +204,28 @@ const clientsData = [
       { url: "https://lh3.googleusercontent.com/d/184aoskRRdnw2KTqqARPgKSLtnJV4UUDx" },
       { url: "https://lh3.googleusercontent.com/d/1OuDmeOHIackrHPO3k36o9N0e34r6NQjE" }
     ]
+  },
+
+    // 10. AIDA & LUTHFI
+  {
+    id: "aida-luthfi",
+    name: "Aida & Luthfi",
+    date: "14 Juni 2026",
+    venue: "Warungkondang, Cianjur",
+    packageKey: "eternal",
+    packageName: "Eternal Package (± 8 Jam)",
+    cover: "https://lh3.googleusercontent.com/d/1X_FqvS6AxPxfGcPcvy8bpmyMddQjX3JE",
+    editedVideos: [
+      { url: "https://drive.google.com/file/d/1aWaqX4ZDyRk0L0Frz9Zo1N9VsZH6Z-qw/preview" },
+      { url: "https://drive.google.com/file/d/1vQgDxBbJVpNHK3PWF9lQW0QGjk477dWw/preview" },
+      { url: "https://drive.google.com/file/d/128wtr5AlsIdcZbL-5AeORJfj8IqNqHhu/preview" },
+      { url: "https://drive.google.com/file/d/14QF93cDajW7o44uIYOtyglaWMSreECmo/preview" }
+    ],
+    randomPhotos: [
+      { url: "https://lh3.googleusercontent.com/d/1X_FqvS6AxPxfGcPcvy8bpmyMddQjX3JE" },
+      { url: "https://lh3.googleusercontent.com/d/1hJhD-zkTHacCtEmvBAxi3qml-xYcavbM" },
+      { url: "https://lh3.googleusercontent.com/d/184aoskRRdnw2KTqqARPgKSLtnJV4UUDx" },
+      { url: "https://lh3.googleusercontent.com/d/1OuDmeOHIackrHPO3k36o9N0e34r6NQjE" }
+    ]
   }
 ];
