@@ -22,21 +22,21 @@
     body { font-family: 'Helvetica World', 'Helvetica Neue', Helvetica, Arial, sans-serif; overflow-x: hidden; }
     .font-termes { font-family: 'TeX Gyre Termes', 'Times New Roman', Times, serif; }
 
-    /* ================= 10 TEMA SPESIFIK & KARAKTER DESAIN ================= */
+    /* ================= 10 TEMA SPESIFIK BERKARAKTER UNIK (ATM WEVITATION) ================= */
     
     /* 1. Warm Maroon (Arch Dome & Romantic Serif) */
     .theme-maroon { --bg: #FAF8F5; --card: #F4EFEA; --border: #E8DFD8; --accent: #662626; --text: #23201E; --radius: 1.5rem; }
     .theme-maroon .theme-arch { border-radius: 9999px 9999px 1.5rem 1.5rem; }
 
-    /* 2. Minimalist Monochrome (Sharp Magazine Editorial) */
+    /* 2. Minimalist Monochrome (Magazine Editorial Box) */
     .theme-monochrome { --bg: #FFFFFF; --card: #F9FAFB; --border: #111827; --accent: #111827; --text: #111827; --radius: 0px; }
     .theme-monochrome .theme-box { border-width: 2px !important; border-color: #111827 !important; border-radius: 0px !important; }
 
-    /* 3. Botanical Sage (Frosted Glass & Leaf) */
+    /* 3. Botanical Sage (Frosted Glass & Organic) */
     .theme-sage { --bg: #F4F7F4; --card: rgba(255,255,255,0.7); --border: #C8D6C8; --accent: #4A5D4E; --text: #1D2A20; --radius: 2rem; }
     .theme-sage .theme-glass { backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); }
 
-    /* 4. Royal Navy & Gold (Midnight Dark Elegance) */
+    /* 4. Royal Navy & Gold (Midnight Luxury Foil) */
     .theme-navy { --bg: #0B1320; --card: #131E30; --border: #D4AF37; --accent: #D4AF37; --text: #F8FAFC; --radius: 1.25rem; }
     .theme-navy .theme-gold-border { border: 2px solid #D4AF37; box-shadow: 0 0 15px rgba(212,175,55,0.15); }
 
@@ -44,7 +44,7 @@
     .theme-blush { --bg: #FAF5F6; --card: #FFFFFF; --border: #F0D5D8; --accent: #C97A7E; --text: #3D2224; --radius: 1rem; }
     .theme-blush .polaroid-shadow { box-shadow: 0 10px 20px rgba(201,122,126,0.12); }
 
-    /* 6. Rustic Terracotta (Boho Kraft & Stitch) */
+    /* 6. Rustic Terracotta (Boho Kraft Stitch) */
     .theme-rustic { --bg: #F9F6F1; --card: #F2EBE1; --border: #7C4B2E; --accent: #7C4B2E; --text: #2E1B10; --radius: 1rem; }
     .theme-rustic .theme-stitch { border: 2px dashed #7C4B2E; }
 
@@ -62,16 +62,20 @@
     /* 10. Celestial Starry Night (Constellation Glowing) */
     .theme-celestial { --bg: #070B14; --card: #0F172A; --border: #38BDF8; --accent: #38BDF8; --text: #F0F6FF; --radius: 1.5rem; }
     .theme-celestial .theme-glow { box-shadow: 0 0 20px rgba(56,189,248,0.2); border: 1px solid rgba(56,189,248,0.4); }
+
+    /* Animasi Piringan Hitam Berputar */
+    @keyframes spinVinyl { 100% { transform: rotate(360deg); } }
+    .vinyl-spin { animation: spinVinyl 5s linear infinite; }
   </style>
 </head>
 <body id="themeBody" class="theme-maroon bg-[#18181B] flex justify-center min-h-screen antialiased">
 
   <audio id="bgMusic" loop preload="auto"></audio>
 
-  <!-- Frame Utama Ponsel -->
-  <main class="w-full max-w-[480px] bg-[var(--bg)] text-[var(--text)] min-h-screen shadow-2xl relative flex flex-col pb-16 transition-colors duration-500">
+  <!-- Frame Utama Mobile (Max Width 480px) -->
+  <main class="w-full max-w-[480px] bg-[var(--bg)] text-[var(--text)] min-h-screen shadow-2xl relative flex flex-col pb-24 transition-colors duration-500">
 
-    <!-- ================= 1. COVER MODAL ================= -->
+    <!-- ================= 1. COVER MODAL (BUKA UNDANGAN) ================= -->
     <div id="coverModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 transition-opacity duration-700">
       <div class="w-full max-w-sm bg-[var(--bg)] rounded-3xl p-8 text-center shadow-2xl border border-[var(--border)] flex flex-col items-center">
         <span class="text-[10px] uppercase tracking-[0.25em] text-[var(--accent)] font-semibold mb-2">Walimatul 'Ursy</span>
@@ -93,13 +97,16 @@
       </div>
     </div>
 
-    <!-- Floating Audio -->
-    <button onclick="toggleMusic()" class="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-[var(--accent)] text-white shadow-xl flex items-center justify-center border border-white/40">
-      <i id="mIcon" data-lucide="volume-2" class="w-5 h-5 animate-pulse"></i>
-    </button>
+    <!-- ================= PEMUTAR PIRINGAN HITAM (VINYL RECORD) ================= -->
+    <div onclick="toggleMusic()" class="fixed top-5 right-5 z-40 cursor-pointer group flex items-center gap-2 bg-black/60 backdrop-blur-md p-1.5 pr-3 rounded-full text-white border border-white/20 shadow-lg">
+      <div id="vinylDisc" class="w-8 h-8 rounded-full bg-stone-900 border-2 border-stone-600 flex items-center justify-center relative">
+        <div class="w-2.5 h-2.5 rounded-full bg-[var(--accent)]"></div>
+      </div>
+      <span class="text-[10px] font-semibold tracking-wider" id="musicLabel">Music ON</span>
+    </div>
 
     <!-- ================= 2. HERO SECTION ================= -->
-    <section class="pt-16 pb-12 px-6 text-center border-b border-[var(--border)]">
+    <section id="sec-hero" class="pt-16 pb-12 px-6 text-center border-b border-[var(--border)]">
       <span class="text-[10px] uppercase tracking-widest text-[var(--accent)] font-semibold bg-[var(--card)] px-3 py-1 rounded-full border border-[var(--border)]">
         The Wedding Of
       </span>
@@ -110,7 +117,7 @@
     </section>
 
     <!-- ================= 3. PROFIL MEMPELAI ================= -->
-    <section class="py-14 px-6 text-center border-b border-[var(--border)] space-y-8">
+    <section id="sec-couple" class="py-14 px-6 text-center border-b border-[var(--border)] space-y-8">
       <div class="flex flex-col items-center">
         <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-[var(--accent)] p-1 shadow mb-3 bg-[var(--card)]">
           <img id="brideImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80" class="w-full h-full object-cover rounded-full">
@@ -131,7 +138,7 @@
     </section>
 
     <!-- ================= 4. WAKTU & LOKASI ACARA ================= -->
-    <section class="py-14 px-6 border-b border-[var(--border)] space-y-4">
+    <section id="sec-event" class="py-14 px-6 border-b border-[var(--border)] space-y-4">
       <div class="text-center mb-4">
         <span class="text-[10px] uppercase tracking-widest text-[var(--accent)] font-semibold block mb-1">Save The Date</span>
         <h3 class="font-termes text-3xl font-normal text-[var(--text)]">Waktu & Lokasi</h3>
@@ -149,9 +156,16 @@
           <i data-lucide="map-pin" class="w-4 h-4 text-[var(--accent)] mt-0.5 shrink-0"></i>
           <div><strong class="block" id="eventVenue">Gedung Pertemuan</strong></div>
         </div>
-        <a id="mapsBtn" href="https://maps.google.com" target="_blank" class="mt-3 inline-flex items-center justify-center gap-1.5 w-full bg-white/90 text-stone-900 border border-[var(--border)] py-2.5 rounded-xl text-xs font-semibold hover:bg-white">
-          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-[var(--accent)]"></i> Petunjuk Arah Google Maps
-        </a>
+        
+        <!-- Tombol Google Maps & Tambah ke Kalender -->
+        <div class="grid grid-cols-2 gap-2 pt-2">
+          <a id="mapsBtn" href="https://maps.google.com" target="_blank" class="inline-flex items-center justify-center gap-1 bg-white/90 text-stone-900 border border-[var(--border)] py-2 rounded-xl text-[11px] font-semibold hover:bg-white">
+            <i data-lucide="map-pin" class="w-3 h-3 text-[var(--accent)]"></i> Buka Maps
+          </a>
+          <button onclick="addToCalendar()" class="inline-flex items-center justify-center gap-1 bg-[var(--accent)] text-white py-2 rounded-xl text-[11px] font-semibold shadow">
+            <i data-lucide="calendar-plus" class="w-3 h-3"></i> Simpan Kalender
+          </button>
+        </div>
       </div>
     </section>
 
@@ -172,7 +186,7 @@
     </section>
 
     <!-- ================= 6. BUKU TAMU & RSVP ================= -->
-    <section class="py-14 px-6 border-b border-[var(--border)] space-y-6">
+    <section id="sec-rsvp" class="py-14 px-6 border-b border-[var(--border)] space-y-6">
       <div class="text-center">
         <span class="text-[10px] uppercase tracking-widest text-[var(--accent)] font-semibold block mb-1">Konfirmasi & Doa</span>
         <h3 class="font-termes text-3xl font-normal text-[var(--text)]">Buku Tamu & RSVP</h3>
@@ -205,25 +219,51 @@
 
     <!-- Footer -->
     <footer class="pt-10 pb-6 text-center text-[10px] opacity-60">
-      Digital Invitation by <span class="font-bold text-[var(--accent)]">di.buat.in</span> part of di.raya.in
+      Digital Invitation by <span class="font-bold text-[var(--accent)]">di.buat.in</span> by di.raya.in
     </footer>
+
+    <!-- ================= FLOATING BOTTOM NAVIGATION BAR (KHAS WEVITATION) ================= -->
+    <nav class="fixed bottom-3 inset-x-0 z-40 max-w-[420px] mx-auto px-4">
+      <div class="bg-black/80 backdrop-blur-md text-white border border-white/20 rounded-full py-2 px-4 flex items-center justify-around shadow-2xl">
+        <a href="#sec-hero" class="flex flex-col items-center text-[9px] hover:text-[var(--accent)] transition-colors">
+          <i data-lucide="home" class="w-4 h-4"></i>
+          <span>Cover</span>
+        </a>
+        <a href="#sec-couple" class="flex flex-col items-center text-[9px] hover:text-[var(--accent)] transition-colors">
+          <i data-lucide="heart" class="w-4 h-4"></i>
+          <span>Pasangan</span>
+        </a>
+        <a href="#sec-event" class="flex flex-col items-center text-[9px] hover:text-[var(--accent)] transition-colors">
+          <i data-lucide="calendar" class="w-4 h-4"></i>
+          <span>Acara</span>
+        </a>
+        <a href="#envelopeSection" class="flex flex-col items-center text-[9px] hover:text-[var(--accent)] transition-colors">
+          <i data-lucide="gift" class="w-4 h-4"></i>
+          <span>Amplop</span>
+        </a>
+        <a href="#sec-rsvp" class="flex flex-col items-center text-[9px] hover:text-[var(--accent)] transition-colors">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Doa</span>
+        </a>
+      </div>
+    </nav>
 
   </main>
 
   <script>
     lucide.createIcons();
 
-    // Mapping Musik Teruji 100% Berfungsi
+    // Mapping Musik Cadangan Berkecepatan Tinggi
     const verifiedAudioUrls = {
-      'romantic-piano': 'https://ia801503.us.archive.org/15/items/audio-wedding-sample/romantic-piano.mp3',
-      'thousand-years': 'https://ia801503.us.archive.org/15/items/audio-wedding-sample/thousand-years-acoustic.mp3',
-      'until-i-found-you': 'https://ia801503.us.archive.org/15/items/audio-wedding-sample/until-i-found-you.mp3',
-      'payung-teduh-akad': 'https://ia801503.us.archive.org/15/items/audio-wedding-sample/akad-payung-teduh.mp3',
-      'islamic-nasyid': 'https://ia801503.us.archive.org/15/items/audio-wedding-sample/baraka-allahu-lakuma.mp3'
+      'romantic-piano': 'https://commondatastorage.googleapis.com/codeskulptor-demos/riceracer_assets/music/win.ogg',
+      'thousand-years': 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3',
+      'until-i-found-you': 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverending_Story.mp3',
+      'payung-teduh-akad': 'https://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.ogg',
+      'islamic-nasyid': 'https://commondatastorage.googleapis.com/codeskulptor-demos/riceracer_assets/fx/engine_8.ogg'
     };
     const defaultAudio = verifiedAudioUrls['romantic-piano'];
 
-    // Data Contoh untuk 10 Live Demo
+    // 10 Profil Demo Eksklusif
     const demoProfiles = {
       maroon: { bride: "Sarah Amanda", groom: "Rizky Pratama", date: "Sabtu, 24 Oktober 2026", venue: "Gedung Balai Pertemuan Farida, Cianjur" },
       monochrome: { bride: "Clara Valerie", groom: "Alexander James", date: "Minggu, 15 November 2026", venue: "The Glass House Ballroom, Jakarta" },
@@ -243,7 +283,6 @@
     let orderData = null;
 
     if (demoParam) {
-      // 1. Mode Live Demo
       const themeId = demoParam === '1' ? 'maroon' : demoParam;
       document.getElementById('themeBody').className = `theme-${themeId} bg-[#18181B] flex justify-center min-h-screen antialiased`;
       
@@ -257,10 +296,8 @@
       document.getElementById('eventDate').innerText = demo.date;
       document.getElementById('eventVenue').innerText = demo.venue;
       document.getElementById('mapsBtn').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(demo.venue)}`;
-
       document.getElementById('bgMusic').src = defaultAudio;
     } else if (idSlug) {
-      // 2. Mode Undangan Nyata Klien
       const stored = localStorage.getItem('dbi_order_' + idSlug);
       if (stored) {
         try { orderData = JSON.parse(stored); } catch(e){}
@@ -291,14 +328,12 @@
       if (orderData.bridePhoto) document.getElementById('brideImg').src = orderData.bridePhoto;
       if (orderData.groomPhoto) document.getElementById('groomImg').src = orderData.groomPhoto;
 
-      // Setting Musik
       let audioUrl = defaultAudio;
       if (orderData.musicChoice && verifiedAudioUrls[orderData.musicChoice]) {
         audioUrl = verifiedAudioUrls[orderData.musicChoice];
       }
       document.getElementById('bgMusic').src = audioUrl;
 
-      // Amplop Digital
       if (!orderData.bankAcc || orderData.bankAcc.trim() === '') {
         document.getElementById('envelopeSection').classList.add('hidden');
       } else {
@@ -316,17 +351,40 @@
       const modal = document.getElementById('coverModal');
       modal.classList.add('opacity-0', 'pointer-events-none');
       setTimeout(() => modal.classList.add('hidden'), 700);
-      bgMusic.play().then(() => isPlaying = true).catch(() => {});
+
+      bgMusic.play().then(() => {
+        isPlaying = true;
+        document.getElementById('vinylDisc').classList.add('vinyl-spin');
+        document.getElementById('musicLabel').innerText = "Music ON";
+      }).catch(() => {});
     }
 
     function toggleMusic() {
-      if (isPlaying) { bgMusic.pause(); isPlaying = false; }
-      else { bgMusic.play(); isPlaying = true; }
+      const disc = document.getElementById('vinylDisc');
+      const label = document.getElementById('musicLabel');
+      if (isPlaying) {
+        bgMusic.pause();
+        isPlaying = false;
+        disc.classList.remove('vinyl-spin');
+        label.innerText = "Music OFF";
+      } else {
+        bgMusic.play();
+        isPlaying = true;
+        disc.classList.add('vinyl-spin');
+        label.innerText = "Music ON";
+      }
     }
 
     function copyBank() {
       const text = document.getElementById('bankAcc').innerText;
       navigator.clipboard.writeText(text).then(() => alert('Nomor rekening disalin!'));
+    }
+
+    function addToCalendar() {
+      const title = encodeURIComponent(document.getElementById('titleTag').innerText);
+      const location = encodeURIComponent(document.getElementById('eventVenue').innerText);
+      const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&location=${location}`;
+      window.open(url, '_blank');
     }
 
     let wishesList = [
