@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Undangan Pernikahan — di.buat.in</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              cream: '#FAF8F5',
+              warm: '#F4EFEA',
+              sand: '#E8DFD8',
+              gold: '#662626',
+              goldDark: '#4D1B1B',
+              charcoal: '#23201E',
+              muted: '#716B67'
+            }
+          },
+          fontFamily: {
+            termes: ['"TeX Gyre Termes"', '"Times New Roman"', 'Times', 'serif'],
+            sans: ['"Helvetica World"', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #23201E;
+      font-family: 'Helvetica World', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    .font-termes {
+      font-family: 'TeX Gyre Termes', 'Times New Roman', Times, serif;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="text-brand-charcoal antialiased flex justify-center min-h-screen">
+
+  <audio id="bgMusic" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-wedding-113547.mp3" loop preload="auto"></audio>
+
+  <main class="w-full max-w-[480px] bg-brand-cream min-h-screen shadow-2xl relative flex flex-col overflow-hidden pb-16">
+
+    <!-- Cover Modal -->
+    <div id="coverModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 transition-opacity duration-700">
+      <div class="w-full max-w-sm bg-brand-cream rounded-3xl p-8 text-center shadow-2xl border border-brand-sand flex flex-col items-center">
+        <span class="text-xs uppercase tracking-[0.25em] text-brand-gold font-semibold mb-3">Walimatul 'Ursy</span>
+        <h1 class="font-termes text-4xl font-normal text-brand-charcoal mb-4" id="coverCoupleName">Sarah & Rizky</h1>
+
+        <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-brand-gold p-1 mb-6 shadow-md bg-brand-sand">
+          <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=500&auto=format&fit=crop&q=80" alt="Couple" class="w-full h-full object-cover rounded-full">
+        </div>
+
+        <p class="text-xs text-brand-muted mb-1">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+        <div class="bg-brand-warm px-5 py-2.5 rounded-2xl border border-brand-sand mb-6 w-full">
+          <span id="guestNameDisplay" class="font-semibold text-sm text-brand-gold">Tamu Undangan</span>
+        </div>
+
+        <button onclick="openInvitation()" class="w-full bg-brand-gold hover:bg-brand-goldDark text-white py-3.5 px-6 rounded-full font-medium text-xs uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg shadow-brand-gold/20 transition-all">
+          <i data-lucide="mail-open" class="w-4 h-4"></i>
+          <span>Buka Undangan</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Floating Music Button -->
+    <button id="musicToggleBtn" onclick="toggleMusic()" class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-brand-gold text-white shadow-xl flex items-center justify-center border-2 border-brand-cream">
+      <i id="musicIcon" data-lucide="volume-2" class="w-5 h-5 animate-pulse"></i>
+    </button>
+
+    <!-- Hero -->
+    <section class="pt-16 pb-12 px-6 text-center border-b border-brand-sand/60">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-warm border border-brand-sand text-[11px] font-semibold tracking-widest uppercase text-brand-gold mb-4">
+        The Wedding Of
+      </div>
+      <h2 class="font-termes text-4xl sm:text-5xl font-normal text-brand-charcoal mb-3" id="heroCoupleName">
+        Sarah & Rizky
+      </h2>
+      <p class="text-xs text-brand-muted mb-8 tracking-wider" id="heroDateDisplay">Sabtu, 24 Oktober 2026</p>
+    </section>
+
+    <!-- Mempelai -->
+    <section class="py-14 px-6 text-center border-b border-brand-sand/60 space-y-8">
+      <div class="flex flex-col items-center">
+        <h3 class="font-termes text-2xl font-normal text-brand-charcoal" id="displayBrideName">Sarah Amanda</h3>
+        <p class="text-xs text-brand-muted mt-1" id="displayBrideParents">Putri Bpk. Hendra & Ibu Rina</p>
+      </div>
+
+      <div class="font-termes text-3xl text-brand-gold">&</div>
+
+      <div class="flex flex-col items-center">
+        <h3 class="font-termes text-2xl font-normal text-brand-charcoal" id="displayGroomName">Rizky Pratama</h3>
+        <p class="text-xs text-brand-muted mt-1" id="displayGroomParents">Putra Bpk. Bambang & Ibu Dewi</p>
+      </div>
+    </section>
+
+    <!-- Detail Acara -->
+    <section class="py-14 px-6 border-b border-brand-sand/60 space-y-6">
+      <div class="text-center mb-6">
+        <span class="text-xs uppercase tracking-[0.25em] text-brand-gold font-semibold block mb-1">Save The Date</span>
+        <h3 class="font-termes text-3xl font-normal text-brand-charcoal">Waktu & Tempat</h3>
+      </div>
+
+      <div class="bg-brand-warm border border-brand-sand rounded-3xl p-6 shadow-sm space-y-3">
+        <div class="text-xs text-brand-charcoal space-y-2">
+          <div class="flex items-center gap-2"><i data-lucide="calendar" class="w-4 h-4 text-brand-gold"></i> <span id="displayEventDate">Sabtu, 24 Oktober 2026</span></div>
+          <div class="flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4 text-brand-gold"></i> <span id="displayEventTime">08.00 - Selesai</span></div>
+          <div class="flex items-start gap-2 pt-1">
+            <i data-lucide="map-pin" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
+            <div>
+              <strong class="block text-brand-charcoal" id="displayVenueName">Lokasi Acara</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Amplop Digital -->
+    <section class="py-14 px-6 border-b border-brand-sand/60 space-y-6 text-center">
+      <div>
+        <span class="text-xs uppercase tracking-[0.25em] text-brand-gold font-semibold block mb-1">Tanda Kasih</span>
+        <h3 class="font-termes text-3xl font-normal text-brand-charcoal mb-2">Amplop Digital</h3>
+      </div>
+
+      <div class="bg-brand-warm border border-brand-sand rounded-2xl p-5 text-left shadow-sm">
+        <div class="flex justify-between items-center mb-1">
+          <span class="text-xs font-bold text-brand-gold uppercase tracking-wider" id="displayBankName">Bank Raya</span>
+          <button onclick="copyAccount()" class="inline-flex items-center gap-1 text-[11px] bg-white border border-brand-sand px-3 py-1 rounded-lg text-brand-charcoal hover:bg-brand-sand transition-all">
+            <i data-lucide="copy" class="w-3 h-3 text-brand-muted"></i> <span>Salin</span>
+          </button>
+        </div>
+        <div class="font-mono text-base font-bold text-brand-charcoal tracking-wider" id="displayBankAcc">1234567890</div>
+        <div class="text-xs text-brand-muted mt-0.5" id="displayBankHolder">a.n. Rizky Pratama</div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="pt-10 pb-6 text-center text-xs text-brand-muted">
+      <p class="text-[11px]">Digital Invitation by <span class="font-bold text-brand-gold">di.buat.in</span> part of di.raya.in</p>
+    </footer>
+
+  </main>
+
+  <script>
+    lucide.createIcons();
+
+    // Baca Parameter Data dari URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestParam = urlParams.get('to');
+    if (guestParam) document.getElementById('guestNameDisplay').innerText = guestParam;
+
+    const rawData = urlParams.get('data');
+    if (rawData) {
+      try {
+        const order = JSON.parse(decodeURIComponent(atob(rawData)));
+        document.getElementById('pageTitle').innerText = `The Wedding of ${order.brideName} & ${order.groomName}`;
+        document.getElementById('coverCoupleName').innerText = `${order.brideName} & ${order.groomName}`;
+        document.getElementById('heroCoupleName').innerText = `${order.brideName} & ${order.groomName}`;
+        document.getElementById('heroDateDisplay').innerText = order.eventDate;
+        document.getElementById('displayBrideName').innerText = order.brideName;
+        document.getElementById('displayBrideParents').innerText = order.brideParents;
+        document.getElementById('displayGroomName').innerText = order.groomName;
+        document.getElementById('displayGroomParents').innerText = order.groomParents;
+        document.getElementById('displayEventDate').innerText = order.eventDate;
+        document.getElementById('displayEventTime').innerText = order.eventTime;
+        document.getElementById('displayVenueName').innerText = order.eventVenue;
+        document.getElementById('displayBankName').innerText = order.bankName;
+        document.getElementById('displayBankAcc').innerText = order.bankAcc;
+        document.getElementById('displayBankHolder').innerText = `a.n. ${order.bankHolder}`;
+      } catch(e){}
+    }
+
+    const bgMusic = document.getElementById('bgMusic');
+    let isPlaying = false;
+
+    function openInvitation() {
+      const modal = document.getElementById('coverModal');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      setTimeout(() => modal.classList.add('hidden'), 700);
+      bgMusic.play().then(() => isPlaying = true).catch(() => {});
+    }
+
+    function toggleMusic() {
+      if (isPlaying) { bgMusic.pause(); isPlaying = false; }
+      else { bgMusic.play(); isPlaying = true; }
+    }
+
+    function copyAccount() {
+      const text = document.getElementById('displayBankAcc').innerText;
+      navigator.clipboard.writeText(text);
+      alert('Nomor rekening berhasil disalin!');
+    }
+  </script>
+</body>
+</html>
