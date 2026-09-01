@@ -30,7 +30,7 @@
     }
   </script>
   <style>
-    body { background-color: #FAF8F5; color: #23201E; font-family: 'Helvetica World', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    body { background-color: #FAF8F5; color: #23201E; font-family: 'Helvetica World', 'Helvetica Neue', Helvetica, Arial, sans-serif; overflow-x: hidden; }
     .font-termes { font-family: 'TeX Gyre Termes', 'Times New Roman', Times, serif; }
     input, select, textarea { font-size: 16px !important; }
     @media (min-width: 640px) { input, select, textarea { font-size: 14px !important; } }
@@ -38,9 +38,11 @@
 </head>
 <body class="bg-brand-cream text-brand-charcoal antialiased flex flex-col min-h-screen">
 
+  <audio id="previewAudio"></audio>
+
   <!-- Top Bar -->
   <div class="bg-brand-gold text-white text-[10px] sm:text-xs py-2 px-3 text-center font-medium tracking-wider uppercase">
-    ✨ Layanan Undangan Pernikahan Digital by di.raya.in
+    ✨ Layanan Undangan Pernikahan Digital by di.raya.in • 10 Pilihan Tema Estetik
   </div>
 
   <!-- Navbar -->
@@ -48,7 +50,7 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
       <div class="flex items-center gap-2">
         <a href="dibuatin.html" class="text-2xl sm:text-3xl font-bold tracking-tight text-brand-charcoal">
-          di.buat.in<span class="text-brand-gold"></span>
+          di.buat.in<span class="text-brand-gold">.</span>
         </a>
         <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider bg-brand-warm border border-brand-sand px-2 py-0.5 rounded text-brand-gold">
           by di.raya.in
@@ -57,11 +59,8 @@
 
       <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-brand-muted">
         <a href="#fitur" class="hover:text-brand-gold">Fitur</a>
-        <a href="#tema" class="hover:text-brand-gold">10 Tema</a>
+        <a href="#tema" class="hover:text-brand-gold">Katalog 10 Tema</a>
         <a href="#paket" class="hover:text-brand-gold">Paket Harga</a>
-        <a href="u/demo/index.html" target="_blank" class="text-brand-gold font-bold flex items-center gap-1">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Live Demo
-        </a>
       </nav>
 
       <div class="flex items-center gap-2">
@@ -80,9 +79,8 @@
 
     <div id="mMenu" class="hidden md:hidden bg-brand-cream border-b border-brand-sand px-5 py-4 space-y-3 shadow-xl">
       <a href="#fitur" onclick="document.getElementById('mMenu').classList.add('hidden')" class="block text-sm font-medium">Fitur Unggulan</a>
-      <a href="#tema" onclick="document.getElementById('mMenu').classList.add('hidden')" class="block text-sm font-medium">10 Tema Estetik</a>
+      <a href="#tema" onclick="document.getElementById('mMenu').classList.add('hidden')" class="block text-sm font-medium">Katalog 10 Tema Estetik</a>
       <a href="#paket" onclick="document.getElementById('mMenu').classList.add('hidden')" class="block text-sm font-medium">Paket & Harga</a>
-      <a href="u/demo/index.html" target="_blank" class="block text-sm font-bold text-brand-gold">Lihat Live Demo ↗</a>
       <div class="pt-2 border-t border-brand-sand">
         <a href="admin.html" class="block text-xs text-brand-muted">Panel Admin ↗</a>
       </div>
@@ -94,7 +92,7 @@
     <div class="max-w-4xl mx-auto">
       <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-warm border border-brand-sand text-[10px] sm:text-xs font-semibold tracking-wider uppercase text-brand-gold mb-4">
         <i data-lucide="sparkles" class="w-3 h-3"></i>
-        <span>10 Variasi Tema • Musik Pilihan • Cepat & Praktis</span>
+        <span>10 Pilihan Desain • Musik Romantis • 1 Link Siap Sebar</span>
       </div>
 
       <h1 class="font-termes text-3xl sm:text-5xl md:text-6xl font-normal leading-tight text-brand-charcoal mb-4">
@@ -102,54 +100,55 @@
       </h1>
 
       <p class="text-brand-muted text-xs sm:text-base max-w-lg mx-auto mb-8 leading-relaxed">
-        Pilih lagu favoritmu, pasang foto pengantin, bagikan link dengan nama tamu tanpa batas, dan aktifkan amplop digital sesuai kebutuhan.
+        Pilih dari 10 tema estetik di bawah ini, dengarkan lagu favoritmu, dan dapatkan link undangan yang langsung aktif setelah pembayaran diverifikasi.
       </p>
 
       <div class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-xs sm:max-w-md mx-auto">
-        <a href="u/demo/index.html" target="_blank" class="w-full sm:w-auto px-6 py-3 bg-brand-charcoal text-white font-medium text-xs sm:text-sm rounded-full hover:bg-brand-gold transition-all shadow inline-flex items-center justify-center gap-2">
-          <i data-lucide="eye" class="w-4 h-4"></i>
-          <span>Lihat Live Demo</span>
+        <a href="#tema" class="w-full sm:w-auto px-6 py-3 bg-brand-charcoal text-white font-medium text-xs sm:text-sm rounded-full hover:bg-brand-gold transition-all shadow inline-flex items-center justify-center gap-2">
+          <i data-lucide="grid" class="w-4 h-4"></i>
+          <span>Lihat 10 Tema & Demo</span>
         </a>
         <a href="#order" class="w-full sm:w-auto px-6 py-3 bg-brand-gold text-white font-medium text-xs sm:text-sm rounded-full hover:bg-brand-goldDark transition-all shadow inline-flex items-center justify-center gap-2">
           <i data-lucide="edit-3" class="w-4 h-4"></i>
-          <span>Buat Undangan</span>
+          <span>Buat Undangan Sekarang</span>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Katalog 10 Tema -->
+  <!-- ================= KATALOG 10 TEMA DENGAN LIVE DEMO ================= -->
   <section id="tema" class="py-16 bg-brand-warm/60 border-y border-brand-sand px-4 sm:px-6">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center max-w-md mx-auto mb-10">
-        <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Koleksi Desain</span>
-        <h2 class="text-2xl sm:text-3xl font-bold mt-1 text-brand-charcoal">10 Pilihan Tema Estetik</h2>
+      <div class="text-center max-w-xl mx-auto mb-10 sm:mb-14">
+        <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Koleksi Desain Eksklusif</span>
+        <h2 class="text-2xl sm:text-4xl font-bold mt-1 text-brand-charcoal">10 Pilihan Tema Undangan</h2>
+        <p class="text-xs sm:text-sm text-brand-muted mt-2">Setiap tema memiliki warna, nuansa, dan atmosfer unik. Klik <strong>Live Demo</strong> untuk mencoba langsung.</p>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4" id="themesGrid">
-        <!-- 10 Kartu Tema di-generate otomatis via JS -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" id="themesCardsContainer">
+        <!-- 10 Kartu Tema diisi otomatis via JS -->
       </div>
     </div>
   </section>
 
-  <!-- Form Pemesanan -->
+  <!-- ================= FORM PEMESANAN ================= -->
   <section id="order" class="py-16 px-4 sm:px-6">
     <div class="max-w-2xl mx-auto">
       <div class="text-center mb-8">
         <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Formulir Pesanan</span>
         <h2 class="text-2xl sm:text-3xl font-bold mt-1 text-brand-charcoal">Isi Data Acara Pernikahan</h2>
-        <p class="text-xs text-brand-muted mt-1">Lengkapi data di bawah. Anda akan mendapatkan kode unik nominal saat transfer.</p>
+        <p class="text-xs text-brand-muted mt-1">Lengkapi data di bawah untuk memproses undangan Anda.</p>
       </div>
 
       <form id="orderForm" onsubmit="submitOrder(event)" class="bg-brand-warm p-5 sm:p-8 rounded-3xl border border-brand-sand space-y-4 shadow-sm">
         
-        <!-- Paket & Tema -->
+        <!-- Paket & Pilihan 10 Tema -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-semibold text-brand-muted mb-1">Paket Undangan *</label>
             <select id="f_pkg" required class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none focus:ring-2 focus:ring-brand-gold">
-              <option value="Full Event Package (Rp79.000)">Full Event Package (Rp79.000) - Lengkap 1 Tahun</option>
-              <option value="Single Event (Rp49.000)">Single Event (Rp49.000) - 6 Bulan</option>
+              <option value="Full Event Package (Rp79.000)">Full Event Package (Rp79.000) - Lengkap</option>
+              <option value="Single Event (Rp49.000)">Single Event (Rp49.000) - Standar</option>
             </select>
           </div>
           <div>
@@ -161,26 +160,31 @@
               <option value="navy">4. Royal Navy & Gold</option>
               <option value="blush">5. Soft Rose Pastel & Blush</option>
               <option value="rustic">6. Rustic Earth & Terracotta</option>
-              <option value="javanese">7. Javanese Classic & Batik</option>
+              <option value="javanese">7. Javanese Classic & Batik Sogan</option>
               <option value="lilac">8. Sundanese Floral & Lilac</option>
-              <option value="emerald">9. Emerald Green & Velvet</option>
+              <option value="emerald">9. Emerald Green & Champagne</option>
               <option value="celestial">10. Celestial Starry Night</option>
             </select>
           </div>
         </div>
 
-        <!-- Pilihan Musik -->
-        <div class="pt-2 border-t border-brand-sand">
-          <label class="block text-xs font-semibold text-brand-gold uppercase mb-1">Pilihan Lagu Latar (BGM) *</label>
-          <select id="f_music" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none focus:ring-2 focus:ring-brand-gold">
-            <option value="romantic-piano">Romantic Piano Wedding (Default)</option>
-            <option value="thousand-years">A Thousand Years (Instrumental Acoustic)</option>
-            <option value="until-i-found-you">Until I Found You (Romantic Strings)</option>
-            <option value="payung-teduh-akad">Akad / Romansa Tradisional</option>
-            <option value="islamic-nasyid">Nasyid / Baraka Allahu Lakuma</option>
-            <option value="custom">Gunakan Link MP3 Sendiri...</option>
-          </select>
-          <input type="url" id="f_music_custom" placeholder="Masukkan URL audio .mp3 sendiri (jika pilih custom)" class="hidden w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs mt-2 outline-none focus:ring-2 focus:ring-brand-gold">
+        <!-- Pilihan Musik & Preview Langsung -->
+        <div class="pt-2 border-t border-brand-sand space-y-2">
+          <label class="block text-xs font-semibold text-brand-gold uppercase">Lagu Latar Romantis (BGM) *</label>
+          <div class="flex gap-2">
+            <select id="f_music" onchange="onMusicChange()" class="flex-1 px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none focus:ring-2 focus:ring-brand-gold">
+              <option value="romantic-piano">1. Romantic Piano Wedding</option>
+              <option value="thousand-years">2. A Thousand Years (Acoustic Strings)</option>
+              <option value="until-i-found-you">3. Until I Found You (Romantic Strings)</option>
+              <option value="payung-teduh-akad">4. Romansa Tradisional / Akad</option>
+              <option value="islamic-nasyid">5. Baraka Allahu Lakuma (Nasyid)</option>
+              <option value="custom">Gunakan Link MP3 Sendiri...</option>
+            </select>
+            <button type="button" onclick="togglePreviewMusic()" id="btnPreviewAudio" class="px-3.5 py-2 bg-brand-charcoal text-white rounded-xl text-xs font-medium flex items-center gap-1.5 hover:bg-brand-gold transition-colors shrink-0">
+              <i data-lucide="play" class="w-3.5 h-3.5"></i> <span>Preview</span>
+            </button>
+          </div>
+          <input type="url" id="f_music_custom" placeholder="Tempel URL file .mp3 sendiri di sini" class="hidden w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none focus:ring-2 focus:ring-brand-gold">
         </div>
 
         <!-- Kontak -->
@@ -190,7 +194,7 @@
             <input type="text" id="f_contact_name" required placeholder="Contoh: Sarah Amanda" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-brand-muted mb-1">Nomor WhatsApp Pemesan *</label>
+            <label class="block text-xs font-semibold text-brand-muted mb-1">Nomor WhatsApp *</label>
             <input type="tel" id="f_contact_wa" required placeholder="Contoh: 08123456789" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
           </div>
         </div>
@@ -202,7 +206,7 @@
             <input type="text" id="f_bride" required placeholder="Nama Lengkap Mempelai Wanita *" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
             <input type="text" id="f_bride_parents" required placeholder="Orang Tua (Putri Bpk... & Ibu...)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
           </div>
-          <input type="url" id="f_bride_photo" placeholder="Link URL Foto Mempelai Wanita (Opsional/Google Drive/ImgBB)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
+          <input type="url" id="f_bride_photo" placeholder="Link Foto Mempelai Wanita (Opsional/ImgBB/Drive)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
         </div>
 
         <!-- Mempelai Pria -->
@@ -212,27 +216,28 @@
             <input type="text" id="f_groom" required placeholder="Nama Lengkap Mempelai Pria *" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
             <input type="text" id="f_groom_parents" required placeholder="Orang Tua (Putra Bpk... & Ibu...)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
           </div>
-          <input type="url" id="f_groom_photo" placeholder="Link URL Foto Mempelai Pria (Opsional/Google Drive/ImgBB)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
+          <input type="url" id="f_groom_photo" placeholder="Link Foto Mempelai Pria (Opsional/ImgBB/Drive)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
         </div>
 
-        <!-- Detail Acara -->
+        <!-- Detail Acara & Tempat -->
         <div class="space-y-2 pt-2 border-t border-brand-sand">
-          <div class="text-xs font-bold uppercase text-brand-gold">Waktu & Lokasi Acara</div>
+          <div class="text-xs font-bold uppercase text-brand-gold">Detail Acara & Tempat</div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <input type="text" id="f_date" required placeholder="Tanggal Acara (Contoh: 24 Oktober 2026)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
             <input type="text" id="f_time" required placeholder="Waktu (Contoh: 08.00 - Selesai)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
           </div>
-          <input type="text" id="f_venue" required placeholder="Nama Tempat & Alamat Lengkap *" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
+          <input type="text" id="f_venue" required placeholder="Nama Tempat / Gedung / Alamat *" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
+          <input type="url" id="f_maps_url" placeholder="Link Google Maps (Opsional, otomatis dibuat jika kosong)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
         </div>
 
-        <!-- Amplop Digital (Benar-Benar Opsional) -->
+        <!-- Amplop Digital -->
         <div class="space-y-2 pt-2 border-t border-brand-sand">
           <div class="flex justify-between items-center">
             <span class="text-xs font-bold uppercase text-brand-gold">Amplop Digital (Opsional)</span>
-            <span class="text-[10px] text-brand-muted">Kosongkan jika tidak ingin ditampilkan</span>
+            <span class="text-[10px] text-brand-muted">Kosongkan jika tidak ditampilkan</span>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-            <input type="text" id="f_bank_name" placeholder="Nama Bank (BCA/Bank Raya)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
+            <input type="text" id="f_bank_name" placeholder="Bank (BCA/Bank Raya)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
             <input type="text" id="f_bank_acc" placeholder="Nomor Rekening" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
             <input type="text" id="f_bank_holder" placeholder="Atas Nama (a.n.)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
           </div>
@@ -246,14 +251,12 @@
     </div>
   </section>
 
-  <!-- Popup Pembayaran Kode Unik -->
+  <!-- Popup Pembayaran -->
   <div id="payModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
     <div class="w-full max-w-sm bg-brand-cream rounded-3xl p-6 border border-brand-sand shadow-2xl text-center max-h-[92vh] overflow-y-auto">
-      
       <div class="w-10 h-10 rounded-full bg-brand-warm text-brand-gold flex items-center justify-center mx-auto mb-2">
         <i data-lucide="credit-card" class="w-5 h-5"></i>
       </div>
-
       <h3 class="text-lg font-bold text-brand-charcoal">Rincian Pembayaran</h3>
       <p class="text-xs text-brand-muted">ID: <strong id="m_id" class="text-brand-gold font-mono">DBI-0000</strong></p>
 
@@ -267,9 +270,8 @@
             <div class="text-[10px] text-brand-muted">Total Transfer (Termasuk Kode Unik):</div>
             <strong id="m_price" class="text-brand-gold text-base font-mono">Rp79.382</strong>
           </div>
-          <span class="text-[9px] bg-brand-gold/10 text-brand-gold px-2 py-0.5 rounded font-semibold">Tepat s/d 3 digit terakhir</span>
+          <span class="text-[9px] bg-brand-gold/10 text-brand-gold px-2 py-0.5 rounded font-semibold">3 Digit Unik</span>
         </div>
-        
         <div class="pt-1 space-y-1.5">
           <div class="font-semibold text-brand-charcoal">Transfer ke Rekening:</div>
           <div class="bg-white p-2.5 rounded-xl border border-brand-sand flex items-center justify-between">
@@ -278,9 +280,7 @@
               <div class="font-mono font-bold text-xs text-brand-charcoal" id="accNum">1234567890</div>
               <div class="text-[9px] text-brand-muted">a.n. Muhamad Naufal Fauzi</div>
             </div>
-            <button onclick="copyAcc()" class="px-2.5 py-1 bg-brand-warm text-[10px] font-semibold rounded text-brand-charcoal border border-brand-sand">
-              Salin
-            </button>
+            <button onclick="copyAcc()" class="px-2.5 py-1 bg-brand-warm text-[10px] font-semibold rounded text-brand-charcoal border border-brand-sand">Salin</button>
           </div>
         </div>
       </div>
@@ -290,9 +290,7 @@
           <i data-lucide="message-circle" class="w-4 h-4"></i>
           <span>Konfirmasi ke WhatsApp (089647946725)</span>
         </button>
-        <button onclick="document.getElementById('payModal').classList.add('hidden')" class="w-full py-2 text-xs text-brand-muted">
-          Tutup
-        </button>
+        <button onclick="document.getElementById('payModal').classList.add('hidden')" class="w-full py-2 text-xs text-brand-muted">Tutup</button>
       </div>
     </div>
   </div>
@@ -308,48 +306,108 @@
 
   <script>
     lucide.createIcons();
-    const WA_ADMIN = "6289647946725"; // Nomor WhatsApp baru yang telah diperbarui
+    const WA_ADMIN = "6289647946725";
     let activeOrder = null;
 
-    // 10 Daftar Tema Estetik
-    const themeList = [
-      { id: "maroon", name: "Warm Maroon", color: "bg-[#662626]" },
-      { id: "monochrome", name: "Monochrome", color: "bg-[#23201E]" },
-      { id: "sage", name: "Sage Green", color: "bg-[#4A5D4E]" },
-      { id: "navy", name: "Royal Navy", color: "bg-[#1A2B4C]" },
-      { id: "blush", name: "Rose Blush", color: "bg-[#C97A7E]" },
-      { id: "rustic", name: "Terracotta", color: "bg-[#7C4B2E]" },
-      { id: "javanese", name: "Classic Batik", color: "bg-[#5C3A21]" },
-      { id: "lilac", name: "Floral Lilac", color: "bg-[#6B5B95]" },
-      { id: "emerald", name: "Emerald Gold", color: "bg-[#0B3B24]" },
-      { id: "celestial", name: "Starry Night", color: "bg-[#0F172A]" }
+    // 10 Koleksi Tema Lengkap
+    const themesCollection = [
+      { id: "maroon", name: "Warm Maroon & Beige", subtitle: "Identitas di.raya.in", desc: "Sentuhan marun hangat dan krem romantis.", color: "bg-[#662626]", img: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=500&auto=format&fit=crop&q=80" },
+      { id: "monochrome", name: "Minimalist Monochrome", subtitle: "Modern Editorial", desc: "Hitam-putih tegas, elegan, dan kontemporer.", color: "bg-[#111827]", img: "https://images.unsplash.com/photo-1519741497674-611481863552?w=500&auto=format&fit=crop&q=80" },
+      { id: "sage", name: "Botanical Sage Green", subtitle: "Nature & Garden", desc: "Hijau sage lembut bernuansa taman asri.", color: "bg-[#4A5D4E]", img: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=500&auto=format&fit=crop&q=80" },
+      { id: "navy", name: "Royal Navy & Gold", subtitle: "Luxury & Glamour", desc: "Biru navy agung dipadu ornamen emas mewah.", color: "bg-[#1A2B4C]", img: "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?w=500&auto=format&fit=crop&q=80" },
+      { id: "blush", name: "Soft Rose Pastel", subtitle: "Sweet Romance", desc: "Warna mawar blush feminin dan manis.", color: "bg-[#C97A7E]", img: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=500&auto=format&fit=crop&q=80" },
+      { id: "rustic", name: "Rustic Terracotta", subtitle: "Boho & Earthy", desc: "Cokelat tembikar hangat & sentuhan alam.", color: "bg-[#7C4B2E]", img: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=500&auto=format&fit=crop&q=80" },
+      { id: "javanese", name: "Javanese Batik Sogan", subtitle: "Traditional Heritage", desc: "Cokelat sogan klasik adat Jawa berwibawa.", color: "bg-[#5C3A21]", img: "https://images.unsplash.com/photo-1606800052052-a08af7148866?w=500&auto=format&fit=crop&q=80" },
+      { id: "lilac", name: "Sundanese Floral Lilac", subtitle: "Soft Pastel Grace", desc: "Ungu lilac lembut berpadu melati suci.", color: "bg-[#6B5B95]", img: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=500&auto=format&fit=crop&q=80" },
+      { id: "emerald", name: "Emerald & Champagne", subtitle: "Velvet Elegance", desc: "Hijau zamrud megah dengan kemewahan sutra.", color: "bg-[#0B3B24]", img: "https://images.unsplash.com/photo-1544077960-604201fe74bc?w=500&auto=format&fit=crop&q=80" },
+      { id: "celestial", name: "Celestial Starry Night", subtitle: "Magical Night", desc: "Langit malam berhias rasi bintang romantis.", color: "bg-[#0F172A]", img: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=500&auto=format&fit=crop&q=80" }
     ];
 
     function renderThemes() {
-      const grid = document.getElementById('themesGrid');
-      grid.innerHTML = '';
-      themeList.forEach((t, i) => {
-        const item = document.createElement('div');
-        item.className = "bg-brand-cream rounded-2xl p-3 border border-brand-sand shadow-sm text-center flex flex-col items-center justify-between cursor-pointer hover:border-brand-gold transition-all";
-        item.onclick = () => {
-          document.getElementById('f_theme').value = t.id;
-          document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
-        };
-        item.innerHTML = `
-          <div class="w-8 h-8 rounded-full ${t.color} border border-white shadow mb-1.5"></div>
-          <span class="text-[11px] font-bold text-brand-charcoal">${i+1}. ${t.name}</span>
-          <span class="text-[9px] text-brand-gold mt-1">Pilih Tema →</span>
+      const container = document.getElementById('themesCardsContainer');
+      container.innerHTML = '';
+      themesCollection.forEach((t, index) => {
+        const card = document.createElement('div');
+        card.className = "bg-brand-cream rounded-3xl overflow-hidden border border-brand-sand shadow-sm flex flex-col justify-between hover:shadow-xl hover:border-brand-gold transition-all group";
+        card.innerHTML = `
+          <div>
+            <div class="relative aspect-[4/3] bg-brand-sand overflow-hidden">
+              <img src="${t.img}" alt="${t.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute top-2.5 left-2.5 flex items-center gap-1.5 bg-black/70 backdrop-blur-sm text-white px-2.5 py-1 rounded-full text-[10px] font-semibold">
+                <span class="w-2.5 h-2.5 rounded-full ${t.color}"></span>
+                <span>Tema ${index + 1}</span>
+              </div>
+            </div>
+            <div class="p-4 sm:p-5 space-y-1.5">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-brand-gold">${t.subtitle}</span>
+              <h3 class="text-base sm:text-lg font-bold text-brand-charcoal">${t.name}</h3>
+              <p class="text-xs text-brand-muted leading-relaxed">${t.desc}</p>
+            </div>
+          </div>
+          <div class="p-4 sm:p-5 pt-0 border-t border-brand-sand/60 mt-3 flex items-center justify-between">
+            <a href="undangan.html?demo=${t.id}" target="_blank" class="text-xs font-semibold text-brand-gold hover:underline flex items-center gap-1">
+              <span>Live Demo</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+            <button onclick="pickTheme('${t.id}')" class="px-3.5 py-1.5 bg-brand-charcoal hover:bg-brand-gold text-white text-xs font-medium rounded-full transition-colors">
+              Pilih Tema
+            </button>
+          </div>
         `;
-        grid.appendChild(item);
+        container.appendChild(card);
       });
+      lucide.createIcons();
     }
     renderThemes();
 
-    document.getElementById('f_music').addEventListener('change', function() {
+    function pickTheme(themeId) {
+      document.getElementById('f_theme').value = themeId;
+      document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    const musicUrls = {
+      'romantic-piano': 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-wedding-113547.mp3',
+      'thousand-years': 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8bbf9d023.mp3?filename=wedding-acoustic-10878.mp3',
+      'until-i-found-you': 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=love-story-14574.mp3',
+      'payung-teduh-akad': 'https://cdn.pixabay.com/download/audio/2022/10/14/audio_9939f792cb.mp3?filename=acoustic-guitars-118258.mp3',
+      'islamic-nasyid': 'https://cdn.pixabay.com/download/audio/2021/08/04/audio_12b0c53d9e.mp3?filename=islamic-background-6288.mp3'
+    };
+
+    let isPreviewing = false;
+    const previewAudio = document.getElementById('previewAudio');
+
+    function onMusicChange() {
+      const val = document.getElementById('f_music').value;
       const customInput = document.getElementById('f_music_custom');
-      if (this.value === 'custom') customInput.classList.remove('hidden');
+      if (val === 'custom') customInput.classList.remove('hidden');
       else customInput.classList.add('hidden');
-    });
+      if (isPreviewing) togglePreviewMusic();
+    }
+
+    function togglePreviewMusic() {
+      const val = document.getElementById('f_music').value;
+      const btn = document.getElementById('btnPreviewAudio');
+      const customUrl = document.getElementById('f_music_custom').value.trim();
+      const targetUrl = val === 'custom' ? customUrl : musicUrls[val];
+
+      if (!targetUrl) {
+        alert('Pilih lagu atau masukkan link URL audio terlebih dahulu.');
+        return;
+      }
+
+      if (isPreviewing) {
+        previewAudio.pause();
+        isPreviewing = false;
+        btn.innerHTML = '<i data-lucide="play" class="w-3.5 h-3.5"></i> <span>Preview</span>';
+      } else {
+        previewAudio.src = targetUrl;
+        previewAudio.play().then(() => {
+          isPreviewing = true;
+          btn.innerHTML = '<i data-lucide="square" class="w-3.5 h-3.5"></i> <span>Berhenti</span>';
+        }).catch(() => alert('Gagal memutar preview audio.'));
+      }
+      lucide.createIcons();
+    }
 
     function copyAcc() {
       const num = document.getElementById('accNum').innerText;
@@ -359,7 +417,7 @@
     function submitOrder(e) {
       e.preventDefault();
 
-      const uniqueCode = Math.floor(100 + Math.random() * 900); // 3 digit unik
+      const uniqueCode = Math.floor(100 + Math.random() * 900);
       const rawPrice = document.getElementById('f_pkg').value.includes('79.000') ? 79000 : 49000;
       const finalPrice = rawPrice + uniqueCode;
 
@@ -387,10 +445,10 @@
         date: document.getElementById('f_date').value.trim(),
         time: document.getElementById('f_time').value.trim(),
         venue: document.getElementById('f_venue').value.trim(),
+        mapsUrl: document.getElementById('f_maps_url').value.trim(),
         bankName: document.getElementById('f_bank_name').value.trim(),
         bankAcc: document.getElementById('f_bank_acc').value.trim(),
-        bankHolder: document.getElementById('f_bank_holder').value.trim(),
-        status: 'PENDING'
+        bankHolder: document.getElementById('f_bank_holder').value.trim()
       };
 
       document.getElementById('m_id').innerText = orderId;
@@ -399,23 +457,53 @@
 
       document.getElementById('payModal').classList.remove('hidden');
       document.getElementById('payModal').classList.add('flex');
+      lucide.createIcons();
     }
 
     function confirmWa() {
       if (!activeOrder) return;
 
-      const shortSummary = 
-`*PESANAN UNDANGAN: ${activeOrder.id}*
+      const params = new URLSearchParams({
+        id: activeOrder.id,
+        slug: activeOrder.slug,
+        pkg: activeOrder.pkg,
+        theme: activeOrder.theme,
+        music: activeOrder.music,
+        murl: activeOrder.musicCustom,
+        pr: activeOrder.price,
+        c: activeOrder.contact,
+        wa: activeOrder.wa,
+        b: activeOrder.bride,
+        bp: activeOrder.brideParents,
+        bpic: activeOrder.bridePhoto,
+        g: activeOrder.groom,
+        gp: activeOrder.groomParents,
+        gpic: activeOrder.groomPhoto,
+        d: activeOrder.date,
+        t: activeOrder.time,
+        v: activeOrder.venue,
+        maps: activeOrder.mapsUrl,
+        bn: activeOrder.bankName,
+        ba: activeOrder.bankAcc,
+        bh: activeOrder.bankHolder
+      });
+
+      const adminVerifyLink = `${window.location.origin}/admin.html?${params.toString()}`;
+
+      const text = 
+`*PESANAN UNDANGAN DIGITAL: ${activeOrder.id}*
 - *Pasangan:* ${activeOrder.bride} & ${activeOrder.groom}
-- *Tema:* ${activeOrder.theme}
 - *Total Transfer:* Rp${activeOrder.price.toLocaleString('id-ID')} (Kode Unik: ${activeOrder.price % 1000})
-- *Tanggal:* ${activeOrder.date}
-- *Pemesan:* ${activeOrder.contact} (${activeOrder.wa})
+- *Pilihan Tema:* ${activeOrder.theme}
+- *Tanggal Acara:* ${activeOrder.date}
+- *Nama Pemesan:* ${activeOrder.contact} (${activeOrder.wa})
 
-_Token Pesanan:_
-#DATA:${btoa(encodeURIComponent(JSON.stringify(activeOrder)))}`;
+Berikut bukti transfer saya lampirkan.
 
-      window.open(`https://wa.me/${WA_ADMIN}?text=${encodeURIComponent(shortSummary)}`, '_blank');
+👉 *Link Verifikasi Cepat Admin:*
+${adminVerifyLink}`;
+
+      window.open(`https://wa.me/${WA_ADMIN}?text=${encodeURIComponent(text)}`, '_blank');
       document.getElementById('payModal').classList.add('hidden');
     }
   </script>
