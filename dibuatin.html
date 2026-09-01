@@ -19,8 +19,8 @@
               cream: '#FAF8F5',
               warm: '#F4EFEA',
               sand: '#E8DFD8',
-              gold: '#662626',      /* Merah Marun Utama */
-              goldDark: '#4D1B1B',  /* Merah Marun Gelap */
+              gold: '#662626',
+              goldDark: '#4D1B1B',
               charcoal: '#23201E',
               muted: '#716B67'
             }
@@ -43,279 +43,268 @@
     .font-termes {
       font-family: 'TeX Gyre Termes', 'Times New Roman', Times, serif;
     }
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
   </style>
 </head>
-<body class="bg-brand-cream text-brand-charcoal antialiased">
+<body class="bg-brand-cream text-brand-charcoal antialiased flex flex-col min-h-screen">
 
-  <!-- ================= TOP NOTIFICATION ================= -->
-  <div class="bg-brand-gold text-white text-xs py-2 px-4 text-center tracking-wider uppercase font-medium">
-    ✨ Layanan Baru: Undangan Pernikahan Digital Elegan & Interaktif by di.raya.in
+  <!-- ================= TOP BAR ================= -->
+  <div class="bg-brand-gold text-white text-[11px] sm:text-xs py-2 px-4 text-center font-medium tracking-wider uppercase">
+    ✨ Layanan Undangan Pernikahan Digital Elegan by di.raya.in
   </div>
 
   <!-- ================= NAVBAR ================= -->
   <header class="sticky top-0 z-40 bg-brand-cream/95 backdrop-blur-md border-b border-brand-sand/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
       
-      <!-- Logo Brand -->
+      <!-- Logo -->
       <div class="flex items-center gap-2">
-        <a href="dibuatin.html" class="text-3xl sm:text-4xl font-bold tracking-tight text-brand-charcoal">
-          di.buat.in<span class="text-brand-gold">.</span>
+        <a href="dibuatin.html" class="text-2xl sm:text-3xl font-bold tracking-tight text-brand-charcoal">
+          di.buat.in<span class="text-brand-gold"></span>
         </a>
-        <span class="text-[10px] font-bold uppercase tracking-widest bg-brand-warm border border-brand-sand px-2 py-0.5 rounded-md text-brand-gold">
+        <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest bg-brand-warm border border-brand-sand px-2 py-0.5 rounded text-brand-gold">
           by di.raya.in
         </span>
       </div>
 
-      <!-- Desktop Nav -->
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-brand-muted">
-        <a href="#fitur" class="hover:text-brand-gold transition-colors">Fitur Unggulan</a>
-        <a href="#tema" class="hover:text-brand-gold transition-colors">Katalog Tema</a>
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-6 text-xs sm:text-sm font-medium text-brand-muted">
+        <a href="#fitur" class="hover:text-brand-gold transition-colors">Fitur</a>
+        <a href="#tema" class="hover:text-brand-gold transition-colors">Tema</a>
         <a href="#paket" class="hover:text-brand-gold transition-colors">Paket & Harga</a>
-        <a href="u/demo/index.html" target="_blank" class="text-brand-gold font-semibold hover:underline flex items-center gap-1">
-          <i data-lucide="sparkles" class="w-4 h-4"></i>
+        <a href="u/demo/index.html" target="_blank" class="text-brand-gold font-bold flex items-center gap-1">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
           <span>Live Demo</span>
         </a>
       </nav>
 
-      <!-- Right Buttons -->
-      <div class="flex items-center gap-3">
-        <a href="index.html" class="px-4 py-2 border border-brand-sand bg-brand-warm hover:bg-brand-sand text-brand-charcoal text-xs font-semibold rounded-full transition-all flex items-center gap-1.5 shadow-sm">
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2">
+        <a href="index.html" class="px-3 py-1.5 sm:px-4 sm:py-2 border border-brand-sand bg-brand-warm hover:bg-brand-sand text-brand-charcoal text-xs font-semibold rounded-full transition-all flex items-center gap-1">
           <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-          <span class="hidden sm:inline">Web di.raya.in</span>
+          <span class="hidden sm:inline">Web Utama</span>
         </a>
-
-        <a href="#order" class="px-5 py-2.5 bg-brand-gold text-white text-xs uppercase tracking-widest font-semibold rounded-full hover:bg-brand-goldDark transition-all flex items-center gap-1.5 shadow-sm">
-          <span>Buat Undangan</span>
-          <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+        <a href="#order" class="px-4 py-1.5 sm:px-5 sm:py-2 bg-brand-gold text-white text-xs uppercase tracking-wider font-semibold rounded-full hover:bg-brand-goldDark transition-all">
+          Buat Sekarang
         </a>
+        <!-- Mobile Toggle Button -->
+        <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-xl bg-brand-warm border border-brand-sand text-brand-charcoal">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
       </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-brand-cream border-b border-brand-sand px-6 py-4 space-y-3 shadow-lg">
+      <a href="#fitur" onclick="toggleMobileMenu()" class="block text-sm font-medium text-brand-charcoal">Fitur Unggulan</a>
+      <a href="#tema" onclick="toggleMobileMenu()" class="block text-sm font-medium text-brand-charcoal">Katalog Tema</a>
+      <a href="#paket" onclick="toggleMobileMenu()" class="block text-sm font-medium text-brand-charcoal">Paket & Harga</a>
+      <a href="u/demo/index.html" target="_blank" class="block text-sm font-bold text-brand-gold">Lihat Live Demo ↗</a>
+      <a href="admin.html" class="block text-xs text-brand-muted pt-2 border-t border-brand-sand">Login Admin</a>
     </div>
   </header>
 
   <!-- ================= HERO SECTION ================= -->
-  <section class="relative pt-16 pb-20 overflow-hidden text-center">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-warm border border-brand-sand text-xs font-semibold tracking-wider uppercase text-brand-gold mb-6">
-        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-        <span>Digital Wedding Invitation Platform</span>
+  <section class="py-12 sm:py-20 px-4 sm:px-6 text-center">
+    <div class="max-w-4xl mx-auto">
+      <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-warm border border-brand-sand text-[11px] font-semibold tracking-wider uppercase text-brand-gold mb-4 sm:mb-6">
+        <i data-lucide="sparkles" class="w-3 h-3"></i>
+        <span>Wedding Invitation Generator</span>
       </div>
 
-      <h1 class="font-termes text-4xl sm:text-6xl md:text-7xl font-normal leading-[1.1] mb-6 text-brand-charcoal max-w-4xl mx-auto">
-        Sebar kabar bahagia dengan undangan digital yang <span class="italic font-semibold text-brand-gold">anggun & berkesan</span>.
+      <h1 class="font-termes text-3xl sm:text-5xl md:text-6xl font-normal leading-tight text-brand-charcoal mb-4 sm:mb-6">
+        Undangan pernikahan digital yang <span class="italic font-semibold text-brand-gold">anggun, cepat, & otomatis</span>.
       </h1>
 
-      <p class="text-brand-muted text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed font-sans">
-        Layanan pembuatan undangan website pernikahan interaktif. Dilengkapi personalisasi nama tamu tanpa batas, musik latar romantis, amplop digital, buku tamu, dan navigasi Google Maps.
+      <p class="text-brand-muted text-xs sm:text-base max-w-xl mx-auto mb-8 sm:mb-10 leading-relaxed">
+        Lengkapi momen bahagiamu dengan undangan website modern. Fitur nama tamu tanpa batas, amplop digital, buku tamu online, dan integrasi peta.
       </p>
 
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="u/demo/index.html" target="_blank" class="w-full sm:w-auto px-8 py-4 bg-brand-charcoal text-white font-medium text-sm rounded-full hover:bg-brand-gold transition-all shadow-md inline-flex items-center justify-center gap-2">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
+        <a href="u/demo/index.html" target="_blank" class="w-full sm:w-auto px-6 py-3.5 bg-brand-charcoal text-white font-medium text-xs sm:text-sm rounded-full hover:bg-brand-gold transition-all shadow-md inline-flex items-center justify-center gap-2">
           <i data-lucide="eye" class="w-4 h-4"></i>
-          <span>Lihat Contoh Live Demo</span>
+          <span>Lihat Live Demo</span>
         </a>
-        <a href="#order" class="w-full sm:w-auto px-8 py-4 bg-brand-gold text-white font-medium text-sm rounded-full hover:bg-brand-goldDark transition-all shadow-md inline-flex items-center justify-center gap-2">
-          <i data-lucide="message-circle" class="w-4 h-4"></i>
-          <span>Pesan Undangan via WA</span>
+        <a href="#order" class="w-full sm:w-auto px-6 py-3.5 bg-brand-gold text-white font-medium text-xs sm:text-sm rounded-full hover:bg-brand-goldDark transition-all shadow-md inline-flex items-center justify-center gap-2">
+          <i data-lucide="edit-3" class="w-4 h-4"></i>
+          <span>Isi Data & Buat Undangan</span>
         </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= FITUR UNGGULAN ================= -->
-  <section id="fitur" class="py-20 bg-brand-warm/60 border-y border-brand-sand/50">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="text-center max-w-2xl mx-auto mb-16">
-        <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Fitur Lengkap & Modern</span>
-        <h2 class="text-3xl sm:text-5xl font-bold mt-2 text-brand-charcoal">Kenapa Memilih di.buat.in?</h2>
-        <p class="text-brand-muted mt-3 text-sm">Semua fitur penting untuk mempermudah kehadiran dan doa restu para tamu undangan.</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Fitur 1 -->
-        <div class="bg-brand-cream p-7 rounded-3xl border border-brand-sand shadow-sm space-y-3">
-          <div class="w-12 h-12 rounded-2xl bg-brand-warm flex items-center justify-center text-brand-gold">
-            <i data-lucide="users" class="w-6 h-6"></i>
-          </div>
-          <h3 class="text-xl font-bold text-brand-charcoal">Nama Tamu Tanpa Batas</h3>
-          <p class="text-xs text-brand-muted leading-relaxed">
-            Buat link khusus dengan nama masing-masing tamu undangan (contoh: <code>?to=Budi+Santoso</code>) tanpa batas jumlah tamu.
-          </p>
-        </div>
-
-        <!-- Fitur 2 -->
-        <div class="bg-brand-cream p-7 rounded-3xl border border-brand-sand shadow-sm space-y-3">
-          <div class="w-12 h-12 rounded-2xl bg-brand-warm flex items-center justify-center text-brand-gold">
-            <i data-lucide="music" class="w-6 h-6"></i>
-          </div>
-          <h3 class="text-xl font-bold text-brand-charcoal">Lagu Latar Romantis</h3>
-          <p class="text-xs text-brand-muted leading-relaxed">
-            Pilih lagu romantis favorit yang otomatis terputar saat tamu menekan tombol buka undangan, lengkap dengan kontrol on/off.
-          </p>
-        </div>
-
-        <!-- Fitur 3 -->
-        <div class="bg-brand-cream p-7 rounded-3xl border border-brand-sand shadow-sm space-y-3">
-          <div class="w-12 h-12 rounded-2xl bg-brand-warm flex items-center justify-center text-brand-gold">
-            <i data-lucide="credit-card" class="w-6 h-6"></i>
-          </div>
-          <h3 class="text-xl font-bold text-brand-charcoal">Amplop Digital & QRIS</h3>
-          <p class="text-xs text-brand-muted leading-relaxed">
-            Memudahkan tamu yang berhalangan hadir untuk mengirimkan tanda kasih dengan tombol salin nomor rekening 1-klik.
-          </p>
-        </div>
-
-        <!-- Fitur 4 -->
-        <div class="bg-brand-cream p-7 rounded-3xl border border-brand-sand shadow-sm space-y-3">
-          <div class="w-12 h-12 rounded-2xl bg-brand-warm flex items-center justify-center text-brand-gold">
-            <i data-lucide="map-pin" class="w-6 h-6"></i>
-          </div>
-          <h3 class="text-xl font-bold text-brand-charcoal">Navigasi Google Maps</h3>
-          <p class="text-xs text-brand-muted leading-relaxed">
-            Tamu tidak akan tersesat. Terhubung langsung dengan Google Maps untuk petunjuk arah akurat menuju lokasi akad & resepsi.
-          </p>
-        </div>
-
-        <!-- Fitur 5 -->
-        <div class="bg-brand-cream p-7 rounded-3xl border border-brand-sand shadow-sm space-y-3">
-          <div class="w-12 h-12 rounded-2xl bg-brand-warm flex items-center justify-center text-brand-gold">
-            <i data-lucide="message-square" class="w-6 h-6"></i>
-          </div>
-          <h3 class="text-xl font-bold text-brand-charcoal">RSVP & Buku Tamu</h3>
-          <p class="text-xs text-brand-muted leading-relaxed">
-            Ketahui estimasi kehadiran tamu serta kumpulkan ucapan doa bahagia secara langsung di dalam website undangan.
-          </p>
-        </div>
-
-        <!-- Fitur 6 -->
-        <div class="bg-brand-cream p-7 rounded-3xl border border-brand-sand shadow-sm space-y-3">
-          <div class="w-12 h-12 rounded-2xl bg-brand-warm flex items-center justify-center text-brand-gold">
-            <i data-lucide="clock" class="w-6 h-6"></i>
-          </div>
-          <h3 class="text-xl font-bold text-brand-charcoal">Pengerjaan Super Cepat</h3>
-          <p class="text-xs text-brand-muted leading-relaxed">
-            Proses pembuatan cepat (1-2 hari kerja) setelah data lengkap, siap dibagikan melalui pesan WhatsApp atau media sosial.
-          </p>
-        </div>
       </div>
     </div>
   </section>
 
   <!-- ================= KATALOG TEMA ================= -->
-  <section id="tema" class="py-24 max-w-6xl mx-auto px-4 sm:px-6">
-    <div class="text-center max-w-2xl mx-auto mb-16">
-      <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Pilihan Desain Estetik</span>
-      <h2 class="text-3xl sm:text-5xl font-bold mt-2 text-brand-charcoal">Katalog Tema Undangan</h2>
-      <p class="text-brand-muted mt-3 text-sm">Pilih tema yang paling selaras dengan nuansa dan konsep pernikahan impianmu.</p>
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-      <!-- Tema 1: Warm Maroon (Tema Utama di.raya.in) -->
-      <div class="bg-brand-cream rounded-3xl overflow-hidden border border-brand-sand shadow-sm hover:shadow-xl hover:border-brand-gold transition-all duration-300 flex flex-col justify-between group">
-        <div class="relative aspect-[4/5] bg-brand-sand overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&auto=format&fit=crop&q=80" alt="Theme Warm Maroon" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute top-3 left-3 bg-brand-gold text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-            Tema Terfavorit
-          </div>
-        </div>
-        <div class="p-6">
-          <h3 class="text-2xl font-bold text-brand-charcoal">Warm Maroon & Beige</h3>
-          <p class="text-xs text-brand-muted mt-1">Nuansa hangat, elegan, dan estetik senada dengan identitas visual di.raya.in.</p>
-          <div class="mt-6 pt-4 border-t border-brand-sand/60 flex items-center justify-between">
-            <a href="u/demo/index.html" target="_blank" class="text-xs font-semibold text-brand-gold hover:underline flex items-center gap-1">
-              <span>Buka Demo</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-            <button onclick="selectTheme('Warm Maroon & Beige')" class="px-4 py-2 bg-brand-charcoal hover:bg-brand-gold text-white text-xs font-medium rounded-full transition-colors">
-              Pilih Tema
-            </button>
-          </div>
-        </div>
+  <section id="tema" class="py-16 bg-brand-warm/60 border-y border-brand-sand/50 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center max-w-xl mx-auto mb-10 sm:mb-14">
+        <span class="text-[11px] font-semibold tracking-widest text-brand-gold uppercase">Pilihan Desain</span>
+        <h2 class="text-2xl sm:text-4xl font-bold mt-1 text-brand-charcoal">Katalog Tema Undangan</h2>
       </div>
 
-      <!-- Tema 2: Minimalist Clean -->
-      <div class="bg-brand-cream rounded-3xl overflow-hidden border border-brand-sand shadow-sm hover:shadow-xl hover:border-brand-gold transition-all duration-300 flex flex-col justify-between group">
-        <div class="relative aspect-[4/5] bg-brand-sand overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&auto=format&fit=crop&q=80" alt="Theme Minimalist Clean" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute top-3 left-3 bg-brand-charcoal text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-            Modern
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <!-- Tema 1 -->
+        <div class="bg-brand-cream rounded-3xl overflow-hidden border border-brand-sand shadow-sm flex flex-col justify-between group">
+          <div class="relative aspect-[4/3] bg-brand-sand overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=500&auto=format&fit=crop&q=80" alt="Warm Maroon" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute top-3 left-3 bg-brand-gold text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full">
+              Paling Populer
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-bold text-brand-charcoal">Warm Maroon & Beige</h3>
+            <p class="text-xs text-brand-muted mt-1">Gaya elegan dengan nuansa hangat senada dengan di.raya.in.</p>
+            <div class="mt-4 pt-3 border-t border-brand-sand/60 flex items-center justify-between">
+              <a href="u/demo/index.html" target="_blank" class="text-xs font-semibold text-brand-gold flex items-center gap-1 hover:underline">
+                Demo <i data-lucide="external-link" class="w-3 h-3"></i>
+              </a>
+              <button onclick="pickTheme('Warm Maroon & Beige')" class="px-3.5 py-1.5 bg-brand-charcoal text-white text-xs font-medium rounded-full hover:bg-brand-gold transition-colors">
+                Pilih
+              </button>
+            </div>
           </div>
         </div>
-        <div class="p-6">
-          <h3 class="text-2xl font-bold text-brand-charcoal">Minimalist Monochrome</h3>
-          <p class="text-xs text-brand-muted mt-1">Gaya modern kontemporer dengan tipografi tegas dan tata letak minimalis.</p>
-          <div class="mt-6 pt-4 border-t border-brand-sand/60 flex items-center justify-between">
-            <a href="u/demo/index.html" target="_blank" class="text-xs font-semibold text-brand-gold hover:underline flex items-center gap-1">
-              <span>Buka Demo</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-            <button onclick="selectTheme('Minimalist Monochrome')" class="px-4 py-2 bg-brand-charcoal hover:bg-brand-gold text-white text-xs font-medium rounded-full transition-colors">
-              Pilih Tema
-            </button>
-          </div>
-        </div>
-      </div>
 
-      <!-- Tema 3: Classic Floral -->
-      <div class="bg-brand-cream rounded-3xl overflow-hidden border border-brand-sand shadow-sm hover:shadow-xl hover:border-brand-gold transition-all duration-300 flex flex-col justify-between group">
-        <div class="relative aspect-[4/5] bg-brand-sand overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&auto=format&fit=crop&q=80" alt="Theme Classic Floral" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute top-3 left-3 bg-brand-warm border border-brand-sand text-brand-charcoal text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-            Romantic
+        <!-- Tema 2 -->
+        <div class="bg-brand-cream rounded-3xl overflow-hidden border border-brand-sand shadow-sm flex flex-col justify-between group">
+          <div class="relative aspect-[4/3] bg-brand-sand overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=500&auto=format&fit=crop&q=80" alt="Minimalist Monochrome" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-bold text-brand-charcoal">Minimalist Monochrome</h3>
+            <p class="text-xs text-brand-muted mt-1">Desain kontemporer bersih dengan tipografi modern.</p>
+            <div class="mt-4 pt-3 border-t border-brand-sand/60 flex items-center justify-between">
+              <a href="u/demo/index.html" target="_blank" class="text-xs font-semibold text-brand-gold flex items-center gap-1 hover:underline">
+                Demo <i data-lucide="external-link" class="w-3 h-3"></i>
+              </a>
+              <button onclick="pickTheme('Minimalist Monochrome')" class="px-3.5 py-1.5 bg-brand-charcoal text-white text-xs font-medium rounded-full hover:bg-brand-gold transition-colors">
+                Pilih
+              </button>
+            </div>
           </div>
         </div>
-        <div class="p-6">
-          <h3 class="text-2xl font-bold text-brand-charcoal">Classic Botanical</h3>
-          <p class="text-xs text-brand-muted mt-1">Sentuhan dedaunan dan floral lembut untuk suasana pernikahan romantis di alam terbuka.</p>
-          <div class="mt-6 pt-4 border-t border-brand-sand/60 flex items-center justify-between">
-            <a href="u/demo/index.html" target="_blank" class="text-xs font-semibold text-brand-gold hover:underline flex items-center gap-1">
-              <span>Buka Demo</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-            <button onclick="selectTheme('Classic Botanical')" class="px-4 py-2 bg-brand-charcoal hover:bg-brand-gold text-white text-xs font-medium rounded-full transition-colors">
-              Pilih Tema
-            </button>
+
+        <!-- Tema 3 -->
+        <div class="bg-brand-cream rounded-3xl overflow-hidden border border-brand-sand shadow-sm flex flex-col justify-between group">
+          <div class="relative aspect-[4/3] bg-brand-sand overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=500&auto=format&fit=crop&q=80" alt="Classic Botanical" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-bold text-brand-charcoal">Classic Botanical</h3>
+            <p class="text-xs text-brand-muted mt-1">Nuansa floral dan dedaunan yang lembut untuk pernikahan alam.</p>
+            <div class="mt-4 pt-3 border-t border-brand-sand/60 flex items-center justify-between">
+              <a href="u/demo/index.html" target="_blank" class="text-xs font-semibold text-brand-gold flex items-center gap-1 hover:underline">
+                Demo <i data-lucide="external-link" class="w-3 h-3"></i>
+              </a>
+              <button onclick="pickTheme('Classic Botanical')" class="px-3.5 py-1.5 bg-brand-charcoal text-white text-xs font-medium rounded-full hover:bg-brand-gold transition-colors">
+                Pilih
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= PAKET & HARGA ================= -->
-  <section id="paket" class="py-24 bg-brand-warm/50 border-t border-brand-sand/60">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6">
-      <div class="text-center max-w-2xl mx-auto mb-16">
-        <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Pricelist Undangan</span>
-        <h2 class="text-3xl sm:text-5xl font-bold mt-2 text-brand-charcoal">Paket Undangan Digital</h2>
-        <p class="text-brand-muted mt-3 text-sm">Pilihan harga terjangkau tanpa biaya tambahan untuk jumlah tamu.</p>
+  <!-- ================= FORM PEMESANAN & DATA ACARA ================= -->
+  <section id="order" class="py-16 sm:py-24 px-4 sm:px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-10 sm:mb-12">
+        <span class="text-[11px] font-semibold tracking-widest text-brand-gold uppercase">Formulir Undangan</span>
+        <h2 class="text-2xl sm:text-4xl font-bold mt-1 text-brand-charcoal">Isi Data Pernikahan</h2>
+        <p class="text-xs sm:text-sm text-brand-muted mt-2">
+          Lengkapi formulir di bawah ini. Setelah Anda mengirim data dan melakukan transfer, admin akan segera menyetujui dan mengaktifkan tautan undangan Anda.
+        </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+      <form id="orderForm" onsubmit="handleClientOrder(event)" class="bg-brand-warm p-6 sm:p-10 rounded-3xl border border-brand-sand space-y-6 shadow-sm">
         
-        <!-- Paket Standar -->
-        <div class="bg-brand-cream rounded-3xl p-8 border border-brand-sand flex flex-col justify-between shadow-sm">
+        <!-- Paket & Tema -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <div class="text-[11px] font-bold uppercase tracking-widest text-brand-muted mb-1">Paket Akad / Resepsi</div>
-            <h3 class="text-3xl font-bold text-brand-charcoal">Single Event</h3>
-            <div class="text-2xl font-extrabold text-brand-gold mt-2">Rp49.000</div>
+            <label class="block text-xs font-semibold uppercase text-brand-muted mb-1">Pilihan Paket *</label>
+            <select id="f_package" required class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+              <option value="Full Event Package - Rp79.000">Full Event Package (Rp79.000) - Lengkap 1 Tahun</option>
+              <option value="Single Event Package - Rp49.000">Single Event Package (Rp49.000) - 6 Bulan</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase text-brand-muted mb-1">Pilihan Tema *</label>
+            <select id="f_theme" required class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+              <option value="Warm Maroon & Beige">Warm Maroon & Beige (Terpopuler)</option>
+              <option value="Minimalist Monochrome">Minimalist Monochrome</option>
+              <option value="Classic Botanical">Classic Botanical</option>
+            </select>
+          </div>
+        </div>
 
-            <ul class="space-y-3 text-xs text-brand-charcoal my-8 pt-6 border-t border-brand-sand/60">
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> <span>Masa Aktif 6 Bulan</span></li>
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> <span>Personalisasi Nama Tamu Unlimited</span></li>
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> <span>Detail Acara & Google Maps</span></li>
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> <span>Amplop Digital / Nomor Rekening</span></li>
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> <span>Buku Tamu & RSVP</span></li>
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> <span>Hitung Mundur Acara (Countdown)</span></li>
-            </ul>
+        <!-- Data Kontak & WhatsApp -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-brand-sand">
+          <div>
+            <label class="block text-xs font-semibold uppercase text-brand-muted mb-1">Nama Pemesan / Kontak *</label>
+            <input type="text" id="f_contact_name" required placeholder="Contoh: Sarah Amanda" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase text-brand-muted mb-1">Nomor WhatsApp Aktif *</label>
+            <input type="tel" id="f_contact_wa" required placeholder="Contoh: 08123456789" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+          </div>
+        </div>
+
+        <!-- Data Kedua Mempelai -->
+        <div class="space-y-4 pt-4 border-t border-brand-sand">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-brand-gold">Data Mempelai</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-brand-charcoal mb-1">Nama Lengkap Mempelai Wanita *</label>
+              <input type="text" id="f_bride_name" required placeholder="Contoh: Sarah Amanda, S.Kom" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-brand-charcoal mb-1">Orang Tua Mempelai Wanita *</label>
+              <input type="text" id="f_bride_parents" required placeholder="Contoh: Putri Bpk. Hendra & Ibu Rina" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+            </div>
           </div>
 
-          <button onclick="selectPackageOrder('Single Event (Rp49.000)')" class="w-full py-3.5 text-xs uppercase tracking-widest font-semibold rounded-full border border-brand-charcoal hover:bg-brand-charcoal hover:text-white transition-all text-center">
-            Pilih Paket Single
-          </button>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-brand-charcoal mb-1">Nama Lengkap Mempelai Pria *</label>
+              <input type="text" id="f_groom_name" required placeholder="Contoh: Rizky Pratama, S.T" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-brand-charcoal mb-1">Orang Tua Mempelai Pria *</label>
+              <input type="text" id="f_groom_parents" required placeholder="Contoh: Putra Bpk. Bambang & Ibu Dewi" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+            </div>
+          </div>
         </div>
+
+        <!-- Rangkaian Acara -->
+        <div class="space-y-4 pt-4 border-t border-brand-sand">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-brand-gold">Detail Acara & Waktu</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-brand-charcoal mb-1">Tanggal Acara *</label>
+              <input type="text" id="f_event_date" required placeholder="Contoh: Sabtu, 24 Oktober 2026" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-brand-charcoal mb-1">Waktu Akad & Resepsi *</label>
+              <input type="text" id="f_event_time" required placeholder="Contoh: Akad 08.00, Resepsi 11.00 WIB" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-brand-charcoal mb-1">Nama Tempat & Alamat Lengkap *</label>
+            <input type="text" id="f_event_venue" required placeholder="Contoh: Ballroom Hotel Grand, Jl. Raya Cianjur No. 88" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+          </div>
+        </div>
+
+        <!-- Amplop Digital -->
+        <div class="space-y-4 pt-4 border-t border-brand-sand">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-brand-gold">Amplop Digital (Tanda Kasih)</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-brand-charcoal mb-1">Nama Bank / E-Wallet</label>
+              <input type="text" id="f_bank_name" placeholder="Contoh: Bank Raya / BCA" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-brand-charcoal mb-1">Nomor Rekening</label>
+              <input type="text" id="f_bank_acc" placeholder="Contoh: 1234567890" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus
