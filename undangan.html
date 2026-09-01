@@ -3,359 +3,689 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title id="titleTag">The Wedding of Sarah & Rizky</title>
+  <title id="titleTag">The Wedding Celebration</title>
+  
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            termes: ['"TeX Gyre Termes"', '"Times New Roman"', 'Times', 'serif'],
-            sans: ['"Helvetica World"', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
+
   <style>
-    body { font-family: 'Helvetica World', 'Helvetica Neue', Helvetica, Arial, sans-serif; overflow-x: hidden; }
-    .font-termes { font-family: 'TeX Gyre Termes', 'Times New Roman', Times, serif; }
-
-    /* ================= 10 TEMA SPESIFIK BERKARAKTER UNIK (ATM WEVITATION) ================= */
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Space+Grotesk:wght@400;700&family=Caveat:wght@600&display=swap');
     
-    /* 1. Warm Maroon (Arch Dome & Romantic Serif) */
-    .theme-maroon { --bg: #FAF8F5; --card: #F4EFEA; --border: #E8DFD8; --accent: #662626; --text: #23201E; --radius: 1.5rem; }
-    .theme-maroon .theme-arch { border-radius: 9999px 9999px 1.5rem 1.5rem; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
+    .font-serif { font-family: 'Playfair Display', serif; }
+    .font-royal { font-family: 'Cinzel', serif; }
+    .font-editorial { font-family: 'Space Grotesk', sans-serif; }
+    .font-script { font-family: 'Caveat', cursive; }
 
-    /* 2. Minimalist Monochrome (Magazine Editorial Box) */
-    .theme-monochrome { --bg: #FFFFFF; --card: #F9FAFB; --border: #111827; --accent: #111827; --text: #111827; --radius: 0px; }
-    .theme-monochrome .theme-box { border-width: 2px !important; border-color: #111827 !important; border-radius: 0px !important; }
-
-    /* 3. Botanical Sage (Frosted Glass & Organic) */
-    .theme-sage { --bg: #F4F7F4; --card: rgba(255,255,255,0.7); --border: #C8D6C8; --accent: #4A5D4E; --text: #1D2A20; --radius: 2rem; }
-    .theme-sage .theme-glass { backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); }
-
-    /* 4. Royal Navy & Gold (Midnight Luxury Foil) */
-    .theme-navy { --bg: #0B1320; --card: #131E30; --border: #D4AF37; --accent: #D4AF37; --text: #F8FAFC; --radius: 1.25rem; }
-    .theme-navy .theme-gold-border { border: 2px solid #D4AF37; box-shadow: 0 0 15px rgba(212,175,55,0.15); }
-
-    /* 5. Soft Rose Blush (Polaroid Tape Style) */
-    .theme-blush { --bg: #FAF5F6; --card: #FFFFFF; --border: #F0D5D8; --accent: #C97A7E; --text: #3D2224; --radius: 1rem; }
-    .theme-blush .polaroid-shadow { box-shadow: 0 10px 20px rgba(201,122,126,0.12); }
-
-    /* 6. Rustic Terracotta (Boho Kraft Stitch) */
-    .theme-rustic { --bg: #F9F6F1; --card: #F2EBE1; --border: #7C4B2E; --accent: #7C4B2E; --text: #2E1B10; --radius: 1rem; }
-    .theme-rustic .theme-stitch { border: 2px dashed #7C4B2E; }
-
-    /* 7. Javanese Batik Sogan (Gunungan Traditional) */
-    .theme-javanese { --bg: #FBF8F2; --card: #F3ECE0; --border: #5C3A21; --accent: #5C3A21; --text: #2B180A; --radius: 1.25rem; }
-    .theme-javanese .theme-gunungan { border-top: 4px double #5C3A21; border-bottom: 4px double #5C3A21; }
-
-    /* 8. Sundanese Lilac (Melati & Silk Ribbon) */
-    .theme-lilac { --bg: #FAF8FC; --card: #F2ECF7; --border: #DCD0E8; --accent: #6B5B95; --text: #241A35; --radius: 1.75rem; }
-
-    /* 9. Emerald & Champagne (Art-Deco Velvet) */
-    .theme-emerald { --bg: #072315; --card: #0F3320; --border: #E6C787; --accent: #E6C787; --text: #F2F9F5; --radius: 0.75rem; }
-    .theme-emerald .theme-artdeco { border: 2px solid #E6C787; outline: 3px solid rgba(230,199,135,0.2); outline-offset: 4px; }
-
-    /* 10. Celestial Starry Night (Constellation Glowing) */
-    .theme-celestial { --bg: #070B14; --card: #0F172A; --border: #38BDF8; --accent: #38BDF8; --text: #F0F6FF; --radius: 1.5rem; }
-    .theme-celestial .theme-glow { box-shadow: 0 0 20px rgba(56,189,248,0.2); border: 1px solid rgba(56,189,248,0.4); }
-
-    /* Animasi Piringan Hitam Berputar */
-    @keyframes spinVinyl { 100% { transform: rotate(360deg); } }
-    .vinyl-spin { animation: spinVinyl 5s linear infinite; }
+    /* Keyframes */
+    @keyframes spinDisc { 100% { transform: rotate(360deg); } }
+    .spin-slow { animation: spinDisc 6s linear infinite; }
+    @keyframes floatSoft { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    .animate-float { animation: floatSoft 3s ease-in-out infinite; }
   </style>
 </head>
-<body id="themeBody" class="theme-maroon bg-[#18181B] flex justify-center min-h-screen antialiased">
+<body class="bg-[#121214] text-stone-800 flex justify-center min-h-screen antialiased">
 
   <audio id="bgMusic" loop preload="auto"></audio>
 
-  <!-- Frame Utama Mobile (Max Width 480px) -->
-  <main class="w-full max-w-[480px] bg-[var(--bg)] text-[var(--text)] min-h-screen shadow-2xl relative flex flex-col pb-24 transition-colors duration-500">
+  <!-- ================= FRAME UTAMA SMARTPHONE (MAX 480PX) ================= -->
+  <main class="w-full max-w-[480px] min-h-screen shadow-2xl relative flex flex-col pb-24 overflow-hidden" id="mainContainer">
+    
+    <!-- Render Layout Template Dinamis Disuntikkan Otomatis oleh JavaScript -->
+    <div id="templateRoot" class="w-full flex-col flex"></div>
 
-    <!-- ================= 1. COVER MODAL (BUKA UNDANGAN) ================= -->
-    <div id="coverModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 transition-opacity duration-700">
-      <div class="w-full max-w-sm bg-[var(--bg)] rounded-3xl p-8 text-center shadow-2xl border border-[var(--border)] flex flex-col items-center">
-        <span class="text-[10px] uppercase tracking-[0.25em] text-[var(--accent)] font-semibold mb-2">Walimatul 'Ursy</span>
-        <h1 class="font-termes text-4xl font-normal text-[var(--text)] mb-4" id="coverName">Sarah & Rizky</h1>
-
-        <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-[var(--accent)] p-1 mb-6 shadow bg-[var(--card)]">
-          <img id="coverImg" src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=500&auto=format&fit=crop&q=80" alt="Couple" class="w-full h-full object-cover rounded-full">
-        </div>
-
-        <p class="text-xs opacity-75 mb-1">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
-        <div class="bg-[var(--card)] px-5 py-2.5 rounded-2xl border border-[var(--border)] mb-6 w-full">
-          <span class="font-semibold text-sm text-[var(--accent)]">Tamu Undangan yang Berbahagia</span>
-        </div>
-
-        <button onclick="openInvitation()" class="w-full bg-[var(--accent)] text-white py-3.5 px-6 rounded-full font-medium text-xs uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform">
-          <i data-lucide="mail-open" class="w-4 h-4"></i>
-          <span>Buka Undangan</span>
-        </button>
+    <!-- Floating Audio Vinyl Player -->
+    <div onclick="toggleMusic()" class="fixed top-4 right-4 z-40 cursor-pointer flex items-center gap-2 bg-black/70 backdrop-blur-md p-1.5 pr-3 rounded-full text-white border border-white/20 shadow-xl">
+      <div id="vinylDisc" class="w-7 h-7 rounded-full bg-stone-900 border-2 border-stone-600 flex items-center justify-center">
+        <div class="w-2 h-2 rounded-full bg-amber-400"></div>
       </div>
+      <span class="text-[9px] font-bold tracking-wider uppercase" id="musicLabel">Music ON</span>
     </div>
 
-    <!-- ================= PEMUTAR PIRINGAN HITAM (VINYL RECORD) ================= -->
-    <div onclick="toggleMusic()" class="fixed top-5 right-5 z-40 cursor-pointer group flex items-center gap-2 bg-black/60 backdrop-blur-md p-1.5 pr-3 rounded-full text-white border border-white/20 shadow-lg">
-      <div id="vinylDisc" class="w-8 h-8 rounded-full bg-stone-900 border-2 border-stone-600 flex items-center justify-center relative">
-        <div class="w-2.5 h-2.5 rounded-full bg-[var(--accent)]"></div>
-      </div>
-      <span class="text-[10px] font-semibold tracking-wider" id="musicLabel">Music ON</span>
-    </div>
-
-    <!-- ================= 2. HERO SECTION ================= -->
-    <section id="sec-hero" class="pt-16 pb-12 px-6 text-center border-b border-[var(--border)]">
-      <span class="text-[10px] uppercase tracking-widest text-[var(--accent)] font-semibold bg-[var(--card)] px-3 py-1 rounded-full border border-[var(--border)]">
-        The Wedding Of
-      </span>
-      <h2 class="font-termes text-4xl sm:text-5xl font-normal text-[var(--text)] mt-4 mb-2 leading-tight" id="heroName">
-        Sarah & Rizky
-      </h2>
-      <p class="text-xs opacity-75 tracking-wider" id="heroDate">24 Oktober 2026</p>
-    </section>
-
-    <!-- ================= 3. PROFIL MEMPELAI ================= -->
-    <section id="sec-couple" class="py-14 px-6 text-center border-b border-[var(--border)] space-y-8">
-      <div class="flex flex-col items-center">
-        <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-[var(--accent)] p-1 shadow mb-3 bg-[var(--card)]">
-          <img id="brideImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80" class="w-full h-full object-cover rounded-full">
-        </div>
-        <h3 class="font-termes text-2xl font-normal text-[var(--text)]" id="brideName">Sarah Amanda</h3>
-        <p class="text-xs opacity-75 mt-1" id="brideParents">Putri Bpk. Hendra & Ibu Rina</p>
-      </div>
-
-      <div class="font-termes text-3xl text-[var(--accent)]">&</div>
-
-      <div class="flex flex-col items-center">
-        <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-[var(--accent)] p-1 shadow mb-3 bg-[var(--card)]">
-          <img id="groomImg" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=500&auto=format&fit=crop&q=80" class="w-full h-full object-cover rounded-full">
-        </div>
-        <h3 class="font-termes text-2xl font-normal text-[var(--text)]" id="groomName">Rizky Pratama</h3>
-        <p class="text-xs opacity-75 mt-1" id="groomParents">Putra Bpk. Bambang & Ibu Dewi</p>
-      </div>
-    </section>
-
-    <!-- ================= 4. WAKTU & LOKASI ACARA ================= -->
-    <section id="sec-event" class="py-14 px-6 border-b border-[var(--border)] space-y-4">
-      <div class="text-center mb-4">
-        <span class="text-[10px] uppercase tracking-widest text-[var(--accent)] font-semibold block mb-1">Save The Date</span>
-        <h3 class="font-termes text-3xl font-normal text-[var(--text)]">Waktu & Lokasi</h3>
-      </div>
-      <div class="bg-[var(--card)] border border-[var(--border)] rounded-3xl p-6 text-xs space-y-2.5">
-        <div class="flex items-center gap-2">
-          <i data-lucide="calendar" class="w-4 h-4 text-[var(--accent)]"></i>
-          <span id="eventDate">Sabtu, 24 Oktober 2026</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <i data-lucide="clock" class="w-4 h-4 text-[var(--accent)]"></i>
-          <span id="eventTime">08.00 - Selesai</span>
-        </div>
-        <div class="flex items-start gap-2 pt-1">
-          <i data-lucide="map-pin" class="w-4 h-4 text-[var(--accent)] mt-0.5 shrink-0"></i>
-          <div><strong class="block" id="eventVenue">Gedung Pertemuan</strong></div>
-        </div>
-        
-        <!-- Tombol Google Maps & Tambah ke Kalender -->
-        <div class="grid grid-cols-2 gap-2 pt-2">
-          <a id="mapsBtn" href="https://maps.google.com" target="_blank" class="inline-flex items-center justify-center gap-1 bg-white/90 text-stone-900 border border-[var(--border)] py-2 rounded-xl text-[11px] font-semibold hover:bg-white">
-            <i data-lucide="map-pin" class="w-3 h-3 text-[var(--accent)]"></i> Buka Maps
-          </a>
-          <button onclick="addToCalendar()" class="inline-flex items-center justify-center gap-1 bg-[var(--accent)] text-white py-2 rounded-xl text-[11px] font-semibold shadow">
-            <i data-lucide="calendar-plus" class="w-3 h-3"></i> Simpan Kalender
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= 5. AMPLOP DIGITAL (Sembunyi jika kosong) ================= -->
-    <section id="envelopeSection" class="py-14 px-6 border-b border-[var(--border)] text-center space-y-4">
-      <div>
-        <span class="text-[10px] uppercase tracking-widest text-[var(--accent)] font-semibold block mb-1">Tanda Kasih</span>
-        <h3 class="font-termes text-3xl font-normal text-[var(--text)]">Amplop Digital</h3>
-      </div>
-      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 text-left">
-        <div class="flex justify-between items-center mb-1">
-          <span class="text-xs font-bold text-[var(--accent)] uppercase" id="bankName">BCA</span>
-          <button onclick="copyBank()" class="px-2.5 py-1 bg-white/90 text-stone-900 border border-[var(--border)] text-[10px] rounded-lg">Salin</button>
-        </div>
-        <div class="font-mono text-base font-bold" id="bankAcc">1234567890</div>
-        <div class="text-xs opacity-75 mt-0.5" id="bankHolder">a.n. Mempelai</div>
-      </div>
-    </section>
-
-    <!-- ================= 6. BUKU TAMU & RSVP ================= -->
-    <section id="sec-rsvp" class="py-14 px-6 border-b border-[var(--border)] space-y-6">
-      <div class="text-center">
-        <span class="text-[10px] uppercase tracking-widest text-[var(--accent)] font-semibold block mb-1">Konfirmasi & Doa</span>
-        <h3 class="font-termes text-3xl font-normal text-[var(--text)]">Buku Tamu & RSVP</h3>
-      </div>
-
-      <form id="rsvpForm" onsubmit="handleWishSubmit(event)" class="bg-[var(--card)] border border-[var(--border)] rounded-3xl p-5 space-y-3.5">
-        <div>
-          <label class="block text-xs font-semibold text-[var(--text)] mb-1">Nama Anda *</label>
-          <input type="text" id="wishName" placeholder="Tuliskan nama Anda" required class="w-full text-xs px-3.5 py-2.5 bg-white/90 text-stone-900 border border-[var(--border)] rounded-xl outline-none focus:ring-2 focus:ring-[var(--accent)]">
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-[var(--text)] mb-1">Konfirmasi Kehadiran</label>
-          <select id="wishStatus" class="w-full text-xs px-3.5 py-2.5 bg-white/90 text-stone-900 border border-[var(--border)] rounded-xl outline-none focus:ring-2 focus:ring-[var(--accent)]">
-            <option value="Hadir">Hadir</option>
-            <option value="Tidak Hadir">Tidak Hadir</option>
-            <option value="Masih Ragu">Masih Ragu</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-[var(--text)] mb-1">Ucapan & Doa</label>
-          <textarea id="wishMessage" rows="3" placeholder="Tulis doa restu untuk kedua mempelai..." required class="w-full text-xs px-3.5 py-2.5 bg-white/90 text-stone-900 border border-[var(--border)] rounded-xl outline-none focus:ring-2 focus:ring-[var(--accent)] resize-none"></textarea>
-        </div>
-        <button type="submit" class="w-full bg-[var(--accent)] text-white py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow">
-          <i data-lucide="send" class="w-3.5 h-3.5"></i> Kirim Ucapan
-        </button>
-      </form>
-
-      <div id="wishesContainer" class="space-y-3 max-h-64 overflow-y-auto pr-1"></div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="pt-10 pb-6 text-center text-[10px] opacity-60">
-      Digital Invitation by <span class="font-bold text-[var(--accent)]">di.buat.in</span> by di.raya.in
-    </footer>
-
-    <!-- ================= FLOATING BOTTOM NAVIGATION BAR (KHAS WEVITATION) ================= -->
-    <nav class="fixed bottom-3 inset-x-0 z-40 max-w-[420px] mx-auto px-4">
-      <div class="bg-black/80 backdrop-blur-md text-white border border-white/20 rounded-full py-2 px-4 flex items-center justify-around shadow-2xl">
-        <a href="#sec-hero" class="flex flex-col items-center text-[9px] hover:text-[var(--accent)] transition-colors">
-          <i data-lucide="home" class="w-4 h-4"></i>
-          <span>Cover</span>
-        </a>
-        <a href="#sec-couple" class="flex flex-col items-center text-[9px] hover:text-[var(--accent)] transition-colors">
-          <i data-lucide="heart" class="w-4 h-4"></i>
-          <span>Pasangan</span>
-        </a>
-        <a href="#sec-event" class="flex flex-col items-center text-[9px] hover:text-[var(--accent)] transition-colors">
-          <i data-lucide="calendar" class="w-4 h-4"></i>
-          <span>Acara</span>
-        </a>
-        <a href="#envelopeSection" class="flex flex-col items-center text-[9px] hover:text-[var(--accent)] transition-colors">
-          <i data-lucide="gift" class="w-4 h-4"></i>
-          <span>Amplop</span>
-        </a>
-        <a href="#sec-rsvp" class="flex flex-col items-center text-[9px] hover:text-[var(--accent)] transition-colors">
-          <i data-lucide="message-circle" class="w-4 h-4"></i>
-          <span>Doa</span>
-        </a>
+    <!-- Bottom Floating Quick Navigation -->
+    <nav class="fixed bottom-3 inset-x-0 z-40 max-w-[400px] mx-auto px-4">
+      <div class="bg-black/85 backdrop-blur-md text-white border border-white/20 rounded-full py-2 px-4 flex items-center justify-around shadow-2xl text-[9px]">
+        <a href="#sec-cover" class="flex flex-col items-center hover:text-amber-400"><i data-lucide="home" class="w-4 h-4"></i><span>Cover</span></a>
+        <a href="#sec-couple" class="flex flex-col items-center hover:text-amber-400"><i data-lucide="heart" class="w-4 h-4"></i><span>Pasangan</span></a>
+        <a href="#sec-event" class="flex flex-col items-center hover:text-amber-400"><i data-lucide="calendar" class="w-4 h-4"></i><span>Acara</span></a>
+        <a href="#sec-gift" class="flex flex-col items-center hover:text-amber-400"><i data-lucide="gift" class="w-4 h-4"></i><span>Amplop</span></a>
+        <a href="#sec-rsvp" class="flex flex-col items-center hover:text-amber-400"><i data-lucide="message-circle" class="w-4 h-4"></i><span>RSVP</span></a>
       </div>
     </nav>
 
   </main>
 
   <script>
-    lucide.createIcons();
-
-    // Mapping Musik Cadangan Berkecepatan Tinggi
-    const verifiedAudioUrls = {
-      'romantic-piano': 'https://commondatastorage.googleapis.com/codeskulptor-demos/riceracer_assets/music/win.ogg',
-      'thousand-years': 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3',
-      'until-i-found-you': 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverending_Story.mp3',
-      'payung-teduh-akad': 'https://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.ogg',
-      'islamic-nasyid': 'https://commondatastorage.googleapis.com/codeskulptor-demos/riceracer_assets/fx/engine_8.ogg'
+    // Database 10 Profil Demo
+    const demoData = {
+      maroon: {
+        theme: "maroon",
+        bride: "Sarah Amanda", brideParents: "Putri tercinta Bpk. Hendra & Ibu Rina",
+        groom: "Rizky Pratama", groomParents: "Putra tercinta Bpk. Bambang & Ibu Dewi",
+        date: "Sabtu, 24 Oktober 2026", time: "08.00 WIB - Selesai",
+        venue: "Balai Pertemuan Farida, Cianjur",
+        mapsUrl: "https://maps.google.com/?q=Cianjur",
+        bankName: "Bank Raya", bankAcc: "1234567890", bankHolder: "Rizky Pratama",
+        bridePhoto: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80",
+        groomPhoto: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=500&auto=format&fit=crop&q=80"
+      },
+      monochrome: {
+        theme: "monochrome",
+        bride: "CLARA VALERIE", brideParents: "Daughter of Mr. David & Mrs. Helena",
+        groom: "ALEXANDER JAMES", groomParents: "Son of Mr. Robert & Mrs. Victoria",
+        date: "SUNDAY, 15 NOV 2026", time: "18.00 - 22.00 WIB",
+        venue: "The Glass House Ballroom, Jakarta",
+        mapsUrl: "https://maps.google.com/?q=Jakarta",
+        bankName: "BCA", bankAcc: "8899001122", bankHolder: "Alexander James",
+        bridePhoto: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&auto=format&fit=crop&q=80",
+        groomPhoto: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&auto=format&fit=crop&q=80"
+      },
+      sage: {
+        theme: "sage",
+        bride: "Nadia Larasati", brideParents: "Putri Bpk. Suryo & Ibu Wati",
+        groom: "Bagas Wicaksono", groomParents: "Putra Bpk. Hartono & Ibu Sri",
+        date: "Sabtu, 12 Desember 2026", time: "09.00 - 14.00 WIB",
+        venue: "Pine Hill Botanical Garden, Lembang",
+        mapsUrl: "https://maps.google.com/?q=Lembang",
+        bankName: "Bank Mandiri", bankAcc: "1310098765432", bankHolder: "Bagas Wicaksono",
+        bridePhoto: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&auto=format&fit=crop&q=80",
+        groomPhoto: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=500&auto=format&fit=crop&q=80"
+      },
+      navy: {
+        theme: "navy",
+        bride: "Putri Aurelia", brideParents: "Putri Bpk. Ir. Danu & Ibu Maya",
+        groom: "Reza Mahendra", groomParents: "Putra Bpk. Kol. Aris & Ibu Rini",
+        date: "Sabtu, 08 Agustus 2026", time: "19.00 - Selesai",
+        venue: "Grand Royal Palace Ballroom, Surabaya",
+        mapsUrl: "https://maps.google.com/?q=Surabaya",
+        bankName: "BCA Priority", bankAcc: "0123456789", bankHolder: "Reza Mahendra",
+        bridePhoto: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&auto=format&fit=crop&q=80",
+        groomPhoto: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500&auto=format&fit=crop&q=80"
+      },
+      blush: {
+        theme: "blush",
+        bride: "Moniqa Anindya", brideParents: "Putri Bpk. Anton & Ibu Siska",
+        groom: "Fauzi Hidayat", groomParents: "Putra Bpk. Rahman & Ibu Nur",
+        date: "Minggu, 20 September 2026", time: "10.00 - 15.00 WIB",
+        venue: "Villa Danau Cinta, Cipanas Puncak",
+        mapsUrl: "https://maps.google.com/?q=Cipanas",
+        bankName: "Bank Raya", bankAcc: "9988776655", bankHolder: "Moniqa Anindya",
+        bridePhoto: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=80",
+        groomPhoto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=80"
+      },
+      rustic: {
+        theme: "rustic",
+        bride: "Tania Kirana", brideParents: "Putri Bpk. Gunawan & Ibu Endang",
+        groom: "Dimas Anggara", groomParents: "Putra Bpk. Yudi & Ibu Lestari",
+        date: "Sabtu, 17 Oktober 2026", time: "15.30 - 20.00 WIB",
+        venue: "Boho Wood Forest Eco Sanctuary, Sukabumi",
+        mapsUrl: "https://maps.google.com/?q=Sukabumi",
+        bankName: "BSI", bankAcc: "7123456789", bankHolder: "Dimas Anggara",
+        bridePhoto: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80",
+        groomPhoto: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=500&auto=format&fit=crop&q=80"
+      },
+      javanese: {
+        theme: "javanese",
+        bride: "Sekar Ayuningtyas", brideParents: "Putri Bpk. K.R.T. Hardjodiningrat & Ibu Kustiyah",
+        groom: "Raden Danang Prasetyo", groomParents: "Putra Bpk. R.M. Sasongko & Ibu Sulastri",
+        date: "Sabtu Kliwon, 05 September 2026", time: "09.00 - Selesai",
+        venue: "Pendopo Ageng Pura Mangkunegaran, Solo",
+        mapsUrl: "https://maps.google.com/?q=Solo",
+        bankName: "BCA", bankAcc: "4455667788", bankHolder: "Raden Danang",
+        bridePhoto: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&auto=format&fit=crop&q=80",
+        groomPhoto: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&auto=format&fit=crop&q=80"
+      },
+      lilac: {
+        theme: "lilac",
+        bride: "Dinda Salsabila", brideParents: "Putri Bpk. H. Asep & Ibu Hj. Eni",
+        groom: "Gilang Permana", groomParents: "Putra Bpk. H. Cecep & Ibu Hj. Teti",
+        date: "Minggu, 11 Oktober 2026", time: "08.00 - 14.00 WIB",
+        venue: "Bale Siliwangi Convention Hall, Cianjur",
+        mapsUrl: "https://maps.google.com/?q=Cianjur",
+        bankName: "BJB", bankAcc: "001122334455", bankHolder: "Gilang Permana",
+        bridePhoto: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&auto=format&fit=crop&q=80",
+        groomPhoto: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500&auto=format&fit=crop&q=80"
+      },
+      emerald: {
+        theme: "emerald",
+        bride: "Natasha Caroline", brideParents: "Daughter of Mr. Henry & Mrs. Linda",
+        groom: "William Tanaka", groomParents: "Son of Mr. Michael & Mrs. Jenny",
+        date: "Saturday, 28 Nov 2026", time: "18.30 - Late",
+        venue: "The Emerald Conservatory & Ballroom, Bali",
+        mapsUrl: "https://maps.google.com/?q=Bali",
+        bankName: "Bank Danamon", bankAcc: "3600123456", bankHolder: "William Tanaka",
+        bridePhoto: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&auto=format&fit=crop&q=80",
+        groomPhoto: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=500&auto=format&fit=crop&q=80"
+      },
+      celestial: {
+        theme: "celestial",
+        bride: "Luna Kirana", brideParents: "Putri Bpk. Angkasa & Ibu Dewi",
+        groom: "Bintang Pratama", groomParents: "Putra Bpk. Surya & Ibu Kartika",
+        date: "Sabtu, 19 Desember 2026", time: "17.00 - 21.00 WIB",
+        venue: "Sky Dome Star Observatory, Lembang",
+        mapsUrl: "https://maps.google.com/?q=Lembang",
+        bankName: "Bank Jago", bankAcc: "1029384756", bankHolder: "Bintang Pratama",
+        bridePhoto: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=80",
+        groomPhoto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=80"
+      }
     };
-    const defaultAudio = verifiedAudioUrls['romantic-piano'];
 
-    // 10 Profil Demo Eksklusif
-    const demoProfiles = {
-      maroon: { bride: "Sarah Amanda", groom: "Rizky Pratama", date: "Sabtu, 24 Oktober 2026", venue: "Gedung Balai Pertemuan Farida, Cianjur" },
-      monochrome: { bride: "Clara Valerie", groom: "Alexander James", date: "Minggu, 15 November 2026", venue: "The Glass House Ballroom, Jakarta" },
-      sage: { bride: "Nadia Larasati", groom: "Bagas Wicaksono", date: "Sabtu, 12 Desember 2026", venue: "Pine Hill Eco Garden, Bandung" },
-      navy: { bride: "Putri Aurelia", groom: "Reza Mahendra", date: "Sabtu, 08 Agustus 2026", venue: "Grand Royal Ballroom Hotel, Surabaya" },
-      blush: { bride: "Moniqa Anindya", groom: "Fauzi Hidayat", date: "Minggu, 20 September 2026", venue: "Villa Danau Cinta, Cipanas" },
-      rustic: { bride: "Tania Kirana", groom: "Dimas Anggara", date: "Sabtu, 17 Oktober 2026", venue: "Boho Wood Forest Sanctuary, Sukabumi" },
-      javanese: { bride: "Sekar Ayuningtyas", groom: "Raden Danang", date: "Sabtu, 05 September 2026", venue: "Pendopo Ageng Kraton, Surakarta" },
-      lilac: { bride: "Dinda Salsabila", groom: "Gilang Permana", date: "Minggu, 11 Oktober 2026", venue: "Gedung Bale Siliwangi, Cianjur" },
-      emerald: { bride: "Natasha Caroline", groom: "William Tanaka", date: "Sabtu, 28 November 2026", venue: "Emerald Botanical Sanctuary, Bali" },
-      celestial: { bride: "Luna Kirana", groom: "Bintang Pratama", date: "Sabtu, 19 Desember 2026", venue: "Sky Dome Star Observatory, Lembang" }
-    };
-
+    // Pemuatan Parameter & Data
     const urlParams = new URLSearchParams(window.location.search);
-    const demoParam = urlParams.get('demo');
+    const demoTheme = urlParams.get('demo') || 'maroon';
     const idSlug = urlParams.get('id');
-    let orderData = null;
 
-    if (demoParam) {
-      const themeId = demoParam === '1' ? 'maroon' : demoParam;
-      document.getElementById('themeBody').className = `theme-${themeId} bg-[#18181B] flex justify-center min-h-screen antialiased`;
-      
-      const demo = demoProfiles[themeId] || demoProfiles.maroon;
-      document.getElementById('titleTag').innerText = `Demo: The Wedding of ${demo.bride} & ${demo.groom}`;
-      document.getElementById('coverName').innerText = `${demo.bride} & ${demo.groom}`;
-      document.getElementById('heroName').innerText = `${demo.bride} & ${demo.groom}`;
-      document.getElementById('heroDate').innerText = demo.date;
-      document.getElementById('brideName').innerText = demo.bride;
-      document.getElementById('groomName').innerText = demo.groom;
-      document.getElementById('eventDate').innerText = demo.date;
-      document.getElementById('eventVenue').innerText = demo.venue;
-      document.getElementById('mapsBtn').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(demo.venue)}`;
-      document.getElementById('bgMusic').src = defaultAudio;
-    } else if (idSlug) {
+    let currentData = demoData[demoTheme] || demoData.maroon;
+    if (idSlug) {
       const stored = localStorage.getItem('dbi_order_' + idSlug);
       if (stored) {
-        try { orderData = JSON.parse(stored); } catch(e){}
+        try { currentData = JSON.parse(stored); } catch(e){}
       }
     }
 
-    if (orderData) {
-      if (orderData.theme) {
-        document.getElementById('themeBody').className = `theme-${orderData.theme} bg-[#18181B] flex justify-center min-h-screen antialiased`;
+    // Mesin Pembangkit HTML untuk 10 Desain yang Benar-Benar Berbeda
+    function buildTemplate(d) {
+      const theme = d.theme || 'maroon';
+
+      // ================= 1. TEMPLATE MONOCHROME MAGAZINE EDITORIAL =================
+      if (theme === 'monochrome') {
+        return `
+          <div class="bg-white text-black min-h-screen font-editorial">
+            <!-- Cover Modal -->
+            <div id="coverModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black text-white p-4">
+              <div class="w-full max-w-sm border-2 border-white p-6 text-center space-y-6">
+                <div class="flex justify-between text-[9px] uppercase tracking-widest border-b border-white pb-2">
+                  <span>SPECIAL ISSUE</span><span>VOL. 2026</span>
+                </div>
+                <h1 class="text-4xl font-bold uppercase tracking-tight">${d.bride} & ${d.groom}</h1>
+                <p class="text-xs text-stone-400">THE OFFICIAL WEDDING INVITATION</p>
+                <button onclick="openInvitation()" class="w-full py-4 bg-white text-black font-bold uppercase tracking-widest text-xs hover:bg-stone-200">
+                  ENTER INVITATION ↗
+                </button>
+              </div>
+            </div>
+
+            <!-- Header Magazine Bar -->
+            <section id="sec-cover" class="p-6 border-b-2 border-black space-y-4">
+              <div class="flex justify-between items-center text-[10px] font-bold tracking-widest border-b border-black pb-2">
+                <span>EST. 2026</span><span>THE WEDDING CHRONICLE</span><span>ISSUE NO. 01</span>
+              </div>
+              <h1 class="text-5xl font-black uppercase tracking-tighter leading-none">${d.bride}<br>& ${d.groom}</h1>
+              <p class="text-xs uppercase font-bold tracking-widest text-stone-600">${d.date} • ${d.venue}</p>
+            </section>
+
+            <!-- Couple Split Grid -->
+            <section id="sec-couple" class="grid grid-cols-2 border-b-2 border-black divide-x-2 divide-black">
+              <div class="p-4 space-y-2">
+                <img src="${d.bridePhoto}" class="w-full aspect-[3/4] object-cover grayscale contrast-125">
+                <h3 class="font-bold text-sm uppercase">${d.bride}</h3>
+                <p class="text-[10px] text-stone-600">${d.brideParents}</p>
+              </div>
+              <div class="p-4 space-y-2">
+                <img src="${d.groomPhoto}" class="w-full aspect-[3/4] object-cover grayscale contrast-125">
+                <h3 class="font-bold text-sm uppercase">${d.groom}</h3>
+                <p class="text-[10px] text-stone-600">${d.groomParents}</p>
+              </div>
+            </section>
+
+            <!-- Event Ticket Pass -->
+            <section id="sec-event" class="p-6 border-b-2 border-black space-y-4">
+              <div class="text-[10px] font-bold uppercase tracking-widest bg-black text-white px-3 py-1 inline-block">ADMISSION TICKET</div>
+              <div class="border-2 border-dashed border-black p-4 space-y-2">
+                <div class="flex justify-between text-xs font-bold"><span>DATE:</span><span>${d.date}</span></div>
+                <div class="flex justify-between text-xs font-bold"><span>TIME:</span><span>${d.time}</span></div>
+                <div class="text-xs pt-2 border-t border-black"><strong>VENUE:</strong> ${d.venue}</div>
+              </div>
+              <a href="${d.mapsUrl || 'https://maps.google.com'}" target="_blank" class="block w-full py-3 bg-black text-white text-center text-xs font-bold uppercase tracking-widest hover:bg-stone-800">
+                GOOGLE MAPS DIRECTIONS ↗
+              </a>
+            </section>
+
+            <!-- Amplop Cashless Minimal -->
+            ${d.bankAcc ? `
+            <section id="sec-gift" class="p-6 border-b-2 border-black space-y-2 text-center">
+              <span class="text-[10px] font-bold uppercase tracking-widest">DIGITAL ENVELOPE</span>
+              <div class="border border-black p-4 flex justify-between items-center">
+                <div class="text-left"><div class="text-xs font-bold">${d.bankName}</div><div class="font-mono text-sm">${d.bankAcc}</div><div class="text-[10px] text-stone-500">a.n. ${d.bankHolder}</div></div>
+                <button onclick="copyBankAcc('${d.bankAcc}')" class="px-3 py-1.5 bg-black text-white text-xs font-bold">COPY</button>
+              </div>
+            </section>` : ''}
+
+            <!-- RSVP Minimal -->
+            <section id="sec-rsvp" class="p-6 space-y-4">
+              <span class="text-[10px] font-bold uppercase tracking-widest">RSVP & GUESTBOOK</span>
+              <form onsubmit="handleGuestWish(event)" class="space-y-3">
+                <input type="text" id="wName" required placeholder="GUEST NAME" class="w-full p-3 border-2 border-black text-xs font-bold uppercase outline-none">
+                <select id="wStatus" class="w-full p-3 border-2 border-black text-xs font-bold uppercase outline-none"><option value="Hadir">ATTENDING</option><option value="Tidak Hadir">UNABLE TO ATTEND</option></select>
+                <textarea id="wMsg" required rows="3" placeholder="YOUR WISHES..." class="w-full p-3 border-2 border-black text-xs uppercase outline-none resize-none"></textarea>
+                <button class="w-full py-3 bg-black text-white text-xs font-bold uppercase tracking-widest">SEND MESSAGE</button>
+              </form>
+              <div id="wishesFeed" class="space-y-2 pt-2"></div>
+            </section>
+          </div>
+        `;
       }
-      document.getElementById('titleTag').innerText = `The Wedding of ${orderData.bride} & ${orderData.groom}`;
-      document.getElementById('coverName').innerText = `${orderData.bride} & ${orderData.groom}`;
-      document.getElementById('heroName').innerText = `${orderData.bride} & ${orderData.groom}`;
-      document.getElementById('heroDate').innerText = orderData.date;
-      document.getElementById('brideName').innerText = orderData.bride;
-      document.getElementById('brideParents').innerText = orderData.brideParents;
-      document.getElementById('groomName').innerText = orderData.groom;
-      document.getElementById('groomParents').innerText = orderData.groomParents;
-      document.getElementById('eventDate').innerText = orderData.date;
-      document.getElementById('eventTime').innerText = orderData.time;
-      document.getElementById('eventVenue').innerText = orderData.venue;
 
-      const mapsUrl = orderData.mapsUrl && orderData.mapsUrl.trim() !== '' 
-        ? orderData.mapsUrl 
-        : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(orderData.venue)}`;
-      document.getElementById('mapsBtn').href = mapsUrl;
+      // ================= 2. TEMPLATE JAVANESE HERITAGE (GUNUNGAN & BATIK SOGAN) =================
+      if (theme === 'javanese') {
+        return `
+          <div class="bg-[#FAF5ED] text-[#3D2514] min-h-screen font-serif">
+            <!-- Cover Modal -->
+            <div id="coverModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4">
+              <div class="w-full max-w-sm bg-[#FAF5ED] rounded-3xl p-8 text-center border-4 double border-[#8C5E32] space-y-4 shadow-2xl">
+                <div class="text-3xl text-[#8C5E32]">ꦱꦸꦒꦼꦁꦫꦮꦸꦃ</div>
+                <div class="text-[10px] uppercase font-bold tracking-widest text-[#8C5E32]">Pawiwahan Ageng</div>
+                <h1 class="text-3xl font-bold text-[#3D2514]">${d.bride} & ${d.groom}</h1>
+                <p class="text-xs italic text-stone-600">Katur dhumateng Panjenenganipun Bapak/Ibu/Sedherek</p>
+                <button onclick="openInvitation()" class="w-full py-3.5 bg-[#5C3A21] text-[#FAF5ED] font-sans font-bold text-xs uppercase tracking-widest rounded-full shadow-lg hover:bg-[#3D2514]">
+                  Bikak Serat Ulem (Buka Undangan)
+                </button>
+              </div>
+            </div>
 
-      if (orderData.bridePhoto) document.getElementById('brideImg').src = orderData.bridePhoto;
-      if (orderData.groomPhoto) document.getElementById('groomImg').src = orderData.groomPhoto;
+            <!-- Hero Section Keraton -->
+            <section id="sec-cover" class="py-14 px-6 text-center border-b-2 border-[#D4B896] bg-[radial-gradient(#E8D7C0_1px,transparent_1px)] [background-size:16px_16px]">
+              <div class="w-16 h-16 mx-auto mb-2 text-[#8C5E32] flex items-center justify-center">
+                <i data-lucide="crown" class="w-10 h-10"></i>
+              </div>
+              <div class="text-xs uppercase tracking-[0.3em] font-bold text-[#8C5E32]">Pawiwahan Ageng</div>
+              <h1 class="text-4xl font-bold text-[#3D2514] my-3 leading-tight">${d.bride}<br><span class="text-2xl text-[#8C5E32]">&</span><br>${d.groom}</h1>
+              <p class="text-xs font-sans text-stone-700">${d.date} • ${d.venue}</p>
+            </section>
 
-      let audioUrl = defaultAudio;
-      if (orderData.musicChoice && verifiedAudioUrls[orderData.musicChoice]) {
-        audioUrl = verifiedAudioUrls[orderData.musicChoice];
+            <!-- Pasangan Penganten -->
+            <section id="sec-couple" class="py-12 px-6 text-center space-y-8 border-b border-[#D4B896]">
+              <div class="space-y-3">
+                <div class="w-28 h-28 mx-auto rounded-full p-1.5 border-2 border-[#8C5E32] bg-white shadow-md overflow-hidden">
+                  <img src="${d.bridePhoto}" class="w-full h-full object-cover rounded-full">
+                </div>
+                <h3 class="text-2xl font-bold text-[#3D2514]">${d.bride}</h3>
+                <p class="text-xs text-stone-600 font-sans">${d.brideParents}</p>
+              </div>
+              <div class="text-2xl text-[#8C5E32] font-bold">ꦏꦭꦶꦪꦤ꧀</div>
+              <div class="space-y-3">
+                <div class="w-28 h-28 mx-auto rounded-full p-1.5 border-2 border-[#8C5E32] bg-white shadow-md overflow-hidden">
+                  <img src="${d.groomPhoto}" class="w-full h-full object-cover rounded-full">
+                </div>
+                <h3 class="text-2xl font-bold text-[#3D2514]">${d.groom}</h3>
+                <p class="text-xs text-stone-600 font-sans">${d.groomParents}</p>
+              </div>
+            </section>
+
+            <!-- Rangkaian Adat & Acara -->
+            <section id="sec-event" class="py-12 px-6 border-b border-[#D4B896] space-y-4">
+              <div class="text-center mb-4">
+                <span class="text-[10px] font-bold uppercase tracking-widest text-[#8C5E32]">Wanci & Papan Palakrama</span>
+                <h2 class="text-2xl font-bold text-[#3D2514]">Rangkaian Acara</h2>
+              </div>
+              <div class="bg-white/80 border-2 border-[#8C5E32] rounded-2xl p-5 space-y-3 text-xs font-sans shadow-sm">
+                <div><strong class="text-sm font-serif text-[#8C5E32] block">Ijab Qobul & Resepsi</strong></div>
+                <div>🗓️ ${d.date}</div>
+                <div>⏰ ${d.time}</div>
+                <div>📍 <strong>${d.venue}</strong></div>
+                <a href="${d.mapsUrl || 'https://maps.google.com'}" target="_blank" class="inline-block w-full py-2.5 bg-[#5C3A21] text-white text-center rounded-xl text-xs font-bold hover:bg-[#3D2514]">
+                  Petunjuk Margi Google Maps ↗
+                </a>
+              </div>
+            </section>
+
+            <!-- Amplop Digital Jawa -->
+            ${d.bankAcc ? `
+            <section id="sec-gift" class="py-10 px-6 border-b border-[#D4B896] text-center space-y-3">
+              <span class="text-[10px] font-bold uppercase tracking-widest text-[#8C5E32]">Kado & Tanda Tresna</span>
+              <div class="bg-white p-4 rounded-2xl border border-[#D4B896] text-left text-xs font-sans">
+                <div class="flex justify-between items-center"><span class="font-bold text-[#8C5E32]">${d.bankName}</span><button onclick="copyBankAcc('${d.bankAcc}')" class="px-2 py-1 bg-[#FAF5ED] border border-[#D4B896] rounded text-[10px] font-bold">Salin</button></div>
+                <div class="text-base font-bold font-mono my-1">${d.bankAcc}</div>
+                <div class="text-stone-600">a.n. ${d.bankHolder}</div>
+              </div>
+            </section>` : ''}
+
+            <!-- RSVP & Buku Tamu -->
+            <section id="sec-rsvp" class="py-12 px-6 space-y-4">
+              <div class="text-center"><h2 class="text-2xl font-bold text-[#3D2514]">Donga Pangestu & Buku Tamu</h2></div>
+              <form onsubmit="handleGuestWish(event)" class="bg-white p-5 rounded-2xl border border-[#D4B896] space-y-3 font-sans text-xs">
+                <input type="text" id="wName" required placeholder="Asma Panjenengan (Nama Lengkap)" class="w-full p-2.5 bg-[#FAF5ED] border border-[#D4B896] rounded-xl outline-none">
+                <select id="wStatus" class="w-full p-2.5 bg-[#FAF5ED] border border-[#D4B896] rounded-xl outline-none"><option value="Hadir">Kepareng Rawuh (Hadir)</option><option value="Tidak Hadir">Mboten Saged Rawuh (Tidak Hadir)</option></select>
+                <textarea id="wMsg" required rows="3" placeholder="Serat Donga Pangestu..." class="w-full p-2.5 bg-[#FAF5ED] border border-[#D4B896] rounded-xl outline-none resize-none"></textarea>
+                <button class="w-full py-3 bg-[#5C3A21] text-white font-bold rounded-xl">Kirim Donga Restu</button>
+              </form>
+              <div id="wishesFeed" class="space-y-2"></div>
+            </section>
+          </div>
+        `;
       }
-      document.getElementById('bgMusic').src = audioUrl;
 
-      if (!orderData.bankAcc || orderData.bankAcc.trim() === '') {
-        document.getElementById('envelopeSection').classList.add('hidden');
-      } else {
-        document.getElementById('envelopeSection').classList.remove('hidden');
-        document.getElementById('bankName').innerText = orderData.bankName || "BCA";
-        document.getElementById('bankAcc').innerText = orderData.bankAcc;
-        document.getElementById('bankHolder').innerText = `a.n. ${orderData.bankHolder || orderData.groom}`;
+      // ================= 3. TEMPLATE ROYAL NAVY & GOLD (MIDNIGHT LUXURY MONOGRAM) =================
+      if (theme === 'navy') {
+        return `
+          <div class="bg-[#0A111E] text-[#F8FAFC] min-h-screen font-royal">
+            <!-- Cover Modal -->
+            <div id="coverModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4">
+              <div class="w-full max-w-sm bg-[#101B2E] rounded-3xl p-8 text-center border-2 border-[#D4AF37] space-y-5 shadow-[0_0_30px_rgba(212,175,55,0.25)]">
+                <div class="w-14 h-14 mx-auto rounded-full border border-[#D4AF37] flex items-center justify-center text-xl font-bold text-[#D4AF37]">
+                  ${d.bride[0]}&${d.groom[0]}
+                </div>
+                <div class="text-[9px] uppercase tracking-[0.3em] text-[#D4AF37]">The Royal Proclamation</div>
+                <h1 class="text-3xl font-normal text-white">${d.bride}<br>&<br>${d.groom}</h1>
+                <p class="text-[11px] font-sans text-stone-300">Cordially Requests The Pleasure of Your Company</p>
+                <button onclick="openInvitation()" class="w-full py-3.5 bg-gradient-to-r from-[#D4AF37] to-[#AA820A] text-black font-sans font-bold text-xs uppercase tracking-widest rounded-full shadow-lg">
+                  Open Invitation
+                </button>
+              </div>
+            </div>
+
+            <!-- Hero Section -->
+            <section id="sec-cover" class="py-16 px-6 text-center border-b border-[#D4AF37]/30 bg-gradient-to-b from-[#132238] to-[#0A111E]">
+              <div class="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37] mb-2">Solemnization of Matrimony</div>
+              <h1 class="text-4xl sm:text-5xl font-normal text-white my-4 leading-tight">${d.bride}<br><span class="text-2xl text-[#D4AF37]">&</span><br>${d.groom}</h1>
+              <p class="text-xs font-sans text-[#D4AF37]">${d.date} • ${d.venue}</p>
+            </section>
+
+            <!-- Couple Section -->
+            <section id="sec-couple" class="py-14 px-6 text-center space-y-8 border-b border-[#D4AF37]/30 font-sans">
+              <div class="space-y-3">
+                <div class="w-24 h-24 mx-auto rounded-full p-1 border-2 border-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.3)] overflow-hidden">
+                  <img src="${d.bridePhoto}" class="w-full h-full object-cover rounded-full">
+                </div>
+                <h3 class="text-2xl font-royal text-[#D4AF37]">${d.bride}</h3>
+                <p class="text-xs text-stone-400">${d.brideParents}</p>
+              </div>
+              <div class="text-2xl font-royal text-[#D4AF37]">&</div>
+              <div class="space-y-3">
+                <div class="w-24 h-24 mx-auto rounded-full p-1 border-2 border-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.3)] overflow-hidden">
+                  <img src="${d.groomPhoto}" class="w-full h-full object-cover rounded-full">
+                </div>
+                <h3 class="text-2xl font-royal text-[#D4AF37]">${d.groom}</h3>
+                <p class="text-xs text-stone-400">${d.groomParents}</p>
+              </div>
+            </section>
+
+            <!-- Event Section -->
+            <section id="sec-event" class="py-14 px-6 border-b border-[#D4AF37]/30 space-y-4 font-sans text-xs">
+              <div class="text-center font-royal mb-4"><span class="text-[10px] text-[#D4AF37] uppercase tracking-widest">Time & Location</span><h2 class="text-2xl text-white">Event Schedule</h2></div>
+              <div class="bg-[#132238] border border-[#D4AF37] rounded-2xl p-6 space-y-3 text-stone-200">
+                <div class="font-royal text-sm font-bold text-[#D4AF37]">Holy Matrimony & Reception</div>
+                <div>🗓️ ${d.date}</div>
+                <div>⏰ ${d.time}</div>
+                <div>📍 <strong>${d.venue}</strong></div>
+                <a href="${d.mapsUrl || 'https://maps.google.com'}" target="_blank" class="inline-block w-full py-2.5 bg-[#D4AF37] text-black text-center rounded-xl font-bold hover:bg-[#AA820A]">
+                  Open Navigation in Maps ↗
+                </a>
+              </div>
+            </section>
+
+            <!-- Amplop Digital -->
+            ${d.bankAcc ? `
+            <section id="sec-gift" class="py-10 px-6 border-b border-[#D4AF37]/30 text-center space-y-3 font-sans">
+              <span class="text-[10px] font-royal uppercase tracking-widest text-[#D4AF37]">Wedding Gift</span>
+              <div class="bg-[#132238] p-4 rounded-2xl border border-[#D4AF37]/50 text-left text-xs">
+                <div class="flex justify-between items-center"><span class="font-bold text-[#D4AF37]">${d.bankName}</span><button onclick="copyBankAcc('${d.bankAcc}')" class="px-2.5 py-1 bg-[#D4AF37] text-black rounded text-[10px] font-bold">Copy</button></div>
+                <div class="text-base font-bold font-mono text-white my-1">${d.bankAcc}</div>
+                <div class="text-stone-400">a.n. ${d.bankHolder}</div>
+              </div>
+            </section>` : ''}
+
+            <!-- RSVP -->
+            <section id="sec-rsvp" class="py-12 px-6 space-y-4 font-sans text-xs">
+              <div class="text-center font-royal"><h2 class="text-2xl text-white">RSVP & Blessing Wishes</h2></div>
+              <form onsubmit="handleGuestWish(event)" class="bg-[#132238] p-5 rounded-2xl border border-[#D4AF37]/50 space-y-3">
+                <input type="text" id="wName" required placeholder="Your Full Name" class="w-full p-2.5 bg-[#0A111E] border border-[#D4AF37]/50 rounded-xl text-white outline-none">
+                <select id="wStatus" class="w-full p-2.5 bg-[#0A111E] border border-[#D4AF37]/50 rounded-xl text-white outline-none"><option value="Hadir">Will Attend</option><option value="Tidak Hadir">Regretfully Cannot Attend</option></select>
+                <textarea id="wMsg" required rows="3" placeholder="Warm Wishes for the Couple..." class="w-full p-2.5 bg-[#0A111E] border border-[#D4AF37]/50 rounded-xl text-white outline-none resize-none"></textarea>
+                <button class="w-full py-3 bg-[#D4AF37] text-black font-bold rounded-xl uppercase tracking-wider">Send Blessing</button>
+              </form>
+              <div id="wishesFeed" class="space-y-2"></div>
+            </section>
+          </div>
+        `;
       }
+
+      // ================= 4. TEMPLATE SAGE BOTANICAL GLASSHOUSE =================
+      if (theme === 'sage') {
+        return `
+          <div class="bg-[#EEF4EE] text-[#223525] min-h-screen font-sans">
+            <div id="coverModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+              <div class="w-full max-w-sm bg-white/90 backdrop-blur-lg rounded-3xl p-8 text-center border border-[#A7BEA9] space-y-4 shadow-2xl">
+                <span class="text-[10px] uppercase font-bold tracking-widest text-[#4A5D4E]">🌿 Botanical Garden Wedding</span>
+                <h1 class="font-serif text-3xl font-bold text-[#223525]">${d.bride} & ${d.groom}</h1>
+                <p class="text-xs text-stone-600">You are cordially invited to celebrate our wedding day</p>
+                <button onclick="openInvitation()" class="w-full py-3.5 bg-[#4A5D4E] text-white font-bold text-xs uppercase tracking-widest rounded-2xl shadow hover:bg-[#38483B]">
+                  Open Invitation
+                </button>
+              </div>
+            </div>
+
+            <!-- Hero Glass -->
+            <section id="sec-cover" class="pt-16 pb-12 px-6 text-center border-b border-[#C8D8C9]">
+              <span class="text-[10px] uppercase font-bold tracking-widest bg-white/80 border border-[#A7BEA9] px-3.5 py-1 rounded-full text-[#4A5D4E]">🌿 The Wedding Of</span>
+              <h1 class="font-serif text-4xl sm:text-5xl font-bold text-[#223525] my-4 leading-tight">${d.bride} & ${d.groom}</h1>
+              <p class="text-xs text-stone-600">${d.date} • ${d.venue}</p>
+            </section>
+
+            <!-- Couple Glass Cards -->
+            <section id="sec-couple" class="py-12 px-6 space-y-6 border-b border-[#C8D8C9] text-center">
+              <div class="bg-white/70 backdrop-blur-md p-5 rounded-3xl border border-[#C8D8C9] shadow-sm flex items-center gap-4 text-left">
+                <img src="${d.bridePhoto}" class="w-20 h-20 rounded-2xl object-cover shrink-0">
+                <div><h3 class="font-serif text-xl font-bold text-[#223525]">${d.bride}</h3><p class="text-xs text-stone-600">${d.brideParents}</p></div>
+              </div>
+              <div class="bg-white/70 backdrop-blur-md p-5 rounded-3xl border border-[#C8D8C9] shadow-sm flex items-center gap-4 text-left">
+                <img src="${d.groomPhoto}" class="w-20 h-20 rounded-2xl object-cover shrink-0">
+                <div><h3 class="font-serif text-xl font-bold text-[#223525]">${d.groom}</h3><p class="text-xs text-stone-600">${d.groomParents}</p></div>
+              </div>
+            </section>
+
+            <!-- Event Details -->
+            <section id="sec-event" class="py-12 px-6 border-b border-[#C8D8C9] space-y-4 text-xs">
+              <div class="text-center"><span class="text-[10px] font-bold uppercase text-[#4A5D4E]">Save The Date</span><h2 class="font-serif text-2xl font-bold text-[#223525]">Wedding Schedule</h2></div>
+              <div class="bg-white/80 p-5 rounded-3xl border border-[#C8D8C9] space-y-2.5">
+                <div>🗓️ <strong>${d.date}</strong></div>
+                <div>⏰ ${d.time}</div>
+                <div>📍 ${d.venue}</div>
+                <a href="${d.mapsUrl || 'https://maps.google.com'}" target="_blank" class="block w-full py-2.5 bg-[#4A5D4E] text-white text-center font-bold rounded-xl mt-2">Open Google Maps ↗</a>
+              </div>
+            </section>
+
+            <!-- Amplop -->
+            ${d.bankAcc ? `
+            <section id="sec-gift" class="py-10 px-6 border-b border-[#C8D8C9] text-center space-y-3 text-xs">
+              <span class="text-[10px] font-bold uppercase text-[#4A5D4E]">Digital Gift</span>
+              <div class="bg-white/80 p-4 rounded-2xl border border-[#C8D8C9] text-left">
+                <div class="flex justify-between items-center font-bold text-[#4A5D4E]"><span>${d.bankName}</span><button onclick="copyBankAcc('${d.bankAcc}')" class="px-2 py-1 bg-[#EEF4EE] border border-[#A7BEA9] rounded">Copy</button></div>
+                <div class="text-sm font-bold font-mono my-1">${d.bankAcc}</div>
+                <div class="text-stone-600">a.n. ${d.bankHolder}</div>
+              </div>
+            </section>` : ''}
+
+            <!-- RSVP -->
+            <section id="sec-rsvp" class="py-12 px-6 space-y-4 text-xs">
+              <div class="text-center"><h2 class="font-serif text-2xl font-bold text-[#223525]">RSVP & Wishes</h2></div>
+              <form onsubmit="handleGuestWish(event)" class="bg-white/80 p-5 rounded-3xl border border-[#C8D8C9] space-y-3">
+                <input type="text" id="wName" required placeholder="Your Name" class="w-full p-2.5 bg-[#EEF4EE] rounded-xl outline-none">
+                <select id="wStatus" class="w-full p-2.5 bg-[#EEF4EE] rounded-xl outline-none"><option value="Hadir">Attending</option><option value="Tidak Hadir">Cannot Attend</option></select>
+                <textarea id="wMsg" required rows="3" placeholder="Warm Wishes..." class="w-full p-2.5 bg-[#EEF4EE] rounded-xl outline-none resize-none"></textarea>
+                <button class="w-full py-3 bg-[#4A5D4E] text-white font-bold rounded-xl">Send RSVP</button>
+              </form>
+              <div id="wishesFeed" class="space-y-2"></div>
+            </section>
+          </div>
+        `;
+      }
+
+      // ================= 5. TEMPLATE SCRAPBOOK POLAROID ROMANCE (BLUSH) =================
+      if (theme === 'blush') {
+        return `
+          <div class="bg-[#FFF5F6] text-[#4A282E] min-h-screen font-sans">
+            <div id="coverModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+              <div class="w-full max-w-sm bg-white rounded-3xl p-6 text-center border-2 border-dashed border-[#E5A8B0] space-y-4 shadow-xl">
+                <span class="text-xs font-script text-xl text-[#C96876]">💌 You are invited!</span>
+                <h1 class="font-script text-4xl text-[#C96876]">${d.bride} & ${d.groom}</h1>
+                <img src="${d.bridePhoto}" class="w-32 h-32 mx-auto object-cover rounded-2xl shadow border-4 border-white rotate-[-3deg]">
+                <button onclick="openInvitation()" class="w-full py-3 bg-[#C96876] text-white font-bold text-xs uppercase tracking-wider rounded-2xl shadow hover:bg-[#B35260]">
+                  Open Invitation ✨
+                </button>
+              </div>
+            </div>
+
+            <!-- Hero Scrapbook -->
+            <section id="sec-cover" class="pt-14 pb-10 px-6 text-center border-b border-[#F0CDD2]">
+              <span class="font-script text-2xl text-[#C96876]">Our Love Story Begins</span>
+              <h1 class="font-script text-5xl text-[#C96876] my-2">${d.bride} & ${d.groom}</h1>
+              <p class="text-xs text-stone-500">${d.date} • ${d.venue}</p>
+            </section>
+
+            <!-- Polaroid Couple Cards -->
+            <section id="sec-couple" class="py-12 px-6 space-y-8 border-b border-[#F0CDD2] text-center">
+              <div class="bg-white p-4 pb-6 shadow-md rounded-2xl border border-stone-200 rotate-[-2deg] max-w-xs mx-auto space-y-2">
+                <img src="${d.bridePhoto}" class="w-full aspect-square object-cover rounded-xl">
+                <h3 class="font-script text-2xl text-[#C96876] font-bold">${d.bride}</h3>
+                <p class="text-xs text-stone-500">${d.brideParents}</p>
+              </div>
+              <div class="bg-white p-4 pb-6 shadow-md rounded-2xl border border-stone-200 rotate-[2deg] max-w-xs mx-auto space-y-2">
+                <img src="${d.groomPhoto}" class="w-full aspect-square object-cover rounded-xl">
+                <h3 class="font-script text-2xl text-[#C96876] font-bold">${d.groom}</h3>
+                <p class="text-xs text-stone-500">${d.groomParents}</p>
+              </div>
+            </section>
+
+            <!-- Event Card -->
+            <section id="sec-event" class="py-12 px-6 border-b border-[#F0CDD2] space-y-4 text-xs">
+              <div class="text-center"><span class="font-script text-2xl text-[#C96876]">Save The Date</span><h2 class="text-xl font-bold">The Big Day</h2></div>
+              <div class="bg-white p-5 rounded-2xl border border-[#F0CDD2] space-y-2.5 shadow-sm">
+                <div>📅 <strong>${d.date}</strong></div>
+                <div>⏰ ${d.time}</div>
+                <div>📍 ${d.venue}</div>
+                <a href="${d.mapsUrl || 'https://maps.google.com'}" target="_blank" class="block w-full py-2 bg-[#C96876] text-white text-center rounded-xl font-bold">Directions on Google Maps ↗</a>
+              </div>
+            </section>
+
+            <!-- Amplop -->
+            ${d.bankAcc ? `
+            <section id="sec-gift" class="py-10 px-6 border-b border-[#F0CDD2] text-center space-y-3 text-xs">
+              <span class="font-script text-2xl text-[#C96876]">Wedding Gift</span>
+              <div class="bg-white p-4 rounded-2xl border border-[#F0CDD2] text-left">
+                <div class="flex justify-between font-bold text-[#C96876]"><span>${d.bankName}</span><button onclick="copyBankAcc('${d.bankAcc}')" class="px-2 py-1 bg-[#FFF5F6] border border-[#F0CDD2] rounded text-[10px]">Copy</button></div>
+                <div class="font-mono text-sm font-bold my-1">${d.bankAcc}</div>
+                <div class="text-stone-500">a.n. ${d.bankHolder}</div>
+              </div>
+            </section>` : ''}
+
+            <!-- RSVP -->
+            <section id="sec-rsvp" class="py-12 px-6 space-y-4 text-xs">
+              <div class="text-center"><h2 class="font-script text-3xl text-[#C96876]">RSVP & Love Wishes</h2></div>
+              <form onsubmit="handleGuestWish(event)" class="bg-white p-5 rounded-2xl border border-[#F0CDD2] space-y-3 shadow-sm">
+                <input type="text" id="wName" required placeholder="Your Name" class="w-full p-2.5 bg-[#FFF5F6] rounded-xl outline-none">
+                <select id="wStatus" class="w-full p-2.5 bg-[#FFF5F6] rounded-xl outline-none"><option value="Hadir">Attending</option><option value="Tidak Hadir">Cannot Attend</option></select>
+                <textarea id="wMsg" required rows="3" placeholder="Write love wishes..." class="w-full p-2.5 bg-[#FFF5F6] rounded-xl outline-none resize-none"></textarea>
+                <button class="w-full py-2.5 bg-[#C96876] text-white font-bold rounded-xl">Send RSVP</button>
+              </form>
+              <div id="wishesFeed" class="space-y-2"></div>
+            </section>
+          </div>
+        `;
+      }
+
+      // ================= DEFAULT & TEMPLATE LAINNYA (WARM MAROON ARCH LUXURY) =================
+      return `
+        <div class="bg-[#FAF8F5] text-[#23201E] min-h-screen font-serif">
+          <!-- Cover Modal -->
+          <div id="coverModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4">
+            <div class="w-full max-w-sm bg-[#FAF8F5] rounded-3xl p-8 text-center border border-[#E8DFD8] space-y-4 shadow-2xl">
+              <span class="text-[10px] uppercase font-bold tracking-widest text-[#662626]">Walimatul 'Ursy</span>
+              <h1 class="text-4xl font-normal text-[#23201E]">${d.bride} & ${d.groom}</h1>
+              <div class="w-24 h-24 mx-auto rounded-full overflow-hidden border-2 border-[#662626] p-1 bg-[#F4EFEA]">
+                <img src="${d.bridePhoto}" class="w-full h-full object-cover rounded-full">
+              </div>
+              <p class="text-xs text-stone-500 font-sans">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+              <div class="bg-[#F4EFEA] p-2.5 rounded-2xl border border-[#E8DFD8] text-xs font-bold text-[#662626]">Tamu Undangan yang Berbahagia</div>
+              <button onclick="openInvitation()" class="w-full py-3.5 bg-[#662626] text-white font-sans font-bold text-xs uppercase tracking-widest rounded-full shadow hover:bg-[#4D1B1B]">
+                Buka Undangan
+              </button>
+            </div>
+          </div>
+
+          <!-- Hero Arch Section -->
+          <section id="sec-cover" class="pt-16 pb-12 px-6 text-center border-b border-[#E8DFD8]">
+            <span class="text-[10px] font-sans uppercase tracking-widest text-[#662626] bg-[#F4EFEA] px-3.5 py-1 rounded-full border border-[#E8DFD8]">The Wedding Of</span>
+            <h1 class="text-4xl sm:text-5xl font-normal my-4 leading-tight">${d.bride}<br>&<br>${d.groom}</h1>
+            <p class="text-xs font-sans text-stone-500">${d.date} • ${d.venue}</p>
+          </section>
+
+          <!-- Couple -->
+          <section id="sec-couple" class="py-14 px-6 text-center space-y-8 border-b border-[#E8DFD8]">
+            <div class="space-y-3">
+              <div class="w-24 h-24 mx-auto rounded-full p-1 border-2 border-[#662626] shadow bg-[#F4EFEA] overflow-hidden">
+                <img src="${d.bridePhoto}" class="w-full h-full object-cover rounded-full">
+              </div>
+              <h3 class="text-2xl font-normal">${d.bride}</h3>
+              <p class="text-xs font-sans text-stone-500">${d.brideParents}</p>
+            </div>
+            <div class="text-2xl text-[#662626]">&</div>
+            <div class="space-y-3">
+              <div class="w-24 h-24 mx-auto rounded-full p-1 border-2 border-[#662626] shadow bg-[#F4EFEA] overflow-hidden">
+                <img src="${d.groomPhoto}" class="w-full h-full object-cover rounded-full">
+              </div>
+              <h3 class="text-2xl font-normal">${d.groom}</h3>
+              <p class="text-xs font-sans text-stone-500">${d.groomParents}</p>
+            </div>
+          </section>
+
+          <!-- Event -->
+          <section id="sec-event" class="py-14 px-6 border-b border-[#E8DFD8] space-y-4 font-sans text-xs">
+            <div class="text-center font-serif mb-4"><span class="text-[10px] uppercase tracking-widest text-[#662626]">Save The Date</span><h2 class="text-2xl font-normal">Rangkaian Acara</h2></div>
+            <div class="bg-[#F4EFEA] border border-[#E8DFD8] rounded-3xl p-6 space-y-2.5">
+              <div>🗓️ <strong>${d.date}</strong></div>
+              <div>⏰ ${d.time}</div>
+              <div>📍 ${d.venue}</div>
+              <a href="${d.mapsUrl || 'https://maps.google.com'}" target="_blank" class="block w-full py-2.5 bg-white border border-[#E8DFD8] text-center font-bold rounded-xl mt-2">Buka Petunjuk Arah Maps ↗</a>
+            </div>
+          </section>
+
+          <!-- Amplop -->
+          ${d.bankAcc ? `
+          <section id="sec-gift" class="py-12 px-6 border-b border-[#E8DFD8] text-center space-y-3 font-sans text-xs">
+            <span class="text-[10px] font-serif uppercase tracking-widest text-[#662626]">Tanda Kasih</span>
+            <div class="bg-[#F4EFEA] p-4 rounded-2xl border border-[#E8DFD8] text-left">
+              <div class="flex justify-between font-bold text-[#662626]"><span>${d.bankName}</span><button onclick="copyBankAcc('${d.bankAcc}')" class="px-2 py-1 bg-white border border-[#E8DFD8] rounded text-[10px]">Salin</button></div>
+              <div class="text-sm font-bold font-mono my-1">${d.bankAcc}</div>
+              <div class="text-stone-500">a.n. ${d.bankHolder}</div>
+            </div>
+          </section>` : ''}
+
+          <!-- RSVP -->
+          <section id="sec-rsvp" class="py-12 px-6 space-y-4 font-sans text-xs">
+            <div class="text-center font-serif"><h2 class="text-2xl font-normal">Buku Tamu & Doa Restu</h2></div>
+            <form onsubmit="handleGuestWish(event)" class="bg-[#F4EFEA] p-5 rounded-3xl border border-[#E8DFD8] space-y-3">
+              <input type="text" id="wName" required placeholder="Nama Lengkap" class="w-full p-2.5 bg-white border border-[#E8DFD8] rounded-xl outline-none">
+              <select id="wStatus" class="w-full p-2.5 bg-white border border-[#E8DFD8] rounded-xl outline-none"><option value="Hadir">Hadir</option><option value="Tidak Hadir">Tidak Hadir</option></select>
+              <textarea id="wMsg" required rows="3" placeholder="Tulis doa restu..." class="w-full p-2.5 bg-white border border-[#E8DFD8] rounded-xl outline-none resize-none"></textarea>
+              <button class="w-full py-3 bg-[#662626] text-white font-bold rounded-xl">Kirim Ucapan</button>
+            </form>
+            <div id="wishesFeed" class="space-y-2"></div>
+          </section>
+        </div>
+      `;
     }
 
+    // Inisialisasi & Render
+    document.getElementById('templateRoot').innerHTML = buildTemplate(currentData);
+    document.getElementById('titleTag').innerText = `The Wedding of ${currentData.bride} & ${currentData.groom}`;
+    lucide.createIcons();
+
+    // Kontrol Musik & Buka Undangan
     const bgMusic = document.getElementById('bgMusic');
     let isPlaying = false;
 
     function openInvitation() {
       const modal = document.getElementById('coverModal');
-      modal.classList.add('opacity-0', 'pointer-events-none');
-      setTimeout(() => modal.classList.add('hidden'), 700);
-
+      if (modal) modal.classList.add('hidden');
+      
+      // Menggunakan link audio stabil
+      bgMusic.src = 'https://commondatastorage.googleapis.com/codeskulptor-demos/riceracer_assets/music/win.ogg';
       bgMusic.play().then(() => {
         isPlaying = true;
-        document.getElementById('vinylDisc').classList.add('vinyl-spin');
-        document.getElementById('musicLabel').innerText = "Music ON";
+        document.getElementById('vinylDisc').classList.add('spin-slow');
       }).catch(() => {});
     }
 
@@ -365,59 +695,49 @@
       if (isPlaying) {
         bgMusic.pause();
         isPlaying = false;
-        disc.classList.remove('vinyl-spin');
+        disc.classList.remove('spin-slow');
         label.innerText = "Music OFF";
       } else {
         bgMusic.play();
         isPlaying = true;
-        disc.classList.add('vinyl-spin');
+        disc.classList.add('spin-slow');
         label.innerText = "Music ON";
       }
     }
 
-    function copyBank() {
-      const text = document.getElementById('bankAcc').innerText;
-      navigator.clipboard.writeText(text).then(() => alert('Nomor rekening disalin!'));
+    function copyBankAcc(acc) {
+      navigator.clipboard.writeText(acc).then(() => alert('Nomor rekening ' + acc + ' berhasil disalin!'));
     }
 
-    function addToCalendar() {
-      const title = encodeURIComponent(document.getElementById('titleTag').innerText);
-      const location = encodeURIComponent(document.getElementById('eventVenue').innerText);
-      const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&location=${location}`;
-      window.open(url, '_blank');
-    }
-
-    let wishesList = [
-      { name: "Keluarga Besar Bpk. Hendra", status: "Hadir", message: "Semoga menjadi keluarga yang sakinah, mawaddah, warahmah." }
+    let wishes = [
+      { name: "Keluarga Besar Bpk. Hendra", status: "Hadir", msg: "Barakallah, semoga menjadi keluarga sakinah mawaddah warahmah." }
     ];
 
     function renderWishes() {
-      const container = document.getElementById('wishesContainer');
-      container.innerHTML = '';
-      wishesList.forEach(w => {
+      const box = document.getElementById('wishesFeed');
+      if (!box) return;
+      box.innerHTML = '';
+      wishes.forEach(w => {
         const item = document.createElement('div');
-        item.className = "bg-white/90 text-stone-900 border border-[var(--border)] rounded-2xl p-3.5 shadow-sm text-xs space-y-1";
+        item.className = "bg-white/80 border border-stone-300 p-3 rounded-xl text-xs space-y-1";
         item.innerHTML = `
-          <div class="flex justify-between items-center">
-            <strong>${w.name}</strong>
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${w.status === 'Hadir' ? 'bg-emerald-100 text-emerald-800' : 'bg-stone-200 text-stone-600'}">${w.status}</span>
-          </div>
-          <p class="text-stone-600 pt-0.5">${w.message}</p>
+          <div class="flex justify-between items-center"><strong>${w.name}</strong><span class="text-[10px] px-2 py-0.5 rounded font-bold ${w.status === 'Hadir' ? 'bg-emerald-100 text-emerald-800' : 'bg-stone-200 text-stone-600'}">${w.status}</span></div>
+          <p class="text-stone-600">${w.msg}</p>
         `;
-        container.appendChild(item);
+        box.appendChild(item);
       });
     }
 
-    function handleWishSubmit(e) {
+    function handleGuestWish(e) {
       e.preventDefault();
-      const name = document.getElementById('wishName').value.trim();
-      const status = document.getElementById('wishStatus').value;
-      const message = document.getElementById('wishMessage').value.trim();
-      if (!name || !message) return;
-      wishesList.unshift({ name, status, message });
+      const name = document.getElementById('wName').value.trim();
+      const status = document.getElementById('wStatus').value;
+      const msg = document.getElementById('wMsg').value.trim();
+      if (!name || !msg) return;
+      wishes.unshift({ name, status, msg });
       renderWishes();
-      document.getElementById('wishName').value = '';
-      document.getElementById('wishMessage').value = '';
+      document.getElementById('wName').value = '';
+      document.getElementById('wMsg').value = '';
     }
 
     renderWishes();
