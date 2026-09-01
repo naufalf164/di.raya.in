@@ -2,7 +2,7 @@
 <html lang="id" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>di.buat.in — Undangan Digital Elegan by di.raya.in</title>
 
   <!-- Tailwind CSS CDN -->
@@ -39,17 +39,27 @@
       background-color: #FAF8F5;
       color: #23201E;
       font-family: 'Helvetica World', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      overflow-x: hidden;
     }
     .font-termes {
       font-family: 'TeX Gyre Termes', 'Times New Roman', Times, serif;
+    }
+    /* Mencegah zoom otomatis pada input form iOS */
+    input, select, textarea {
+      font-size: 16px !important;
+    }
+    @media (min-width: 640px) {
+      input, select, textarea {
+        font-size: 14px !important;
+      }
     }
   </style>
 </head>
 <body class="bg-brand-cream text-brand-charcoal antialiased flex flex-col min-h-screen">
 
   <!-- ================= TOP BAR ================= -->
-  <div class="bg-brand-gold text-white text-[11px] sm:text-xs py-2 px-4 text-center font-medium tracking-wider uppercase">
-    ✨ Layanan Undangan Pernikahan Digital Elegan by di.raya.in
+  <div class="bg-brand-gold text-white text-[10px] sm:text-xs py-2 px-3 text-center font-medium tracking-wider uppercase">
+    ✨ Layanan Undangan Digital Pernikahan by di.raya.in
   </div>
 
   <!-- ================= NAVBAR ================= -->
@@ -59,144 +69,191 @@
       <!-- Logo -->
       <div class="flex items-center gap-2">
         <a href="dibuatin.html" class="text-2xl sm:text-3xl font-bold tracking-tight text-brand-charcoal">
-          di.buat.in<span class="text-brand-gold"></span>
+          di.buat.in<span class="text-brand-gold">.</span>
         </a>
-        <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest bg-brand-warm border border-brand-sand px-2 py-0.5 rounded text-brand-gold">
+        <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider bg-brand-warm border border-brand-sand px-2 py-0.5 rounded text-brand-gold">
           by di.raya.in
         </span>
       </div>
 
-      <!-- Desktop Navigation -->
-      <nav class="hidden md:flex items-center gap-6 text-xs sm:text-sm font-medium text-brand-muted">
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-brand-muted">
         <a href="#fitur" class="hover:text-brand-gold transition-colors">Fitur</a>
-        <a href="#tema" class="hover:text-brand-gold transition-colors">Tema</a>
-        <a href="#paket" class="hover:text-brand-gold transition-colors">Paket & Harga</a>
+        <a href="#tema" class="hover:text-brand-gold transition-colors">Katalog Tema</a>
+        <a href="#paket" class="hover:text-brand-gold transition-colors">Paket Harga</a>
         <a href="u/demo/index.html" target="_blank" class="text-brand-gold font-bold flex items-center gap-1">
           <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
           <span>Live Demo</span>
         </a>
       </nav>
 
-      <!-- Action Buttons -->
+      <!-- Buttons -->
       <div class="flex items-center gap-2">
-        <a href="index.html" class="px-3 py-1.5 sm:px-4 sm:py-2 border border-brand-sand bg-brand-warm hover:bg-brand-sand text-brand-charcoal text-xs font-semibold rounded-full transition-all flex items-center gap-1">
+        <a href="index.html" class="px-3 py-1.5 border border-brand-sand bg-brand-warm text-brand-charcoal text-xs font-semibold rounded-full flex items-center gap-1">
           <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-          <span class="hidden sm:inline">Web Utama</span>
+          <span class="hidden sm:inline">Web di.raya.in</span>
         </a>
-        <a href="#order" class="px-4 py-1.5 sm:px-5 sm:py-2 bg-brand-gold text-white text-xs uppercase tracking-wider font-semibold rounded-full hover:bg-brand-goldDark transition-all">
-          Buat Sekarang
+        <a href="#order" class="px-4 py-2 bg-brand-gold text-white text-xs uppercase tracking-wider font-semibold rounded-full hover:bg-brand-goldDark transition-all">
+          Buat
         </a>
-        <!-- Mobile Toggle Button -->
-        <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-xl bg-brand-warm border border-brand-sand text-brand-charcoal">
-          <i data-lucide="menu" class="w-5 h-5"></i>
+        <button id="hamburgerBtn" onclick="toggleMenu()" aria-label="Menu" class="md:hidden p-2 rounded-xl bg-brand-warm border border-brand-sand text-brand-charcoal">
+          <i id="hamburgerIcon" data-lucide="menu" class="w-5 h-5"></i>
         </button>
       </div>
     </div>
 
-    <!-- Mobile Dropdown Menu -->
-    <div id="mobileMenu" class="hidden md:hidden bg-brand-cream border-b border-brand-sand px-6 py-4 space-y-3 shadow-lg">
-      <a href="#fitur" onclick="toggleMobileMenu()" class="block text-sm font-medium text-brand-charcoal">Fitur Unggulan</a>
-      <a href="#tema" onclick="toggleMobileMenu()" class="block text-sm font-medium text-brand-charcoal">Katalog Tema</a>
-      <a href="#paket" onclick="toggleMobileMenu()" class="block text-sm font-medium text-brand-charcoal">Paket & Harga</a>
-      <a href="u/demo/index.html" target="_blank" class="block text-sm font-bold text-brand-gold">Lihat Live Demo ↗</a>
-      <a href="admin.html" class="block text-xs text-brand-muted pt-2 border-t border-brand-sand">Login Admin</a>
+    <!-- Mobile Dropdown -->
+    <div id="mobileDropdown" class="hidden md:hidden bg-brand-cream border-b border-brand-sand px-5 py-4 space-y-3 shadow-xl">
+      <a href="#fitur" onclick="toggleMenu()" class="block text-sm font-medium text-brand-charcoal py-1">Fitur Unggulan</a>
+      <a href="#tema" onclick="toggleMenu()" class="block text-sm font-medium text-brand-charcoal py-1">Katalog Tema</a>
+      <a href="#paket" onclick="toggleMenu()" class="block text-sm font-medium text-brand-charcoal py-1">Paket & Harga</a>
+      <a href="u/demo/index.html" target="_blank" class="block text-sm font-bold text-brand-gold py-1">Lihat Live Demo ↗</a>
+      <div class="pt-2 border-t border-brand-sand">
+        <a href="admin.html" class="block text-xs text-brand-muted">Login Panel Admin ↗</a>
+      </div>
     </div>
   </header>
 
   <!-- ================= HERO SECTION ================= -->
   <section class="py-12 sm:py-20 px-4 sm:px-6 text-center">
     <div class="max-w-4xl mx-auto">
-      <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-warm border border-brand-sand text-[11px] font-semibold tracking-wider uppercase text-brand-gold mb-4 sm:mb-6">
-        <i data-lucide="sparkles" class="w-3 h-3"></i>
-        <span>Wedding Invitation Generator</span>
+      <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-warm border border-brand-sand text-[10px] sm:text-xs font-semibold tracking-wider uppercase text-brand-gold mb-4">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+        <span>Wedding Invitation Platform</span>
       </div>
 
-      <h1 class="font-termes text-3xl sm:text-5xl md:text-6xl font-normal leading-tight text-brand-charcoal mb-4 sm:mb-6">
-        Undangan pernikahan digital yang <span class="italic font-semibold text-brand-gold">anggun, cepat, & otomatis</span>.
+      <h1 class="font-termes text-3xl sm:text-5xl md:text-6xl font-normal leading-tight text-brand-charcoal mb-4">
+        Undangan pernikahan digital yang <span class="italic font-semibold text-brand-gold">anggun & siap sebar</span>.
       </h1>
 
-      <p class="text-brand-muted text-xs sm:text-base max-w-xl mx-auto mb-8 sm:mb-10 leading-relaxed">
-        Lengkapi momen bahagiamu dengan undangan website modern. Fitur nama tamu tanpa batas, amplop digital, buku tamu online, dan integrasi peta.
+      <p class="text-brand-muted text-xs sm:text-base max-w-lg mx-auto mb-8 leading-relaxed">
+        Bagikan kabar bahagia dengan nama tamu tanpa batas, musik latar, amplop digital, dan petunjuk arah Google Maps.
       </p>
 
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
-        <a href="u/demo/index.html" target="_blank" class="w-full sm:w-auto px-6 py-3.5 bg-brand-charcoal text-white font-medium text-xs sm:text-sm rounded-full hover:bg-brand-gold transition-all shadow-md inline-flex items-center justify-center gap-2">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-xs sm:max-w-md mx-auto">
+        <a href="u/demo/index.html" target="_blank" class="w-full sm:w-auto px-6 py-3 bg-brand-charcoal text-white font-medium text-xs sm:text-sm rounded-full hover:bg-brand-gold transition-all shadow inline-flex items-center justify-center gap-2">
           <i data-lucide="eye" class="w-4 h-4"></i>
           <span>Lihat Live Demo</span>
         </a>
-        <a href="#order" class="w-full sm:w-auto px-6 py-3.5 bg-brand-gold text-white font-medium text-xs sm:text-sm rounded-full hover:bg-brand-goldDark transition-all shadow-md inline-flex items-center justify-center gap-2">
+        <a href="#order" class="w-full sm:w-auto px-6 py-3 bg-brand-gold text-white font-medium text-xs sm:text-sm rounded-full hover:bg-brand-goldDark transition-all shadow inline-flex items-center justify-center gap-2">
           <i data-lucide="edit-3" class="w-4 h-4"></i>
-          <span>Isi Data & Buat Undangan</span>
+          <span>Buat Undangan</span>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FITUR SECTION ================= -->
+  <section id="fitur" class="py-14 bg-brand-warm/60 border-y border-brand-sand/60 px-4 sm:px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center max-w-md mx-auto mb-10">
+        <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Fitur Lengkap</span>
+        <h2 class="text-2xl sm:text-3xl font-bold mt-1 text-brand-charcoal">Kenapa di.buat.in?</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+        <div class="bg-brand-cream p-5 sm:p-6 rounded-2xl border border-brand-sand space-y-2">
+          <div class="w-10 h-10 rounded-xl bg-brand-warm flex items-center justify-center text-brand-gold mb-2">
+            <i data-lucide="users" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-base font-bold text-brand-charcoal">Nama Tamu Unlimited</h3>
+          <p class="text-xs text-brand-muted">Kustomisasi link khusus untuk setiap tamu tanpa batas jumlah.</p>
+        </div>
+
+        <div class="bg-brand-cream p-5 sm:p-6 rounded-2xl border border-brand-sand space-y-2">
+          <div class="w-10 h-10 rounded-xl bg-brand-warm flex items-center justify-center text-brand-gold mb-2">
+            <i data-lucide="music" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-base font-bold text-brand-charcoal">Musik Latar Romantis</h3>
+          <p class="text-xs text-brand-muted">Lagu romantis otomatis terputar saat tamu membuka amplop undangan.</p>
+        </div>
+
+        <div class="bg-brand-cream p-5 sm:p-6 rounded-2xl border border-brand-sand space-y-2">
+          <div class="w-10 h-10 rounded-xl bg-brand-warm flex items-center justify-center text-brand-gold mb-2">
+            <i data-lucide="credit-card" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-base font-bold text-brand-charcoal">Amplop Digital & QRIS</h3>
+          <p class="text-xs text-brand-muted">Nomor rekening bank & dompet digital dengan tombol salin 1-klik.</p>
+        </div>
+
+        <div class="bg-brand-cream p-5 sm:p-6 rounded-2xl border border-brand-sand space-y-2">
+          <div class="w-10 h-10 rounded-xl bg-brand-warm flex items-center justify-center text-brand-gold mb-2">
+            <i data-lucide="map-pin" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-base font-bold text-brand-charcoal">Petunjuk Arah Maps</h3>
+          <p class="text-xs text-brand-muted">Terhubung dengan Google Maps agar tamu mudah menemukan lokasi acara.</p>
+        </div>
+
+        <div class="bg-brand-cream p-5 sm:p-6 rounded-2xl border border-brand-sand space-y-2">
+          <div class="w-10 h-10 rounded-xl bg-brand-warm flex items-center justify-center text-brand-gold mb-2">
+            <i data-lucide="message-square" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-base font-bold text-brand-charcoal">RSVP & Ucapan Doa</h3>
+          <p class="text-xs text-brand-muted">Konfirmasi kehadiran serta kolom ucapan doa dari para tamu.</p>
+        </div>
+
+        <div class="bg-brand-cream p-5 sm:p-6 rounded-2xl border border-brand-sand space-y-2">
+          <div class="w-10 h-10 rounded-xl bg-brand-warm flex items-center justify-center text-brand-gold mb-2">
+            <i data-lucide="clock" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-base font-bold text-brand-charcoal">Proses Cepat 1 Hari</h3>
+          <p class="text-xs text-brand-muted">Undangan langsung diterbitkan setelah pembayaran Anda dikonfirmasi.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ================= KATALOG TEMA ================= -->
-  <section id="tema" class="py-16 bg-brand-warm/60 border-y border-brand-sand/50 px-4 sm:px-6">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center max-w-xl mx-auto mb-10 sm:mb-14">
-        <span class="text-[11px] font-semibold tracking-widest text-brand-gold uppercase">Pilihan Desain</span>
-        <h2 class="text-2xl sm:text-4xl font-bold mt-1 text-brand-charcoal">Katalog Tema Undangan</h2>
+  <section id="tema" class="py-16 px-4 sm:px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center max-w-md mx-auto mb-10">
+        <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Desain Eksklusif</span>
+        <h2 class="text-2xl sm:text-3xl font-bold mt-1 text-brand-charcoal">Pilihan Tema Undangan</h2>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <!-- Tema 1 -->
-        <div class="bg-brand-cream rounded-3xl overflow-hidden border border-brand-sand shadow-sm flex flex-col justify-between group">
-          <div class="relative aspect-[4/3] bg-brand-sand overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=500&auto=format&fit=crop&q=80" alt="Warm Maroon" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-            <div class="absolute top-3 left-3 bg-brand-gold text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full">
-              Paling Populer
-            </div>
+        <div class="bg-brand-cream rounded-3xl overflow-hidden border border-brand-sand shadow-sm flex flex-col justify-between">
+          <div class="relative aspect-[4/3] bg-brand-sand">
+            <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=500&auto=format&fit=crop&q=80" alt="Warm Maroon" class="w-full h-full object-cover">
+            <span class="absolute top-2.5 left-2.5 bg-brand-gold text-white text-[9px] font-bold px-2 py-0.5 rounded-full">Favorit</span>
           </div>
-          <div class="p-5">
-            <h3 class="text-lg font-bold text-brand-charcoal">Warm Maroon & Beige</h3>
-            <p class="text-xs text-brand-muted mt-1">Gaya elegan dengan nuansa hangat senada dengan di.raya.in.</p>
-            <div class="mt-4 pt-3 border-t border-brand-sand/60 flex items-center justify-between">
-              <a href="u/demo/index.html" target="_blank" class="text-xs font-semibold text-brand-gold flex items-center gap-1 hover:underline">
-                Demo <i data-lucide="external-link" class="w-3 h-3"></i>
-              </a>
-              <button onclick="pickTheme('Warm Maroon & Beige')" class="px-3.5 py-1.5 bg-brand-charcoal text-white text-xs font-medium rounded-full hover:bg-brand-gold transition-colors">
-                Pilih
-              </button>
+          <div class="p-4 space-y-2">
+            <h3 class="font-bold text-base text-brand-charcoal">Warm Maroon & Beige</h3>
+            <p class="text-xs text-brand-muted">Desain hangat dan romantis identitas di.raya.in.</p>
+            <div class="pt-3 border-t border-brand-sand flex items-center justify-between">
+              <a href="u/demo/index.html" target="_blank" class="text-xs font-semibold text-brand-gold flex items-center gap-1 hover:underline">Demo <i data-lucide="external-link" class="w-3 h-3"></i></a>
+              <button onclick="setThemeChoice('Warm Maroon & Beige')" class="px-3.5 py-1 bg-brand-charcoal text-white text-xs rounded-full hover:bg-brand-gold transition-colors">Pilih</button>
             </div>
           </div>
         </div>
 
         <!-- Tema 2 -->
-        <div class="bg-brand-cream rounded-3xl overflow-hidden border border-brand-sand shadow-sm flex flex-col justify-between group">
-          <div class="relative aspect-[4/3] bg-brand-sand overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=500&auto=format&fit=crop&q=80" alt="Minimalist Monochrome" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        <div class="bg-brand-cream rounded-3xl overflow-hidden border border-brand-sand shadow-sm flex flex-col justify-between">
+          <div class="relative aspect-[4/3] bg-brand-sand">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=500&auto=format&fit=crop&q=80" alt="Minimalist Monochrome" class="w-full h-full object-cover">
           </div>
-          <div class="p-5">
-            <h3 class="text-lg font-bold text-brand-charcoal">Minimalist Monochrome</h3>
-            <p class="text-xs text-brand-muted mt-1">Desain kontemporer bersih dengan tipografi modern.</p>
-            <div class="mt-4 pt-3 border-t border-brand-sand/60 flex items-center justify-between">
-              <a href="u/demo/index.html" target="_blank" class="text-xs font-semibold text-brand-gold flex items-center gap-1 hover:underline">
-                Demo <i data-lucide="external-link" class="w-3 h-3"></i>
-              </a>
-              <button onclick="pickTheme('Minimalist Monochrome')" class="px-3.5 py-1.5 bg-brand-charcoal text-white text-xs font-medium rounded-full hover:bg-brand-gold transition-colors">
-                Pilih
-              </button>
+          <div class="p-4 space-y-2">
+            <h3 class="font-bold text-base text-brand-charcoal">Minimalist Monochrome</h3>
+            <p class="text-xs text-brand-muted">Gaya bersih modern dengan tipografi tegas.</p>
+            <div class="pt-3 border-t border-brand-sand flex items-center justify-between">
+              <a href="u/demo/index.html" target="_blank" class="text-xs font-semibold text-brand-gold flex items-center gap-1 hover:underline">Demo <i data-lucide="external-link" class="w-3 h-3"></i></a>
+              <button onclick="setThemeChoice('Minimalist Monochrome')" class="px-3.5 py-1 bg-brand-charcoal text-white text-xs rounded-full hover:bg-brand-gold transition-colors">Pilih</button>
             </div>
           </div>
         </div>
 
         <!-- Tema 3 -->
-        <div class="bg-brand-cream rounded-3xl overflow-hidden border border-brand-sand shadow-sm flex flex-col justify-between group">
-          <div class="relative aspect-[4/3] bg-brand-sand overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=500&auto=format&fit=crop&q=80" alt="Classic Botanical" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        <div class="bg-brand-cream rounded-3xl overflow-hidden border border-brand-sand shadow-sm flex flex-col justify-between">
+          <div class="relative aspect-[4/3] bg-brand-sand">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=500&auto=format&fit=crop&q=80" alt="Classic Botanical" class="w-full h-full object-cover">
           </div>
-          <div class="p-5">
-            <h3 class="text-lg font-bold text-brand-charcoal">Classic Botanical</h3>
-            <p class="text-xs text-brand-muted mt-1">Nuansa floral dan dedaunan yang lembut untuk pernikahan alam.</p>
-            <div class="mt-4 pt-3 border-t border-brand-sand/60 flex items-center justify-between">
-              <a href="u/demo/index.html" target="_blank" class="text-xs font-semibold text-brand-gold flex items-center gap-1 hover:underline">
-                Demo <i data-lucide="external-link" class="w-3 h-3"></i>
-              </a>
-              <button onclick="pickTheme('Classic Botanical')" class="px-3.5 py-1.5 bg-brand-charcoal text-white text-xs font-medium rounded-full hover:bg-brand-gold transition-colors">
-                Pilih
-              </button>
+          <div class="p-4 space-y-2">
+            <h3 class="font-bold text-base text-brand-charcoal">Classic Botanical</h3>
+            <p class="text-xs text-brand-muted">Sentuhan floral lembut untuk pernikahan bernuansa alam.</p>
+            <div class="pt-3 border-t border-brand-sand flex items-center justify-between">
+              <a href="u/demo/index.html" target="_blank" class="text-xs font-semibold text-brand-gold flex items-center gap-1 hover:underline">Demo <i data-lucide="external-link" class="w-3 h-3"></i></a>
+              <button onclick="setThemeChoice('Classic Botanical')" class="px-3.5 py-1 bg-brand-charcoal text-white text-xs rounded-full hover:bg-brand-gold transition-colors">Pilih</button>
             </div>
           </div>
         </div>
@@ -204,107 +261,335 @@
     </div>
   </section>
 
-  <!-- ================= FORM PEMESANAN & DATA ACARA ================= -->
-  <section id="order" class="py-16 sm:py-24 px-4 sm:px-6">
-    <div class="max-w-3xl mx-auto">
-      <div class="text-center mb-10 sm:mb-12">
-        <span class="text-[11px] font-semibold tracking-widest text-brand-gold uppercase">Formulir Undangan</span>
-        <h2 class="text-2xl sm:text-4xl font-bold mt-1 text-brand-charcoal">Isi Data Pernikahan</h2>
-        <p class="text-xs sm:text-sm text-brand-muted mt-2">
-          Lengkapi formulir di bawah ini. Setelah Anda mengirim data dan melakukan transfer, admin akan segera menyetujui dan mengaktifkan tautan undangan Anda.
-        </p>
+  <!-- ================= PAKET & HARGA ================= -->
+  <section id="paket" class="py-16 bg-brand-warm/60 border-t border-brand-sand px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center max-w-md mx-auto mb-10">
+        <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Pricelist Transparan</span>
+        <h2 class="text-2xl sm:text-3xl font-bold mt-1 text-brand-charcoal">Pilihan Paket Undangan</h2>
       </div>
 
-      <form id="orderForm" onsubmit="handleClientOrder(event)" class="bg-brand-warm p-6 sm:p-10 rounded-3xl border border-brand-sand space-y-6 shadow-sm">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-stretch">
+        
+        <!-- Paket Single -->
+        <div class="bg-brand-cream p-6 rounded-3xl border border-brand-sand flex flex-col justify-between shadow-sm">
+          <div>
+            <div class="text-[10px] font-bold uppercase text-brand-muted">Akad / Resepsi</div>
+            <h3 class="text-2xl font-bold text-brand-charcoal">Single Event</h3>
+            <div class="text-xl font-bold text-brand-gold mt-1">Rp49.000</div>
+            
+            <ul class="space-y-2 text-xs text-brand-charcoal my-6 pt-4 border-t border-brand-sand">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-gold"></i> Masa Aktif 6 Bulan</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-gold"></i> Nama Tamu Tanpa Batas</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-gold"></i> Detail Acara & Google Maps</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-gold"></i> Amplop Digital & Buku Tamu</li>
+            </ul>
+          </div>
+          <button onclick="setPackageChoice('Single Event (Rp49.000)')" class="w-full py-2.5 text-xs font-semibold uppercase rounded-full border border-brand-charcoal hover:bg-brand-charcoal hover:text-white transition-all">
+            Pilih Paket Single
+          </button>
+        </div>
+
+        <!-- Paket Full -->
+        <div class="bg-brand-charcoal text-white p-6 rounded-3xl border-2 border-brand-gold flex flex-col justify-between shadow-xl relative">
+          <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-gold text-white text-[9px] font-bold uppercase tracking-wider px-3 py-1 rounded-full whitespace-nowrap">
+            Paling Lengkap
+          </span>
+          <div>
+            <div class="text-[10px] font-bold uppercase text-brand-sand/80">Akad + Resepsi</div>
+            <h3 class="text-2xl font-bold text-white">Full Event Package</h3>
+            <div class="text-xl font-bold text-brand-sand mt-1">Rp79.000</div>
+            
+            <ul class="space-y-2 text-xs text-brand-sand my-6 pt-4 border-t border-white/20">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-gold"></i> <strong>Masa Aktif 1 Tahun Penuh</strong></li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-gold"></i> <strong>Lagu Latar Romantis</strong></li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-gold"></i> Nama Tamu Tanpa Batas</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-gold"></i> Amplop Digital & QRIS</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-gold"></i> Revisi Data Acara</li>
+            </ul>
+          </div>
+          <button onclick="setPackageChoice('Full Event Package (Rp79.000)')" class="w-full py-3 text-xs font-semibold uppercase rounded-full bg-brand-gold hover:bg-brand-goldDark text-white transition-all shadow-md">
+            Pilih Paket Lengkap
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FORM PEMESANAN ================= -->
+  <section id="order" class="py-16 px-4 sm:px-6">
+    <div class="max-w-2xl mx-auto">
+      <div class="text-center mb-8">
+        <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Formulir Pesanan</span>
+        <h2 class="text-2xl sm:text-3xl font-bold mt-1 text-brand-charcoal">Isi Data Acara Pernikahan</h2>
+        <p class="text-xs text-brand-muted mt-1">Setelah mengisi data, lakukan transfer dan kirim bukti bayar ke WhatsApp Admin.</p>
+      </div>
+
+      <form id="orderForm" onsubmit="submitOrder(event)" class="bg-brand-warm p-5 sm:p-8 rounded-3xl border border-brand-sand space-y-4 shadow-sm">
         
         <!-- Paket & Tema -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-semibold uppercase text-brand-muted mb-1">Pilihan Paket *</label>
-            <select id="f_package" required class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
-              <option value="Full Event Package - Rp79.000">Full Event Package (Rp79.000) - Lengkap 1 Tahun</option>
-              <option value="Single Event Package - Rp49.000">Single Event Package (Rp49.000) - 6 Bulan</option>
+            <label class="block text-xs font-semibold text-brand-muted mb-1">Paket Undangan *</label>
+            <select id="f_pkg" required class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs focus:ring-2 focus:ring-brand-gold outline-none">
+              <option value="Full Event Package (Rp79.000)">Full Event Package (Rp79.000)</option>
+              <option value="Single Event (Rp49.000)">Single Event (Rp49.000)</option>
             </select>
           </div>
           <div>
-            <label class="block text-xs font-semibold uppercase text-brand-muted mb-1">Pilihan Tema *</label>
-            <select id="f_theme" required class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
-              <option value="Warm Maroon & Beige">Warm Maroon & Beige (Terpopuler)</option>
+            <label class="block text-xs font-semibold text-brand-muted mb-1">Pilihan Tema *</label>
+            <select id="f_theme" required class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs focus:ring-2 focus:ring-brand-gold outline-none">
+              <option value="Warm Maroon & Beige">Warm Maroon & Beige</option>
               <option value="Minimalist Monochrome">Minimalist Monochrome</option>
               <option value="Classic Botanical">Classic Botanical</option>
             </select>
           </div>
         </div>
 
-        <!-- Data Kontak & WhatsApp -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-brand-sand">
+        <!-- Kontak -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-brand-sand">
           <div>
-            <label class="block text-xs font-semibold uppercase text-brand-muted mb-1">Nama Pemesan / Kontak *</label>
-            <input type="text" id="f_contact_name" required placeholder="Contoh: Sarah Amanda" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+            <label class="block text-xs font-semibold text-brand-muted mb-1">Nama Pemesan *</label>
+            <input type="text" id="f_contact_name" required placeholder="Contoh: Sarah Amanda" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs focus:ring-2 focus:ring-brand-gold outline-none">
           </div>
           <div>
-            <label class="block text-xs font-semibold uppercase text-brand-muted mb-1">Nomor WhatsApp Aktif *</label>
-            <input type="tel" id="f_contact_wa" required placeholder="Contoh: 08123456789" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+            <label class="block text-xs font-semibold text-brand-muted mb-1">Nomor WhatsApp *</label>
+            <input type="tel" id="f_contact_wa" required placeholder="Contoh: 08123456789" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs focus:ring-2 focus:ring-brand-gold outline-none">
           </div>
         </div>
 
-        <!-- Data Kedua Mempelai -->
-        <div class="space-y-4 pt-4 border-t border-brand-sand">
-          <h3 class="text-sm font-bold uppercase tracking-wider text-brand-gold">Data Mempelai</h3>
-          
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-xs font-semibold text-brand-charcoal mb-1">Nama Lengkap Mempelai Wanita *</label>
-              <input type="text" id="f_bride_name" required placeholder="Contoh: Sarah Amanda, S.Kom" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-brand-charcoal mb-1">Orang Tua Mempelai Wanita *</label>
-              <input type="text" id="f_bride_parents" required placeholder="Contoh: Putri Bpk. Hendra & Ibu Rina" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-xs font-semibold text-brand-charcoal mb-1">Nama Lengkap Mempelai Pria *</label>
-              <input type="text" id="f_groom_name" required placeholder="Contoh: Rizky Pratama, S.T" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-brand-charcoal mb-1">Orang Tua Mempelai Pria *</label>
-              <input type="text" id="f_groom_parents" required placeholder="Contoh: Putra Bpk. Bambang & Ibu Dewi" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
-            </div>
+        <!-- Mempelai Wanita -->
+        <div class="space-y-2 pt-2 border-t border-brand-sand">
+          <div class="text-xs font-bold uppercase text-brand-gold">Mempelai Wanita</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <input type="text" id="f_bride" required placeholder="Nama Lengkap Mempelai Wanita *" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs focus:ring-2 focus:ring-brand-gold outline-none">
+            <input type="text" id="f_bride_parents" required placeholder="Nama Orang Tua (Putri dari...)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs focus:ring-2 focus:ring-brand-gold outline-none">
           </div>
         </div>
 
-        <!-- Rangkaian Acara -->
-        <div class="space-y-4 pt-4 border-t border-brand-sand">
-          <h3 class="text-sm font-bold uppercase tracking-wider text-brand-gold">Detail Acara & Waktu</h3>
-          
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-xs font-semibold text-brand-charcoal mb-1">Tanggal Acara *</label>
-              <input type="text" id="f_event_date" required placeholder="Contoh: Sabtu, 24 Oktober 2026" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-brand-charcoal mb-1">Waktu Akad & Resepsi *</label>
-              <input type="text" id="f_event_time" required placeholder="Contoh: Akad 08.00, Resepsi 11.00 WIB" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
-            </div>
+        <!-- Mempelai Pria -->
+        <div class="space-y-2 pt-2 border-t border-brand-sand">
+          <div class="text-xs font-bold uppercase text-brand-gold">Mempelai Pria</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <input type="text" id="f_groom" required placeholder="Nama Lengkap Mempelai Pria *" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs focus:ring-2 focus:ring-brand-gold outline-none">
+            <input type="text" id="f_groom_parents" required placeholder="Nama Orang Tua (Putra dari...)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs focus:ring-2 focus:ring-brand-gold outline-none">
           </div>
+        </div>
 
-          <div>
-            <label class="block text-xs font-semibold text-brand-charcoal mb-1">Nama Tempat & Alamat Lengkap *</label>
-            <input type="text" id="f_event_venue" required placeholder="Contoh: Ballroom Hotel Grand, Jl. Raya Cianjur No. 88" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+        <!-- Detail Acara -->
+        <div class="space-y-2 pt-2 border-t border-brand-sand">
+          <div class="text-xs font-bold uppercase text-brand-gold">Detail Acara & Tempat</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <input type="text" id="f_date" required placeholder="Tanggal Acara (Contoh: 24 Oktober 2026)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs focus:ring-2 focus:ring-brand-gold outline-none">
+            <input type="text" id="f_time" required placeholder="Waktu (Contoh: 08.00 - Selesai)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs focus:ring-2 focus:ring-brand-gold outline-none">
           </div>
+          <input type="text" id="f_venue" required placeholder="Nama Tempat & Alamat Lengkap *" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs focus:ring-2 focus:ring-brand-gold outline-none">
         </div>
 
         <!-- Amplop Digital -->
-        <div class="space-y-4 pt-4 border-t border-brand-sand">
-          <h3 class="text-sm font-bold uppercase tracking-wider text-brand-gold">Amplop Digital (Tanda Kasih)</h3>
-          
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div class="space-y-2 pt-2 border-t border-brand-sand">
+          <div class="text-xs font-bold uppercase text-brand-gold">Amplop Digital (Opsional)</div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <input type="text" id="f_bank_name" placeholder="Bank (Bank Raya / BCA)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs focus:ring-2 focus:ring-brand-gold outline-none">
+            <input type="text" id="f_bank_acc" placeholder="Nomor Rekening" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs focus:ring-2 focus:ring-brand-gold outline-none">
+            <input type="text" id="f_bank_holder" placeholder="Atas Nama (a.n.)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs focus:ring-2 focus:ring-brand-gold outline-none">
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 bg-brand-gold hover:bg-brand-goldDark text-white font-semibold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md flex items-center justify-center gap-2 mt-4">
+          <span>Lanjut ke Pembayaran & Konfirmasi</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ================= POPUP PEMBAYARAN ================= -->
+  <div id="payModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
+    <div class="w-full max-w-sm bg-brand-cream rounded-3xl p-6 border border-brand-sand shadow-2xl text-center max-h-[92vh] overflow-y-auto">
+      
+      <div class="w-10 h-10 rounded-full bg-brand-warm text-brand-gold flex items-center justify-center mx-auto mb-2">
+        <i data-lucide="credit-card" class="w-5 h-5"></i>
+      </div>
+
+      <h3 class="text-lg font-bold text-brand-charcoal">Rincian Pembayaran</h3>
+      <p class="text-xs text-brand-muted">ID Pesanan: <strong id="m_id" class="text-brand-gold font-mono">DBI-0000</strong></p>
+
+      <div class="my-4 bg-brand-warm p-4 rounded-2xl border border-brand-sand text-left text-xs space-y-2">
+        <div class="flex justify-between">
+          <span class="text-brand-muted">Paket:</span>
+          <strong id="m_pkg" class="text-brand-charcoal">Full Event</strong>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-brand-muted">Total:</span>
+          <strong id="m_price" class="text-brand-gold text-sm">Rp79.000</strong>
+        </div>
+        <div class="pt-2 border-t border-brand-sand space-y-1.5">
+          <div class="font-semibold text-brand-charcoal">Transfer ke Rekening Resmi:</div>
+          <div class="bg-white p-2.5 rounded-xl border border-brand-sand flex items-center justify-between">
             <div>
-              <label class="block text-xs font-semibold text-brand-charcoal mb-1">Nama Bank / E-Wallet</label>
-              <input type="text" id="f_bank_name" placeholder="Contoh: Bank Raya / BCA" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+              <div class="text-[9px] font-bold text-brand-gold uppercase">Bank Raya Indonesia</div>
+              <div class="font-mono font-bold text-xs text-brand-charcoal" id="accNumber">1234567890</div>
+              <div class="text-[9px] text-brand-muted">a.n. Muhamad Naufal Fauzi</div>
             </div>
-            <div>
-              <label class="block text-xs font-semibold text-brand-charcoal mb-1">Nomor Rekening</label>
-              <input type="text" id="f_bank_acc" placeholder="Contoh: 1234567890" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-sand bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus
+            <button onclick="copyAccNumber()" class="px-2 py-1 bg-brand-warm text-[10px] font-semibold rounded text-brand-charcoal border border-brand-sand">
+              Salin
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-[10px] text-brand-muted mb-4">
+        Kirim bukti transfer ke WhatsApp admin. Undangan akan langsung aktif setelah disetujui.
+      </p>
+
+      <div class="space-y-2">
+        <button onclick="confirmOrderWa()" class="w-full py-3 bg-[#25D366] hover:bg-[#1ebc57] text-white font-semibold text-xs rounded-xl flex items-center justify-center gap-1.5 shadow-md">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Kirim Bukti Bayar via WhatsApp</span>
+        </button>
+        <button onclick="closeModal()" class="w-full py-2 text-xs text-brand-muted hover:text-brand-charcoal">
+          Tutup
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-brand-charcoal text-brand-sand py-8 mt-auto text-center text-xs">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="text-xl font-bold text-white mb-1">di.buat.in<span class="text-brand-gold">.</span></div>
+      <p class="text-[10px] text-brand-sand/70 mb-3">Digital Invitation Platform by di.raya.in</p>
+      <div class="text-[9px] text-brand-sand/40">&copy; 2026 di.buat.in part of di.raya.in</div>
+    </div>
+  </footer>
+
+  <!-- ================= LOGIKA JAVASCRIPT ================= -->
+  <script>
+    lucide.createIcons();
+
+    const WA_ADMIN = "6285128007096";
+    let activeOrder = null;
+
+    // Toggle Hamburger Mobile
+    function toggleMenu() {
+      const el = document.getElementById('mobileDropdown');
+      el.classList.toggle('hidden');
+    }
+
+    // Set pilihan dari katalog tema/paket
+    function setThemeChoice(theme) {
+      document.getElementById('f_theme').value = theme;
+      document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function setPackageChoice(pkg) {
+      document.getElementById('f_pkg').value = pkg.includes('79.000') ? 'Full Event Package (Rp79.000)' : 'Single Event (Rp49.000)';
+      document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Salin Rekening dengan Fallback Aman
+    function copyAccNumber() {
+      const acc = document.getElementById('accNumber').innerText;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(acc).then(() => alert('Nomor rekening berhasil disalin!'));
+      } else {
+        const t = document.createElement('textarea');
+        t.value = acc;
+        document.body.appendChild(t);
+        t.select();
+        document.execCommand('copy');
+        document.body.removeChild(t);
+        alert('Nomor rekening berhasil disalin!');
+      }
+    }
+
+    // Encode Base64 Aman untuk Unicode (Emoji/Spasi/Karakter Spesial)
+    function safeBase64Encode(str) {
+      return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+        return String.fromCharCode('0x' + p1);
+      }));
+    }
+
+    // Submit Form Pemesanan Klien
+    function submitOrder(e) {
+      e.preventDefault();
+
+      const orderId = 'DBI-' + Math.floor(1000 + Math.random() * 9000);
+      const pkg = document.getElementById('f_pkg').value;
+      const theme = document.getElementById('f_theme').value;
+      const contactName = document.getElementById('f_contact_name').value.trim();
+      const contactWa = document.getElementById('f_contact_wa').value.trim();
+      const bride = document.getElementById('f_bride').value.trim();
+      const brideParents = document.getElementById('f_bride_parents').value.trim();
+      const groom = document.getElementById('f_groom').value.trim();
+      const groomParents = document.getElementById('f_groom_parents').value.trim();
+      const date = document.getElementById('f_date').value.trim();
+      const time = document.getElementById('f_time').value.trim();
+      const venue = document.getElementById('f_venue').value.trim();
+      const bankName = document.getElementById('f_bank_name').value.trim() || "Bank Raya";
+      const bankAcc = document.getElementById('f_bank_acc').value.trim() || "1234567890";
+      const bankHolder = document.getElementById('f_bank_holder').value.trim() || groom;
+
+      activeOrder = {
+        id: orderId,
+        pkg: pkg,
+        theme: theme,
+        contactName: contactName,
+        contactWa: contactWa,
+        brideName: bride,
+        brideParents: brideParents,
+        groomName: groom,
+        groomParents: groomParents,
+        eventDate: date,
+        eventTime: time,
+        eventVenue: venue,
+        bankName: bankName,
+        bankAcc: bankAcc,
+        bankHolder: bankHolder,
+        status: 'PENDING'
+      };
+
+      // Tampilkan Modal Pembayaran
+      document.getElementById('m_id').innerText = orderId;
+      document.getElementById('m_pkg').innerText = pkg;
+      document.getElementById('m_price').innerText = pkg.includes('79.000') ? 'Rp79.000' : 'Rp49.000';
+
+      const modal = document.getElementById('payModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('payModal');
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
+
+    // Kirim Data Konfirmasi ke WhatsApp Admin
+    function confirmOrderWa() {
+      if (!activeOrder) return;
+
+      const token = safeBase64Encode(JSON.stringify(activeOrder));
+      const text = 
+`*KONFIRMASI PEMBAYARAN UNDANGAN DIGITAL*
+Halo Admin *di.buat.in (di.raya.in)*, saya sudah transfer untuk pesanan undangan digital:
+
+- *No. Pesanan:* ${activeOrder.id}
+- *Paket:* ${activeOrder.pkg}
+- *Pengantin:* ${activeOrder.brideName} & ${activeOrder.groomName}
+- *Tanggal Acara:* ${activeOrder.eventDate}
+- *Nama Pemesan:* ${activeOrder.contactName} (${activeOrder.contactWa})
+
+Berikut bukti transfer saya lampirkan. Mohon verifikasi & terbitkan undangannya. Terima kasih!
+
+_Data Token:_
+${token}`;
+
+      window.open(`https://wa.me/${WA_ADMIN}?text=${encodeURIComponent(text)}`, '_blank');
+      closeModal();
+    }
+  </script>
+</body>
+</html>
