@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — di.buat.in</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              cream: '#FAF8F5',
+              warm: '#F4EFEA',
+              sand: '#E8DFD8',
+              gold: '#662626',
+              goldDark: '#4D1B1B',
+              charcoal: '#23201E',
+              muted: '#716B67'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-brand-warm text-brand-charcoal antialiased min-h-screen p-4 sm:p-8">
+
+  <div class="max-w-5xl mx-auto space-y-6">
+    
+    <!-- Top Header -->
+    <div class="bg-brand-cream p-6 rounded-3xl border border-brand-sand flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+      <div>
+        <div class="text-[10px] font-bold uppercase tracking-widest text-brand-gold">Dashboard Manajemen</div>
+        <h1 class="text-2xl sm:text-3xl font-bold text-brand-charcoal">Panel Verifikasi & Approval di.buat.in</h1>
+      </div>
+      <a href="dibuatin.html" class="px-4 py-2 bg-brand-warm border border-brand-sand text-xs font-semibold rounded-full hover:bg-brand-sand transition-all">
+        Lihat Website ↗
+      </a>
+    </div>
+
+    <!-- Kotak Import Pesanan Baru dari Pesan WhatsApp Klien -->
+    <div class="bg-brand-cream p-6 sm:p-8 rounded-3xl border border-brand-sand space-y-4 shadow-sm">
+      <div class="flex items-center gap-2">
+        <i data-lucide="plus-circle" class="w-5 h-5 text-brand-gold"></i>
+        <h2 class="text-lg font-bold text-brand-charcoal">Terima Pesanan Masuk (Paste Token dari WA)</h2>
+      </div>
+      <p class="text-xs text-brand-muted">
+        Salin baris <em>Data Token</em> yang dikirim klien di WhatsApp, lalu tempelkan ke kolom di bawah ini:
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3">
+        <input type="text" id="tokenInput" placeholder="Tempel token data dari chat WhatsApp di sini..." class="flex-1 px-4 py-3 bg-white border border-brand-sand rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brand-gold font-mono">
+        <button onclick="importOrderFromToken()" class="px-6 py-3 bg-brand-gold hover:bg-brand-goldDark text-white text-xs font-semibold rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span>Muat Data Pesanan</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Daftar Semua Pesanan -->
+    <div class="bg-brand-cream p-6 sm:p-8 rounded-3xl border border-brand-sand space-y-4 shadow-sm">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-bold text-brand-charcoal">Daftar Pesanan & Status Undangan</h2>
+        <button onclick="renderAdminOrders()" class="text-xs text-brand-gold hover:underline flex items-center gap-1">
+          <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Segarkan
+        </button>
+      </div>
+
+      <div id="ordersList" class="space-y-4">
+        <!-- Diisi otomatis oleh JavaScript -->
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    function getStoredOrders() {
+      const orders = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith('last_order_')) {
+          try {
+            orders.push(JSON.parse(localStorage.getItem(key)));
+          } catch(e){}
+        }
+      }
+      return orders;
+    }
+
+    function renderAdminOrders() {
+      const listContainer = document.getElementById('ordersList');
+      const orders = getStoredOrders();
+      listContainer.innerHTML = '';
+
+      if (orders.length === 0) {
+        listContainer.innerHTML = `
+          <div class="text-center py-10 text-brand-muted text-xs">
+            Belum ada data pesanan yang tersimpan. Tempel token dari WhatsApp untuk memuat pesanan baru.
+          </div>
+        `;
+        return;
+      }
+
+      orders.forEach(order => {
+        const isApproved = order.status === 'APPROVED';
+        const card = document.createElement('div');
+        card.className = "p-5 rounded-2xl border " + (isApproved ? "bg-emerald-50/50 border-emerald-200" : "bg-brand-warm border-brand-sand") + " space-y-4";
+        
+        // Link Undangan Aktif
+        const encodedData = btoa(encodeURIComponent(JSON.stringify(order)));
+        const invitationUrl = `${window.location.origin}/undangan.html?data=${encodedData}`;
+
+        card.innerHTML = `
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+            <div>
+              <span class="text-[10px] font-bold font-mono px-2.5 py-1 rounded bg-white border border-brand-sand text-brand-gold">${order.id}</span>
+              <h3 class="text-base font-bold text-brand-charcoal mt-1.5">${order.brideName} & ${order.groomName}</h3>
+              <p class="text-xs text-brand-muted">${order.package} • Acara: ${order.eventDate}</p>
+            </div>
+            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${isApproved ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">
+              ${isApproved ? '✓ Undangan Aktif' : '⏳ Menunggu Konfirmasi'}
+            </span>
+          </div>
+
+          <div class="text-xs text-brand-charcoal bg-white p-3.5 rounded-xl border border-brand-sand/70 space-y-1">
+            <div><strong>Kontak Pemesan:</strong> ${order.contactName} (${order.contactWa})</div>
+            <div><strong>Lokasi:</strong> ${order.eventVenue}</div>
+            <div><strong>Amplop Digital:</strong> ${order.bankName} - ${order.bankAcc} (a.n. ${order.bankHolder})</div>
+          </div>
+
+          <div class="flex flex-wrap gap-2 pt-2 border-t border-brand-sand/60">
+            ${!isApproved ? `
+              <button onclick="approveOrder('${order.id}')" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-xl transition-all flex items-center gap-1.5 shadow-sm">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                <span>Setujui & Terbitkan Undangan</span>
+              </button>
+            ` : `
+              <a href="${invitationUrl}" target="_blank" class="px-4 py-2 bg-brand-charcoal hover:bg-brand-gold text-white text-xs font-semibold rounded-xl transition-all flex items-center gap-1.5">
+                <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                <span>Lihat Undangan</span>
+              </a>
+              <button onclick="sendLinkToClient('${order.contactWa}', '${order.brideName}', '${invitationUrl}')" class="px-4 py-2 bg-[#25D366] hover:bg-[#1ebc57] text-white text-xs font-semibold rounded-xl transition-all flex items-center gap-1.5 shadow-sm">
+                <i data-lucide="send" class="w-3.5 h-3.5"></i>
+                <span>Kirim Link ke Klien via WhatsApp</span>
+              </button>
+            `}
+          </div>
+        `;
+        listContainer.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    function importOrderFromToken() {
+      const raw = document.getElementById('tokenInput').value.trim();
+      if (!raw) return;
+
+      try {
+        const jsonStr = decodeURIComponent(atob(raw));
+        const orderData = JSON.parse(jsonStr);
+        localStorage.setItem('last_order_' + orderData.id, JSON.stringify(orderData));
+        document.getElementById('tokenInput').value = '';
+        renderAdminOrders();
+        alert('Data pesanan ' + orderData.id + ' berhasil dimuat!');
+      } catch (err) {
+        alert('Token tidak valid! Pastikan menyalin seluruh teks token dengan benar.');
+      }
+    }
+
+    function approveOrder(orderId) {
+      const dataStr = localStorage.getItem('last_order_' + orderId);
+      if (!dataStr) return;
+      const order = JSON.parse(dataStr);
+      order.status = 'APPROVED';
+      localStorage.setItem('last_order_' + orderId, JSON.stringify(order));
+      renderAdminOrders();
+    }
+
+    function sendLinkToClient(phone, name, link) {
+      let cleanPhone = phone.replace(/[^0-9]/g, '');
+      if (cleanPhone.startsWith('0')) cleanPhone = '62' + cleanPhone.slice(1);
+
+      const msg = 
+`Halo Kak *${name}*, selamat! Undangan digital Anda di *di.buat.in (di.raya.in)* telah kami verifikasi dan berhasil diterbitkan.
+
+Berikut adalah link undangan resmi Anda:
+👉 ${link}
+
+*Tips Membagikan ke Tamu:*
+Tambahkan "?to=Nama+Tamu" di ujung tautan untuk memunculkan nama tamu secara khusus, contoh:
+👉 ${link}&to=Budi+Santoso
+
+Terima kasih telah mempercayakan momen bahagia Anda kepada kami!`;
+
+      window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    renderAdminOrders();
+  </script>
+</body>
+</html>
