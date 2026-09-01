@@ -15,28 +15,22 @@
 <body class="bg-brand-warm text-brand-charcoal min-h-screen p-4 sm:p-8">
 
   <div class="max-w-4xl mx-auto space-y-6">
-    <div class="bg-brand-cream p-6 rounded-3xl border border-brand-sand flex items-center justify-between">
+    <div class="bg-brand-cream p-6 rounded-3xl border border-brand-sand flex items-center justify-between shadow-sm">
       <div>
         <span class="text-[10px] font-bold text-brand-gold uppercase">Panel Manajemen</span>
-        <h1 class="text-2xl font-bold text-brand-charcoal">Verifikasi Pesanan di.buat.in</h1>
+        <h1 class="text-2xl font-bold text-brand-charcoal">Approval Undangan di.buat.in</h1>
       </div>
       <a href="dibuatin.html" class="text-xs font-semibold px-4 py-2 bg-brand-warm rounded-full border border-brand-sand">Lihat Web ↗</a>
     </div>
 
-    <!-- Kotak Input Token WA -->
-    <div class="bg-brand-cream p-6 rounded-3xl border border-brand-sand space-y-3">
-      <h2 class="text-sm font-bold text-brand-charcoal flex items-center gap-2">
-        <i data-lucide="plus-circle" class="w-4 h-4 text-brand-gold"></i> Paste Pesan / Token dari WhatsApp Klien
-      </h2>
-      <div class="flex gap-2">
-        <input type="text" id="tokenInp" placeholder="Paste baris #DATA:... dari WhatsApp di sini" class="flex-1 px-4 py-2.5 bg-white border border-brand-sand rounded-xl text-xs font-mono outline-none">
-        <button onclick="loadToken()" class="px-5 py-2.5 bg-brand-gold text-white text-xs font-semibold rounded-xl hover:bg-brand-goldDark">Muat</button>
+    <!-- Daftar Pesanan Aktif -->
+    <div class="bg-brand-cream p-6 rounded-3xl border border-brand-sand space-y-4 shadow-sm">
+      <div class="flex items-center justify-between">
+        <h2 class="text-base font-bold text-brand-charcoal">Daftar Undangan Siap Terbit</h2>
+        <button onclick="renderOrders()" class="text-xs text-brand-gold hover:underline flex items-center gap-1">
+          <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Refresh
+        </button>
       </div>
-    </div>
-
-    <!-- Daftar Pesanan -->
-    <div class="bg-brand-cream p-6 rounded-3xl border border-brand-sand space-y-4">
-      <h2 class="text-base font-bold text-brand-charcoal">Daftar Undangan yang Disetujui</h2>
       <div id="adminList" class="space-y-4"></div>
     </div>
   </div>
@@ -44,20 +38,38 @@
   <script>
     lucide.createIcons();
 
-    function loadToken() {
-      let raw = document.getElementById('tokenInp').value.trim();
-      if (!raw) return;
-      if (raw.includes('#DATA:')) raw = raw.split('#DATA:')[1].trim();
+    // 1. Tangkap Parameter URL Otomatis saat Admin Klik Link dari WhatsApp
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('id') && urlParams.get('slug')) {
+      const order = {
+        id: urlParams.get('id'),
+        slug: urlParams.get('slug'),
+        pkg: urlParams.get('pkg') || "Full Event",
+        theme: urlParams.get('theme') || "maroon",
+        music: urlParams.get('music') || "romantic-piano",
+        musicCustom: urlParams.get('murl') || "",
+        price: parseInt(urlParams.get('pr')) || 79000,
+        contact: urlParams.get('c') || "",
+        wa: urlParams.get('wa') || "",
+        bride: urlParams.get('b') || "Mempelai Wanita",
+        brideParents: urlParams.get('bp') || "",
+        bridePhoto: urlParams.get('bpic') || "",
+        groom: urlParams.get('g') || "Mempelai Pria",
+        groomParents: urlParams.get('gp') || "",
+        groomPhoto: urlParams.get('gpic') || "",
+        date: urlParams.get('d') || "",
+        time: urlParams.get('t') || "",
+        venue: urlParams.get('v') || "",
+        mapsUrl: urlParams.get('maps') || "",
+        bankName: urlParams.get('bn') || "",
+        bankAcc: urlParams.get('ba') || "",
+        bankHolder: urlParams.get('bh') || ""
+      };
 
-      try {
-        const order = JSON.parse(decodeURIComponent(atob(raw)));
-        localStorage.setItem('dbi_order_' + order.slug, JSON.stringify(order));
-        document.getElementById('tokenInp').value = '';
-        renderOrders();
-        alert(`Pesanan ${order.id} (${order.bride} & ${order.groom}) berhasil dimuat!`);
-      } catch(e) {
-        alert('Format token tidak valid.');
-      }
+      // Simpan langsung ke database browser admin
+      localStorage.setItem('dbi_order_' + order.slug, JSON.stringify(order));
+      alert(`Pesanan ${order.id} (${order.bride} & ${order.groom}) berhasil dimuat secara otomatis!`);
+      window.history.replaceState({}, document.title, window.location.pathname);
     }
 
     function renderOrders() {
@@ -73,32 +85,34 @@
       }
 
       if (orders.length === 0) {
-        container.innerHTML = '<div class="text-center py-6 text-xs text-brand-muted">Belum ada pesanan aktif.</div>';
+        container.innerHTML = '<div class="text-center py-8 text-xs text-brand-muted">Belum ada pesanan aktif. Klik tautan verifikasi dari WhatsApp klien untuk memuat pesanan.</div>';
         return;
       }
 
       orders.forEach(o => {
-        const link = `${window.location.origin}/undangan.html?id=${o.slug}`;
+        // Link Universal (1 Link untuk Semua Tamu)
+        const universalLink = `${window.location.origin}/undangan.html?id=${o.slug}`;
         const card = document.createElement('div');
-        card.className = "p-4 bg-brand-warm rounded-2xl border border-brand-sand space-y-3";
+        card.className = "p-4 sm:p-5 bg-brand-warm rounded-2xl border border-brand-sand space-y-3";
         card.innerHTML = `
           <div class="flex justify-between items-start">
             <div>
               <span class="text-[10px] font-bold font-mono px-2 py-0.5 rounded bg-white border border-brand-sand text-brand-gold">${o.id}</span>
               <h3 class="text-base font-bold text-brand-charcoal mt-1">${o.bride} & ${o.groom}</h3>
-              <p class="text-xs text-brand-muted">Tema: ${o.theme} • Nominal: Rp${o.price.toLocaleString('id-ID')}</p>
+              <p class="text-xs text-brand-muted">Tema: ${o.theme} • Transfer: Rp${o.price.toLocaleString('id-ID')}</p>
             </div>
             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Aktif</span>
           </div>
 
           <div class="text-xs bg-white p-3 rounded-xl border border-brand-sand/60 space-y-1">
-            <div><strong>Tautan Undangan:</strong> <a href="${link}" target="_blank" class="text-brand-gold underline">${link}</a></div>
-            <div><strong>Amplop:</strong> ${o.bankAcc ? `${o.bankName} - ${o.bankAcc} (a.n. ${o.bankHolder})` : '<em class="text-brand-muted">Dikosongkan / Tidak Ada</em>'}</div>
+            <div><strong>Tautan Undangan Universal:</strong> <a href="${universalLink}" target="_blank" class="text-brand-gold underline font-mono text-[11px]">${universalLink}</a></div>
+            <div><strong>Tempat:</strong> ${o.venue}</div>
+            <div><strong>Amplop Digital:</strong> ${o.bankAcc ? `${o.bankName} - ${o.bankAcc} (a.n. ${o.bankHolder})` : '<em class="text-brand-muted">Dikosongkan (Sembunyi)</em>'}</div>
           </div>
 
-          <div class="flex gap-2">
-            <a href="${link}" target="_blank" class="px-3.5 py-1.5 bg-brand-charcoal text-white text-xs rounded-lg">Buka</a>
-            <button onclick="sendToClient('${o.wa}', '${o.bride}', '${link}')" class="px-3.5 py-1.5 bg-[#25D366] text-white text-xs font-semibold rounded-lg">Kirim Link ke WA Pengantin</button>
+          <div class="flex flex-wrap gap-2 pt-1">
+            <a href="${universalLink}" target="_blank" class="px-3.5 py-1.5 bg-brand-charcoal text-white text-xs rounded-lg hover:bg-brand-gold">Buka Undangan</a>
+            <button onclick="sendToClient('${o.wa}', '${o.bride}', '${universalLink}')" class="px-3.5 py-1.5 bg-[#25D366] text-white text-xs font-semibold rounded-lg hover:bg-[#1ebc57]">Kirim Link ke WhatsApp Klien</button>
           </div>
         `;
         container.appendChild(card);
@@ -109,7 +123,7 @@
     function sendToClient(wa, name, link) {
       let clean = wa.replace(/[^0-9]/g, '');
       if (clean.startsWith('0')) clean = '62' + clean.slice(1);
-      const text = `Halo Kak *${name}*, pembayaran telah kami verifikasi dan undangan digital Anda resmi aktif!\n\n👉 *Link Undangan:* ${link}\n👉 *Format Sebar Tamu:* ${link}&to=Nama+Tamu\n\nSelamat menyebarkan kabar bahagia!`;
+      const text = `Halo Kak *${name}*, pembayaran telah kami verifikasi dan undangan digital Anda resmi aktif!\n\n👉 *Link Undangan Siap Sebar:*\n${link}\n\nLink ini dapat langsung disebarkan ke semua keluarga, teman, dan grup tanpa perlu mengubah nama tamu. Tamu yang hadir dapat langsung mengisi kehadiran & ucapan doa di halaman tersebut. Terima kasih!`;
       window.open(`https://wa.me/${clean}?text=${encodeURIComponent(text)}`, '_blank');
     }
 
