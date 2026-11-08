@@ -10,6 +10,9 @@
   <meta property="og:image" content="https://lh3.googleusercontent.com/d/1CpMkvX4iUKk179CGZg77SU0KtHZc75xY">
   <meta name="theme-color" content="#662626">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@0.525.0"></script>
   <script>
@@ -23,17 +26,32 @@
             }
           },
           fontFamily: {
-            sans: ['"Helvetica World"', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+            sans: ['Jost', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
           }
         }
       }
     }
   </script>
   <style>
-    body { background-color: #FAF8F5; color: #23201E; font-family: 'Helvetica World', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    body { background-color: #FAF8F5; color: #23201E;  }
     body.modal-open { overflow: hidden; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* ===== Gaya elegan wedding ===== */
+    body { font-family: 'Jost', 'Helvetica Neue', Arial, sans-serif; letter-spacing: .01em; }
+    h1, h2, h3, .font-display, .font-termes { font-family: 'Cormorant Garamond', Georgia, serif; letter-spacing: -.005em; }
+    h1.font-bold, h2.font-bold, h3.font-bold { font-weight: 600; }
+    h2 { line-height: 1.08; }
+    .eyebrow { display: inline-flex; align-items: center; gap: .8rem; letter-spacing: .32em !important; }
+    .eyebrow::before, .eyebrow::after { content: ""; width: 2.2rem; height: 1px; background: currentColor; opacity: .45; }
+    .text-center > h2::after, .text-center > h1::after {
+      content: ""; display: block; width: 140px; height: 14px; margin: 1rem auto 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 16'%3E%3Cg fill='none' stroke='%23B08D57' stroke-width='1'%3E%3Cpath d='M0 8h62M98 8h62'/%3E%3Cpath d='M80 1l7 7-7 7-7-7z'/%3E%3C/g%3E%3Cg fill='%23B08D57'%3E%3Ccircle cx='66' cy='8' r='1.6'/%3E%3Ccircle cx='94' cy='8' r='1.6'/%3E%3Ccircle cx='80' cy='8' r='2'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+    }
+    .logo-script { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 600; letter-spacing: -.01em; }
+    ::selection { background: #662626; color: #fff; }
   </style>
 </head>
 <body class="bg-brand-cream text-brand-charcoal antialiased">
@@ -41,7 +59,7 @@
   <!-- ================= NAVBAR ================= -->
   <header class="sticky top-0 z-40 bg-brand-cream/90 backdrop-blur-md border-b border-brand-sand/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-3">
-      <a href="index.html" class="text-2xl sm:text-4xl font-bold tracking-tight text-brand-charcoal">di.raya.in</a>
+      <a href="index.html" class="logo-script text-3xl sm:text-4xl text-brand-charcoal">di.raya.in</a>
       <div class="flex items-center gap-3 sm:gap-6">
         <a href="index.html" class="text-sm font-medium text-brand-muted hover:text-brand-gold flex items-center gap-1.5 transition-colors">
           <i data-lucide="arrow-left" class="w-4 h-4"></i>
@@ -59,7 +77,7 @@
 
   <!-- ================= HEADER ================= -->
   <section class="pt-12 sm:pt-16 pb-6 text-center max-w-4xl mx-auto px-4 sm:px-6">
-    <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Portofolio Pernikahan</span>
+    <span class="eyebrow text-xs font-semibold tracking-widest text-brand-gold uppercase">Portofolio Pernikahan</span>
     <h1 class="text-4xl sm:text-6xl font-bold mt-2 text-brand-charcoal">Cerita Cinta Klien Kami</h1>
     <p class="text-brand-muted mt-3 text-sm sm:text-base max-w-xl mx-auto">
       Temukan inspirasi konsep pernikahan melalui koleksi video reels dan foto candid aesthetic dari pasangan yang telah kami abadikan.
