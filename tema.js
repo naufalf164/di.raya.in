@@ -60,6 +60,11 @@ const DAFTAR_TEMA = [
   { id: 'midnight-floral', name: 'Midnight Floral',  cat: 'mewah',  layout: 'polaroid', dark: true, bg: '#1C1A24', surface: '#26232F', text: '#F3E9EE', muted: '#B5A7B0', accent: '#E8B4C8', onAccent: '#1C1A24', border: 'rgba(232,180,200,.35)', head: 'serif', nameFont: 'cursive', orn: '✿', quote: 'cinta' }
 ];
 
+// ⭐ BEST CHOICE BY CLIENT — desain yang paling banyak dipilih klien (maks. 5, urut dari #1).
+// Tidak perlu menebak: buka admin.html → "Desain Terlaris" → tekan "Salin untuk tema.js", lalu tempel di sini.
+// Selama kosong, bagian Best Choice tidak ditampilkan di di.buat.in.
+const TEMA_FAVORIT = [];
+
 const TEMA_BY_ID = Object.fromEntries(DAFTAR_TEMA.map(t => [t.id, t]));
 function getTema(id) { return TEMA_BY_ID[id] || TEMA_BY_ID.maroon; }
 
@@ -81,22 +86,54 @@ function _b64urlDecode(s) {
   return new TextDecoder().decode(Uint8Array.from(bin, c => c.charCodeAt(0)));
 }
 
-// Data undangan (format panjang) -> teks pendek untuk link
-function encodeUndangan(o) {
-  const packed = {
-    v: 1, t: o.theme,
-    b: [o.bride, o.brideParents, o.bridePhoto, o.brideIg],
-    g: [o.groom, o.groomParents, o.groomPhoto, o.groomIg],
-    c: o.coverPhoto,
-    e: (o.events || []).map(x => [x.name, x.date, x.iso, x.time, x.venue, x.mapsUrl]),
-    k: (o.gifts || []).map(x => [x.bank, x.acc, x.holder]),
-    m: o.musicUrl, w: o.wa
+// ------------------------------------------------------------
+// Format v2 (lebih pendek): data dipadatkan lalu dikompres (pako.min.js).
+// Link lama (format v1) tetap bisa dibuka.
+// ------------------------------------------------------------
+const _str = v => (v == null ? '' : String(v));
+const _trim = arr => { arr = arr.map(_str); while (arr.length && arr[arr.length - 1] === '') arr.pop(); return arr; };
+function _pack2(obj) {
+  const json = new TextEncoder().encode(JSON.stringify(obj));
+  return '2' + _bytesToB64u(pako.deflateRaw(json, { level: 9 }));
+}
+function _unpack2(s) {
+  return JSON.parse(new TextDecoder().decode(pako.inflateRaw(_b64uToBytes(s.slice(1)))));
+}
+function _invToArr(o) {
+  return [
+    _str(o.theme),
+    _trim([o.bride, o.brideParents, o.bridePhoto, o.brideIg]),
+    _trim([o.groom, o.groomParents, o.groomPhoto, o.groomIg]),
+    _str(o.coverPhoto),
+    (o.events || []).map(x => _trim([x.name, x.iso, x.time, x.venue, x.mapsUrl, x.iso ? '' : x.date])),
+    (o.gifts || []).map(x => _trim([x.bank, x.acc, x.holder])),
+    _str(o.musicUrl), _str(o.wa)
+  ];
+}
+function _arrToInv(p) {
+  const b = p[1] || [], g = p[2] || [];
+  return {
+    theme: p[0],
+    bride: b[0] || '', brideParents: b[1] || '', bridePhoto: b[2] || '', brideIg: b[3] || '',
+    groom: g[0] || '', groomParents: g[1] || '', groomPhoto: g[2] || '', groomIg: g[3] || '',
+    coverPhoto: p[3] || '',
+    events: (p[4] || []).map(x => ({ name: x[0] || 'Acara', iso: x[1] || '', time: x[2] || '', venue: x[3] || '', mapsUrl: x[4] || '', date: x[1] ? formatTanggalPanjang(x[1]) : (x[5] || '') })),
+    gifts: (p[5] || []).map(x => ({ bank: x[0] || '', acc: x[1] || '', holder: x[2] || '' })),
+    musicUrl: p[6] || '', wa: p[7] || ''
   };
-  return _b64urlEncode(JSON.stringify(packed));
+}
+
+// Data undangan -> teks pendek untuk link
+function encodeUndangan(o) {
+  if (typeof pako !== 'undefined') return _pack2(_invToArr(o));
+  // cadangan bila pako.min.js tidak ter-upload: format v1
+  return _b64urlEncode(JSON.stringify({ v: 1, t: o.theme, b: [o.bride, o.brideParents, o.bridePhoto, o.brideIg], g: [o.groom, o.groomParents, o.groomPhoto, o.groomIg], c: o.coverPhoto,
+    e: (o.events || []).map(x => [x.name, x.date, x.iso, x.time, x.venue, x.mapsUrl]), k: (o.gifts || []).map(x => [x.bank, x.acc, x.holder]), m: o.musicUrl, w: o.wa }));
 }
 function decodeUndangan(s) {
   try {
-    const p = JSON.parse(_b64urlDecode(s));
+    if (String(s).startsWith('2')) return _arrToInv(_unpack2(s));
+    const p = JSON.parse(_b64urlDecode(s));          // format lama (v1)
     const b = p.b || [], g = p.g || [];
     return {
       theme: p.t,
@@ -111,8 +148,20 @@ function decodeUndangan(s) {
 }
 
 // Pesanan lengkap (data undangan + info order) untuk link verifikasi admin
-function encodePesanan(order) { return _b64urlEncode(JSON.stringify(order)); }
-function decodePesanan(s) { try { return JSON.parse(_b64urlDecode(s)); } catch (e) { return null; } }
+function encodePesanan(o) {
+  if (typeof pako === 'undefined') return _b64urlEncode(JSON.stringify(o));
+  return _pack2(_trim([o.id, o.pkg, o.price, o.contact, o.wa, o.musicNote, o.created]).concat([_invToArr(o.inv)]));
+}
+function decodePesanan(s) {
+  try {
+    if (String(s).startsWith('2')) {
+      const a = _unpack2(s), inv = _arrToInv(a[a.length - 1]);
+      const pk = typeof PAKET_UNDANGAN !== 'undefined' ? PAKET_UNDANGAN.find(p => p.key === a[1]) : null;
+      return { id: a[0], pkg: a[1], pkgName: pk ? pk.name : a[1], price: Number(a[2]), contact: a[3], wa: a[4], musicNote: a[5], created: a.length > 7 ? a[6] : '', inv };
+    }
+    return JSON.parse(_b64urlDecode(s));               // format lama
+  } catch (e) { return null; }
+}
 
 // Helper umum
 function escapeHTML(s) {
@@ -138,8 +187,7 @@ function formatTanggalPanjang(iso) {
 // PAKET UNDANGAN (dipakai dibuatin.html & admin.html untuk cek nominal)
 // ============================================================
 const PAKET_UNDANGAN = [
-  { key: 'single', name: 'Single Event', price: 49000, events: 1, desc: 'Untuk 1 acara (akad saja atau resepsi saja).' },
-  { key: 'full',   name: 'Full Event',   price: 79000, events: 2, desc: 'Untuk 2 acara (akad + resepsi) dalam satu undangan.', best: true }
+  { key: 'undangan', name: 'Undangan Digital', price: 49000, events: 2, desc: 'Satu harga untuk semua: akad saja, resepsi saja, atau akad + resepsi.' }
 ];
 
 // ============================================================
@@ -152,7 +200,7 @@ const PAKET_UNDANGAN = [
 // Cara mengisi: buka admin.html → buat kunci → salin "Kunci Publik" → tempel di sini.
 // Selama masih kosong, keamanan BELUM aktif (link tanpa tanda tangan tetap diterima).
 // ============================================================
-const ADMIN_PUBLIC_KEY = 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEdf2PnPCcmAzKjl1PCk__Wusr1hfXCpCYA7FwORk6IPryZfyaC-2l3Zhw0eut123T0XV5XakHS-KTx-JComROiw';
+const ADMIN_PUBLIC_KEY = '';
 
 const _b64uToBytes = s => {
   s = String(s || '').replace(/-/g, '+').replace(/_/g, '/');
