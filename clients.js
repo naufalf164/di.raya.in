@@ -1,4 +1,40 @@
 // clients.js - Data Master Portofolio Klien di.raya.in
+//
+// ============================================================
+// CARA MENAMBAH KLIEN BARU
+// Salin blok di bawah, tempel di PALING ATAS daftar clientsData,
+// lalu ganti isinya. Cukup tempel ID Google Drive-nya saja
+// (bagian di antara /d/ dan /view pada link Drive).
+// Pastikan file Drive diset "Siapa saja yang memiliki link".
+//
+//  {
+//    id: "dina-rizky",                       // huruf kecil, tanpa spasi
+//    name: "Dina & Rizky",
+//    date: "12 September 2026",              // format: 12 September 2026
+//    venue: "Gedung Assakinah, Cianjur",
+//    packageKey: "eternal",                  // "eternal" | "vow" | "memory" | "story"
+//    packageName: "Eternal Package (± 8 Jam)",
+//    testimoni: "Seru banget! Story-nya langsung bisa diposting hari itu juga.", // kutipan asli klien, boleh dikosongkan
+//    cover: drivePhoto("ID_FOTO_COVER"),
+//    editedVideos: [
+//      { title: "Recap Video", url: driveVideo("ID_VIDEO_1") },
+//      { title: "Reels Akad & Sungkeman", url: driveVideo("ID_VIDEO_2") }
+//    ],
+//    randomPhotos: drivePhotos([
+//      "ID_FOTO_1",
+//      "ID_FOTO_2",
+//      "ID_FOTO_3"
+//    ])
+//  },
+//
+// Urutan di galeri otomatis dari tanggal terbaru, jadi posisi tempel bebas.
+// Thumbnail video dibuat otomatis dari Google Drive (tidak wajib isi "cover" video).
+// ============================================================
+
+const drivePhoto  = id => `https://lh3.googleusercontent.com/d/${id}`;
+const driveVideo  = id => `https://drive.google.com/file/d/${id}/preview`;
+const drivePhotos = ids => ids.map(id => ({ url: drivePhoto(id) }));
+
 const clientsData = [
   // 1. VELIN & DEVAN
   {
@@ -8,18 +44,19 @@ const clientsData = [
     venue: "Gedung Balai Pertemuan Farida, Cianjur",
     packageKey: "vow",
     packageName: "Vow Package (Akad ± 4 Jam)",
+    testimoni: "", // isi dengan ucapan asli dari klien (tampil di beranda)
     cover: "https://lh3.googleusercontent.com/d/1Hp1AhwShB7BpmzD73bZP-AKfmZNpxo8f",
     editedVideos: [
       { url: "https://drive.google.com/file/d/1PvFpXSK1FTY8VDsE8rC8PEH4j2NATBLY/preview" },
       { url: "https://drive.google.com/file/d/1tCt9FQBR_lGCxhL4ur4rIRFiUe8MrkNo/preview" },
       { url: "https://drive.google.com/file/d/1aT8qLEf_3Clon8JiMzxyDL_Ugie8wFbk/preview" }
     ],
-    randomPhotos: [
+    randomPhotos: drivePhotos([
       "1Hp1AhwShB7BpmzD73bZP-AKfmZNpxo8f",
       "1AsNh_STG4fG6iJ-_Qw4a1GBt6iUPgHY3",
       "1sGYvuDRcHmV9b9JoMIMfaerd02_vcuGt",
       "1GLS7LPrX87ixYFBqfpLeLvaGXS1yzh3B"
-    ].map(id => ({ url: `https://lh3.googleusercontent.com/d/${id}` }))
+    ])
   },
 
   // 2. RACHMA & TAUFIK
@@ -30,6 +67,7 @@ const clientsData = [
     venue: "Cibeber",
     packageKey: "vow",
     packageName: "Vow Package (Akad ± 4 Jam)",
+    testimoni: "", // isi dengan ucapan asli dari klien (tampil di beranda)
     cover: "https://lh3.googleusercontent.com/d/1pJbXrKat0OvGZlVXlurwMuoYFfWTAfTS",
     editedVideos: [
       { url: "https://drive.google.com/file/d/1jZ2p6YINqrRwtuZ-KiA0iBcBWOKi-UP7/preview" },
@@ -37,12 +75,12 @@ const clientsData = [
       { url: "https://drive.google.com/file/d/1n2IuyM9iwNOgEBGuRF2UfR__Uw3ty-_n/preview" },
       { url: "https://drive.google.com/file/d/1gGhljc7dvkb1tDUFptCzUFW_UwXBMu2W/preview" }
     ],
-    randomPhotos: [
+    randomPhotos: drivePhotos([
       "1pJbXrKat0OvGZlVXlurwMuoYFfWTAfTS",
       "1PHjTkvnaCt0vE7Nm78ooUlNvJ1cftbxS",
       "18yROVogUTcwaa7T5UIvhIlPvIyZNEUp7",
       "1U6hAcSU6LQt09s_ZwS-thSQIXLhGHJ2x"
-    ].map(id => ({ url: `https://lh3.googleusercontent.com/d/${id}` }))
+    ])
   },
 
   // 3. LINA & USMA
@@ -53,6 +91,7 @@ const clientsData = [
     venue: "Cipanas",
     packageKey: "vow",
     packageName: "Vow Package (Akad ± 4 Jam)",
+    testimoni: "", // isi dengan ucapan asli dari klien (tampil di beranda)
     cover: "https://lh3.googleusercontent.com/d/1tvzvSU6V_LfpqM5AJ8Z5D4Rmicjl4WZb",
     editedVideos: [
       { url: "https://drive.google.com/file/d/1mN42iH-d9qgruuCF-6Q8JRrIb2O-fSfQ/preview" },
@@ -60,15 +99,17 @@ const clientsData = [
       { url: "https://drive.google.com/file/d/1wpKfqFWXDajlxOa810S0ILzGes0N5lCZ/preview" },
       { url: "https://drive.google.com/file/d/1k-CvQz9R05MzDLLGjqSQldlHOjwXXiFF/preview" }
     ],
-    randomPhotos: [
+    randomPhotos: drivePhotos([
       "1ZiFgREz2cE2l8pSEUlb1VRlcNfijBcw2",
       "1tvzvSU6V_LfpqM5AJ8Z5D4Rmicjl4WZb",
       "1RkduhOykRXMPkW_35rkXdvefSUnRWmp4",
       "1L7Y5F1FYgle-1rvrqZ1EIqQGAeyo2mUP"
-    ].map(id => ({ url: `https://lh3.googleusercontent.com/d/${id}` }))
+    ])
   },
 
   // 4. NESA & ANDRI
+  // ⚠️ PERLU DICEK: cover & video sama persis dengan Lani & Seno,
+  //    foto sama dengan Lina & Usma. Ganti dengan file milik Nesa & Andri.
   {
     id: "nesa-andri",
     name: "Nesa & Andri",
@@ -76,6 +117,7 @@ const clientsData = [
     venue: "Rajamandala",
     packageKey: "eternal",
     packageName: "Eternal Package (± 8 Jam)",
+    testimoni: "", // isi dengan ucapan asli dari klien (tampil di beranda)
     cover: "https://lh3.googleusercontent.com/d/10BZE_RaRKwoRS9SGBjABCzUefzsxoP31",
     editedVideos: [
       { url: "https://drive.google.com/file/d/1WjNqOG3YRle1VzvY7NwzpQ_cbJ3i6ofT/preview" },
@@ -83,15 +125,16 @@ const clientsData = [
       { url: "https://drive.google.com/file/d/1lb-U5TWAVmNfuEf-L3yzjtEzw_QL7d7F/preview" },
       { url: "https://drive.google.com/file/d/1luYIGFYJkhxkSUtT4UH_JGPiHV_RXY21/preview" }
     ],
-    randomPhotos: [
+    randomPhotos: drivePhotos([
       "1ZiFgREz2cE2l8pSEUlb1VRlcNfijBcw2",
       "1tvzvSU6V_LfpqM5AJ8Z5D4Rmicjl4WZb",
       "1RkduhOykRXMPkW_35rkXdvefSUnRWmp4",
       "1L7Y5F1FYgle-1rvrqZ1EIqQGAeyo2mUP"
-    ].map(id => ({ url: `https://lh3.googleusercontent.com/d/${id}` }))
+    ])
   },
 
   // 5. LANI & SENO
+  // ⚠️ PERLU DICEK: cover & video sama dengan Nesa & Andri, foto sama dengan Lina & Usma.
   {
     id: "lani-seno",
     name: "Lani & Seno",
@@ -99,6 +142,7 @@ const clientsData = [
     venue: "Villa Bukit Danau, Cipanas",
     packageKey: "eternal",
     packageName: "Eternal Package (± 8 Jam)",
+    testimoni: "", // isi dengan ucapan asli dari klien (tampil di beranda)
     cover: "https://lh3.googleusercontent.com/d/10BZE_RaRKwoRS9SGBjABCzUefzsxoP31",
     editedVideos: [
       { url: "https://drive.google.com/file/d/1WjNqOG3YRle1VzvY7NwzpQ_cbJ3i6ofT/preview" },
@@ -106,15 +150,16 @@ const clientsData = [
       { url: "https://drive.google.com/file/d/1lb-U5TWAVmNfuEf-L3yzjtEzw_QL7d7F/preview" },
       { url: "https://drive.google.com/file/d/1luYIGFYJkhxkSUtT4UH_JGPiHV_RXY21/preview" }
     ],
-    randomPhotos: [
+    randomPhotos: drivePhotos([
       "1ZiFgREz2cE2l8pSEUlb1VRlcNfijBcw2",
       "1tvzvSU6V_LfpqM5AJ8Z5D4Rmicjl4WZb",
       "1RkduhOykRXMPkW_35rkXdvefSUnRWmp4",
       "1L7Y5F1FYgle-1rvrqZ1EIqQGAeyo2mUP"
-    ].map(id => ({ url: `https://lh3.googleusercontent.com/d/${id}` }))
+    ])
   },
 
   // 6. DIAN & ISMA
+  // ⚠️ PERLU DICEK: cover sama dengan Nesa & Andri, foto sama dengan Lina & Usma.
   {
     id: "dian-isma",
     name: "Dian & Isma",
@@ -122,6 +167,7 @@ const clientsData = [
     venue: "Pasar Beas, Cianjur",
     packageKey: "vow",
     packageName: "Vow Package (Akad ± 4 Jam)",
+    testimoni: "", // isi dengan ucapan asli dari klien (tampil di beranda)
     cover: "https://lh3.googleusercontent.com/d/10BZE_RaRKwoRS9SGBjABCzUefzsxoP31",
     editedVideos: [
       { url: "https://drive.google.com/file/d/1QEE2jxgCAcub421QVu9B2H5lj-wIYblQ/preview" },
@@ -129,12 +175,12 @@ const clientsData = [
       { url: "https://drive.google.com/file/d/10bajbU9i6Y0OXz2qDyANY_GeHaaW8eEl/preview" },
       { url: "https://drive.google.com/file/d/1x2PuRABz8gdrhJhrNpwmxk0-g6IMy194/preview" }
     ],
-    randomPhotos: [
+    randomPhotos: drivePhotos([
       "1ZiFgREz2cE2l8pSEUlb1VRlcNfijBcw2",
       "1tvzvSU6V_LfpqM5AJ8Z5D4Rmicjl4WZb",
       "1RkduhOykRXMPkW_35rkXdvefSUnRWmp4",
       "1L7Y5F1FYgle-1rvrqZ1EIqQGAeyo2mUP"
-    ].map(id => ({ url: `https://lh3.googleusercontent.com/d/${id}` }))
+    ])
   },
 
   // 7. DEON & IRDA
@@ -145,6 +191,7 @@ const clientsData = [
     venue: "Artala, Cipanas",
     packageKey: "eternal",
     packageName: "Eternal Package (± 8 Jam)",
+    testimoni: "", // isi dengan ucapan asli dari klien (tampil di beranda)
     cover: "https://lh3.googleusercontent.com/d/1CpMkvX4iUKk179CGZg77SU0KtHZc75xY",
     editedVideos: [
       { url: "https://drive.google.com/file/d/1b8_UUo7RQN5eYtw-ex7jw6_qqGvXuYsV/preview" },
@@ -152,12 +199,12 @@ const clientsData = [
       { url: "https://drive.google.com/file/d/1_00VShHxERNgKGtDIcWvTC9OSQA-MFJI/preview" },
       { url: "https://drive.google.com/file/d/1vci4RFMwSBs1CChitSoWxU6f0DgYn7kM/preview" }
     ],
-    randomPhotos: [
+    randomPhotos: drivePhotos([
       "1CpMkvX4iUKk179CGZg77SU0KtHZc75xY",
       "1no9FEO59eoLg7Gi1Svd6TUEFasexE00k",
       "1edoI5izHV8MfmPRDzd5CWafNyVVujFYt",
       "1zxv9jM96NwrXYsKWbdtwxzzv3UJurTRB"
-    ].map(id => ({ url: `https://lh3.googleusercontent.com/d/${id}` }))
+    ])
   },
 
   // 8. ALDI & SYIFA
@@ -167,7 +214,8 @@ const clientsData = [
     date: "17 Mei 2026",
     venue: "Jebrod, Cianjur",
     packageKey: "memory",
-    packageName: "Memory Package (± 2 Jam)",
+    packageName: "Memory Package (± 4 Jam)", // diperbaiki: sebelumnya tertulis 2 Jam, di web utama Memory = 4 Jam
+    testimoni: "", // isi dengan ucapan asli dari klien (tampil di beranda)
     cover: "https://lh3.googleusercontent.com/d/1NCcgv4cCwzrZ85gFAGAVL-aHCbbKJ1tO",
     editedVideos: [
       { url: "https://drive.google.com/file/d/1oWG0BMHgbgEqIPCbcvHkhztZjfLEN-gn/preview" },
@@ -175,12 +223,12 @@ const clientsData = [
       { url: "https://drive.google.com/file/d/1bP4u5zadAE3ivivhVN8keV1dcSQmDunq/preview" },
       { url: "https://drive.google.com/file/d/1rwLpUmceBU2u_rIfbkwoOuflzJ7N71pb/preview" }
     ],
-    randomPhotos: [
+    randomPhotos: drivePhotos([
       "1icrFk_3nMB3MzlaR_UBuRQZswBD1laEa",
       "1NCcgv4cCwzrZ85gFAGAVL-aHCbbKJ1tO",
       "1EsVIVdNnWbqEWa-vpSChcDpyEi5r1QP8",
       "1dw8YomebiVgFVVWUI8BbeKNVImWZgUP-"
-    ].map(id => ({ url: `https://lh3.googleusercontent.com/d/${id}` }))
+    ])
   },
 
   // 9. AIS & MAUL
@@ -191,6 +239,7 @@ const clientsData = [
     venue: "Campaka, Cianjur",
     packageKey: "eternal",
     packageName: "Eternal Package (± 8 Jam)",
+    testimoni: "", // isi dengan ucapan asli dari klien (tampil di beranda)
     cover: "https://lh3.googleusercontent.com/d/1X_FqvS6AxPxfGcPcvy8bpmyMddQjX3JE",
     editedVideos: [
       { url: "https://drive.google.com/file/d/1aWaqX4ZDyRk0L0Frz9Zo1N9VsZH6Z-qw/preview" },
@@ -198,15 +247,16 @@ const clientsData = [
       { url: "https://drive.google.com/file/d/128wtr5AlsIdcZbL-5AeORJfj8IqNqHhu/preview" },
       { url: "https://drive.google.com/file/d/14QF93cDajW7o44uIYOtyglaWMSreECmo/preview" }
     ],
-    randomPhotos: [
-      { url: "https://lh3.googleusercontent.com/d/1X_FqvS6AxPxfGcPcvy8bpmyMddQjX3JE" },
-      { url: "https://lh3.googleusercontent.com/d/1hJhD-zkTHacCtEmvBAxi3qml-xYcavbM" },
-      { url: "https://lh3.googleusercontent.com/d/184aoskRRdnw2KTqqARPgKSLtnJV4UUDx" },
-      { url: "https://lh3.googleusercontent.com/d/1OuDmeOHIackrHPO3k36o9N0e34r6NQjE" }
-    ]
+    randomPhotos: drivePhotos([
+      "1X_FqvS6AxPxfGcPcvy8bpmyMddQjX3JE",
+      "1hJhD-zkTHacCtEmvBAxi3qml-xYcavbM",
+      "184aoskRRdnw2KTqqARPgKSLtnJV4UUDx",
+      "1OuDmeOHIackrHPO3k36o9N0e34r6NQjE"
+    ])
   },
 
-    // 10. AIDA & LUTHFI
+  // 10. AIDA & LUTHFI
+  // ⚠️ PERLU DICEK: cover, video, dan foto 100% sama dengan Ais & Maul.
   {
     id: "aida-luthfi",
     name: "Aida & Luthfi",
@@ -214,6 +264,7 @@ const clientsData = [
     venue: "Warungkondang, Cianjur",
     packageKey: "eternal",
     packageName: "Eternal Package (± 8 Jam)",
+    testimoni: "", // isi dengan ucapan asli dari klien (tampil di beranda)
     cover: "https://lh3.googleusercontent.com/d/1X_FqvS6AxPxfGcPcvy8bpmyMddQjX3JE",
     editedVideos: [
       { url: "https://drive.google.com/file/d/1aWaqX4ZDyRk0L0Frz9Zo1N9VsZH6Z-qw/preview" },
@@ -221,11 +272,42 @@ const clientsData = [
       { url: "https://drive.google.com/file/d/128wtr5AlsIdcZbL-5AeORJfj8IqNqHhu/preview" },
       { url: "https://drive.google.com/file/d/14QF93cDajW7o44uIYOtyglaWMSreECmo/preview" }
     ],
-    randomPhotos: [
-      { url: "https://lh3.googleusercontent.com/d/1X_FqvS6AxPxfGcPcvy8bpmyMddQjX3JE" },
-      { url: "https://lh3.googleusercontent.com/d/1hJhD-zkTHacCtEmvBAxi3qml-xYcavbM" },
-      { url: "https://lh3.googleusercontent.com/d/184aoskRRdnw2KTqqARPgKSLtnJV4UUDx" },
-      { url: "https://lh3.googleusercontent.com/d/1OuDmeOHIackrHPO3k36o9N0e34r6NQjE" }
-    ]
+    randomPhotos: drivePhotos([
+      "1X_FqvS6AxPxfGcPcvy8bpmyMddQjX3JE",
+      "1hJhD-zkTHacCtEmvBAxi3qml-xYcavbM",
+      "184aoskRRdnw2KTqqARPgKSLtnJV4UUDx",
+      "1OuDmeOHIackrHPO3k36o9N0e34r6NQjE"
+    ])
   }
 ];
+
+// ============================================================
+// FUNGSI BANTUAN (dipakai index.html & gallery.html — tidak perlu diubah)
+// ============================================================
+const BULAN_ID = { januari:0, februari:1, maret:2, april:3, mei:4, juni:5, juli:6, agustus:7, september:8, oktober:9, november:10, desember:11 };
+
+// "03 Juni 2026" -> angka waktu, untuk mengurutkan dari yang terbaru
+function parseTanggalID(str) {
+  const m = String(str || '').trim().toLowerCase().match(/(\d{1,2})\s+([a-z]+)\s+(\d{4})/);
+  if (!m || !(m[2] in BULAN_ID)) return 0;
+  return new Date(+m[3], BULAN_ID[m[2]], +m[1]).getTime();
+}
+
+// Ambil ID file dari link Google Drive
+function driveIdFromUrl(url) {
+  const s = String(url || '');
+  const m = s.match(/\/d\/([A-Za-z0-9_-]+)/) || s.match(/[?&]id=([A-Za-z0-9_-]+)/);
+  return m ? m[1] : '';
+}
+
+// Thumbnail video: pakai "cover" kalau diisi, kalau tidak dibuat otomatis dari Drive
+function videoThumb(v) {
+  if (v && v.cover && !/^LINK_/.test(v.cover)) return v.cover;
+  const id = driveIdFromUrl(v && v.url);
+  return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w480` : '';
+}
+
+// Daftar klien, terbaru di atas
+function getClientsSorted() {
+  return clientsData.slice().sort((a, b) => parseTanggalID(b.date) - parseTanggalID(a.date));
+}
