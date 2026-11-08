@@ -287,7 +287,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch" id="packageGrid"></div>
 
       <p class="text-center text-xs text-brand-muted mt-10 max-w-xl mx-auto leading-relaxed">
-        Semua paket sudah termasuk transport gratis hingga 5 KM. Untuk lokasi lebih jauh, biaya transport menyesuaikan jarak — tanyakan saat booking ya.
+        Semua paket sudah termasuk transport gratis hingga 5 KM. Untuk lokasi lebih jauh, ongkos transport menyesuaikan jarak. Harga final, ongkos, dan pembayaran DP dikonfirmasi langsung oleh admin lewat WhatsApp.
       </p>
     </div>
   </section>
@@ -369,9 +369,29 @@
                 <input type="text" id="weddingDate" readonly placeholder="Pilih dari kalender" onclick="focusCalendar()" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-brand-warm/60 text-sm font-medium text-brand-charcoal cursor-pointer">
               </div>
               <div>
-                <label for="weddingVenue" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Kota & Lokasi / Venue *</label>
+                <label for="weddingTime" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Perkiraan Jam Acara *</label>
+                <input type="text" id="weddingTime" placeholder="Contoh: 08.00 – 14.00 WIB" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="weddingVenue" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Nama Venue *</label>
                 <input type="text" id="weddingVenue" required placeholder="Contoh: Hotel Cianjur" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
               </div>
+              <div>
+                <label for="weddingArea" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Kecamatan / Kota *</label>
+                <input type="text" id="weddingArea" placeholder="Contoh: Cianjur Kota" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+              </div>
+            </div>
+            <div>
+              <label for="weddingMaps" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Link Google Maps Lokasi (opsional)</label>
+              <input type="url" id="weddingMaps" placeholder="Membantu admin menghitung ongkos transport" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+            </div>
+
+            <div>
+              <span class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Rangkaian Acara yang Didokumentasikan *</span>
+              <div id="eventChips" class="flex flex-wrap gap-2"></div>
             </div>
 
             <div>
@@ -380,18 +400,41 @@
             </div>
 
             <div>
-              <label for="clientNotes" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Catatan Tambahan (Opsional)</label>
-              <textarea id="clientNotes" rows="3" placeholder="Ceritakan konsep pernikahan, jam akad/resepsi, tren yang ingin dibuat, atau pertanyaan lain..." class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold"></textarea>
+              <label for="clientNotes" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Konsep, Tren yang Diinginkan, atau Pertanyaan (Opsional)</label>
+              <textarea id="clientNotes" rows="3" placeholder="Contoh: adat Sunda, ingin tren TikTok bareng bridesmaid, nuansa putih-sage..." class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold"></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="clientIg" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Instagram Pengantin (opsional)</label>
+                <input type="text" id="clientIg" placeholder="@moniqa / @fauzi" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+              </div>
+              <div>
+                <label for="clientVendor" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">WO / Fotografer Utama (opsional)</label>
+                <input type="text" id="clientVendor" placeholder="Nama vendor, bila sudah ada" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+              </div>
+            </div>
+            <div>
+              <label for="clientSource" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Tahu di.raya.in dari mana? (opsional)</label>
+              <select id="clientSource" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+                <option value="">-- Pilih --</option>
+                <option>Instagram</option><option>TikTok</option><option>Teman / keluarga</option><option>Vendor / WO</option><option>Pernah lihat langsung di acara</option><option>Lainnya</option>
+              </select>
+            </div>
+
+            <div class="flex gap-3 bg-brand-warm border border-brand-sand rounded-xl p-3.5 text-xs text-brand-charcoal leading-relaxed">
+              <i data-lucide="info" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
+              <span><strong>Belum ada pembayaran di website.</strong> Setelah pesan terkirim, admin akan mengonfirmasi ketersediaan tanggal, total biaya termasuk ongkos transport, lalu cara pembayaran DP lewat WhatsApp.</span>
             </div>
 
             <p id="bookingError" class="hidden text-xs font-semibold text-red-700 bg-red-50 border border-red-200 rounded-xl px-4 py-2.5" role="alert"></p>
 
             <button type="submit" class="w-full py-4 bg-[#25D366] hover:bg-[#1ebc57] text-white font-semibold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
               <i data-lucide="message-circle" class="w-5 h-5"></i>
-              <span>Kirim Booking via WhatsApp</span>
+              <span>Cek Jadwal & Booking via WhatsApp</span>
             </button>
             <p class="text-[11px] text-center text-brand-muted">
-              Pesan akan terbuka di WhatsApp resmi <strong>di.raya.in</strong> (085128007096).
+              Formulir akan terbuka sebagai pesan di WhatsApp resmi <strong>di.raya.in</strong> (085128007096).
             </p>
           </form>
         </div>
@@ -873,33 +916,66 @@
       el.classList.remove('hidden');
     }
 
+    // Pilihan rangkaian acara (bisa lebih dari satu)
+    const RANGKAIAN = ['Akad', 'Resepsi', 'Pengajian / Siraman', 'Lamaran', 'Prewedding', 'Lainnya'];
+    document.getElementById('eventChips').innerHTML = RANGKAIAN.map(r => `
+      <label class="cursor-pointer">
+        <input type="checkbox" value="${r}" class="peer sr-only" name="rangkaian">
+        <span class="inline-block px-3.5 py-2 rounded-full border border-brand-sand bg-white text-xs font-medium peer-checked:bg-brand-gold peer-checked:text-white peer-checked:border-brand-gold peer-focus-visible:ring-2 peer-focus-visible:ring-brand-gold transition-colors">${r}</span>
+      </label>`).join('');
+
+    // Sembunyikan pesan error begitu pengguna memperbaiki isian
+    document.getElementById('bookingForm').addEventListener('input', () => document.getElementById('bookingError').classList.add('hidden'));
+    document.getElementById('bookingForm').addEventListener('change', () => document.getElementById('bookingError').classList.add('hidden'));
+
     function handleBookingSubmit(e) {
       e.preventDefault();
-      const name = document.getElementById('clientName').value.trim();
-      const phone = document.getElementById('clientPhone').value.trim();
-      const date = document.getElementById('weddingDate').value.trim();
-      const venue = document.getElementById('weddingVenue').value.trim();
-      const pkg = document.getElementById('selectedPackage').value;
-      const notes = document.getElementById('clientNotes').value.trim();
+      const v = id => document.getElementById(id).value.trim();
+      const name = v('clientName'), phone = v('clientPhone'), date = v('weddingDate'), time = v('weddingTime');
+      const venue = v('weddingVenue'), area = v('weddingArea'), maps = v('weddingMaps');
+      const pkgValue = v('selectedPackage'), notes = v('clientNotes');
+      const ig = v('clientIg'), vendor = v('clientVendor'), source = v('clientSource');
+      const rangkaian = [...document.querySelectorAll('input[name="rangkaian"]:checked')].map(x => x.value);
 
       if (!name) return showBookingError('Nama pasangan pengantin belum diisi.');
       if (phone.replace(/\D/g, '').length < 9) return showBookingError('Nomor WhatsApp belum diisi dengan benar.');
       if (!date) { focusCalendar(); return showBookingError('Pilih tanggal pernikahan di kalender dulu ya.'); }
-      if (!venue) return showBookingError('Kota & lokasi acara belum diisi.');
-      if (!pkg) return showBookingError('Pilih salah satu paket layanan.');
+      if (!time) return showBookingError('Isi perkiraan jam acara (misalnya 08.00 – 14.00 WIB).');
+      if (!venue || !area) return showBookingError('Nama venue dan kecamatan/kota wajib diisi (untuk menghitung ongkos transport).');
+      if (!rangkaian.length) return showBookingError('Pilih minimal satu rangkaian acara.');
+      if (!pkgValue) return showBookingError('Pilih salah satu paket layanan.');
       document.getElementById('bookingError').classList.add('hidden');
 
+      const pkg = PACKAGES.find(p => p.value === pkgValue);
+      const isiPaket = pkg ? pkg.items.map(x => x.replace(/<[^>]+>/g, '')).filter(x => !/Free Transport/.test(x)).join(', ') : '';
+
       const message =
-`Halo Kak Admin *di.raya.in*, saya ingin booking Wedding Content Creator:
+`Halo Kak Admin *di.raya.in*,
+Saya ingin booking *Wedding Content Creator* untuk pernikahan kami. Berikut detailnya:
 
-- *Nama Pasangan:* ${name}
-- *WhatsApp:* ${phone}
-- *Tanggal Acara:* ${date}
-- *Lokasi/Venue:* ${venue}
-- *Pilihan Paket:* ${pkg}
-- *Catatan/Konsep:* ${notes || "-"}
+*DATA PENGANTIN*
+Nama pasangan: ${name}
+WhatsApp: ${phone}${ig ? `\nInstagram: ${ig}` : ''}
 
-Apakah jadwal di tanggal tersebut masih tersedia? Terima kasih!`;
+*JADWAL & LOKASI*
+Tanggal: ${date}
+Perkiraan jam: ${time}
+Rangkaian acara: ${rangkaian.join(', ')}
+Venue: ${venue}
+Kecamatan/Kota: ${area}${maps ? `\nGoogle Maps: ${maps}` : ''}
+
+*PAKET YANG DIMINATI*
+${pkg ? `${pkg.name} (${pkg.dur})` : pkgValue}${isiPaket ? `\nIsi: ${isiPaket}` : ''}
+
+*KONSEP & CATATAN*
+${notes || '-'}${vendor ? `\nWO/Fotografer utama: ${vendor}` : ''}${source ? `\nTahu di.raya.in dari: ${source}` : ''}
+
+Mohon info:
+1. Apakah tanggal tersebut masih tersedia?
+2. Total biaya, termasuk ongkos transport ke lokasi
+3. Cara pembayaran DP untuk mengunci tanggal
+
+Terima kasih, Kak!`;
 
       window.open(waLink(message), '_blank');
     }
