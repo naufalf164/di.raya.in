@@ -2,24 +2,25 @@
 <html lang="id" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>di.buat.in — Undangan Digital Modern & Elegan by di.raya.in</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>di.buat.in — Undangan Digital by di.raya.in</title>
+  <meta name="description" content="Undangan pernikahan digital dengan 30 pilihan desain, nama tamu di sampul, musik pilihan, RSVP ke WhatsApp, dan amplop digital. Mulai Rp49rb.">
+  <meta property="og:title" content="di.buat.in — Undangan Digital by di.raya.in">
+  <meta property="og:description" content="30 desain undangan digital, nama tamu di sampul, musik pilihan. Mulai Rp49rb.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1200&auto=format&fit=crop&q=80">
+  <meta name="theme-color" content="#662626">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@600;700&family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            brand: {
-              cream: '#FAF8F5',
-              warm: '#F4EFEA',
-              sand: '#E8DFD8',
-              gold: '#662626',
-              goldDark: '#4D1B1B',
-              charcoal: '#23201E',
-              muted: '#716B67'
-            }
+            brand: { cream: '#FAF8F5', warm: '#F4EFEA', sand: '#E8DFD8', gold: '#662626', goldDark: '#4D1B1B', charcoal: '#23201E', muted: '#716B67' }
           },
           fontFamily: {
             termes: ['"TeX Gyre Termes"', '"Times New Roman"', 'Times', 'serif'],
@@ -31,613 +32,601 @@
   </script>
   <style>
     body { background-color: #FAF8F5; color: #23201E; font-family: 'Helvetica World', 'Helvetica Neue', Helvetica, Arial, sans-serif; overflow-x: hidden; }
+    body.modal-open { overflow: hidden; }
     .font-termes { font-family: 'TeX Gyre Termes', 'Times New Roman', Times, serif; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { scrollbar-width: none; }
+    /* Hindari zoom otomatis iPhone saat mengetik */
     input, select, textarea { font-size: 16px !important; }
     @media (min-width: 640px) { input, select, textarea { font-size: 14px !important; } }
+    .fld { width: 100%; padding: .6rem .8rem; border-radius: .75rem; border: 1px solid #E8DFD8; background: #fff; outline: none; }
+    .fld:focus { box-shadow: 0 0 0 2px #662626; }
+    .lbl { display: block; font-size: 11px; font-weight: 600; color: #716B67; margin-bottom: .25rem; }
+    .f-serif { font-family: 'Cormorant Garamond', serif; } .f-royal { font-family: 'Cinzel', serif; } .f-edit { font-family: 'Space Grotesk', sans-serif; }
+    .f-script { font-family: 'Caveat', cursive; } .f-cursive { font-family: 'Alex Brush', cursive; } .f-sans { font-family: 'Plus Jakarta Sans', sans-serif; }
   </style>
 </head>
 <body class="bg-brand-cream text-brand-charcoal antialiased flex flex-col min-h-screen">
 
   <audio id="previewAudio"></audio>
 
-  <!-- Top Bar -->
   <div class="bg-brand-gold text-white text-[10px] sm:text-xs py-2 px-3 text-center font-medium tracking-wider uppercase">
-    ✨ Platform Undangan Digital Modern by di.raya.in • 10 Desain Premium Siap Pakai
+    ✨ Undangan Digital by di.raya.in • 30 Desain Siap Pakai • Mulai Rp49rb
   </div>
 
   <!-- Navbar -->
   <header class="sticky top-0 z-40 bg-brand-cream/95 backdrop-blur-md border-b border-brand-sand/60">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
       <div class="flex items-center gap-2">
-        <a href="dibuatin.html" class="text-2xl sm:text-3xl font-bold tracking-tight text-brand-charcoal">
-          di.buat.in<span class="text-brand-gold">.</span>
-        </a>
-        <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider bg-brand-warm border border-brand-sand px-2 py-0.5 rounded text-brand-gold">
-          by di.raya.in
-        </span>
+        <a href="dibuatin.html" class="text-2xl sm:text-3xl font-bold tracking-tight text-brand-charcoal">di.buat.in<span class="text-brand-gold">.</span></a>
+        <span class="hidden sm:inline text-[10px] font-bold uppercase tracking-wider bg-brand-warm border border-brand-sand px-2 py-0.5 rounded text-brand-gold">by di.raya.in</span>
       </div>
-
       <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-brand-muted">
-        <a href="#fitur" class="hover:text-brand-gold">Fitur</a>
-        <a href="#tema" class="hover:text-brand-gold">Katalog 10 Desain</a>
-        <a href="#paket" class="hover:text-brand-gold">Paket Harga</a>
+        <a href="#cara" class="hover:text-brand-gold">Cara Pesan</a>
+        <a href="#tema" class="hover:text-brand-gold">30 Desain</a>
+        <a href="#paket" class="hover:text-brand-gold">Harga</a>
+        <a href="#tamu" class="hover:text-brand-gold">Link Nama Tamu</a>
       </nav>
-
       <div class="flex items-center gap-2">
         <a href="index.html" class="px-3 py-1.5 border border-brand-sand bg-brand-warm text-brand-charcoal text-xs font-semibold rounded-full flex items-center gap-1">
-          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-          <span class="hidden sm:inline">Web di.raya.in</span>
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i><span class="hidden sm:inline">di.raya.in</span>
         </a>
-        <a href="#order" class="px-4 py-2 bg-brand-gold text-white text-xs uppercase tracking-wider font-semibold rounded-full hover:bg-brand-goldDark transition-all shadow-sm">
-          Buat
-        </a>
-        <button onclick="document.getElementById('mMenu').classList.toggle('hidden')" class="md:hidden p-2 rounded-xl bg-brand-warm border border-brand-sand">
-          <i data-lucide="menu" class="w-5 h-5"></i>
-        </button>
+        <a href="#order" class="px-4 py-2 bg-brand-gold text-white text-xs uppercase tracking-wider font-semibold rounded-full hover:bg-brand-goldDark transition-all shadow-sm">Buat</a>
+        <button onclick="toggleMenu()" aria-label="Menu" class="md:hidden p-2 rounded-xl bg-brand-warm border border-brand-sand"><i data-lucide="menu" class="w-5 h-5"></i></button>
       </div>
     </div>
-
     <div id="mMenu" class="hidden md:hidden bg-brand-cream border-b border-brand-sand px-5 py-4 space-y-3 shadow-xl">
-      <a href="#fitur" onclick="document.getElementById('mMenu').classList.add('hidden')" class="block text-sm font-medium">Fitur Unggulan</a>
-      <a href="#tema" onclick="document.getElementById('mMenu').classList.add('hidden')" class="block text-sm font-medium">Katalog 10 Desain</a>
-      <a href="#paket" onclick="document.getElementById('mMenu').classList.add('hidden')" class="block text-sm font-medium">Paket & Harga</a>
-      <div class="pt-2 border-t border-brand-sand">
-        <a href="admin.html" class="block text-xs text-brand-muted">Panel Admin ↗</a>
-      </div>
+      <a href="#cara" onclick="toggleMenu()" class="block text-sm font-medium">Cara Pesan</a>
+      <a href="#tema" onclick="toggleMenu()" class="block text-sm font-medium">Katalog 30 Desain</a>
+      <a href="#paket" onclick="toggleMenu()" class="block text-sm font-medium">Paket & Harga</a>
+      <a href="#tamu" onclick="toggleMenu()" class="block text-sm font-medium">Buat Link Nama Tamu</a>
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero -->
   <section class="py-12 sm:py-20 px-4 sm:px-6 text-center">
     <div class="max-w-4xl mx-auto">
       <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-warm border border-brand-sand text-[10px] sm:text-xs font-semibold tracking-wider uppercase text-brand-gold mb-4">
-        <i data-lucide="sparkles" class="w-3 h-3"></i>
-        <span>Desain Modern • Database Spotify & Upload MP3 • Bottom Navigasi</span>
+        <i data-lucide="sparkles" class="w-3 h-3"></i><span>30 Desain • Nama Tamu di Sampul • RSVP ke WhatsApp</span>
       </div>
-
-      <h1 class="font-termes text-3xl sm:text-5xl md:text-6xl font-normal leading-tight text-brand-charcoal mb-4">
-        Undangan pernikahan digital yang <span class="italic font-semibold text-brand-gold">modern, interaktif, & berkelas</span>.
+      <h1 class="font-termes text-3xl sm:text-5xl md:text-6xl leading-tight text-brand-charcoal mb-4">
+        Undangan pernikahan digital yang <span class="italic font-semibold text-brand-gold">elegan & siap disebar</span>.
       </h1>
-
-      <p class="text-brand-muted text-xs sm:text-base max-w-lg mx-auto mb-8 leading-relaxed">
-        Terinspirasi dari tren undangan digital terbaik: navigasi melayang, animasi piringan hitam, 10 konsep tata letak unik, dan integrasi musik fleksibel.
+      <p class="text-brand-muted text-sm sm:text-base max-w-lg mx-auto mb-8 leading-relaxed">
+        Pilih desain, isi data, lihat pratinjaunya dulu. Setelah pembayaran dikonfirmasi admin, link undangan resmi langsung dikirim ke WhatsApp kamu.
       </p>
-
       <div class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-xs sm:max-w-md mx-auto">
-        <a href="#tema" class="w-full sm:w-auto px-6 py-3 bg-brand-charcoal text-white font-medium text-xs sm:text-sm rounded-full hover:bg-brand-gold transition-all shadow inline-flex items-center justify-center gap-2">
-          <i data-lucide="grid" class="w-4 h-4"></i>
-          <span>Lihat 10 Live Demo</span>
-        </a>
-        <a href="#order" class="w-full sm:w-auto px-6 py-3 bg-brand-gold text-white font-medium text-xs sm:text-sm rounded-full hover:bg-brand-goldDark transition-all shadow inline-flex items-center justify-center gap-2">
-          <i data-lucide="edit-3" class="w-4 h-4"></i>
-          <span>Buat Undangan</span>
-        </a>
+        <a href="#tema" class="w-full sm:w-auto px-6 py-3 bg-brand-charcoal text-white font-medium text-sm rounded-full hover:bg-brand-gold transition-all shadow inline-flex items-center justify-center gap-2"><i data-lucide="grid" class="w-4 h-4"></i> Lihat 30 Desain</a>
+        <a href="#order" class="w-full sm:w-auto px-6 py-3 bg-brand-gold text-white font-medium text-sm rounded-full hover:bg-brand-goldDark transition-all shadow inline-flex items-center justify-center gap-2"><i data-lucide="edit-3" class="w-4 h-4"></i> Buat Undangan</a>
       </div>
     </div>
   </section>
 
-  <!-- ================= KATALOG 10 TEMA DENGAN STRUKTUR BERBEDA ================= -->
-  <section id="tema" class="py-16 bg-brand-warm/60 border-y border-brand-sand px-4 sm:px-6">
+  <!-- Cara Pesan -->
+  <section id="cara" class="pb-16 px-4 sm:px-6 scroll-mt-20">
+    <div class="max-w-5xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4" id="stepsGrid"></div>
+  </section>
+
+  <!-- Katalog -->
+  <section id="tema" class="py-16 bg-brand-warm/60 border-y border-brand-sand px-4 sm:px-6 scroll-mt-16">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center max-w-xl mx-auto mb-10 sm:mb-14">
-        <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase">10 Pilihan Gaya Arsitektur</span>
-        <h2 class="text-2xl sm:text-4xl font-bold mt-1 text-brand-charcoal">Katalog 10 Desain Premium</h2>
-        <p class="text-xs sm:text-sm text-brand-muted mt-2">Setiap template memiliki struktur visual, bingkai, dan tata letak khusus. Klik <strong>Live Demo</strong> untuk mencoba interaksinya.</p>
+      <div class="text-center max-w-xl mx-auto mb-8">
+        <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Katalog Template</span>
+        <h2 class="text-2xl sm:text-4xl font-bold mt-1 text-brand-charcoal">30 Desain Undangan</h2>
+        <p class="text-xs sm:text-sm text-brand-muted mt-2">Ketuk <strong>Lihat Contoh</strong> untuk membuka undangan contoh lengkap, persis seperti yang akan diterima tamu.</p>
       </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" id="themesCardsContainer">
-        <!-- Diisi otomatis oleh JS -->
-      </div>
+      <div id="catFilters" class="flex gap-2 overflow-x-auto no-scrollbar pb-2 mb-6 sm:justify-center"></div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-5" id="themesGrid"></div>
     </div>
   </section>
 
-  <!-- ================= FORM PEMESANAN LENGKAP ================= -->
-  <section id="order" class="py-16 px-4 sm:px-6">
+  <!-- Paket -->
+  <section id="paket" class="py-16 px-4 sm:px-6 scroll-mt-16">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-8">
+        <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Harga</span>
+        <h2 class="text-2xl sm:text-4xl font-bold mt-1">Pilih Paket Undangan</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4" id="paketGrid"></div>
+      <p class="text-[11px] text-brand-muted text-center mt-4">Semua paket: 30 pilihan desain, nama tamu tanpa batas, musik latar, peta lokasi, hitung mundur, amplop digital, dan RSVP ke WhatsApp.</p>
+    </div>
+  </section>
+
+  <!-- Form Pemesanan -->
+  <section id="order" class="py-16 px-4 sm:px-6 bg-brand-warm/40 border-y border-brand-sand scroll-mt-16">
     <div class="max-w-2xl mx-auto">
       <div class="text-center mb-8">
         <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Formulir Pemesanan</span>
-        <h2 class="text-2xl sm:text-3xl font-bold mt-1 text-brand-charcoal">Isi Data Acara Pernikahan</h2>
-        <p class="text-xs text-brand-muted mt-1">Pilih desain, tentukan musik latar, dan isi data pernikahan Anda.</p>
+        <h2 class="text-2xl sm:text-3xl font-bold mt-1">Isi Data Undanganmu</h2>
+        <p class="text-xs text-brand-muted mt-1">Tanda * wajib diisi. Kamu bisa lihat pratinjau sebelum membayar.</p>
       </div>
 
-      <form id="orderForm" onsubmit="submitOrder(event)" class="bg-brand-warm p-5 sm:p-8 rounded-3xl border border-brand-sand space-y-5 shadow-sm">
-        
-        <!-- Paket & Pilihan 10 Tema -->
+      <form id="orderForm" onsubmit="submitOrder(event)" novalidate class="bg-brand-cream p-5 sm:p-8 rounded-3xl border border-brand-sand space-y-6 shadow-sm">
+
+        <!-- Desain & paket -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-semibold text-brand-muted mb-1">Paket Undangan *</label>
-            <select id="f_pkg" required class="w-full px-3 py-2.5 rounded-xl border border-brand-sand bg-white text-xs outline-none focus:ring-2 focus:ring-brand-gold">
-              <option value="Full Event Package (Rp79.000)">Full Event Package (Rp79.000) - Lengkap 1 Tahun</option>
-              <option value="Single Event (Rp49.000)">Single Event (Rp49.000) - Standar 6 Bulan</option>
-            </select>
+            <label class="lbl" for="f_theme">Desain Template *</label>
+            <select id="f_theme" class="fld"></select>
           </div>
           <div>
-            <label class="block text-xs font-semibold text-brand-muted mb-1">Pilihan Desain Template *</label>
-            <select id="f_theme" required class="w-full px-3 py-2.5 rounded-xl border border-brand-sand bg-white text-xs outline-none focus:ring-2 focus:ring-brand-gold">
-              <option value="maroon">1. Warm Maroon (Arch Dome & Romantic Serif)</option>
-              <option value="monochrome">2. Minimalist Monochrome (Magazine Editorial)</option>
-              <option value="sage">3. Botanical Sage (Frosted Glass & Flora)</option>
-              <option value="navy">4. Royal Navy & Gold (Midnight Luxury)</option>
-              <option value="blush">5. Soft Rose Blush (Polaroid Tape Style)</option>
-              <option value="rustic">6. Rustic Terracotta (Boho Kraft & Stitches)</option>
-              <option value="javanese">7. Javanese Heritage (Batik Sogan & Gunungan)</option>
-              <option value="lilac">8. Sundanese Lilac (Melati & Silk Ribbon)</option>
-              <option value="emerald">9. Emerald & Champagne (Art-Deco Velvet)</option>
-              <option value="celestial">10. Celestial Night (Starry Constellation)</option>
-            </select>
+            <label class="lbl" for="f_pkg">Paket *</label>
+            <select id="f_pkg" class="fld" onchange="syncEvents()"></select>
           </div>
         </div>
 
-        <!-- FITUR MUSIK LENGKAP: 3 OPSI (PRESET, SPOTIFY, ATAU UPLOAD MP3) -->
-        <div class="pt-3 border-t border-brand-sand space-y-3">
-          <label class="block text-xs font-bold uppercase text-brand-gold tracking-wider">Pilihan Lagu Latar (BGM)</label>
-          
-          <!-- Tab Pilihan Sumber Musik -->
+        <!-- Musik -->
+        <div class="pt-4 border-t border-brand-sand space-y-3">
+          <div class="text-xs font-bold uppercase text-brand-gold tracking-wider">Musik Latar</div>
           <div class="grid grid-cols-3 gap-1.5 p-1 bg-white border border-brand-sand rounded-xl text-[11px] font-semibold text-center">
-            <button type="button" onclick="switchMusicMode('preset')" id="mTabPreset" class="py-1.5 rounded-lg bg-brand-charcoal text-white transition-all">Preset Populer</button>
-            <button type="button" onclick="switchMusicMode('spotify')" id="mTabSpotify" class="py-1.5 rounded-lg text-brand-muted hover:text-brand-charcoal transition-all">Database Spotify</button>
-            <button type="button" onclick="switchMusicMode('upload')" id="mTabUpload" class="py-1.5 rounded-lg text-brand-muted hover:text-brand-charcoal transition-all">Upload MP3</button>
+            <button type="button" data-mode="preset" class="mtab py-1.5 rounded-lg">Pilihan Kami</button>
+            <button type="button" data-mode="request" class="mtab py-1.5 rounded-lg">Request Lagu</button>
+            <button type="button" data-mode="upload" class="mtab py-1.5 rounded-lg">File Sendiri</button>
           </div>
-
-          <!-- Opsi 1: Preset Pilihan (Audio Siap Putar) -->
-          <div id="mPanePreset" class="space-y-2">
-            <div class="flex gap-2">
-              <select id="f_music_preset" onchange="stopAudioPreview()" class="flex-1 px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none focus:ring-2 focus:ring-brand-gold">
-                <option value="romantic-piano">1. Romantic Wedding Piano (Akad & Resepsi)</option>
-                <option value="thousand-years">2. A Thousand Years - Christina Perri (Acoustic)</option>
-                <option value="until-i-found-you">3. Until I Found You - Stephen Sanchez</option>
-                <option value="payung-teduh-akad">4. Akad - Payung Teduh (Romansa Klasik)</option>
-                <option value="islamic-nasyid">5. Baraka Allahu Lakuma - Maher Zain</option>
-              </select>
-              <button type="button" onclick="togglePresetPreview()" id="btnPresetAudio" class="px-3.5 py-2 bg-brand-charcoal text-white rounded-xl text-xs font-medium flex items-center gap-1.5 shrink-0 hover:bg-brand-gold transition-colors">
-                <i data-lucide="play" class="w-3.5 h-3.5"></i> <span>Dengarkan</span>
-              </button>
-            </div>
+          <div id="mPane-preset" class="mpane flex gap-2">
+            <select id="f_music_preset" onchange="stopPreview()" class="fld flex-1"></select>
+            <button type="button" onclick="togglePreview()" id="btnPreview" class="px-3.5 py-2 bg-brand-charcoal text-white rounded-xl text-xs font-medium flex items-center gap-1.5 shrink-0 hover:bg-brand-gold"><i data-lucide="play" class="w-3.5 h-3.5"></i><span>Dengar</span></button>
           </div>
-
-          <!-- Opsi 2: Cari / Input Judul Spotify -->
-          <div id="mPaneSpotify" class="hidden space-y-2">
-            <div class="flex items-center gap-2 bg-emerald-50 border border-emerald-200 p-2.5 rounded-xl text-xs text-emerald-800">
-              <i data-lucide="music" class="w-4 h-4 text-emerald-600 shrink-0"></i>
-              <span>Pilih lagu dari database Spotify / tuliskan judul lagu favorit Anda:</span>
-            </div>
-            <div class="space-y-2">
-              <select id="f_spotify_preset" onchange="applySpotifyPreset(this.value)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
-                <option value="">-- Rekomendasi Lagu Spotify --</option>
-                <option value="Ed Sheeran - Perfect">Ed Sheeran - Perfect</option>
-                <option value="Shane Filan - Beautiful in White">Shane Filan - Beautiful in White</option>
-                <option value="Nadhif Basalamah - Penjaga Hati">Nadhif Basalamah - Penjaga Hati</option>
-                <option value="Tiara Andini - Janji Setia">Tiara Andini - Janji Setia</option>
-                <option value="Bruno Mars - Marry You">Bruno Mars - Marry You</option>
-                <option value="Dan + Shay - From the Ground Up">Dan + Shay - From the Ground Up</option>
-              </select>
-              <input type="text" id="f_music_spotify" placeholder="Atau ketik sendiri: Judul Lagu - Nama Artis..." class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none focus:ring-2 focus:ring-brand-gold">
-            </div>
+          <div id="mPane-request" class="mpane hidden space-y-2">
+            <input type="text" id="f_music_request" placeholder="Judul lagu – Penyanyi (contoh: Perfect – Ed Sheeran)" class="fld">
+            <p class="text-[11px] text-brand-muted">Admin akan memasangkan lagu ini ke undanganmu.</p>
           </div>
-
-          <!-- Opsi 3: Upload MP3 Langsung dari HP/Laptop -->
-          <div id="mPaneUpload" class="hidden space-y-2">
-            <div class="border-2 border-dashed border-brand-sand p-3 rounded-xl bg-white text-center space-y-1">
-              <input type="file" id="f_music_file" accept="audio/*" onchange="handleAudioUpload(event)" class="text-xs text-brand-muted file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-gold file:text-white hover:file:bg-brand-goldDark cursor-pointer">
-              <p class="text-[10px] text-brand-muted">Mendukung file audio .mp3, .m4a, atau .wav dari HP/Laptop</p>
-            </div>
-            <div id="uploadAudioPreviewBox" class="hidden flex items-center justify-between bg-emerald-50 border border-emerald-200 p-2.5 rounded-xl text-xs text-emerald-800">
-              <span class="truncate font-semibold" id="uploadFileName">audio.mp3</span>
-              <button type="button" onclick="playUploadedAudio()" id="btnPlayUpload" class="px-2.5 py-1 bg-emerald-700 text-white rounded-lg text-[10px]">Putar</button>
-            </div>
+          <div id="mPane-upload" class="mpane hidden">
+            <p class="text-[11px] text-brand-muted bg-white border border-dashed border-brand-sand rounded-xl p-3">Setelah pesanan dikirim, lampirkan file MP3 kamu di chat WhatsApp admin. Admin yang akan memasangnya.</p>
           </div>
+          <p id="previewMsg" class="hidden text-[11px] text-amber-700"></p>
         </div>
 
-        <!-- Kontak Pemesan -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t border-brand-sand">
-          <div>
-            <label class="block text-xs font-semibold text-brand-muted mb-1">Nama Pemesan *</label>
-            <input type="text" id="f_contact_name" required placeholder="Contoh: Sarah Amanda" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-brand-muted mb-1">Nomor WhatsApp *</label>
-            <input type="tel" id="f_contact_wa" required placeholder="Contoh: 08123456789" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
-          </div>
+        <!-- Kontak -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-brand-sand">
+          <div><label class="lbl" for="f_contact_name">Nama Pemesan *</label><input id="f_contact_name" class="fld" placeholder="Contoh: Sarah Amanda"></div>
+          <div><label class="lbl" for="f_contact_wa">Nomor WhatsApp *</label><input id="f_contact_wa" type="tel" inputmode="tel" class="fld" placeholder="08123456789">
+            <p class="text-[10px] text-brand-muted mt-1">Link undangan dikirim ke nomor ini. Konfirmasi RSVP tamu juga masuk ke sini.</p></div>
         </div>
 
-        <!-- Mempelai Wanita -->
-        <div class="space-y-2 pt-3 border-t border-brand-sand">
-          <div class="text-xs font-bold uppercase text-brand-gold">Mempelai Wanita</div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <input type="text" id="f_bride" required placeholder="Nama Lengkap Mempelai Wanita *" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
-            <input type="text" id="f_bride_parents" required placeholder="Orang Tua (Putri Bpk... & Ibu...)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
-          </div>
-          <input type="url" id="f_bride_photo" placeholder="Link URL Foto Mempelai Wanita (Opsional/Drive/ImgBB)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
+        <!-- Mempelai -->
+        <div id="personFields" class="space-y-5 pt-4 border-t border-brand-sand"></div>
+
+        <div>
+          <label class="lbl" for="f_cover">Link Foto Sampul / Prewedding (opsional)</label>
+          <input id="f_cover" type="url" class="fld" placeholder="https://...">
+          <p class="text-[10px] text-brand-muted mt-1">Belum punya link foto? Kosongkan saja, lalu kirim fotonya di chat WhatsApp — admin yang pasang.</p>
         </div>
 
-        <!-- Mempelai Pria -->
-        <div class="space-y-2 pt-3 border-t border-brand-sand">
-          <div class="text-xs font-bold uppercase text-brand-gold">Mempelai Pria</div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <input type="text" id="f_groom" required placeholder="Nama Lengkap Mempelai Pria *" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
-            <input type="text" id="f_groom_parents" required placeholder="Orang Tua (Putra Bpk... & Ibu...)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
-          </div>
-          <input type="url" id="f_groom_photo" placeholder="Link URL Foto Mempelai Pria (Opsional/Drive/ImgBB)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
+        <!-- Acara -->
+        <div class="pt-4 border-t border-brand-sand space-y-4">
+          <div class="text-xs font-bold uppercase text-brand-gold tracking-wider">Detail Acara</div>
+          <div id="eventFields" class="space-y-4"></div>
         </div>
 
-        <!-- Detail Acara & Lokasi (Bisa Nama Saja atau Link Maps) -->
-        <div class="space-y-2 pt-3 border-t border-brand-sand">
-          <div class="text-xs font-bold uppercase text-brand-gold">Detail Acara & Lokasi</div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <input type="text" id="f_date" required placeholder="Tanggal Acara (Contoh: 24 Oktober 2026)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
-            <input type="text" id="f_time" required placeholder="Waktu (Contoh: 08.00 - Selesai)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
-          </div>
-          <input type="text" id="f_venue" required placeholder="Nama Tempat / Gedung / Alamat *" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
-          <input type="url" id="f_maps_url" placeholder="Link Google Maps (Opsional, otomatis dibuat jika kosong)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
-        </div>
-
-        <!-- Amplop Digital (Sembunyi Otomatis Jika Kosong) -->
-        <div class="space-y-2 pt-3 border-t border-brand-sand">
+        <!-- Amplop -->
+        <div class="pt-4 border-t border-brand-sand space-y-2">
           <div class="flex justify-between items-center">
-            <span class="text-xs font-bold uppercase text-brand-gold">Amplop Digital (Opsional)</span>
-            <span class="text-[10px] text-brand-muted">Kosongkan jika tidak ditampilkan</span>
+            <span class="text-xs font-bold uppercase text-brand-gold tracking-wider">Amplop Digital (opsional)</span>
+            <span class="text-[10px] text-brand-muted">Kosongkan jika tidak perlu</span>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-            <input type="text" id="f_bank_name" placeholder="Bank (BCA/Bank Raya)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
-            <input type="text" id="f_bank_acc" placeholder="Nomor Rekening" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
-            <input type="text" id="f_bank_holder" placeholder="Atas Nama (a.n.)" class="w-full px-3 py-2 rounded-xl border border-brand-sand bg-white text-xs outline-none">
-          </div>
+          <div id="giftFields" class="space-y-2"></div>
         </div>
 
-        <button type="submit" class="w-full py-3.5 bg-brand-gold hover:bg-brand-goldDark text-white font-semibold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md flex items-center justify-center gap-2 mt-4">
-          <span>Lanjut ke Pembayaran & Dapatkan Kode Unik</span>
-          <i data-lucide="arrow-right" class="w-4 h-4"></i>
-        </button>
+        <p id="formError" class="hidden text-xs font-semibold text-red-700 bg-red-50 border border-red-200 rounded-xl px-4 py-2.5" role="alert"></p>
+
+        <div class="grid sm:grid-cols-2 gap-3">
+          <button type="button" onclick="openPreview()" class="w-full py-3.5 border-2 border-brand-charcoal text-brand-charcoal font-semibold text-xs uppercase tracking-wider rounded-xl hover:bg-brand-charcoal hover:text-white transition-all flex items-center justify-center gap-2">
+            <i data-lucide="eye" class="w-4 h-4"></i> Lihat Pratinjau
+          </button>
+          <button type="submit" class="w-full py-3.5 bg-brand-gold hover:bg-brand-goldDark text-white font-semibold text-xs uppercase tracking-wider rounded-xl shadow-md flex items-center justify-center gap-2">
+            Lanjut ke Pembayaran <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
       </form>
     </div>
   </section>
 
-  <!-- Popup Pembayaran -->
-  <div id="payModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
-    <div class="w-full max-w-sm bg-brand-cream rounded-3xl p-6 border border-brand-sand shadow-2xl text-center max-h-[92vh] overflow-y-auto">
-      <div class="w-10 h-10 rounded-full bg-brand-warm text-brand-gold flex items-center justify-center mx-auto mb-2">
-        <i data-lucide="credit-card" class="w-5 h-5"></i>
+  <!-- Generator link nama tamu -->
+  <section id="tamu" class="py-16 px-4 sm:px-6 scroll-mt-16">
+    <div class="max-w-2xl mx-auto">
+      <div class="text-center mb-8">
+        <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Untuk yang sudah punya undangan</span>
+        <h2 class="text-2xl sm:text-3xl font-bold mt-1">Buat Link Nama Tamu</h2>
+        <p class="text-xs text-brand-muted mt-1">Nama tamu akan tampil di sampul undangan. Gratis & tanpa batas.</p>
       </div>
-      <h3 class="text-lg font-bold text-brand-charcoal">Rincian Pembayaran</h3>
-      <p class="text-xs text-brand-muted">ID: <strong id="m_id" class="text-brand-gold font-mono">DBI-0000</strong></p>
+      <div class="bg-brand-warm/60 p-5 sm:p-8 rounded-3xl border border-brand-sand space-y-4">
+        <div><label class="lbl" for="g_link">Link undangan dari admin</label><input id="g_link" type="url" class="fld" placeholder="https://dirayain.vercel.app/undangan.html?u=..."></div>
+        <div><label class="lbl" for="g_names">Nama tamu (satu nama per baris)</label><textarea id="g_names" rows="5" class="fld" placeholder="Bapak Hendra & Keluarga&#10;Anisa Putri&#10;Teman-teman Kantor"></textarea></div>
+        <div><label class="lbl" for="g_msg">Pesan pembuka (opsional)</label>
+          <textarea id="g_msg" rows="4" class="fld">Assalamu'alaikum Wr. Wb.
+Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernikahan kami. Berikut link undangannya:</textarea>
+          <p class="text-[10px] text-brand-muted mt-1"><code>{nama}</code> akan diganti otomatis dengan nama tamu.</p></div>
+        <button type="button" onclick="buildGuestLinks()" class="w-full py-3 bg-brand-charcoal hover:bg-brand-gold text-white text-xs font-semibold uppercase tracking-wider rounded-xl">Buat Link</button>
+        <div id="guestOut" class="space-y-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Pembayaran -->
+  <div id="payModal" role="dialog" aria-modal="true" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
+    <div class="w-full max-w-sm bg-brand-cream rounded-3xl p-6 border border-brand-sand shadow-2xl text-center max-h-[92vh] overflow-y-auto">
+      <div class="w-10 h-10 rounded-full bg-brand-warm text-brand-gold flex items-center justify-center mx-auto mb-2"><i data-lucide="credit-card" class="w-5 h-5"></i></div>
+      <h3 class="text-lg font-bold">Rincian Pembayaran</h3>
+      <p class="text-xs text-brand-muted">ID Pesanan: <strong id="m_id" class="text-brand-gold font-mono"></strong></p>
 
       <div class="my-4 bg-brand-warm p-4 rounded-2xl border border-brand-sand text-left text-xs space-y-2">
-        <div class="flex justify-between">
-          <span class="text-brand-muted">Paket:</span>
-          <strong id="m_pkg" class="text-brand-charcoal">Full Event</strong>
-        </div>
+        <div class="flex justify-between"><span class="text-brand-muted">Paket</span><strong id="m_pkg"></strong></div>
+        <div class="flex justify-between"><span class="text-brand-muted">Desain</span><strong id="m_theme"></strong></div>
         <div class="flex justify-between items-center py-2 border-y border-brand-sand">
-          <div>
-            <div class="text-[10px] text-brand-muted">Total Transfer (Termasuk Kode Unik):</div>
-            <strong id="m_price" class="text-brand-gold text-base font-mono">Rp79.382</strong>
-          </div>
-          <span class="text-[9px] bg-brand-gold/10 text-brand-gold px-2 py-0.5 rounded font-semibold">3 Digit Unik</span>
+          <div><div class="text-[10px] text-brand-muted">Total transfer (harus persis, termasuk 3 digit unik):</div><strong id="m_price" class="text-brand-gold text-lg font-mono"></strong></div>
+          <button type="button" onclick="copyText(document.getElementById('m_price').dataset.raw, 'Nominal disalin')" class="px-2.5 py-1 bg-white text-[10px] font-semibold rounded border border-brand-sand">Salin</button>
         </div>
         <div class="pt-1 space-y-1.5">
-          <div class="font-semibold text-brand-charcoal">Transfer ke Rekening:</div>
+          <div class="font-semibold">Transfer ke:</div>
           <div class="bg-white p-2.5 rounded-xl border border-brand-sand flex items-center justify-between">
             <div>
-              <div class="text-[9px] font-bold text-brand-gold uppercase">Bank Raya / BCA</div>
-              <div class="font-mono font-bold text-xs text-brand-charcoal" id="accNum">1234567890</div>
-              <div class="text-[9px] text-brand-muted">a.n. Muhamad Naufal Fauzi</div>
+              <div class="text-[9px] font-bold text-brand-gold uppercase" id="payBank"></div>
+              <div class="font-mono font-bold text-sm" id="payAcc"></div>
+              <div class="text-[10px] text-brand-muted" id="payHolder"></div>
             </div>
-            <button onclick="copyAcc()" class="px-2.5 py-1 bg-brand-warm text-[10px] font-semibold rounded text-brand-charcoal border border-brand-sand">Salin</button>
+            <button type="button" onclick="copyText(PEMBAYARAN.noRek, 'Nomor rekening disalin')" class="px-2.5 py-1 bg-brand-warm text-[10px] font-semibold rounded border border-brand-sand">Salin</button>
           </div>
         </div>
       </div>
 
-      <div class="space-y-2">
-        <button onclick="confirmWa()" class="w-full py-3 bg-[#25D366] hover:bg-[#1ebc57] text-white font-semibold text-xs rounded-xl flex items-center justify-center gap-1.5 shadow-md">
-          <i data-lucide="message-circle" class="w-4 h-4"></i>
-          <span>Konfirmasi ke WhatsApp (089647946725)</span>
-        </button>
-        <button onclick="document.getElementById('payModal').classList.add('hidden')" class="w-full py-2 text-xs text-brand-muted">Tutup</button>
-      </div>
+      <ol class="text-left text-[11px] text-brand-muted space-y-1 mb-4 list-decimal pl-4">
+        <li>Transfer sesuai nominal di atas.</li>
+        <li>Tekan tombol hijau, lalu kirim pesan + foto bukti transfer.</li>
+        <li>Admin cek pembayaran, lalu link undangan resmi dikirim ke WhatsApp kamu.</li>
+      </ol>
+
+      <button type="button" onclick="confirmWa()" class="w-full py-3 bg-[#25D366] hover:bg-[#1ebc57] text-white font-semibold text-xs rounded-xl flex items-center justify-center gap-1.5 shadow-md">
+        <i data-lucide="message-circle" class="w-4 h-4"></i><span>Kirim Konfirmasi ke WhatsApp Admin</span>
+      </button>
+      <button type="button" onclick="closePay()" class="w-full py-2 mt-1 text-xs text-brand-muted">Kembali ubah data</button>
     </div>
   </div>
 
-  <!-- Footer -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] hidden bg-brand-charcoal text-white text-xs font-semibold px-4 py-2.5 rounded-full shadow-xl"></div>
+
   <footer class="bg-brand-charcoal text-brand-sand py-8 mt-auto text-center text-xs">
     <div class="max-w-4xl mx-auto px-4">
       <div class="text-xl font-bold text-white mb-1">di.buat.in<span class="text-brand-gold">.</span></div>
-      <p class="text-[10px] text-brand-sand/70 mb-3">Digital Invitation Platform by di.raya.in • WhatsApp: 089647946725</p>
-      <div class="text-[9px] text-brand-sand/40">&copy; 2026 di.buat.in part of di.raya.in</div>
+      <p class="text-[10px] text-brand-sand/70 mb-3">Undangan Digital by di.raya.in • WhatsApp <a id="footerWa" class="underline" href="#">089647946725</a></p>
+      <div class="text-[9px] text-brand-sand/40">&copy; <span id="yearNow"></span> di.buat.in — bagian dari di.raya.in</div>
     </div>
   </footer>
 
+  <script src="tema.js"></script>
   <script>
-    lucide.createIcons();
-    const WA_ADMIN = "6289647946725";
-    let activeOrder = null;
-    let selectedMusicMode = 'preset';
-    let uploadedAudioBase64 = '';
-
-    const themesCollection = [
-      { id: "maroon", name: "Warm Maroon", badge: "Kubah Arch", desc: "Desain kubah oval lengkung modern & font serif romantis.", color: "bg-[#662626]", img: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=500&auto=format&fit=crop&q=80" },
-      { id: "monochrome", name: "Minimalist Monochrome", badge: "Magazine Editorial", desc: "Gaya majalah fashion hitam-putih kontemporer & border tegas.", color: "bg-[#111827]", img: "https://images.unsplash.com/photo-1519741497674-611481863552?w=500&auto=format&fit=crop&q=80" },
-      { id: "sage", name: "Botanical Sage Green", badge: "Glassmorphism", desc: "Kartu kaca transparan estetik berhias dedaunan taman alami.", color: "bg-[#4A5D4E]", img: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=500&auto=format&fit=crop&q=80" },
-      { id: "navy", name: "Royal Navy & Gold", badge: "Midnight Luxury", desc: "Mode gelap biru navy megah dengan garis tepi foil emas berkilau.", color: "bg-[#1A2B4C]", img: "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?w=500&auto=format&fit=crop&q=80" },
-      { id: "blush", name: "Soft Rose Blush", badge: "Polaroid Tape", desc: "Bingkai foto polaroid berselotip miring & ornamen cinta manis.", color: "bg-[#C97A7E]", img: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=500&auto=format&fit=crop&q=80" },
-      { id: "rustic", name: "Rustic Terracotta", badge: "Boho Kraft Paper", desc: "Karakter kertas kraft alami bergaris jahitan & cap stempel boho.", color: "bg-[#7C4B2E]", img: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=500&auto=format&fit=crop&q=80" },
-      { id: "javanese", name: "Javanese Batik Sogan", badge: "Gunungan Heritage", desc: "Ukiran Gunungan wayang & nuansa batik sogan adat Jawa berwibawa.", color: "bg-[#5C3A21]", img: "https://images.unsplash.com/photo-1606800052052-a08af7148866?w=500&auto=format&fit=crop&q=80" },
-      { id: "lilac", name: "Sundanese Floral Lilac", badge: "Melati & Silk Ribbon", desc: "Untaian bunga melati suci berbalut pita sutra ungu lilac lembut.", color: "bg-[#6B5B95]", img: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=500&auto=format&fit=crop&q=80" },
-      { id: "emerald", name: "Emerald & Champagne", badge: "Art-Deco Velvet", desc: "Bingkai geometris intan art-deco berpadu hijau zamrud mewah.", color: "bg-[#0B3B24]", img: "https://images.unsplash.com/photo-1544077960-604201fe74bc?w=500&auto=format&fit=crop&q=80" },
-      { id: "celestial", name: "Celestial Starry Night", badge: "Constellation Glow", desc: "Langit malam biru gelap berhias rasi bintang & cahaya bulan sabit.", color: "bg-[#0F172A]", img: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=500&auto=format&fit=crop&q=80" }
+    // ============================================================
+    // ⚙️ PENGATURAN — ubah di sini
+    // ============================================================
+    const WA_ADMIN = "6289647946725";            // WhatsApp admin di.buat.in
+    const PEMBAYARAN = {
+      bank: "Bank Raya / BCA",
+      noRek: "1234567890",                       // ⚠️ GANTI dengan nomor rekening asli sebelum website dipakai!
+      atasNama: "Muhamad Naufal Fauzi"
+    };
+    const PAKET = [
+      { key: 'single', name: 'Single Event', price: 49000, events: 1, desc: 'Untuk 1 acara (akad saja atau resepsi saja).' },
+      { key: 'full',   name: 'Full Event',   price: 79000, events: 2, desc: 'Untuk 2 acara (akad + resepsi) dalam satu undangan.', best: true }
     ];
+    // ============================================================
+
+    const rupiah = n => 'Rp' + Number(n).toLocaleString('id-ID');
+    const $ = id => document.getElementById(id);
+    const BASE = location.href.split('#')[0].split('?')[0].replace(/[^/]*$/, '');
+
+    $('yearNow').textContent = new Date().getFullYear();
+    $('footerWa').href = `https://wa.me/${WA_ADMIN}`;
+    $('payBank').textContent = PEMBAYARAN.bank;
+    $('payAcc').textContent = PEMBAYARAN.noRek;
+    $('payHolder').textContent = 'a.n. ' + PEMBAYARAN.atasNama;
+
+    function toggleMenu() { $('mMenu').classList.toggle('hidden'); }
+    function toast(msg) {
+      const t = $('toast'); t.textContent = msg; t.classList.remove('hidden');
+      clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.add('hidden'), 2200);
+    }
+    function copyText(text, msg) {
+      const ok = () => toast(msg || 'Disalin ✓');
+      if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(String(text)).then(ok).catch(() => fallback());
+      fallback();
+      function fallback() {
+        const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); ok(); } catch (e) {} ta.remove();
+      }
+    }
+
+    // ---------- Cara pesan ----------
+    $('stepsGrid').innerHTML = [
+      ['palette', 'Pilih desain', 'Lihat contoh dari 30 template.'],
+      ['edit-3', 'Isi data & pratinjau', 'Cek hasilnya sebelum bayar.'],
+      ['credit-card', 'Transfer & konfirmasi', 'Kirim bukti lewat WhatsApp.'],
+      ['send', 'Link dikirim admin', 'Setelah dicek, undangan aktif.']
+    ].map((s, i) => `
+      <div class="bg-white border border-brand-sand rounded-2xl p-4 text-left">
+        <div class="flex items-center gap-2 mb-2"><span class="w-7 h-7 rounded-full bg-brand-gold text-white text-xs font-bold flex items-center justify-center">${i + 1}</span><i data-lucide="${s[0]}" class="w-4 h-4 text-brand-gold"></i></div>
+        <div class="text-sm font-bold">${s[1]}</div><div class="text-[11px] text-brand-muted mt-0.5">${s[2]}</div>
+      </div>`).join('');
+
+    // ---------- Katalog 30 tema ----------
+    let activeCat = 'all';
+    function mockThumb(t) {
+      const F = { serif: 'f-serif', royal: 'f-royal', edit: 'f-edit', script: 'f-script', cursive: 'f-cursive', sans: 'f-sans' };
+      const nameSize = (t.nameFont === 'cursive' || t.nameFont === 'script') ? 'text-2xl' : (t.nameFont === 'royal' ? 'text-base' : 'text-xl');
+      const block = {
+        lengkung: `<div class="w-14 h-[4.5rem] mx-auto rounded-t-full mb-2" style="border:2px solid ${t.accent};background:${t.surface}"></div>`,
+        majalah: `<div class="w-full text-[6px] font-bold tracking-widest flex justify-between border-b pb-1 mb-2 ${F.edit}" style="border-color:${t.border}"><span>EST.</span><span>WEDDING ISSUE</span></div><div class="w-full h-12 mb-2" style="border:2px solid ${t.border};box-shadow:3px 3px 0 ${t.accent};background:${t.surface}"></div>`,
+        polaroid: `<div class="w-14 h-16 mx-auto bg-white p-1 pb-3 shadow rotate-[-4deg] mb-2"><div class="w-full h-full" style="background:${t.accent};opacity:.35"></div></div>`,
+        sinema: `<div class="absolute inset-0" style="background:linear-gradient(to top, ${t.bg} 25%, ${t.accent}55 100%)"></div>`,
+        klasik: `<div class="text-sm mb-1" style="color:${t.accent}">${t.orn}</div>`
+      }[t.layout];
+      return `
+        <div class="relative aspect-[3/4] overflow-hidden flex flex-col items-center justify-center text-center p-3" style="background:${t.bg};${t.pattern ? `background-image:${t.pattern};` : ''}${t.patternSize ? `background-size:${t.patternSize};` : ''}color:${t.text}">
+          ${block}
+          <div class="relative">
+            <div class="text-[7px] uppercase tracking-[0.25em] font-bold" style="color:${t.accent}">The Wedding Of</div>
+            <div class="${F[t.nameFont]} ${nameSize} leading-tight my-1 ${t.nameFont === 'edit' ? 'uppercase font-bold' : ''}">Sarah <span style="color:${t.accent}">&</span> Rizky</div>
+            <div class="text-[7px] opacity-70">Sabtu, 24 Oktober</div>
+            <div class="mt-2 mx-auto w-16 h-3.5 rounded-full text-[6px] font-bold flex items-center justify-center" style="background:${t.accent};color:${t.onAccent}">BUKA</div>
+          </div>
+        </div>`;
+    }
+
+    function renderCats() {
+      const cats = [{ key: 'all', label: 'Semua' }, ...KATEGORI_TEMA];
+      $('catFilters').innerHTML = cats.map(c => {
+        const n = c.key === 'all' ? DAFTAR_TEMA.length : DAFTAR_TEMA.filter(t => t.cat === c.key).length;
+        const on = activeCat === c.key;
+        return `<button type="button" data-cat="${c.key}" class="shrink-0 px-4 py-2 rounded-full text-xs font-semibold transition-all ${on ? 'bg-brand-charcoal text-white' : 'bg-white border border-brand-sand text-brand-charcoal hover:border-brand-gold'}">${c.label} <span class="opacity-60">${n}</span></button>`;
+      }).join('');
+      $('catFilters').querySelectorAll('button').forEach(b => b.onclick = () => { activeCat = b.dataset.cat; renderCats(); renderThemes(); });
+    }
 
     function renderThemes() {
-      const container = document.getElementById('themesCardsContainer');
-      container.innerHTML = '';
-      themesCollection.forEach((t, i) => {
-        const card = document.createElement('div');
-        card.className = "bg-brand-cream rounded-3xl overflow-hidden border border-brand-sand shadow-sm flex flex-col justify-between hover:shadow-xl hover:border-brand-gold transition-all group";
-        card.innerHTML = `
-          <div>
-            <div class="relative aspect-[4/3] bg-brand-sand overflow-hidden">
-              <img src="${t.img}" alt="${t.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-              <div class="absolute top-2.5 left-2.5 flex items-center gap-1.5 bg-black/75 backdrop-blur-sm text-white px-2.5 py-1 rounded-full text-[10px] font-semibold">
-                <span class="w-2 h-2 rounded-full ${t.color}"></span>
-                <span>Tema ${i + 1}: ${t.badge}</span>
+      const list = DAFTAR_TEMA.filter(t => activeCat === 'all' || t.cat === activeCat);
+      $('themesGrid').innerHTML = list.map(t => {
+        const no = DAFTAR_TEMA.indexOf(t) + 1;
+        const cat = KATEGORI_TEMA.find(c => c.key === t.cat).label;
+        return `
+          <div class="bg-brand-cream rounded-2xl overflow-hidden border border-brand-sand shadow-sm hover:shadow-xl hover:border-brand-gold transition-all flex flex-col">
+            <a href="undangan.html?demo=${t.id}" target="_blank" rel="noopener" class="block" aria-label="Lihat contoh ${t.name}">${mockThumb(t)}</a>
+            <div class="p-3 flex-1 flex flex-col">
+              <div class="text-[9px] uppercase tracking-wider text-brand-muted font-semibold">#${no} • ${cat}</div>
+              <h3 class="text-sm font-bold leading-snug mt-0.5">${t.name}</h3>
+              <div class="mt-auto pt-3 grid grid-cols-2 gap-1.5">
+                <a href="undangan.html?demo=${t.id}" target="_blank" rel="noopener" class="text-center py-1.5 rounded-full border border-brand-sand text-[11px] font-semibold hover:border-brand-gold">Lihat Contoh</a>
+                <button type="button" onclick="pickTheme('${t.id}')" class="py-1.5 rounded-full bg-brand-charcoal hover:bg-brand-gold text-white text-[11px] font-semibold">Pilih</button>
               </div>
             </div>
-            <div class="p-4 sm:p-5 space-y-1">
-              <h3 class="text-base font-bold text-brand-charcoal">${t.name}</h3>
-              <p class="text-xs text-brand-muted leading-relaxed">${t.desc}</p>
-            </div>
-          </div>
-          <div class="p-4 sm:p-5 pt-0 border-t border-brand-sand/60 mt-2 flex items-center justify-between">
-            <a href="undangan.html?demo=${t.id}" target="_blank" class="text-xs font-semibold text-brand-gold hover:underline flex items-center gap-1">
-              <span>Live Demo</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-            <button type="button" onclick="pickTheme('${t.id}')" class="px-3.5 py-1.5 bg-brand-charcoal hover:bg-brand-gold text-white text-xs font-medium rounded-full transition-colors">
-              Pilih Desain
-            </button>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-      lucide.createIcons();
+          </div>`;
+      }).join('');
     }
-    renderThemes();
 
     function pickTheme(id) {
-      document.getElementById('f_theme').value = id;
-      document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+      $('f_theme').value = id;
+      $('order').scrollIntoView({ behavior: 'smooth' });
+      toast(`Desain "${getTema(id).name}" dipilih`);
     }
 
-    // Server Audio Terverifikasi (Audio CDN Berkecepatan Tinggi)
-    const verifiedAudioUrls = {
-      'romantic-piano': 'https://commondatastorage.googleapis.com/codeskulptor-demos/riceracer_assets/music/win.ogg',
-      'thousand-years': 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3',
-      'until-i-found-you': 'https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverending_Story.mp3',
-      'payung-teduh-akad': 'https://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.ogg',
-      'islamic-nasyid': 'https://commondatastorage.googleapis.com/codeskulptor-demos/riceracer_assets/fx/engine_8.ogg'
-    };
+    // ---------- Paket ----------
+    $('paketGrid').innerHTML = PAKET.map(p => `
+      <div class="relative rounded-3xl p-6 border ${p.best ? 'bg-brand-charcoal text-white border-brand-gold border-2' : 'bg-white border-brand-sand'}">
+        ${p.best ? '<span class="absolute -top-3 left-6 bg-brand-gold text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">Paling Lengkap</span>' : ''}
+        <div class="text-sm font-bold uppercase tracking-wider ${p.best ? 'text-brand-sand' : 'text-brand-muted'}">${p.name}</div>
+        <div class="font-termes text-4xl mt-1">${rupiah(p.price)}</div>
+        <p class="text-xs mt-2 ${p.best ? 'text-brand-sand/80' : 'text-brand-muted'}">${p.desc}</p>
+        <button type="button" onclick="pickPkg('${p.key}')" class="mt-5 w-full py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider ${p.best ? 'bg-brand-gold hover:bg-brand-goldDark' : 'border border-brand-charcoal hover:bg-brand-charcoal hover:text-white'}">Pilih ${p.name}</button>
+      </div>`).join('');
+    function pickPkg(key) { $('f_pkg').value = key; syncEvents(); $('order').scrollIntoView({ behavior: 'smooth' }); }
 
-    let isAudioPlaying = false;
-    const previewAudioEl = document.getElementById('previewAudio');
+    // ---------- Form ----------
+    $('f_theme').innerHTML = KATEGORI_TEMA.map(c =>
+      `<optgroup label="${c.label}">${DAFTAR_TEMA.filter(t => t.cat === c.key).map(t => `<option value="${t.id}">${DAFTAR_TEMA.indexOf(t) + 1}. ${t.name}</option>`).join('')}</optgroup>`).join('');
+    $('f_pkg').innerHTML = PAKET.map(p => `<option value="${p.key}">${p.name} — ${rupiah(p.price)}</option>`).join('');
+    $('f_pkg').value = 'full';
+    $('f_music_preset').innerHTML = MUSIK_PRESET.map((m, i) => `<option value="${m.key}">${i + 1}. ${m.title}</option>`).join('');
 
-    // Synthesizer Harmonic Backup (Menjamin 100% Bersuara Tanpa Gagal di HP Manapun)
-    let audioCtx = null;
-    let synthTimer = null;
+    const temaParam = new URLSearchParams(location.search).get('tema');
+    if (temaParam && TEMA_BY_ID[temaParam]) $('f_theme').value = temaParam;
 
-    function playSynthesizedPreview() {
-      try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
+    $('personFields').innerHTML = [['bride', 'Mempelai Wanita', 'Putri dari Bpk. ... & Ibu ...'], ['groom', 'Mempelai Pria', 'Putra dari Bpk. ... & Ibu ...']].map(([k, label, ph]) => `
+      <div class="space-y-2">
+        <div class="text-xs font-bold uppercase text-brand-gold tracking-wider">${label}</div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div><label class="lbl" for="f_${k}">Nama lengkap & gelar *</label><input id="f_${k}" class="fld" placeholder="Contoh: Sarah Amanda, S.Kom"></div>
+          <div><label class="lbl" for="f_${k}_parents">Nama orang tua *</label><input id="f_${k}_parents" class="fld" placeholder="${ph}"></div>
+          <div><label class="lbl" for="f_${k}_photo">Link foto (opsional)</label><input id="f_${k}_photo" type="url" class="fld" placeholder="https://..."></div>
+          <div><label class="lbl" for="f_${k}_ig">Instagram (opsional)</label><input id="f_${k}_ig" class="fld" placeholder="@username"></div>
+        </div>
+      </div>`).join('');
 
-        const notes = [261.63, 329.63, 392.00, 523.25, 392.00, 329.63]; // Melodi Romantis (C - E - G - C)
-        let noteIdx = 0;
+    $('giftFields').innerHTML = [1, 2].map(i => `
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+        <input id="f_bank${i}" class="fld" placeholder="Bank / e-wallet ${i}">
+        <input id="f_acc${i}" class="fld" inputmode="numeric" placeholder="Nomor rekening">
+        <input id="f_holder${i}" class="fld" placeholder="Atas nama">
+      </div>`).join('');
 
-        isAudioPlaying = true;
-        document.getElementById('btnPresetAudio').innerHTML = '<i data-lucide="square" class="w-3.5 h-3.5"></i> <span>Stop</span>';
-        lucide.createIcons();
-
-        synthTimer = setInterval(() => {
-          if (!isAudioPlaying) { clearInterval(synthTimer); return; }
-          const osc = audioCtx.createOscillator();
-          const gain = audioCtx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(notes[noteIdx % notes.length], audioCtx.currentTime);
-          gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8);
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.start();
-          osc.stop(audioCtx.currentTime + 0.8);
-          noteIdx++;
-        }, 500);
-      } catch(e) {}
+    const today = new Date();
+    const minDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    function eventBlock(i, defName) {
+      return `
+        <div class="bg-white border border-brand-sand rounded-2xl p-4 space-y-3" data-ev="${i}">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div><label class="lbl" for="e${i}_name">Nama acara *</label><input id="e${i}_name" class="fld" value="${defName}"></div>
+            <div><label class="lbl" for="e${i}_date">Tanggal *</label><input id="e${i}_date" type="date" min="${minDate}" class="fld"></div>
+            <div><label class="lbl" for="e${i}_time">Jam *</label><input id="e${i}_time" class="fld" placeholder="Contoh: 08.00 – 10.00 WIB"></div>
+            <div><label class="lbl" for="e${i}_venue">Tempat / alamat *</label><input id="e${i}_venue" class="fld" placeholder="Nama gedung, alamat"></div>
+          </div>
+          <div><label class="lbl" for="e${i}_maps">Link Google Maps (opsional — kalau kosong dibuat otomatis dari alamat)</label><input id="e${i}_maps" type="url" class="fld" placeholder="https://maps.app.goo.gl/..."></div>
+        </div>`;
     }
-
-    function switchMusicMode(mode) {
-      selectedMusicMode = mode;
-      stopAudioPreview();
-
-      document.getElementById('mTabPreset').className = mode === 'preset' ? 'py-1.5 rounded-lg bg-brand-charcoal text-white transition-all' : 'py-1.5 rounded-lg text-brand-muted hover:text-brand-charcoal transition-all';
-      document.getElementById('mTabSpotify').className = mode === 'spotify' ? 'py-1.5 rounded-lg bg-brand-charcoal text-white transition-all' : 'py-1.5 rounded-lg text-brand-muted hover:text-brand-charcoal transition-all';
-      document.getElementById('mTabUpload').className = mode === 'upload' ? 'py-1.5 rounded-lg bg-brand-charcoal text-white transition-all' : 'py-1.5 rounded-lg text-brand-muted hover:text-brand-charcoal transition-all';
-
-      document.getElementById('mPanePreset').classList.toggle('hidden', mode !== 'preset');
-      document.getElementById('mPaneSpotify').classList.toggle('hidden', mode !== 'spotify');
-      document.getElementById('mPaneUpload').classList.toggle('hidden', mode !== 'upload');
+    $('eventFields').innerHTML = eventBlock(1, 'Akad Nikah') + eventBlock(2, 'Resepsi');
+    function syncEvents() {
+      const p = PAKET.find(x => x.key === $('f_pkg').value);
+      document.querySelector('[data-ev="2"]').classList.toggle('hidden', p.events < 2);
+      if (p.events < 2 && $('e1_name').value === 'Akad Nikah') $('e1_name').value = 'Akad & Resepsi';
+      if (p.events >= 2 && $('e1_name').value === 'Akad & Resepsi') $('e1_name').value = 'Akad Nikah';
     }
+    syncEvents();
 
-    function applySpotifyPreset(val) {
-      if (val) document.getElementById('f_music_spotify').value = val;
+    // ---------- Musik ----------
+    let musicMode = 'preset';
+    const audio = $('previewAudio');
+    let playing = false;
+    function setMusicMode(m) {
+      musicMode = m; stopPreview();
+      document.querySelectorAll('.mtab').forEach(b => b.className = `mtab py-1.5 rounded-lg ${b.dataset.mode === m ? 'bg-brand-charcoal text-white' : 'text-brand-muted hover:text-brand-charcoal'}`);
+      document.querySelectorAll('.mpane').forEach(p => p.classList.toggle('hidden', p.id !== 'mPane-' + m));
     }
+    document.querySelectorAll('.mtab').forEach(b => b.onclick = () => setMusicMode(b.dataset.mode));
+    setMusicMode('preset');
 
-    function togglePresetPreview() {
-      const presetKey = document.getElementById('f_music_preset').value;
-      const url = verifiedAudioUrls[presetKey];
-      const btn = document.getElementById('btnPresetAudio');
-
-      if (isAudioPlaying) {
-        stopAudioPreview();
-      } else {
-        previewAudioEl.src = url;
-        previewAudioEl.play().then(() => {
-          isAudioPlaying = true;
-          btn.innerHTML = '<i data-lucide="square" class="w-3.5 h-3.5"></i> <span>Stop</span>';
-          lucide.createIcons();
-        }).catch(() => {
-          // Jika browser memblokir audio eksternal, langsung aktifkan synthesizer romantis
-          playSynthesizedPreview();
-        });
-      }
-    }
-
-    function stopAudioPreview() {
-      previewAudioEl.pause();
-      isAudioPlaying = false;
-      if (synthTimer) clearInterval(synthTimer);
-      const btn = document.getElementById('btnPresetAudio');
-      if (btn) {
-        btn.innerHTML = '<i data-lucide="play" class="w-3.5 h-3.5"></i> <span>Dengarkan</span>';
-        lucide.createIcons();
-      }
-    }
-
-    function handleAudioUpload(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      document.getElementById('uploadFileName').innerText = file.name;
-      document.getElementById('uploadAudioPreviewBox').classList.remove('hidden');
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        uploadedAudioBase64 = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function playUploadedAudio() {
-      if (!uploadedAudioBase64) return;
-      if (isAudioPlaying) {
-        stopAudioPreview();
-        document.getElementById('btnPlayUpload').innerText = "Putar";
-      } else {
-        previewAudioEl.src = uploadedAudioBase64;
-        previewAudioEl.play().then(() => {
-          isAudioPlaying = true;
-          document.getElementById('btnPlayUpload').innerText = "Stop";
-        });
-      }
-    }
-
-    function copyAcc() {
-      const num = document.getElementById('accNum').innerText;
-      navigator.clipboard.writeText(num).then(() => alert('Nomor rekening disalin!'));
-    }
-
-    function submitOrder(e) {
-      e.preventDefault();
-      stopAudioPreview();
-
-      const uniqueCode = Math.floor(100 + Math.random() * 900);
-      const rawPrice = document.getElementById('f_pkg').value.includes('79.000') ? 79000 : 49000;
-      const finalPrice = rawPrice + uniqueCode;
-
-      const bride = document.getElementById('f_bride').value.trim();
-      const groom = document.getElementById('f_groom').value.trim();
-      const slug = (bride + '-' + groom).toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-');
-      const orderId = 'DBI-' + Math.floor(1000 + Math.random() * 9000);
-
-      let musicChoice = document.getElementById('f_music_preset').value;
-      let musicNote = "";
-      if (selectedMusicMode === 'spotify') {
-        musicChoice = 'spotify';
-        musicNote = document.getElementById('f_music_spotify').value.trim();
-      } else if (selectedMusicMode === 'upload') {
-        musicChoice = 'uploaded';
-        musicNote = document.getElementById('uploadFileName').innerText;
-      }
-
-      activeOrder = {
-        id: orderId,
-        slug: slug,
-        pkg: document.getElementById('f_pkg').value,
-        theme: document.getElementById('f_theme').value,
-        musicMode: selectedMusicMode,
-        musicChoice: musicChoice,
-        musicNote: musicNote,
-        price: finalPrice,
-        contact: document.getElementById('f_contact_name').value.trim(),
-        wa: document.getElementById('f_contact_wa').value.trim(),
-        bride: bride,
-        brideParents: document.getElementById('f_bride_parents').value.trim(),
-        bridePhoto: document.getElementById('f_bride_photo').value.trim(),
-        groom: groom,
-        groomParents: document.getElementById('f_groom_parents').value.trim(),
-        groomPhoto: document.getElementById('f_groom_photo').value.trim(),
-        date: document.getElementById('f_date').value.trim(),
-        time: document.getElementById('f_time').value.trim(),
-        venue: document.getElementById('f_venue').value.trim(),
-        mapsUrl: document.getElementById('f_maps_url').value.trim(),
-        bankName: document.getElementById('f_bank_name').value.trim(),
-        bankAcc: document.getElementById('f_bank_acc').value.trim(),
-        bankHolder: document.getElementById('f_bank_holder').value.trim()
-      };
-
-      document.getElementById('m_id').innerText = orderId;
-      document.getElementById('m_pkg').innerText = activeOrder.pkg;
-      document.getElementById('m_price').innerText = 'Rp' + finalPrice.toLocaleString('id-ID');
-
-      document.getElementById('payModal').classList.remove('hidden');
-      document.getElementById('payModal').classList.add('flex');
+    function setPreviewBtn(on) {
+      $('btnPreview').innerHTML = on ? '<i data-lucide="square" class="w-3.5 h-3.5"></i><span>Stop</span>' : '<i data-lucide="play" class="w-3.5 h-3.5"></i><span>Dengar</span>';
       lucide.createIcons();
     }
+    function togglePreview() {
+      if (playing) return stopPreview();
+      $('previewMsg').classList.add('hidden');
+      audio.src = musikUrl($('f_music_preset').value);
+      audio.play().then(() => { playing = true; setPreviewBtn(true); }).catch(() => {
+        $('previewMsg').textContent = 'Contoh lagu belum bisa diputar. Lagu tetap bisa dipilih.';
+        $('previewMsg').classList.remove('hidden');
+      });
+    }
+    function stopPreview() { audio.pause(); playing = false; setPreviewBtn(false); }
+
+    // ---------- Kumpulkan data ----------
+    const val = id => ($(id) ? $(id).value.trim() : '');
+    function collect() {
+      const p = PAKET.find(x => x.key === $('f_pkg').value);
+      const events = [];
+      for (let i = 1; i <= p.events; i++) {
+        events.push({ name: val(`e${i}_name`) || 'Acara', iso: val(`e${i}_date`), date: formatTanggalPanjang(val(`e${i}_date`)), time: val(`e${i}_time`), venue: val(`e${i}_venue`), mapsUrl: val(`e${i}_maps`) });
+      }
+      const gifts = [1, 2].map(i => ({ bank: val(`f_bank${i}`), acc: val(`f_acc${i}`), holder: val(`f_holder${i}`) })).filter(g => g.acc);
+      let musicUrl = '', musicNote = '';
+      if (musicMode === 'preset') { musicUrl = musikUrl($('f_music_preset').value); musicNote = MUSIK_PRESET.find(m => m.key === $('f_music_preset').value).title; }
+      if (musicMode === 'request') musicNote = 'Request: ' + (val('f_music_request') || '(belum diisi)');
+      if (musicMode === 'upload') musicNote = 'File MP3 dari klien (dikirim via WhatsApp)';
+      return {
+        pkg: p,
+        contact: val('f_contact_name'), wa: val('f_contact_wa'), musicNote,
+        inv: {
+          theme: $('f_theme').value,
+          bride: val('f_bride'), brideParents: val('f_bride_parents'), bridePhoto: val('f_bride_photo'), brideIg: val('f_bride_ig'),
+          groom: val('f_groom'), groomParents: val('f_groom_parents'), groomPhoto: val('f_groom_photo'), groomIg: val('f_groom_ig'),
+          coverPhoto: val('f_cover'), events, gifts, musicUrl, wa: normalizeWa(val('f_contact_wa'))
+        }
+      };
+    }
+    function validate(c, forPreview) {
+      const err = msg => { $('formError').textContent = msg; $('formError').classList.remove('hidden'); return false; };
+      if (!c.inv.bride || !c.inv.groom) return err('Nama kedua mempelai wajib diisi.');
+      if (forPreview) { $('formError').classList.add('hidden'); return true; }
+      if (!c.contact) return err('Nama pemesan wajib diisi.');
+      if (normalizeWa(c.wa).length < 10) return err('Nomor WhatsApp belum benar.');
+      if (!c.inv.brideParents || !c.inv.groomParents) return err('Nama orang tua kedua mempelai wajib diisi.');
+      for (const ev of c.inv.events) if (!ev.iso || !ev.time || !ev.venue) return err(`Lengkapi tanggal, jam, dan tempat untuk "${ev.name}".`);
+      $('formError').classList.add('hidden');
+      return true;
+    }
+
+    // ---------- Pratinjau (hanya tersimpan di HP/laptop klien) ----------
+    function openPreview() {
+      const c = collect();
+      if (!validate(c, true)) return;
+      try { localStorage.setItem('dbi_preview', JSON.stringify(c.inv)); }
+      catch (e) { return toast('Pratinjau tidak bisa dibuka di mode penyamaran browser.'); }
+      window.open('undangan.html?preview=1', '_blank');
+    }
+
+    // ---------- Pesanan & pembayaran ----------
+    let activeOrder = null;
+    function submitOrder(e) {
+      e.preventDefault();
+      stopPreview();
+      const c = collect();
+      if (!validate(c)) { $('formError').scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+      const unique = Math.floor(100 + Math.random() * 900);
+      activeOrder = {
+        id: 'DBI-' + Date.now().toString(36).toUpperCase().slice(-6),
+        created: new Date().toISOString(),
+        pkg: c.pkg.key, pkgName: c.pkg.name, price: c.pkg.price + unique,
+        contact: c.contact, wa: normalizeWa(c.wa), musicNote: c.musicNote,
+        inv: c.inv
+      };
+      $('m_id').textContent = activeOrder.id;
+      $('m_pkg').textContent = c.pkg.name;
+      $('m_theme').textContent = getTema(c.inv.theme).name;
+      $('m_price').textContent = rupiah(activeOrder.price);
+      $('m_price').dataset.raw = activeOrder.price;
+      $('payModal').classList.remove('hidden'); $('payModal').classList.add('flex');
+      document.body.classList.add('modal-open');
+      lucide.createIcons();
+    }
+    function closePay() {
+      $('payModal').classList.add('hidden'); $('payModal').classList.remove('flex');
+      document.body.classList.remove('modal-open');
+    }
+    $('payModal').addEventListener('click', e => { if (e.target.id === 'payModal') closePay(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePay(); });
 
     function confirmWa() {
       if (!activeOrder) return;
+      const o = activeOrder, inv = o.inv;
+      const adminLink = `${BASE}admin.html#o=${encodePesanan(o)}`;
+      const acara = inv.events.map(ev => `  • ${ev.name}: ${ev.date}, ${ev.time} — ${ev.venue}`).join('\n');
+      const text =
+`*PESANAN UNDANGAN DIGITAL — ${o.id}*
+- *Pasangan:* ${inv.bride} & ${inv.groom}
+- *Paket:* ${o.pkgName}
+- *Desain:* ${getTema(inv.theme).name}
+- *Musik:* ${o.musicNote}
+- *Acara:*
+${acara}
+- *Total Transfer:* ${rupiah(o.price)}
+- *Pemesan:* ${o.contact} (${o.wa})
 
-      const params = new URLSearchParams({
-        id: activeOrder.id,
-        slug: activeOrder.slug,
-        pkg: activeOrder.pkg,
-        theme: activeOrder.theme,
-        mmode: activeOrder.musicMode,
-        mchoice: activeOrder.musicChoice,
-        mnote: activeOrder.musicNote,
-        pr: activeOrder.price,
-        c: activeOrder.contact,
-        wa: activeOrder.wa,
-        b: activeOrder.bride,
-        bp: activeOrder.brideParents,
-        bpic: activeOrder.bridePhoto,
-        g: activeOrder.groom,
-        gp: activeOrder.groomParents,
-        gpic: activeOrder.groomPhoto,
-        d: activeOrder.date,
-        t: activeOrder.time,
-        v: activeOrder.venue,
-        maps: activeOrder.mapsUrl,
-        bn: activeOrder.bankName,
-        ba: activeOrder.bankAcc,
-        bh: activeOrder.bankHolder
-      });
+Bukti transfer saya lampirkan di chat ini.${o.musicNote.startsWith('File MP3') ? '\nFile MP3 juga saya kirim di sini.' : ''}${!inv.bridePhoto || !inv.groomPhoto || !inv.coverPhoto ? '\nFoto mempelai/sampul saya kirim di sini.' : ''}
 
-      const adminVerifyLink = `${window.location.origin}/admin.html?${params.toString()}`;
-
-      const text = 
-`*PESANAN UNDANGAN DIGITAL: ${activeOrder.id}*
-- *Pasangan:* ${activeOrder.bride} & ${activeOrder.groom}
-- *Tema:* ${activeOrder.theme}
-- *Pilihan Lagu:* ${activeOrder.musicMode === 'spotify' ? 'Spotify: ' + activeOrder.musicNote : (activeOrder.musicMode === 'upload' ? 'Upload: ' + activeOrder.musicNote : activeOrder.musicChoice)}
-- *Total Transfer:* Rp${activeOrder.price.toLocaleString('id-ID')} (Kode Unik: ${activeOrder.price % 1000})
-- *Tanggal Acara:* ${activeOrder.date}
-- *Nama Pemesan:* ${activeOrder.contact} (${activeOrder.wa})
-
-Berikut bukti transfer terlampir.
-
-👉 *Link Verifikasi Admin 1-Klik:*
-${adminVerifyLink}`;
-
+🔐 Link verifikasi admin:
+${adminLink}`;
       window.open(`https://wa.me/${WA_ADMIN}?text=${encodeURIComponent(text)}`, '_blank');
-      document.getElementById('payModal').classList.add('hidden');
+      closePay();
+      toast('Pesanan dikirim ke WhatsApp admin');
     }
+
+    // ---------- Generator link nama tamu ----------
+    function buildGuestLinks() {
+      const link = val('g_link');
+      const names = $('g_names').value.split('\n').map(s => s.trim()).filter(Boolean);
+      const out = $('guestOut');
+      if (!/undangan\.html/.test(link)) { out.innerHTML = '<p class="text-xs text-red-700">Tempel link undangan dari admin terlebih dahulu.</p>'; return; }
+      if (!names.length) { out.innerHTML = '<p class="text-xs text-red-700">Tulis minimal satu nama tamu.</p>'; return; }
+      const base = link.replace(/([?&])to=[^&]*/g, '$1').replace(/[?&]$/, '');
+      const tpl = $('g_msg').value;
+      out.innerHTML = '';
+      names.forEach(n => {
+        const url = `${base}${base.includes('?') ? '&' : '?'}to=${encodeURIComponent(n)}`;
+        const msg = `${tpl.replace(/\{nama\}/g, n)}\n\n${url}`;
+        const row = document.createElement('div');
+        row.className = 'bg-white border border-brand-sand rounded-xl p-3 flex items-center justify-between gap-2';
+        row.innerHTML = `<span class="text-xs font-semibold truncate"></span>
+          <div class="flex gap-1.5 shrink-0">
+            <button type="button" class="px-2.5 py-1 text-[11px] font-semibold rounded-lg border border-brand-sand">Salin</button>
+            <a target="_blank" rel="noopener" class="px-2.5 py-1 text-[11px] font-semibold rounded-lg bg-[#25D366] text-white">Kirim WA</a>
+          </div>`;
+        row.querySelector('span').textContent = n;
+        row.querySelector('button').onclick = () => copyText(msg, `Pesan untuk ${n} disalin`);
+        row.querySelector('a').href = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+        out.appendChild(row);
+      });
+    }
+
+    renderCats();
+    renderThemes();
+    lucide.createIcons();
   </script>
 </body>
 </html>
