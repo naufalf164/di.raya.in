@@ -54,6 +54,7 @@
         <p class="text-[11px] text-brand-muted mt-0.5">Terkunci otomatis setelah 20 menit tidak dipakai.</p>
       </div>
       <div class="flex flex-wrap gap-2 text-xs font-semibold">
+        <button onclick="downloadDataJs()" class="px-3 py-2 bg-white rounded-full border border-brand-sand flex items-center gap-1"><i data-lucide="link" class="w-3.5 h-3.5"></i> Unduh undangan-data.js</button>
         <button onclick="exportBackup()" class="px-3 py-2 bg-white rounded-full border border-brand-sand flex items-center gap-1"><i data-lucide="download" class="w-3.5 h-3.5"></i> Cadangan Pesanan</button>
         <label class="px-3 py-2 bg-white rounded-full border border-brand-sand flex items-center gap-1 cursor-pointer"><i data-lucide="upload" class="w-3.5 h-3.5"></i> Muat<input type="file" accept="application/json" class="hidden" onchange="importBackup(event)"></label>
         <button onclick="lock()" class="px-3 py-2 bg-brand-charcoal text-white rounded-full flex items-center gap-1"><i data-lucide="lock" class="w-3.5 h-3.5"></i> Kunci</button>
@@ -66,6 +67,8 @@
     <div class="bg-white/70 border border-brand-sand rounded-2xl p-4 text-xs text-brand-muted leading-relaxed">
       <strong class="text-brand-charcoal">Alur kerja:</strong> klien kirim pesanan lewat WhatsApp → buka <em>Link verifikasi admin</em> di pesan itu → cek mutasi rekening sesuai nominal →
       pasang foto/musik bila klien mengirim lewat chat → tekan <strong>Konfirmasi Lunas & Terbitkan</strong> → tekan tombol hijau untuk mengirim link ke klien.
+      <br><strong class="text-brand-charcoal">Revisi dari klien:</strong> buka <em>Edit isi undangan</em> di kartu pesanan → ubah → <strong>Simpan</strong> → <strong>Kirim Ulang ke Klien</strong>.
+      Kalau pesanan memakai <em>link tetap</em>, cukup tekan <strong>Unduh undangan-data.js</strong> lalu upload file itu ke website: link yang sudah tersebar ikut berubah.
     </div>
 
     <!-- Desain terlaris → Best Choice by Client -->
@@ -100,6 +103,16 @@
     let activeTab = 'menunggu';
     let PRIV = null;           // kunci rahasia (hanya di memori setelah PIN benar)
     let linkCache = {};        // id pesanan -> link bertanda tangan
+    let WEB_DATA = {};         // isi undangan-data.js yang sedang online: slug -> [isi, tanda tangan]
+    const RE_ENTRI = /"([a-z0-9-]{3,40})"\s*:\s*\[\s*"([A-Za-z0-9_-]+)"\s*,\s*"([A-Za-z0-9_-]+)"\s*\]/g;
+    async function loadWebData() {
+      try {
+        const r = await fetch('undangan-data.js?t=' + Date.now(), { cache: 'no-store' });
+        if (!r.ok) return;
+        const txt = await r.text(); WEB_DATA = {};
+        for (const m of txt.matchAll(RE_ENTRI)) WEB_DATA[m[1]] = [m[2], m[3]];
+      } catch (_) {}
+    }
 
     // ---------- util ----------
     function load() { try { return JSON.parse(localStorage.getItem(STORE)) || {}; } catch (_) { return {}; } }
@@ -205,11 +218,22 @@
     function resetIdle() { clearTimeout(idleTimer); if (PRIV) idleTimer = setTimeout(() => { lock(); toast('Panel terkunci otomatis'); }, 20 * 60 * 1000); }
     ['click', 'keydown', 'touchstart'].forEach(ev => document.addEventListener(ev, resetIdle, { passive: true }));
 
-    async function signedLink(o) {
-      if (linkCache[o.id]) return linkCache[o.id];
+    async function signPayload(o) {
       const payload = encodeUndangan(o.inv);
       const sig = await crypto.subtle.sign(ECDSA_SIGN, PRIV, new TextEncoder().encode(payload));
-      return (linkCache[o.id] = `${BASE}undangan.html?u=${payload}&s=${_bytesToB64u(sig)}`);
+      return [payload, _bytesToB64u(sig)];
+    }
+    async function signedLink(o) {
+      if (o.slug) return `${BASE}undangan.html?id=${o.slug}`;
+      if (linkCache[o.id]) return linkCache[o.id];
+      const [payload, sig] = await signPayload(o);
+      return (linkCache[o.id] = `${BASE}undangan.html?u=${payload}&s=${sig}`);
+    }
+    // status link tetap dibanding undangan-data.js yang online
+    function webStatus(o) {
+      const w = WEB_DATA[o.slug];
+      if (!w) return 'belum';
+      return w[0] === encodeUndangan(o.inv) ? 'sinkron' : 'beda';
     }
 
     function renderSecurity() {
@@ -285,6 +309,7 @@
         $('adminList').innerHTML = `<div class="bg-brand-cream border border-brand-sand rounded-2xl text-center py-10 text-xs text-brand-muted">Belum ada pesanan di sini. Buka <em>Link verifikasi admin</em> dari WhatsApp klien untuk memuat pesanan.</div>`;
         return lucide.createIcons();
       }
+      if (!render.webLoaded) { render.webLoaded = true; await loadWebData(); }
       const links = await Promise.all(list.map(signedLink));
       $('adminList').innerHTML = list.map((o, i) => cardHTML(o, links[i])).join('');
       lucide.createIcons();
@@ -339,28 +364,88 @@
             <div>💳 Amplop: ${(inv.gifts || []).length ? inv.gifts.map(g => `${e(g.bank)} ${e(g.acc)} a.n. ${e(g.holder)}`).join(', ') : '<em class="text-brand-muted">tidak ada</em>'}</div>
             <div>📱 RSVP tamu dikirim ke: <strong>${e(inv.wa || '-')}</strong></div>
           </div>
-          ${missing.length ? `<p class="text-[11px] text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5">Belum ada: ${missing.join(', ')}. Isi di "Foto & musik" bila klien mengirim lewat chat (opsional).</p>` : ''}
+          ${missing.length ? `<p class="text-[11px] text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5">Belum ada: ${missing.join(', ')}. Isi di "Edit isi undangan" bila klien mengirim lewat chat (opsional).</p>` : ''}
 
-          <details class="text-xs">
-            <summary class="cursor-pointer font-semibold text-brand-gold">Foto & musik</summary>
-            <div class="grid sm:grid-cols-2 gap-2 mt-2" data-edit="${id}">
-              <label>Foto wanita<input class="fld mt-1" data-k="bridePhoto" value="${e(inv.bridePhoto || '')}" placeholder="https://..."></label>
-              <label>Foto pria<input class="fld mt-1" data-k="groomPhoto" value="${e(inv.groomPhoto || '')}" placeholder="https://..."></label>
-              <label>Foto sampul<input class="fld mt-1" data-k="coverPhoto" value="${e(inv.coverPhoto || '')}" placeholder="https://..."></label>
-              <label>Musik
-                <input class="fld mt-1" data-k="musicUrl" value="${e(inv.musicUrl || '')}" placeholder="musik/nama-file.mp3 atau https://...">
-              </label>
-              <div class="sm:col-span-2 flex flex-wrap items-center gap-2">
-                <button onclick="saveEdits('${id}')" class="px-3 py-1.5 bg-brand-charcoal text-white rounded-lg font-semibold">Simpan</button>
-                <span class="text-[10px] text-brand-muted">Foto Google Drive: https://lh3.googleusercontent.com/d/ID_FILE${aktif ? ' • Setelah diubah, kirim ulang link ke klien.' : ''}</span>
+          ${o.resend ? `<p class="text-[11px] font-semibold text-amber-900 bg-amber-50 border border-amber-300 rounded-lg px-3 py-2">Isi undangan sudah diubah (revisi ke-${o.rev || 1}). ${o.slug ? 'Tekan <strong>Unduh undangan-data.js</strong>, upload ke website, lalu kabari klien.' : 'Tekan <strong>Kirim Ulang ke Klien</strong>, karena link lama masih menampilkan isi sebelum revisi.'}</p>` : ''}
+
+          <details class="text-xs" ${o.openEdit ? 'open' : ''}>
+            <summary class="cursor-pointer font-semibold text-brand-gold">Edit isi undangan (revisi klien, foto & musik)</summary>
+            <div class="space-y-4 mt-3" data-edit="${id}">
+              <fieldset class="grid sm:grid-cols-2 gap-2">
+                <legend class="font-bold text-[11px] uppercase tracking-wider text-brand-muted mb-1">Mempelai</legend>
+                <label>Nama wanita<input class="fld mt-1" data-k="bride" value="${e(inv.bride || '')}"></label>
+                <label>Nama pria<input class="fld mt-1" data-k="groom" value="${e(inv.groom || '')}"></label>
+                <label>Orang tua wanita<input class="fld mt-1" data-k="brideParents" value="${e(inv.brideParents || '')}"></label>
+                <label>Orang tua pria<input class="fld mt-1" data-k="groomParents" value="${e(inv.groomParents || '')}"></label>
+                <label>Instagram wanita<input class="fld mt-1" data-k="brideIg" value="${e(inv.brideIg || '')}"></label>
+                <label>Instagram pria<input class="fld mt-1" data-k="groomIg" value="${e(inv.groomIg || '')}"></label>
+              </fieldset>
+
+              <fieldset class="space-y-2">
+                <legend class="font-bold text-[11px] uppercase tracking-wider text-brand-muted mb-1">Acara</legend>
+                ${(inv.events || []).map((ev, i) => `
+                  <div class="grid sm:grid-cols-2 gap-2 bg-white border border-brand-sand/70 rounded-xl p-2.5" data-ev="${i}">
+                    <label>Nama acara<input class="fld mt-1" data-e="name" value="${e(ev.name || '')}"></label>
+                    <label>Tanggal<input type="date" class="fld mt-1" data-e="iso" value="${e(ev.iso || '')}"></label>
+                    <label>Jam<input class="fld mt-1" data-e="time" value="${e(ev.time || '')}"></label>
+                    <label>Tempat<input class="fld mt-1" data-e="venue" value="${e(ev.venue || '')}"></label>
+                    <label class="sm:col-span-2">Link Google Maps<input class="fld mt-1" data-e="mapsUrl" value="${e(ev.mapsUrl || '')}" placeholder="https://maps.app.goo.gl/..."></label>
+                  </div>`).join('')}
+              </fieldset>
+
+              <fieldset class="grid sm:grid-cols-2 gap-2">
+                <legend class="font-bold text-[11px] uppercase tracking-wider text-brand-muted mb-1">Foto & musik</legend>
+                <label>Foto wanita<input class="fld mt-1" data-k="bridePhoto" value="${e(inv.bridePhoto || '')}" placeholder="https://..."></label>
+                <label>Foto pria<input class="fld mt-1" data-k="groomPhoto" value="${e(inv.groomPhoto || '')}" placeholder="https://..."></label>
+                <label>Foto sampul<input class="fld mt-1" data-k="coverPhoto" value="${e(inv.coverPhoto || '')}" placeholder="https://..."></label>
+                <label>Musik<input class="fld mt-1" data-k="musicUrl" value="${e(inv.musicUrl || '')}" placeholder="musik/nama-file.mp3 atau https://..."></label>
+                <p class="sm:col-span-2 text-[10px] text-brand-muted">Link share Google Drive boleh langsung ditempel (akses file: "Siapa saja yang memiliki link").</p>
+              </fieldset>
+
+              <fieldset class="space-y-2">
+                <legend class="font-bold text-[11px] uppercase tracking-wider text-brand-muted mb-1">Isi tambahan</legend>
+                <label class="block">Kisah cinta — satu baris per momen: <b>Tahun | Judul | Cerita</b>
+                  <textarea class="fld mt-1" rows="3" data-k="story">${e((inv.story || []).map(x => [x.year, x.title, x.text].filter((v, j) => v || j < 2).join(' | ')).join('\n'))}</textarea></label>
+                <label class="block">Galeri foto — satu link per baris (maks. 9)
+                  <textarea class="fld mt-1" rows="3" data-k="gallery">${e((inv.gallery || []).join('\n'))}</textarea></label>
+                <div class="grid sm:grid-cols-2 gap-2">
+                  <label>Dress code<input class="fld mt-1" data-k="dress" value="${e(inv.dress || '')}"></label>
+                  <label>Link live streaming<input class="fld mt-1" data-k="stream" value="${e(inv.stream || '')}" placeholder="https://..."></label>
+                </div>
+                <label class="block">Turut mengundang — satu nama per baris
+                  <textarea class="fld mt-1" rows="3" data-k="turut">${e(inv.turut || '')}</textarea></label>
+              </fieldset>
+
+              <fieldset class="grid sm:grid-cols-2 gap-2">
+                <legend class="font-bold text-[11px] uppercase tracking-wider text-brand-muted mb-1">Amplop digital & RSVP</legend>
+                <label class="sm:col-span-2 block">Rekening/e-wallet — satu per baris: <b>Bank | Nomor | Atas nama</b>
+                  <textarea class="fld mt-1" rows="2" data-k="gifts">${e((inv.gifts || []).map(g => [g.bank, g.acc, g.holder].join(' | ')).join('\n'))}</textarea></label>
+                <label>WhatsApp penerima RSVP<input class="fld mt-1" data-k="wa" value="${e(inv.wa || '')}"></label>
+              </fieldset>
+
+              <div class="flex flex-wrap items-center gap-2">
+                <button onclick="saveEdits('${id}')" class="px-4 py-2 bg-brand-charcoal text-white rounded-lg font-semibold">Simpan Perubahan</button>
+                <span class="text-[10px] text-brand-muted">Kolom yang dikosongkan tidak tampil di undangan.</span>
               </div>
             </div>
           </details>
 
+          <div class="text-xs bg-white p-3 rounded-xl border border-brand-sand/70 space-y-2">
+            ${o.slug ? (() => {
+              const st = webStatus(o);
+              const badge = { sinkron: ['bg-emerald-100 text-emerald-800', 'Aktif di website, sudah versi terbaru'], beda: ['bg-amber-100 text-amber-800', 'Website masih versi lama: unduh undangan-data.js lalu upload'], belum: ['bg-amber-100 text-amber-800', aktif ? 'Belum ada di website: unduh undangan-data.js lalu upload' : 'Akan masuk undangan-data.js setelah lunas'] }[st];
+              return `<div class="flex flex-wrap items-center justify-between gap-2"><strong>Link tetap</strong><span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${badge[0]}">${badge[1]}</span></div>
+                <div class="font-mono text-[11px] break-all text-brand-gold">${e(BASE)}undangan.html?id=${e(o.slug)}</div>
+                <button onclick="releaseSlug('${id}')" class="text-[11px] text-brand-muted underline">Berhenti pakai link tetap</button>`;
+            })() : `
+              <div class="flex flex-wrap items-center justify-between gap-2"><strong>Link tetap (opsional)</strong><span class="text-[10px] text-brand-muted">Revisi tidak mengganti link yang sudah disebar</span></div>
+              <div class="flex gap-2"><span class="self-center text-[11px] text-brand-muted shrink-0">undangan.html?id=</span><input class="fld font-mono" id="slug-${id}" value="${e(slugDefault(inv))}"><button onclick="useSlug('${id}')" class="px-3 bg-brand-charcoal text-white rounded-lg font-semibold shrink-0">Pakai</button></div>`}
+          </div>
+
           <div class="flex flex-wrap gap-2 pt-1 text-xs font-semibold">
             <a href="${e(link)}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 bg-white border border-brand-sand rounded-lg flex items-center gap-1"><i data-lucide="eye" class="w-3.5 h-3.5"></i> Lihat Undangan</a>
             ${aktif ? `
-              <button onclick="sendToClient('${id}')" class="px-3.5 py-1.5 bg-[#25D366] text-white rounded-lg flex items-center gap-1"><i data-lucide="send" class="w-3.5 h-3.5"></i> Kirim Link ke Klien</button>
+              <button onclick="sendToClient('${id}')" class="px-3.5 py-1.5 bg-[#25D366] text-white rounded-lg flex items-center gap-1"><i data-lucide="send" class="w-3.5 h-3.5"></i> ${o.sentAt ? 'Kirim Ulang ke Klien' : 'Kirim Link ke Klien'}</button>
               <button onclick="copyLink('${id}')" class="px-3.5 py-1.5 bg-white border border-brand-sand rounded-lg">Salin Link</button>
               <button onclick="setStatus('${id}','menunggu')" class="px-3.5 py-1.5 text-brand-muted">Batalkan aktif</button>
             ` : `
@@ -372,16 +457,88 @@
     }
 
     const safeAsset = u => { u = String(u || '').trim(); return /^(https:\/\/|musik\/)/i.test(u) ? u : ''; };
+    const safeHttps = u => { u = String(u || '').trim(); return /^https:\/\//i.test(u) ? u : ''; };
+    const baris = v => String(v || '').split('\n').map(x => x.trim()).filter(Boolean);
     function saveEdits(id) {
       const db = load(); const o = db[id]; if (!o) return;
+      const box = document.querySelector(`[data-edit="${CSS.escape(id)}"]`);
+      const get = k => (box.querySelector(`[data-k="${k}"]`) || {}).value || '';
+      const before = JSON.stringify(o.inv);
+      const inv = { ...o.inv };
       let bad = false;
-      document.querySelectorAll(`[data-edit="${CSS.escape(id)}"] [data-k]`).forEach(inp => {
-        const v = inp.value.trim(); const s = safeAsset(v);
-        if (v && !s) bad = true;
-        o.inv[inp.dataset.k] = s;
+      const url = (v, fn) => { const r = fn(v); if (String(v).trim() && !r) bad = true; return r; };
+
+      ['bride', 'groom', 'brideParents', 'groomParents', 'brideIg', 'groomIg', 'dress'].forEach(k => inv[k] = get(k).trim());
+      if (!inv.bride || !inv.groom) return toast('Nama kedua mempelai wajib diisi');
+      ['bridePhoto', 'groomPhoto', 'coverPhoto', 'musicUrl'].forEach(k => inv[k] = url(get(k), safeAsset));
+      inv.stream = url(get('stream'), safeHttps);
+      inv.turut = baris(get('turut')).join('\n');
+      inv.wa = normalizeWa(get('wa'));
+      inv.events = [...box.querySelectorAll('[data-ev]')].map(row => {
+        const f = k => row.querySelector(`[data-e="${k}"]`).value.trim();
+        const iso = f('iso');
+        return { name: f('name') || 'Acara', iso, date: iso ? formatTanggalPanjang(iso) : '', time: f('time'), venue: f('venue'), mapsUrl: url(f('mapsUrl'), safeHttps) };
       });
+      inv.gallery = baris(get('gallery')).map(v => url(v, safeHttps)).filter(Boolean).slice(0, 9);
+      inv.story = baris(get('story')).slice(0, 6).map(l => {
+        const a = l.split('|').map(x => x.trim());
+        return a.length >= 3 ? { year: a[0], title: a[1], text: a.slice(2).join(' | ') } : a.length === 2 ? { year: a[0], title: a[1], text: '' } : { year: '', title: '', text: a[0] };
+      });
+      inv.gifts = baris(get('gifts')).map(l => { const a = l.split('|').map(x => x.trim()); return { bank: a[0] || '', acc: a[1] || '', holder: a[2] || '' }; }).filter(g => g.acc);
+
+      o.inv = inv;
+      const changed = JSON.stringify(inv) !== before;
+      if (changed && o.status === 'aktif') { o.rev = (o.rev || 0) + 1; o.revisedAt = new Date().toISOString(); o.resend = true; }
+      o.openEdit = false;
       save(db); delete linkCache[id]; render();
-      toast(bad ? 'Link harus diawali https:// atau musik/ — yang tidak sesuai dikosongkan' : 'Tersimpan');
+      toast(bad ? 'Tersimpan. Link yang tidak diawali https:// dikosongkan.' : changed ? 'Perubahan tersimpan' : 'Tidak ada perubahan');
+    }
+
+    // ---------- Link tetap (undangan-data.js) ----------
+    function slugDefault(inv) {
+      const s = x => String(x || '').split(',')[0].trim().split(/\s+/)[0].toLowerCase().normalize('NFD').replace(/[^a-z0-9]/g, '');
+      return [s(inv.bride), s(inv.groom)].filter(Boolean).join('-') || 'undangan';
+    }
+    function useSlug(id) {
+      const db = load(); const o = db[id]; if (!o) return;
+      const slug = ($('slug-' + id).value || '').trim().toLowerCase();
+      if (!/^[a-z0-9-]{3,40}$/.test(slug)) return toast('Gunakan huruf kecil, angka, dan tanda - saja (3–40 karakter)');
+      if (Object.values(db).some(x => x.id !== id && x.slug === slug)) return toast('Nama link ini sudah dipakai pesanan lain');
+      if (WEB_DATA[slug] && o.slugRemoved !== slug && !confirm(`"${slug}" sudah ada di undangan-data.js (mungkin milik pesanan dari perangkat lain). Timpa?`)) return;
+      o.slug = slug; delete o.slugRemoved; o.resend = o.status === 'aktif';
+      save(db); render();
+      toast('Link tetap dipasang. Unduh undangan-data.js lalu upload ke website.');
+    }
+    function releaseSlug(id) {
+      const db = load(); const o = db[id]; if (!o || !o.slug) return;
+      if (!confirm(`Berhenti pakai link tetap "${o.slug}"? Setelah undangan-data.js baru di-upload, link itu tidak bisa dibuka lagi.`)) return;
+      o.slugRemoved = o.slug; delete o.slug; o.resend = o.status === 'aktif';
+      save(db); delete linkCache[id]; render();
+    }
+    async function downloadDataJs() {
+      if (!PRIV) return;
+      await loadWebData();
+      const db = Object.values(load());
+      const data = { ...WEB_DATA };
+      db.forEach(o => { if (o.slugRemoved && !db.some(x => x.slug === o.slugRemoved)) delete data[o.slugRemoved]; });
+      const aktif = db.filter(o => o.slug && o.status === 'aktif');
+      for (const o of aktif) data[o.slug] = await signPayload(o);
+      const lines = Object.keys(data).sort().map(k => `  "${k}": ["${data[k][0]}", "${data[k][1]}"],`);
+      const txt =
+`// undangan-data.js — LINK TETAP undangan di.buat.in
+// File ini dibuat otomatis oleh admin.html (${new Date().toLocaleString('id-ID')}). Jangan diedit manual.
+// Untuk revisi: edit di admin.html → "Unduh undangan-data.js" → upload file ini menggantikan yang lama.
+// Link: undangan.html?id=NAMA-LINK
+
+const UNDANGAN_DATA = {
+${lines.join('\n')}
+};
+`;
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([txt], { type: 'text/javascript' }));
+      a.download = 'undangan-data.js'; a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+      toast(`undangan-data.js berisi ${lines.length} undangan. Upload ke website (nama file harus persis sama).`, 5000);
     }
     function setStatus(id, status) {
       const db = load(); if (!db[id]) return;
@@ -403,14 +560,30 @@
     async function copyLink(id) { copyText(await signedLink(load()[id]), 'Link undangan disalin'); }
     async function sendToClient(id) {
       const o = load()[id];
+      if (o.slug && webStatus(o) !== 'sinkron' && !confirm('Link tetap belum aktif / belum versi terbaru di website. Unduh undangan-data.js dan upload dulu, supaya klien tidak melihat isi lama. Tetap kirim sekarang?')) return;
       const link = await signedLink(o);
-      const text =
+      const pasangan = `${String(o.inv.bride).split(',')[0]} & ${String(o.inv.groom).split(',')[0]}`;
+      const revisi = !!o.sentAt;
+      const text = revisi ?
 `Halo Kak *${o.contact}*,
 
-Pembayaran pesanan *${o.id}* sudah kami terima, terima kasih! Undangan digital ${String(o.inv.bride).split(',')[0]} & ${String(o.inv.groom).split(',')[0]} sudah *aktif*.
+Revisi undangan digital ${pasangan} sudah kami perbarui.
+
+${o.slug ? `*Link undangan (tetap sama):*\n${link}\n\nLink yang sudah Kakak bagikan ke tamu otomatis menampilkan isi terbaru, jadi tidak perlu dikirim ulang.` : `*Link undangan terbaru:*\n${link}\n\nMohon pakai link ini untuk dibagikan ke tamu. Link sebelumnya masih menampilkan isi lama. Untuk nama tamu di sampul, buat ulang linknya di:\n${BASE}dibuatin.html#tamu`}
+
+Kalau masih ada yang perlu diubah, kabari kami ya.
+
+Salam hangat,
+di.buat.in by di.raya.in`
+:
+`Halo Kak *${o.contact}*,
+
+Pembayaran pesanan *${o.id}* sudah kami terima, terima kasih! Undangan digital ${pasangan} sudah *aktif*.
 
 *Link undangan:*
 ${link}
+
+Mohon dicek dulu isinya. Kalau ada yang perlu direvisi (nama, jam, turut mengundang, dll), kabari kami *sebelum* dibagikan ke tamu.
 
 *Agar nama tamu tampil di sampul*, buat link per tamu di sini (gratis, tanpa batas):
 ${BASE}dibuatin.html#tamu
@@ -420,7 +593,7 @@ Catatan: mohon jangan mengubah isi link, karena link yang diubah tidak bisa dibu
 Salam hangat,
 di.buat.in by di.raya.in`;
       window.open(`https://wa.me/${normalizeWa(o.wa)}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
-      const db = load(); db[id].sentAt = new Date().toISOString(); save(db);
+      const db = load(); db[id].sentAt = new Date().toISOString(); db[id].resend = false; save(db); render();
     }
 
     function exportBackup() { download(`cadangan-pesanan-dibuatin-${new Date().toISOString().slice(0, 10)}.json`, load()); }
