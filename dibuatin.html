@@ -14,7 +14,7 @@
   <script src="https://unpkg.com/lucide@0.525.0"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@600;700&family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@600;700&family=Cinzel:wght@500;700&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Great+Vibes&family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
@@ -44,7 +44,7 @@
     .fld:focus { box-shadow: 0 0 0 2px #662626; }
     .lbl { display: block; font-size: 11px; font-weight: 600; color: #716B67; margin-bottom: .25rem; }
     .f-serif { font-family: 'Cormorant Garamond', serif; } .f-royal { font-family: 'Cinzel', serif; } .f-edit { font-family: 'Space Grotesk', sans-serif; }
-    .f-script { font-family: 'Caveat', cursive; } .f-cursive { font-family: 'Alex Brush', cursive; } .f-sans { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .f-script { font-family: 'Caveat', cursive; } .f-pinyon { font-family: 'Pinyon Script', cursive; } .f-vibes { font-family: 'Great Vibes', cursive; } .f-bodoni { font-family: 'Bodoni Moda', serif; } .f-cursive { font-family: 'Alex Brush', cursive; } .f-sans { font-family: 'Plus Jakarta Sans', sans-serif; }
 
     /* ===== Gaya elegan wedding ===== */
     body { font-family: 'Jost', 'Helvetica Neue', Arial, sans-serif; letter-spacing: .01em; }
@@ -221,6 +221,28 @@
           <div id="eventFields" class="space-y-4"></div>
         </div>
 
+        <!-- Isi tambahan (opsional) -->
+        <details class="pt-4 border-t border-brand-sand group" id="extraBox">
+          <summary class="cursor-pointer list-none flex items-center justify-between">
+            <span class="text-xs font-bold uppercase text-brand-gold tracking-wider">Isi Tambahan (opsional)</span>
+            <span class="text-[10px] text-brand-muted">Kisah cinta, galeri, dress code, live streaming, turut mengundang</span>
+          </summary>
+          <div class="space-y-3 mt-4">
+            <div><label class="lbl" for="f_story">Kisah cinta — satu baris per momen: <b>Tahun | Judul | Cerita singkat</b></label>
+              <textarea id="f_story" rows="3" class="fld" placeholder="2019 | Pertama Bertemu | Berawal dari satu kelas yang sama di kampus&#10;2025 | Lamaran | Dengan restu kedua keluarga"></textarea></div>
+            <div><label class="lbl" for="f_gallery">Galeri foto — satu link foto per baris (maks. 9)</label>
+              <textarea id="f_gallery" rows="3" class="fld" placeholder="https://...&#10;https://..."></textarea>
+              <p class="text-[10px] text-brand-muted mt-1">Belum punya link? Kirim fotonya lewat WhatsApp, admin yang pasang.</p></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div><label class="lbl" for="f_dress">Dress code</label><input id="f_dress" class="fld" placeholder="Contoh: Nuansa pastel / earth tone"></div>
+              <div><label class="lbl" for="f_stream">Link live streaming</label><input id="f_stream" type="url" class="fld" placeholder="https://youtube.com/..."></div>
+            </div>
+            <div><label class="lbl" for="f_turut">Turut mengundang — satu nama per baris</label>
+              <textarea id="f_turut" rows="2" class="fld" placeholder="Keluarga Besar Bpk. Ahmad&#10;Keluarga Besar Bpk. Hasan"></textarea></div>
+            <p class="text-[10px] text-brand-muted">Bagian yang dikosongkan otomatis tidak ditampilkan di undangan.</p>
+          </div>
+        </details>
+
         <!-- Amplop -->
         <div class="pt-4 border-t border-brand-sand space-y-2">
           <div class="flex justify-between items-center">
@@ -337,6 +359,7 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
     </div>
   </footer>
 
+  <script src="kunci-admin.js" onerror="void 0"></script>
   <script src="pako.min.js"></script>
   <script src="tema.js"></script>
   <script src="qrcode.js"></script>
@@ -467,26 +490,28 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
     // ---------- Katalog 30 tema ----------
     let activeCat = 'all';
     function mockThumb(t) {
-      const F = { serif: 'f-serif', royal: 'f-royal', edit: 'f-edit', script: 'f-script', cursive: 'f-cursive', sans: 'f-sans' };
-      const nameSize = (t.nameFont === 'cursive' || t.nameFont === 'script') ? 'text-2xl' : (t.nameFont === 'royal' ? 'text-base' : 'text-xl');
-      const block = {
-        lengkung: `<div class="w-14 h-[4.5rem] mx-auto rounded-t-full mb-2" style="border:2px solid ${t.accent};background:${t.surface}"></div>`,
-        majalah: `<div class="w-full text-[6px] font-bold tracking-widest flex justify-between border-b pb-1 mb-2 ${F.edit}" style="border-color:${t.border}"><span>EST.</span><span>WEDDING ISSUE</span></div><div class="w-full h-12 mb-2" style="border:2px solid ${t.border};box-shadow:3px 3px 0 ${t.accent};background:${t.surface}"></div>`,
-        polaroid: `<div class="w-14 h-16 mx-auto bg-white p-1 pb-3 shadow rotate-[-4deg] mb-2"><div class="w-full h-full" style="background:${t.accent};opacity:.35"></div></div>`,
-        sinema: `<div class="absolute inset-0" style="background:linear-gradient(to top, ${t.bg} 25%, ${t.accent}55 100%)"></div>`,
-        klasik: `<div class="text-sm mb-1" style="color:${t.accent}">${t.orn}</div>`
-      }[t.layout];
+      const F = { serif: 'f-serif', royal: 'f-royal', edit: 'f-edit', script: 'f-script', cursive: 'f-cursive', sans: 'f-sans', pinyon: 'f-pinyon', vibes: 'f-vibes', bodoni: 'f-bodoni' };
+      const scripty = ['cursive', 'script', 'pinyon', 'vibes'].includes(t.nameFont);
+      const nm = `<div class="${F[t.nameFont] || 'f-serif'} ${scripty ? 'text-2xl' : t.nameFont === 'royal' ? 'text-sm tracking-widest uppercase' : 'text-xl'} leading-tight">Moniqa <span style="color:${t.accent}">&amp;</span> Fauzi</div>`;
+      const ph = `background:${t.accent};opacity:.28`;
+      const eb = `<div class="text-[6px] uppercase tracking-[0.28em] font-bold" style="color:${t.accent}">${t.salam || ({ islami: "Walimatul 'Ursy", formal: 'The Wedding of', modern: "We're Getting Married", hangat: 'Kami Akan Menikah' })[t.voice] || 'The Wedding of'}</div>`;
+      const body = {
+        royal: `<div class="w-12 h-12 rounded-full mx-auto flex items-center justify-center f-serif italic text-lg" style="border:1px solid ${t.accent}">M<span style="color:${t.accent}">&amp;</span>F</div><div class="mt-1.5">${eb}</div><div class="mt-1">${nm}</div>`,
+        editorial: `<div class="absolute inset-0" style="background:#2c2a28"></div><div class="absolute inset-x-2 top-2 flex justify-between text-[5px] tracking-widest text-white/80 border-b border-white/40 pb-0.5"><span>VOL.01</span><span>WEDDING ISSUE</span></div><div class="absolute left-2 bottom-3 text-left text-white f-bodoni text-2xl leading-[.9]">Moniqa<br><i>&amp; Fauzi</i></div>`,
+        botanical: `<div class="w-[78%] mx-auto bg-white rounded-t-full rounded-b-lg pt-4 pb-2 px-2 shadow-sm">${eb}<div class="w-10 h-12 mx-auto rounded-t-full my-1" style="${ph}"></div>${nm}</div>`,
+        deco: `<svg width="64" height="32" viewBox="0 0 160 80" fill="none"><path d="M80 78V6M80 78 46 12M80 78l34-66M80 78 20 30M80 78l60-48" stroke="${t.accent}" stroke-width="2"/><path d="M10 78a70 70 0 0 1 140 0" stroke="${t.accent}" stroke-width="2"/></svg><div class="mt-1">${eb}</div><div class="mt-1">${nm}</div>`,
+        sinema: `<div class="absolute inset-0" style="${ph}"></div><div class="absolute inset-0" style="background:linear-gradient(to top, ${t.bg} 20%, #0006 55%, #0002)"></div><div class="absolute bottom-4 inset-x-0 text-white">${nm}</div>`,
+        polaroid: `<div class="w-16 bg-white p-1 pb-4 shadow -rotate-3 mx-auto"><div class="w-full aspect-square" style="${ph}"></div></div><div class="mt-2">${nm}</div>`,
+        adat: `<div>${motifSVG(t, t.motif === 'gunungan' ? 'w-10 h-12' : 'w-20 h-8')}</div><div class="mt-1">${eb}</div><div class="w-10 h-12 mx-auto rounded-t-full my-1.5" style="${ph}"></div>${nm}`,
+        mono: `<div class="flex items-center justify-center gap-2 f-serif text-5xl leading-none">M<span class="w-px h-10" style="background:${t.accent}"></span><i style="color:${t.accent}">F</i></div><div class="text-[6px] tracking-[0.3em] uppercase mt-2">Moniqa &amp; Fauzi</div><div class="w-full h-8 mt-2" style="${ph}"></div>`,
+        ticket: `<div class="w-[86%] mx-auto rounded-lg overflow-hidden bg-white shadow-sm text-left"><div class="px-2 py-1 text-[5px] tracking-widest font-bold" style="background:${t.accent};color:${t.onAccent}">BOARDING PASS</div><div class="px-2 py-2 flex justify-between items-center f-serif text-sm"><span>Moniqa</span><span style="color:${t.accent}">♥</span><span>Fauzi</span></div><div class="border-t border-dashed mx-2" style="border-color:${t.border}"></div><div class="px-2 py-1.5 flex gap-px items-end h-5">${Array.from({ length: 16 }, (_, i) => `<span style="width:${i % 3 + 1}px;height:${100 - i % 4 * 15}%;background:${t.accent}"></span>`).join('')}</div></div>`
+      }[t.hero] || nm;
       return `
         <div class="relative aspect-[3/4] overflow-hidden flex flex-col items-center justify-center text-center p-3" style="background:${t.bg};${(t.motif ? motifPattern(t) : t.pattern) ? `background-image:${t.motif ? motifPattern(t) : t.pattern};` : ''}${t.patternSize && !t.motif ? `background-size:${t.patternSize};` : ''}color:${t.text}">
-          ${t.motif ? `<div class="mb-1">${motifSVG(t, t.motif === 'gunungan' ? 'w-10 h-12' : 'w-20 h-8')}</div>` : block}
-          <div class="relative">
-            <div class="text-[7px] uppercase tracking-[0.25em] font-bold" style="color:${t.accent}">${t.salam || 'The Wedding Of'}</div>
-            <div class="${F[t.nameFont]} ${nameSize} leading-tight my-1 ${t.nameFont === 'edit' ? 'uppercase font-bold' : ''}">Moniqa <span style="color:${t.accent}">&</span> Fauzi</div>
-            <div class="text-[7px] opacity-70">Sabtu, 24 Oktober</div>
-            <div class="mt-2 mx-auto w-16 h-3.5 rounded-full text-[6px] font-bold flex items-center justify-center" style="background:${t.accent};color:${t.onAccent}">BUKA</div>
-          </div>
+          <div class="${['editorial', 'sinema'].includes(t.hero) ? 'absolute inset-0' : 'relative w-full'}">${body}</div>
         </div>`;
     }
+    const isiDesain = t => `${LABEL_GAYA.hero[t.hero] || ''} • ${LABEL_GAYA.voice[t.voice] || ''}`;
 
     function renderCats() {
       const cats = [{ key: 'all', label: 'Semua' }, ...KATEGORI_TEMA];
@@ -509,6 +534,7 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
             <div class="p-3 flex-1 flex flex-col">
               <div class="text-[9px] uppercase tracking-wider text-brand-muted font-semibold">#${no} • ${cat}</div>
               <h3 class="text-sm font-bold leading-snug mt-0.5">${t.name}</h3>
+              <p class="text-[10px] text-brand-gold mt-1 leading-snug">${isiDesain(t)}</p>
               <div class="mt-auto pt-3 grid grid-cols-2 gap-1.5">
                 <a href="undangan.html?demo=${t.id}" target="_blank" rel="noopener" class="text-center py-1.5 rounded-full border border-brand-sand text-[11px] font-semibold hover:border-brand-gold">Lihat Contoh</a>
                 <button type="button" onclick="pickTheme('${t.id}')" class="py-1.5 rounded-full bg-brand-charcoal hover:bg-brand-gold text-white text-[11px] font-semibold">Pilih</button>
@@ -629,7 +655,11 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
           theme: $('f_theme').value,
           bride: val('f_bride'), brideParents: val('f_bride_parents'), bridePhoto: val('f_bride_photo'), brideIg: val('f_bride_ig'),
           groom: val('f_groom'), groomParents: val('f_groom_parents'), groomPhoto: val('f_groom_photo'), groomIg: val('f_groom_ig'),
-          coverPhoto: val('f_cover'), events, gifts, musicUrl, wa: normalizeWa(val('f_contact_wa'))
+          coverPhoto: val('f_cover'), events, gifts, musicUrl, wa: normalizeWa(val('f_contact_wa')),
+          story: $('f_story').value.split('\n').map(l => l.split('|').map(x => x.trim())).filter(a => a.join('')).slice(0, 6)
+            .map(a => a.length >= 3 ? { year: a[0], title: a[1], text: a.slice(2).join(' | ') } : a.length === 2 ? { year: a[0], title: a[1], text: '' } : { year: '', title: '', text: a[0] }),
+          gallery: $('f_gallery').value.split(/\s+/).map(x => x.trim()).filter(x => /^https:\/\//.test(x)).slice(0, 9),
+          dress: val('f_dress'), stream: val('f_stream'), turut: $('f_turut').value.trim()
         }
       };
     }
@@ -756,6 +786,7 @@ ${adminLink}`;
           <a href="undangan.html?demo=${t.id}" target="_blank" rel="noopener" aria-label="Lihat contoh ${t.name}">${mockThumb(t)}</a>
           <div class="p-3 flex-1 flex flex-col">
             <h3 class="text-sm font-bold leading-snug">${t.name}</h3>
+            <p class="text-[10px] text-brand-gold mt-1 leading-snug">${isiDesain(t)}</p>
             <div class="mt-auto pt-3 grid grid-cols-2 gap-1.5">
               <a href="undangan.html?demo=${t.id}" target="_blank" rel="noopener" class="text-center py-1.5 rounded-full border border-brand-sand text-[11px] font-semibold hover:border-brand-gold">Lihat Contoh</a>
               <button type="button" onclick="pickTheme('${t.id}')" class="py-1.5 rounded-full bg-brand-gold hover:bg-brand-goldDark text-white text-[11px] font-semibold">Pilih</button>
