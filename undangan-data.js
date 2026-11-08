@@ -1,9 +1,7 @@
-// undangan-data.js — OPSIONAL: link undangan versi pendek
-//
-// Normalnya link undangan dibuat otomatis oleh admin.html (link panjang, langsung aktif).
-// Kalau ingin link pendek seperti  undangan.html?id=sarah-rizky , salin "Kode link pendek"
-// dari admin.html dan tempel di dalam kurung kurawal di bawah, lalu upload ulang website.
+// undangan-data.js — LINK TETAP undangan di.buat.in
+// Jangan diisi manual. File ini dibuat otomatis oleh admin.html:
+// pasang "Link tetap" di kartu pesanan → tekan "Unduh undangan-data.js" → upload file hasil unduhan menggantikan file ini.
+// Link: undangan.html?id=NAMA-LINK
 
 const UNDANGAN_DATA = {
-  // "sarah-rizky": { theme: "maroon", bride: "Sarah Amanda", ... },
 };
