@@ -4,182 +4,354 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
   <title>Admin — di.buat.in</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@0.525.0"></script>
   <script>
     tailwind.config = { theme: { extend: { colors: { brand: { cream: '#FAF8F5', warm: '#F4EFEA', sand: '#E8DFD8', gold: '#662626', goldDark: '#4D1B1B', charcoal: '#23201E', muted: '#716B67' } } } } }
   </script>
   <style>
-    .fld { width: 100%; padding: .5rem .7rem; border-radius: .6rem; border: 1px solid #E8DFD8; background: #fff; font-size: 12px; outline: none; }
+    .fld { width: 100%; padding: .55rem .75rem; border-radius: .6rem; border: 1px solid #E8DFD8; background: #fff; font-size: 13px; outline: none; }
     .fld:focus { box-shadow: 0 0 0 2px #662626; }
   </style>
 </head>
 <body class="bg-brand-warm text-brand-charcoal min-h-screen p-3 sm:p-8">
 
-  <div class="max-w-4xl mx-auto space-y-5">
+  <!-- ================= LAYAR KUNCI ================= -->
+  <div id="lockScreen" class="min-h-[80vh] flex items-center justify-center">
+    <div class="w-full max-w-sm bg-brand-cream border border-brand-sand rounded-3xl p-6 shadow-sm">
+      <div class="w-12 h-12 rounded-2xl bg-brand-gold text-white flex items-center justify-center mx-auto"><i data-lucide="shield-check" class="w-6 h-6"></i></div>
+      <h1 class="text-xl font-bold text-center mt-3">Admin di.buat.in</h1>
+
+      <!-- Belum ada kunci -->
+      <div id="setupBox" class="hidden mt-5 space-y-3 text-sm">
+        <p class="text-xs text-brand-muted leading-relaxed">Perangkat ini belum punya <strong>kunci admin</strong>. Buat PIN (minimal 6 angka). PIN dipakai untuk membuka panel ini dan menandatangani setiap link undangan. <strong>Jangan beri tahu PIN ke siapa pun.</strong></p>
+        <input id="pinNew" type="password" inputmode="numeric" autocomplete="new-password" class="fld" placeholder="PIN baru (min. 6 angka)">
+        <input id="pinNew2" type="password" inputmode="numeric" autocomplete="new-password" class="fld" placeholder="Ulangi PIN">
+        <button onclick="createKey()" class="w-full py-3 bg-brand-gold hover:bg-brand-goldDark text-white rounded-xl font-semibold text-xs uppercase tracking-wider">Buat Kunci Admin</button>
+        <div class="text-center text-[11px] text-brand-muted">Sudah punya file cadangan kunci?
+          <label class="text-brand-gold font-semibold underline cursor-pointer">Pulihkan<input type="file" accept="application/json" class="hidden" onchange="restoreKey(event)"></label></div>
+      </div>
+
+      <!-- Sudah ada kunci -->
+      <form id="unlockBox" class="hidden mt-5 space-y-3" onsubmit="unlock(event)">
+        <input id="pin" type="password" inputmode="numeric" autocomplete="current-password" class="fld text-center tracking-[0.4em]" placeholder="Masukkan PIN" autofocus>
+        <button class="w-full py-3 bg-brand-charcoal hover:bg-brand-gold text-white rounded-xl font-semibold text-xs uppercase tracking-wider">Buka Panel</button>
+      </form>
+
+      <p id="lockMsg" class="text-xs text-center mt-3 font-semibold text-red-700"></p>
+      <p id="pendingMsg" class="hidden text-[11px] text-center mt-2 text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2">Ada pesanan baru dari link WhatsApp. Masukkan PIN untuk melihatnya.</p>
+    </div>
+  </div>
+
+  <!-- ================= PANEL ================= -->
+  <div id="panel" class="hidden max-w-4xl mx-auto space-y-5">
     <div class="bg-brand-cream p-5 sm:p-6 rounded-3xl border border-brand-sand flex flex-wrap items-center justify-between gap-3 shadow-sm">
       <div>
         <span class="text-[10px] font-bold text-brand-gold uppercase tracking-wider">Panel Admin</span>
         <h1 class="text-xl sm:text-2xl font-bold">Pesanan Undangan di.buat.in</h1>
-        <p class="text-[11px] text-brand-muted mt-0.5">Data pesanan tersimpan di browser perangkat ini. Unduh cadangan secara berkala.</p>
+        <p class="text-[11px] text-brand-muted mt-0.5">Terkunci otomatis setelah 20 menit tidak dipakai.</p>
       </div>
       <div class="flex flex-wrap gap-2 text-xs font-semibold">
-        <button onclick="exportBackup()" class="px-3 py-2 bg-white rounded-full border border-brand-sand flex items-center gap-1"><i data-lucide="download" class="w-3.5 h-3.5"></i> Cadangan</button>
+        <button onclick="exportBackup()" class="px-3 py-2 bg-white rounded-full border border-brand-sand flex items-center gap-1"><i data-lucide="download" class="w-3.5 h-3.5"></i> Cadangan Pesanan</button>
         <label class="px-3 py-2 bg-white rounded-full border border-brand-sand flex items-center gap-1 cursor-pointer"><i data-lucide="upload" class="w-3.5 h-3.5"></i> Muat<input type="file" accept="application/json" class="hidden" onchange="importBackup(event)"></label>
-        <a href="dibuatin.html" class="px-3 py-2 bg-brand-charcoal text-white rounded-full">Lihat Web ↗</a>
+        <button onclick="lock()" class="px-3 py-2 bg-brand-charcoal text-white rounded-full flex items-center gap-1"><i data-lucide="lock" class="w-3.5 h-3.5"></i> Kunci</button>
       </div>
     </div>
 
+    <!-- Status keamanan -->
+    <div id="securityBox"></div>
+
     <div class="bg-white/70 border border-brand-sand rounded-2xl p-4 text-xs text-brand-muted leading-relaxed">
-      <strong class="text-brand-charcoal">Alur kerja:</strong> klien kirim pesanan lewat WhatsApp → buka <em>Link verifikasi admin</em> di pesan itu (pesanan otomatis masuk ke sini) →
-      cek mutasi rekening sesuai nominal → pasang foto/musik bila klien mengirim lewat chat → tekan <strong>Konfirmasi Lunas & Terbitkan</strong> → <strong>Kirim ke Klien</strong>.
+      <strong class="text-brand-charcoal">Alur kerja:</strong> klien kirim pesanan lewat WhatsApp → buka <em>Link verifikasi admin</em> di pesan itu → cek mutasi rekening sesuai nominal →
+      pasang foto/musik bila klien mengirim lewat chat → tekan <strong>Konfirmasi Lunas & Terbitkan</strong> → tekan tombol hijau untuk mengirim link ke klien.
     </div>
 
-    <div class="flex gap-2" id="tabs"></div>
+    <div class="flex gap-2 flex-wrap" id="tabs"></div>
     <div id="adminList" class="space-y-4"></div>
   </div>
 
-  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden bg-brand-charcoal text-white text-xs font-semibold px-4 py-2.5 rounded-full shadow-xl"></div>
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden bg-brand-charcoal text-white text-xs font-semibold px-4 py-2.5 rounded-full shadow-xl text-center max-w-[90vw]"></div>
 
   <script src="tema.js"></script>
   <script>
     const STORE = 'dbi_orders_v2';
+    const KEY_STORE = 'dbi_admin_key_v1';
     const BASE = location.href.split('#')[0].split('?')[0].replace(/[^/]*$/, '');
     const rupiah = n => 'Rp' + Number(n || 0).toLocaleString('id-ID');
     const e = escapeHTML;
+    const $ = id => document.getElementById(id);
     let activeTab = 'menunggu';
+    let PRIV = null;           // kunci rahasia (hanya di memori setelah PIN benar)
+    let linkCache = {};        // id pesanan -> link bertanda tangan
 
+    // ---------- util ----------
     function load() { try { return JSON.parse(localStorage.getItem(STORE)) || {}; } catch (_) { return {}; } }
     function save(db) { localStorage.setItem(STORE, JSON.stringify(db)); }
-    function toast(msg) {
-      const t = document.getElementById('toast'); t.textContent = msg; t.classList.remove('hidden');
-      clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.add('hidden'), 2500);
+    function toast(msg, ms = 2600) {
+      const t = $('toast'); t.textContent = msg; t.classList.remove('hidden');
+      clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.add('hidden'), ms);
     }
     function copyText(text, msg) {
       const ok = () => toast(msg || 'Disalin ✓');
       if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(ok);
       else { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); ok(); }
     }
+    function download(name, obj) {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json' }));
+      a.download = name; a.click(); URL.revokeObjectURL(a.href);
+    }
 
-    // 1. Pesanan masuk dari link WhatsApp (admin.html#o=...)
-    (function importFromHash() {
+    // ============================================================
+    // 🔐 KUNCI ADMIN (ECDSA P-256, disimpan terenkripsi dengan PIN)
+    // ============================================================
+    const getKeyRec = () => { try { return JSON.parse(localStorage.getItem(KEY_STORE)); } catch (_) { return null; } };
+
+    async function pinToAesKey(pin, salt) {
+      const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pin), 'PBKDF2', false, ['deriveKey']);
+      return crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations: 310000, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+    }
+
+    async function createKey() {
+      const pin = $('pinNew').value, pin2 = $('pinNew2').value;
+      if (!/^\d{6,}$/.test(pin)) return ($('lockMsg').textContent = 'PIN minimal 6 angka.');
+      if (pin !== pin2) return ($('lockMsg').textContent = 'PIN tidak sama.');
+      if (!window.crypto || !crypto.subtle) return ($('lockMsg').textContent = 'Browser ini tidak mendukung enkripsi. Buka lewat https.');
+      $('lockMsg').textContent = 'Membuat kunci…';
+      const pair = await crypto.subtle.generateKey(ECDSA, true, ['sign', 'verify']);
+      const pkcs8 = await crypto.subtle.exportKey('pkcs8', pair.privateKey);
+      const spki = await crypto.subtle.exportKey('spki', pair.publicKey);
+      const salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+      const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, await pinToAesKey(pin, salt), pkcs8);
+      const rec = { v: 1, salt: _bytesToB64u(salt), iv: _bytesToB64u(iv), ct: _bytesToB64u(ct), pub: _bytesToB64u(spki), created: new Date().toISOString() };
+      localStorage.setItem(KEY_STORE, JSON.stringify(rec));
+      download('KUNCI-ADMIN-dibuatin-SIMPAN-BAIK-BAIK.json', rec);
+      $('pinNew').value = $('pinNew2').value = '';
+      $('lockMsg').textContent = '';
+      toast('Kunci dibuat. File cadangan kunci terunduh — simpan di tempat aman.', 5000);
+      await doUnlock(pin);
+    }
+
+    function restoreKey(ev) {
+      const f = ev.target.files[0]; if (!f) return;
+      f.text().then(t => {
+        try {
+          const rec = JSON.parse(t);
+          if (!rec.ct || !rec.pub || !rec.salt) throw 0;
+          localStorage.setItem(KEY_STORE, JSON.stringify(rec));
+          toast('Kunci dipulihkan. Masukkan PIN lama.'); showLock();
+        } catch (_) { $('lockMsg').textContent = 'File kunci tidak valid.'; }
+      });
+    }
+
+    let failCount = 0, lockedUntil = 0;
+    async function unlock(ev) {
+      ev.preventDefault();
+      if (Date.now() < lockedUntil) return ($('lockMsg').textContent = `Terlalu banyak percobaan. Tunggu ${Math.ceil((lockedUntil - Date.now()) / 1000)} detik.`);
+      const ok = await doUnlock($('pin').value);
+      $('pin').value = '';
+      if (!ok) {
+        failCount++;
+        if (failCount >= 5) { lockedUntil = Date.now() + 60000 * Math.min(failCount - 4, 10); }
+        $('lockMsg').textContent = 'PIN salah.';
+      }
+    }
+
+    async function doUnlock(pin) {
+      const rec = getKeyRec(); if (!rec) return false;
+      try {
+        const pkcs8 = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: _b64uToBytes(rec.iv) }, await pinToAesKey(pin, _b64uToBytes(rec.salt)), _b64uToBytes(rec.ct));
+        PRIV = await crypto.subtle.importKey('pkcs8', pkcs8, ECDSA, false, ['sign']); // tidak bisa diekspor lagi
+        failCount = 0; $('lockMsg').textContent = '';
+        $('lockScreen').classList.add('hidden'); $('panel').classList.remove('hidden');
+        importPending();
+        await render();
+        resetIdle();
+        return true;
+      } catch (_) { return false; }
+    }
+
+    function lock() {
+      PRIV = null; linkCache = {};
+      $('adminList').innerHTML = '';
+      showLock();
+    }
+    function showLock() {
+      $('panel').classList.add('hidden'); $('lockScreen').classList.remove('hidden');
+      const has = !!getKeyRec();
+      $('setupBox').classList.toggle('hidden', has);
+      $('unlockBox').classList.toggle('hidden', !has);
+      $('pendingMsg').classList.toggle('hidden', !sessionStorage.getItem('dbi_pending'));
+      lucide.createIcons();
+    }
+    let idleTimer;
+    function resetIdle() { clearTimeout(idleTimer); if (PRIV) idleTimer = setTimeout(() => { lock(); toast('Panel terkunci otomatis'); }, 20 * 60 * 1000); }
+    ['click', 'keydown', 'touchstart'].forEach(ev => document.addEventListener(ev, resetIdle, { passive: true }));
+
+    async function signedLink(o) {
+      if (linkCache[o.id]) return linkCache[o.id];
+      const payload = encodeUndangan(o.inv);
+      const sig = await crypto.subtle.sign(ECDSA_SIGN, PRIV, new TextEncoder().encode(payload));
+      return (linkCache[o.id] = `${BASE}undangan.html?u=${payload}&s=${_bytesToB64u(sig)}`);
+    }
+
+    function renderSecurity() {
+      const rec = getKeyRec();
+      const box = $('securityBox');
+      if (ADMIN_PUBLIC_KEY && ADMIN_PUBLIC_KEY === rec.pub) {
+        box.innerHTML = `<div class="bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-2xl p-4 text-xs flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4"></i> <strong>Keamanan aktif.</strong> Link undangan palsu / yang diubah otomatis ditolak.</div>`;
+        return;
+      }
+      const mismatch = !!ADMIN_PUBLIC_KEY;
+      box.innerHTML = `
+        <div class="${mismatch ? 'bg-red-50 border-red-200 text-red-900' : 'bg-amber-50 border-amber-200 text-amber-900'} border rounded-2xl p-4 text-xs space-y-2">
+          <div class="font-bold flex items-center gap-2"><i data-lucide="shield-alert" class="w-4 h-4"></i>
+            ${mismatch ? 'Kunci di website BERBEDA dengan kunci di perangkat ini — undangan baru akan ditolak!' : 'Keamanan belum aktif (1 langkah lagi)'}</div>
+          <ol class="list-decimal pl-4 space-y-0.5">
+            <li>Salin kunci publik di bawah.</li>
+            <li>Buka <code>tema.js</code>, tempel di <code>const ADMIN_PUBLIC_KEY = '...'</code>.</li>
+            <li>Upload ulang website. Setelah itu kotak ini berubah hijau.</li>
+          </ol>
+          <div class="flex gap-2"><input readonly class="fld font-mono text-[10px]" value="${e(rec.pub)}"><button onclick="copyText(getKeyRec().pub,'Kunci publik disalin')" class="px-3 bg-white border border-current rounded-lg font-semibold shrink-0">Salin</button></div>
+          <p class="opacity-80">Kunci publik aman untuk dipasang di website. Yang rahasia adalah PIN dan file <em>KUNCI-ADMIN…json</em>.</p>
+        </div>`;
+    }
+
+    // ============================================================
+    // PESANAN
+    // ============================================================
+    // Pesanan dari link WhatsApp (admin.html#o=...) ditahan sampai PIN benar
+    (function captureHash() {
       const m = location.hash.match(/#o=([A-Za-z0-9_-]+)/);
-      if (!m) return;
-      const o = decodePesanan(m[1]);
-      history.replaceState(null, '', location.pathname);
+      if (m) { sessionStorage.setItem('dbi_pending', m[1]); history.replaceState(null, '', location.pathname); }
+    })();
+    function importPending() {
+      const raw = sessionStorage.getItem('dbi_pending'); if (!raw) return;
+      sessionStorage.removeItem('dbi_pending');
+      const o = decodePesanan(raw);
       if (!o || !o.id || !o.inv) return toast('Link pesanan tidak valid / terpotong');
       const db = load();
       if (db[o.id]) { toast(`Pesanan ${o.id} sudah ada`); activeTab = db[o.id].status; return; }
       db[o.id] = { ...o, status: 'menunggu', received: new Date().toISOString() };
-      save(db);
-      activeTab = 'menunggu';
+      save(db); activeTab = 'menunggu';
       toast(`Pesanan ${o.id} masuk — cek pembayarannya`);
-    })();
+    }
 
-    const inviteLink = o => `${BASE}undangan.html?u=${encodeUndangan(o.inv)}`;
+    // Cek nominal: harus = harga paket + kode unik 100–999
+    function priceCheck(o) {
+      const p = PAKET_UNDANGAN.find(x => x.key === o.pkg);
+      if (!p) return { ok: false, msg: 'Paket tidak dikenal' };
+      const diff = Number(o.price) - p.price;
+      if (!(diff >= 100 && diff <= 999)) return { ok: false, msg: `Nominal tidak sesuai harga ${p.name} (${rupiah(p.price)} + kode unik). Pesanan mungkin dimodifikasi.` };
+      if (o.pkgName !== p.name) return { ok: false, msg: 'Nama paket tidak cocok.' };
+      return { ok: true, expected: p.price };
+    }
 
     function renderTabs() {
       const db = Object.values(load());
       const tabs = [['menunggu', 'Menunggu Verifikasi'], ['aktif', 'Aktif'], ['semua', 'Semua']];
-      document.getElementById('tabs').innerHTML = tabs.map(([k, l]) => {
+      $('tabs').innerHTML = tabs.map(([k, l]) => {
         const n = k === 'semua' ? db.length : db.filter(o => o.status === k).length;
         return `<button onclick="activeTab='${k}';render()" class="px-4 py-2 rounded-full text-xs font-semibold ${activeTab === k ? 'bg-brand-charcoal text-white' : 'bg-white border border-brand-sand'}">${l} (${n})</button>`;
       }).join('');
     }
 
-    function render() {
+    async function render() {
+      if (!PRIV) return;
+      renderSecurity();
       renderTabs();
       const list = Object.values(load())
         .filter(o => activeTab === 'semua' || o.status === activeTab)
         .sort((a, b) => (b.received || b.created || '').localeCompare(a.received || a.created || ''));
-      const box = document.getElementById('adminList');
       if (!list.length) {
-        box.innerHTML = `<div class="bg-brand-cream border border-brand-sand rounded-2xl text-center py-10 text-xs text-brand-muted">Belum ada pesanan di sini. Buka <em>Link verifikasi admin</em> dari WhatsApp klien untuk memuat pesanan.</div>`;
-        return;
+        $('adminList').innerHTML = `<div class="bg-brand-cream border border-brand-sand rounded-2xl text-center py-10 text-xs text-brand-muted">Belum ada pesanan di sini. Buka <em>Link verifikasi admin</em> dari WhatsApp klien untuk memuat pesanan.</div>`;
+        return lucide.createIcons();
       }
-      box.innerHTML = list.map(cardHTML).join('');
+      const links = await Promise.all(list.map(signedLink));
+      $('adminList').innerHTML = list.map((o, i) => cardHTML(o, links[i])).join('');
       lucide.createIcons();
     }
 
-    function cardHTML(o) {
+    function cardHTML(o, link) {
       const inv = o.inv, t = getTema(inv.theme);
       const aktif = o.status === 'aktif';
-      const link = inviteLink(o);
-      const missing = [!inv.bridePhoto && 'foto wanita', !inv.groomPhoto && 'foto pria', !inv.coverPhoto && 'foto sampul', !inv.musicUrl && 'musik'].filter(Boolean);
-      const presetOpts = MUSIK_PRESET.map(m => `<option value="${musikUrl(m.key)}" ${inv.musicUrl === musikUrl(m.key) ? 'selected' : ''}>${e(m.title)}</option>`).join('');
+      const pc = priceCheck(o);
+      const id = e(o.id);
+      const missing = [!inv.bridePhoto && 'foto wanita', !inv.groomPhoto && 'foto pria', !inv.coverPhoto && 'foto sampul', !inv.musicUrl && /^(Request|File)/.test(o.musicNote || '') && 'file lagu (request/file klien)'].filter(Boolean);
       return `
-        <div class="bg-brand-cream p-4 sm:p-5 rounded-2xl border ${aktif ? 'border-emerald-300' : 'border-brand-sand'} space-y-3 shadow-sm">
+        <div class="bg-brand-cream p-4 sm:p-5 rounded-2xl border ${aktif ? 'border-emerald-300' : pc.ok ? 'border-brand-sand' : 'border-red-300'} space-y-3 shadow-sm">
           <div class="flex justify-between items-start gap-3">
             <div>
-              <span class="text-[10px] font-bold font-mono px-2 py-0.5 rounded bg-white border border-brand-sand text-brand-gold">${e(o.id)}</span>
+              <span class="text-[10px] font-bold font-mono px-2 py-0.5 rounded bg-white border border-brand-sand text-brand-gold">${id}</span>
               <h3 class="text-base font-bold mt-1">${e(inv.bride)} & ${e(inv.groom)}</h3>
               <p class="text-xs text-brand-muted">${e(o.pkgName)} • ${e(t.name)} • diterima ${new Date(o.received || o.created).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })}</p>
             </div>
             <span class="shrink-0 px-2.5 py-0.5 rounded-full text-[10px] font-bold ${aktif ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${aktif ? 'Aktif' : 'Menunggu'}</span>
           </div>
 
+          ${pc.ok ? '' : `<p class="text-[11px] font-semibold text-red-800 bg-red-50 border border-red-200 rounded-lg px-3 py-2">⚠️ ${e(pc.msg)}</p>`}
+
           <div class="grid sm:grid-cols-2 gap-2 text-xs">
             <div class="bg-white p-3 rounded-xl border border-brand-sand/70">
-              <div class="text-[10px] text-brand-muted">Cocokkan dengan mutasi rekening:</div>
+              <div class="text-[10px] text-brand-muted">Cocokkan PERSIS dengan mutasi rekening:</div>
               <div class="font-mono font-bold text-lg text-brand-gold">${rupiah(o.price)}</div>
             </div>
             <div class="bg-white p-3 rounded-xl border border-brand-sand/70 space-y-0.5">
               <div><strong>Pemesan:</strong> ${e(o.contact)}</div>
-              <div><a class="text-emerald-700 font-semibold underline" target="_blank" rel="noopener" href="https://wa.me/${e(o.wa)}">${e(o.wa)}</a></div>
+              <div><a class="text-emerald-700 font-semibold underline" target="_blank" rel="noopener noreferrer" href="https://wa.me/${e(normalizeWa(o.wa))}">${e(o.wa)}</a></div>
               <div><strong>Musik:</strong> ${e(o.musicNote || '-')}</div>
             </div>
           </div>
           <div class="text-xs bg-white p-3 rounded-xl border border-brand-sand/70 space-y-1">
             ${(inv.events || []).map(ev => `<div>📅 <strong>${e(ev.name)}</strong>: ${e(ev.date)}, ${e(ev.time)} — ${e(ev.venue)}</div>`).join('')}
-            <div>💳 Amplop: ${(inv.gifts || []).length ? inv.gifts.map(g => `${e(g.bank)} ${e(g.acc)}`).join(', ') : '<em class="text-brand-muted">tidak ada</em>'}</div>
+            <div>💳 Amplop: ${(inv.gifts || []).length ? inv.gifts.map(g => `${e(g.bank)} ${e(g.acc)} a.n. ${e(g.holder)}`).join(', ') : '<em class="text-brand-muted">tidak ada</em>'}</div>
+            <div>📱 RSVP tamu dikirim ke: <strong>${e(inv.wa || '-')}</strong></div>
           </div>
           ${missing.length ? `<p class="text-[11px] text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5">Belum ada: ${missing.join(', ')}. Isi di "Foto & musik" bila klien mengirim lewat chat (opsional).</p>` : ''}
 
           <details class="text-xs">
             <summary class="cursor-pointer font-semibold text-brand-gold">Foto & musik</summary>
-            <div class="grid sm:grid-cols-2 gap-2 mt-2" data-edit="${e(o.id)}">
+            <div class="grid sm:grid-cols-2 gap-2 mt-2" data-edit="${id}">
               <label>Foto wanita<input class="fld mt-1" data-k="bridePhoto" value="${e(inv.bridePhoto || '')}" placeholder="https://..."></label>
               <label>Foto pria<input class="fld mt-1" data-k="groomPhoto" value="${e(inv.groomPhoto || '')}" placeholder="https://..."></label>
               <label>Foto sampul<input class="fld mt-1" data-k="coverPhoto" value="${e(inv.coverPhoto || '')}" placeholder="https://..."></label>
               <label>Musik
-                <select class="fld mt-1" onchange="this.nextElementSibling.value=this.value">
-                  <option value="">— pilih preset —</option>${presetOpts}
-                </select>
                 <input class="fld mt-1" data-k="musicUrl" value="${e(inv.musicUrl || '')}" placeholder="musik/nama-file.mp3 atau https://...">
               </label>
-              <div class="sm:col-span-2 flex items-center gap-2">
-                <button onclick="saveEdits('${e(o.id)}')" class="px-3 py-1.5 bg-brand-charcoal text-white rounded-lg font-semibold">Simpan</button>
-                <span class="text-[10px] text-brand-muted">Foto Google Drive: pakai format https://lh3.googleusercontent.com/d/ID_FILE</span>
+              <div class="sm:col-span-2 flex flex-wrap items-center gap-2">
+                <button onclick="saveEdits('${id}')" class="px-3 py-1.5 bg-brand-charcoal text-white rounded-lg font-semibold">Simpan</button>
+                <span class="text-[10px] text-brand-muted">Foto Google Drive: https://lh3.googleusercontent.com/d/ID_FILE${aktif ? ' • Setelah diubah, kirim ulang link ke klien.' : ''}</span>
               </div>
             </div>
           </details>
 
-          ${aktif ? `
-          <div class="text-xs bg-emerald-50 p-3 rounded-xl border border-emerald-200 space-y-1">
-            <div class="font-semibold text-emerald-900">Link undangan resmi:</div>
-            <div class="font-mono text-[10px] break-all text-emerald-900/80">${e(link.slice(0, 90))}…</div>
-          </div>` : ''}
-
           <div class="flex flex-wrap gap-2 pt-1 text-xs font-semibold">
-            <a href="${e(link)}" target="_blank" rel="noopener" class="px-3.5 py-1.5 bg-white border border-brand-sand rounded-lg flex items-center gap-1"><i data-lucide="eye" class="w-3.5 h-3.5"></i> Lihat Undangan</a>
+            <a href="${e(link)}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 bg-white border border-brand-sand rounded-lg flex items-center gap-1"><i data-lucide="eye" class="w-3.5 h-3.5"></i> Lihat Undangan</a>
             ${aktif ? `
-              <button onclick="sendToClient('${e(o.id)}')" class="px-3.5 py-1.5 bg-[#25D366] text-white rounded-lg flex items-center gap-1"><i data-lucide="send" class="w-3.5 h-3.5"></i> Kirim ke Klien</button>
-              <button onclick="copyText(inviteLink(load()['${e(o.id)}']), 'Link undangan disalin')" class="px-3.5 py-1.5 bg-white border border-brand-sand rounded-lg">Salin Link</button>
-              <button onclick="copyShortCode('${e(o.id)}')" class="px-3.5 py-1.5 bg-white border border-brand-sand rounded-lg" title="Untuk undangan-data.js">Kode Link Pendek</button>
-              <button onclick="setStatus('${e(o.id)}','menunggu')" class="px-3.5 py-1.5 text-brand-muted">Batalkan aktif</button>
+              <button onclick="sendToClient('${id}')" class="px-3.5 py-1.5 bg-[#25D366] text-white rounded-lg flex items-center gap-1"><i data-lucide="send" class="w-3.5 h-3.5"></i> Kirim Link ke Klien</button>
+              <button onclick="copyLink('${id}')" class="px-3.5 py-1.5 bg-white border border-brand-sand rounded-lg">Salin Link</button>
+              <button onclick="setStatus('${id}','menunggu')" class="px-3.5 py-1.5 text-brand-muted">Batalkan aktif</button>
             ` : `
-              <button onclick="confirmPaid('${e(o.id)}')" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Konfirmasi Lunas & Terbitkan</button>
+              <button onclick="confirmPaid('${id}')" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Konfirmasi Lunas & Terbitkan</button>
             `}
-            <button onclick="removeOrder('${e(o.id)}')" class="px-3.5 py-1.5 text-red-700 ml-auto">Hapus</button>
+            <button onclick="removeOrder('${id}')" class="px-3.5 py-1.5 text-red-700 ml-auto">Hapus</button>
           </div>
         </div>`;
     }
 
+    const safeAsset = u => { u = String(u || '').trim(); return /^(https:\/\/|musik\/)/i.test(u) ? u : ''; };
     function saveEdits(id) {
       const db = load(); const o = db[id]; if (!o) return;
-      document.querySelectorAll(`[data-edit="${CSS.escape(id)}"] [data-k]`).forEach(inp => { o.inv[inp.dataset.k] = inp.value.trim(); });
-      save(db); render(); toast('Tersimpan');
+      let bad = false;
+      document.querySelectorAll(`[data-edit="${CSS.escape(id)}"] [data-k]`).forEach(inp => {
+        const v = inp.value.trim(); const s = safeAsset(v);
+        if (v && !s) bad = true;
+        o.inv[inp.dataset.k] = s;
+      });
+      save(db); delete linkCache[id]; render();
+      toast(bad ? 'Link harus diawali https:// atau musik/ — yang tidak sesuai dikosongkan' : 'Tersimpan');
     }
     function setStatus(id, status) {
       const db = load(); if (!db[id]) return;
@@ -188,55 +360,52 @@
     }
     function confirmPaid(id) {
       const o = load()[id];
-      if (!confirm(`Pembayaran ${rupiah(o.price)} dari ${o.contact} sudah masuk ke rekening?`)) return;
+      const pc = priceCheck(o);
+      const warn = pc.ok ? '' : `\n\n⚠️ PERINGATAN: ${pc.msg}`;
+      if (!confirm(`Sudah cek mutasi rekening dan ada transfer PERSIS ${rupiah(o.price)} dari ${o.contact}?${warn}`)) return;
       setStatus(id, 'aktif');
-      toast('Undangan aktif — sekarang kirim ke klien');
+      toast('Undangan aktif — sekarang kirim link ke klien');
     }
     function removeOrder(id) {
       if (!confirm(`Hapus pesanan ${id}? Link undangan yang sudah dikirim tetap berfungsi.`)) return;
-      const db = load(); delete db[id]; save(db); render();
+      const db = load(); delete db[id]; save(db); delete linkCache[id]; render();
     }
-    function sendToClient(id) {
+    async function copyLink(id) { copyText(await signedLink(load()[id]), 'Link undangan disalin'); }
+    async function sendToClient(id) {
       const o = load()[id];
-      const link = inviteLink(o);
+      const link = await signedLink(o);
       const text =
 `Halo Kak *${o.contact}* 👋
 
-Pembayaran pesanan *${o.id}* sudah kami terima, terima kasih! Undangan digital ${o.inv.bride.split(',')[0]} & ${o.inv.groom.split(',')[0]} sudah *aktif*:
+Pembayaran pesanan *${o.id}* sudah kami terima, terima kasih! Undangan digital ${String(o.inv.bride).split(',')[0]} & ${String(o.inv.groom).split(',')[0]} sudah *aktif*:
 
 ${link}
 
 ✨ *Agar nama tamu tampil di sampul*, buat link per tamu di sini (gratis, tanpa batas):
 ${BASE}dibuatin.html#tamu
 
+⚠️ Mohon jangan mengubah isi link, karena link yang diubah otomatis tidak bisa dibuka.
 Konfirmasi kehadiran (RSVP) dari tamu akan masuk ke WhatsApp ini. Kalau ada yang ingin diubah, balas chat ini ya.
 
 — di.buat.in by di.raya.in`;
-      window.open(`https://wa.me/${o.wa}?text=${encodeURIComponent(text)}`, '_blank');
+      window.open(`https://wa.me/${normalizeWa(o.wa)}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
       const db = load(); db[id].sentAt = new Date().toISOString(); save(db);
     }
-    function copyShortCode(id) {
-      const o = load()[id];
-      const slug = `${o.inv.bride} ${o.inv.groom}`.split(',').join(' ').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40);
-      copyText(`  "${slug}": ${JSON.stringify(o.inv)},`, `Kode disalin — tempel ke undangan-data.js, link: undangan.html?id=${slug}`);
-    }
 
-    function exportBackup() {
-      const blob = new Blob([JSON.stringify(load(), null, 2)], { type: 'application/json' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `cadangan-dibuatin-${new Date().toISOString().slice(0, 10)}.json`;
-      a.click(); URL.revokeObjectURL(a.href);
-    }
+    function exportBackup() { download(`cadangan-pesanan-dibuatin-${new Date().toISOString().slice(0, 10)}.json`, load()); }
     function importBackup(ev) {
       const f = ev.target.files[0]; if (!f) return;
       f.text().then(txt => {
-        try { const data = JSON.parse(txt); save({ ...load(), ...data }); render(); toast('Cadangan dimuat'); }
-        catch (_) { toast('File cadangan tidak valid'); }
+        try {
+          const data = JSON.parse(txt);
+          const clean = {};
+          Object.entries(data).forEach(([k, o]) => { if (o && o.id === k && o.inv) clean[k] = o; });
+          save({ ...load(), ...clean }); render(); toast(`${Object.keys(clean).length} pesanan dimuat`);
+        } catch (_) { toast('File cadangan tidak valid'); }
       });
     }
 
-    render();
+    showLock();
   </script>
 </body>
 </html>
