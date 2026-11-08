@@ -4,7 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>di.raya.in — Wedding Content Creator</title>
-  
+
+  <!-- SEO & tampilan saat link dibagikan di WhatsApp / IG -->
+  <meta name="description" content="di.raya.in — Wedding Content Creator. Story Instagram same-day edit, video recap, tren TikTok/Reels, dan foto aesthetic Dazzcam di hari pernikahanmu.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="di.raya.in — Wedding Content Creator">
+  <meta property="og:description" content="Momen spontan hari bahagiamu, siap tayang di Instagram Story hari itu juga.">
+  <meta property="og:url" content="https://dirayain.vercel.app/">
+  <meta property="og:image" content="https://lh3.googleusercontent.com/d/1CpMkvX4iUKk179CGZg77SU0KtHZc75xY">
+  <meta name="theme-color" content="#662626">
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
@@ -40,85 +49,72 @@
       color: #23201E;
       font-family: 'Helvetica World', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
-    .font-termes {
-      font-family: 'TeX Gyre Termes', 'Times New Roman', Times, serif;
-    }
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+    body.modal-open { overflow: hidden; }
+    .font-termes { font-family: 'TeX Gyre Termes', 'Times New Roman', Times, serif; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.show { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
   </style>
 </head>
 <body class="bg-brand-cream text-brand-charcoal antialiased">
 
   <!-- ================= TOP NOTIFICATION ================= -->
-  <div class="bg-brand-charcoal text-brand-sand text-xs py-2 px-4 text-center tracking-wider uppercase font-medium">
-    ✨ Menangkap Momen Berharga Hari Bahagiamu • Real-Time Same Day Story Delivery
+  <div class="bg-brand-charcoal text-brand-sand text-[10px] sm:text-xs py-2 px-4 text-center tracking-wider uppercase font-medium">
+    ✨ Menangkap Momen Berharga Hari Bahagiamu • Same Day Story Delivery
   </div>
 
   <!-- ================= NAVBAR ================= -->
   <header class="sticky top-0 z-40 bg-brand-cream/95 backdrop-blur-md border-b border-brand-sand/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
-      <!-- Logo -->
-      <a href="#" class="text-3xl sm:text-4xl font-bold tracking-tight text-brand-charcoal font-sans">
-        di.raya.in<span class="text-brand-gold"></span>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+      <a href="#top" class="text-2xl sm:text-4xl font-bold tracking-tight text-brand-charcoal font-sans">
+        di.raya.in
       </a>
 
       <!-- Desktop Nav Links -->
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-brand-muted">
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-brand-muted">
+        <a href="#about" class="hover:text-brand-gold transition-colors">Tentang</a>
+        <a href="#hasil" class="hover:text-brand-gold transition-colors">Hasil</a>
+        <a href="#gallery" class="hover:text-brand-gold transition-colors">Highlights</a>
+        <a href="#pricelist" class="hover:text-brand-gold transition-colors">Paket</a>
+        <a href="#konsultasi" class="hover:text-brand-gold transition-colors">Konsultasi</a>
+        <a href="#booking" class="hover:text-brand-gold transition-colors">Cek Jadwal</a>
         <a href="dibuatin.html" class="text-brand-gold font-bold hover:underline flex items-center gap-1">
-  <i data-lucide="sparkles" class="w-4 h-4"></i>
-  <span>Undangan Digital (di.buat.in)</span>
-</a>
-        <a href="#about" class="hover:text-brand-gold transition-colors">Tentang Kami</a>
-        <a href="#gallery" class="hover:text-brand-gold transition-colors">Highlights Story</a>
-        <a href="gallery.html" class="text-brand-gold font-semibold hover:underline flex items-center gap-1">
-          <i data-lucide="grid" class="w-4 h-4"></i>
-          <span>Galeri Klien</span>
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          <span>Undangan Digital</span>
         </a>
-        <a href="#pricelist" class="hover:text-brand-gold transition-colors">Paket & Harga</a>
-        <a href="#booking" class="hover:text-brand-gold transition-colors">Cek Jadwal & Booking</a>
       </nav>
 
-      <!-- Right Buttons -->
       <div class="flex items-center gap-2.5">
-        <a href="gallery.html" class="md:hidden px-3.5 py-1.5 bg-brand-warm border border-brand-sand text-brand-charcoal text-xs font-semibold rounded-full flex items-center gap-1 shadow-sm">
-          <i data-lucide="grid" class="w-3.5 h-3.5 text-brand-gold"></i>
-          <span>Galeri</span>
-        </a>
-        
         <a href="#booking" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 bg-brand-charcoal text-brand-cream text-xs uppercase tracking-widest font-semibold rounded-full hover:bg-brand-gold transition-all">
-          <span>Booking Order</span>
+          <span>Booking</span>
           <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
         </a>
-
-        <!-- Hamburger Button (HP) -->
-        <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-xl bg-brand-warm border border-brand-sand text-brand-charcoal hover:bg-brand-sand transition-all">
-          <i id="menuIcon" data-lucide="menu" class="w-6 h-6"></i>
+        <button id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Buka menu" aria-expanded="false" class="md:hidden p-2 rounded-xl bg-brand-warm border border-brand-sand text-brand-charcoal hover:bg-brand-sand transition-all">
+          <span id="menuIconWrap"><i data-lucide="menu" class="w-6 h-6"></i></span>
         </button>
       </div>
     </div>
 
     <!-- Dropdown Menu Ponsel -->
-    <div id="mobileMenu" class="hidden md:hidden bg-brand-cream border-b border-brand-sand px-6 py-5 space-y-4 shadow-lg transition-all">
-      <a href="dibuatin.html" class="block text-sm font-bold text-brand-gold flex items-center justify-between bg-brand-warm p-3 rounded-xl border border-brand-sand">
-  <span class="flex items-center gap-2"><i data-lucide="sparkles" class="w-4 h-4"></i> Undangan Digital (di.buat.in)</span>
-  <i data-lucide="arrow-right" class="w-4 h-4"></i>
-</a>
-      <a href="#about" onclick="toggleMobileMenu()" class="block text-sm font-medium text-brand-charcoal hover:text-brand-gold">Tentang Kami</a>
-      <a href="#gallery" onclick="toggleMobileMenu()" class="block text-sm font-medium text-brand-charcoal hover:text-brand-gold">Highlights Story</a>
-      <a href="gallery.html" class="block text-sm font-bold text-brand-gold flex items-center justify-between bg-brand-warm p-3 rounded-xl border border-brand-sand">
+    <div id="mobileMenu" class="hidden md:hidden bg-brand-cream border-b border-brand-sand px-6 py-5 space-y-4 shadow-lg">
+      <a href="#about" onclick="closeMobileMenu()" class="block text-sm font-medium text-brand-charcoal hover:text-brand-gold">Tentang Kami</a>
+      <a href="#hasil" onclick="closeMobileMenu()" class="block text-sm font-medium text-brand-charcoal hover:text-brand-gold">Yang Kamu Dapatkan</a>
+      <a href="#gallery" onclick="closeMobileMenu()" class="block text-sm font-medium text-brand-charcoal hover:text-brand-gold">Highlights & Testimoni</a>
+      <a href="#pricelist" onclick="closeMobileMenu()" class="block text-sm font-medium text-brand-charcoal hover:text-brand-gold">Paket & Harga</a>
+      <a href="#konsultasi" onclick="closeMobileMenu()" class="block text-sm font-medium text-brand-charcoal hover:text-brand-gold">Konsultasi WhatsApp</a>
+      <a href="#booking" onclick="closeMobileMenu()" class="block text-sm font-medium text-brand-charcoal hover:text-brand-gold">Cek Jadwal & Booking</a>
+      <a href="gallery.html" class="text-sm font-bold text-brand-gold flex items-center justify-between bg-brand-warm p-3 rounded-xl border border-brand-sand">
         <span class="flex items-center gap-2"><i data-lucide="grid" class="w-4 h-4"></i> Galeri Portofolio Lengkap</span>
         <i data-lucide="arrow-right" class="w-4 h-4"></i>
       </a>
-      <a href="#pricelist" onclick="toggleMobileMenu()" class="block text-sm font-medium text-brand-charcoal hover:text-brand-gold">Paket & Harga Layanan</a>
-      <a href="#booking" onclick="toggleMobileMenu()" class="block text-sm font-medium text-brand-charcoal hover:text-brand-gold">Cek Jadwal & Booking Order</a>
-      
+      <a href="dibuatin.html" class="text-sm font-bold text-brand-gold flex items-center justify-between bg-brand-warm p-3 rounded-xl border border-brand-sand">
+        <span class="flex items-center gap-2"><i data-lucide="sparkles" class="w-4 h-4"></i> Undangan Digital (di.buat.in)</span>
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
       <div class="pt-3 border-t border-brand-sand">
-        <a href="https://wa.me/6285128007096" target="_blank" class="w-full py-3 bg-[#25D366] text-white font-semibold text-xs rounded-full flex items-center justify-center gap-2 shadow-sm">
+        <a href="https://wa.me/6285128007096" target="_blank" rel="noopener" class="w-full py-3 bg-[#25D366] text-white font-semibold text-xs rounded-full flex items-center justify-center gap-2 shadow-sm">
           <i data-lucide="message-circle" class="w-4 h-4"></i>
           <span>Konsultasi WhatsApp (085128007096)</span>
         </a>
@@ -126,756 +122,727 @@
     </div>
   </header>
 
-  <!-- ================= BANNER CEPAT KHUSUS MOBILE ================= -->
-<div class="mt-8 sm:mt-10 max-w-lg mx-auto px-2 sm:px-0">
-  <a href="dibuatin.html" class="block p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-brand-warm via-brand-cream to-brand-warm border-2 border-brand-gold/40 shadow-md hover:border-brand-gold transition-all group text-left">
-    <div class="flex items-center justify-between">
-      <div class="space-y-1">
-        <span class="text-[10px] font-bold uppercase tracking-widest bg-brand-gold text-white px-2.5 py-0.5 rounded-full inline-block">
-          Fitur Baru
+  <!-- ================= HERO ================= -->
+  <section id="top" class="relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-20 pb-10 grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+      <div class="text-center lg:text-left">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-warm border border-brand-sand text-[10px] sm:text-xs font-semibold tracking-widest uppercase text-brand-gold">
+          <i data-lucide="heart" class="w-3 h-3"></i> Wedding Content Creator
         </span>
-        <h4 class="text-base sm:text-lg font-bold text-brand-charcoal group-hover:text-brand-gold transition-colors">
-          💍 Buat Undangan Pernikahan Digital
-        </h4>
-        <p class="text-xs text-brand-muted">
-          Desain estetik, nama tamu unlimited, & musik pilihan mulai Rp49rb.
+        <h1 class="font-termes text-4xl sm:text-6xl leading-[1.05] text-brand-charcoal mt-5">
+          Hari bahagiamu, <span class="italic text-brand-gold">tayang di Story</span> hari itu juga.
+        </h1>
+        <p class="text-brand-muted text-sm sm:text-base mt-5 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+          Kami menangkap momen spontan di balik layar — tawa, haru, dan tren seru bareng sahabat — lalu langsung mengeditnya supaya kamu dan keluarga bisa membagikannya saat acara masih berlangsung.
         </p>
+        <div class="flex flex-col sm:flex-row gap-3 mt-8 justify-center lg:justify-start">
+          <a href="#booking" class="px-7 py-3.5 bg-brand-gold hover:bg-brand-goldDark text-white text-xs uppercase tracking-widest font-semibold rounded-full transition-all shadow-md inline-flex items-center justify-center gap-2">
+            <i data-lucide="calendar-check" class="w-4 h-4"></i> Cek Tanggal Kosong
+          </a>
+          <a href="gallery.html" class="px-7 py-3.5 bg-white border border-brand-sand hover:border-brand-gold text-brand-charcoal text-xs uppercase tracking-widest font-semibold rounded-full transition-all inline-flex items-center justify-center gap-2">
+            <i data-lucide="play-circle" class="w-4 h-4 text-brand-gold"></i> Lihat Hasil Karya
+          </a>
+        </div>
+        <div class="mt-8 flex items-center justify-center lg:justify-start gap-6 text-xs text-brand-muted">
+          <div><strong id="statClients" class="block text-2xl font-termes text-brand-charcoal">10+</strong>pasangan diabadikan</div>
+          <div class="w-px h-10 bg-brand-sand"></div>
+          <div><strong class="block text-2xl font-termes text-brand-charcoal">Same Day</strong>story siap posting</div>
+        </div>
       </div>
-      <div class="w-9 h-9 rounded-full bg-brand-gold text-white flex items-center justify-center shrink-0 ml-3 group-hover:scale-110 transition-transform">
-        <i data-lucide="arrow-right" class="w-4 h-4"></i>
-      </div>
+
+      <!-- Kolase foto klien (diambil otomatis dari clients.js) -->
+      <div id="heroCollage" class="grid grid-cols-3 gap-2.5 sm:gap-3 max-w-md mx-auto lg:max-w-none w-full"></div>
     </div>
-  </a>
-</div>
+
+    <div class="pb-14"></div>
+  </section>
 
   <!-- ================= ABOUT ================= -->
-  <section id="about" class="py-20 bg-brand-warm/60 border-y border-brand-sand/50">
+  <section id="about" class="py-20 bg-brand-warm/60 border-y border-brand-sand/50 scroll-mt-20">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="text-center max-w-2xl mx-auto mb-16">
+      <div class="reveal text-center max-w-2xl mx-auto mb-14">
         <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Kenapa Harus di.raya.in?</span>
-        <h2 class="text-3xl sm:text-5xl font-bold mt-2 text-brand-charcoal">
-          Bukan Pengganti, Tapi Pelengkap Momen
-        </h2>
+        <h2 class="text-3xl sm:text-5xl font-bold mt-2 text-brand-charcoal">Bukan Pengganti, Tapi Pelengkap Momen</h2>
         <p class="text-brand-muted mt-3 text-sm sm:text-base">
           Fotografer utama fokus pada dokumentasi formal, sedangkan kami menangkap momen spontan di balik layar yang siap kamu pamerkan ke media sosial hari itu juga.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-brand-cream p-8 rounded-2xl border border-brand-sand/70 shadow-sm">
-          <div class="w-12 h-12 rounded-xl bg-brand-warm flex items-center justify-center text-brand-gold mb-6">
-            <i data-lucide="zap" class="w-6 h-6"></i>
-          </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+        <div class="reveal bg-brand-cream p-7 sm:p-8 rounded-2xl border border-brand-sand/70 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-brand-warm flex items-center justify-center text-brand-gold mb-6"><i data-lucide="zap" class="w-6 h-6"></i></div>
           <h3 class="text-2xl font-bold mb-3">Same Day Simple Edit</h3>
-          <p class="text-sm text-brand-muted leading-relaxed">
-            Tidak perlu menunggu lama. Pengantin dan keluarga bisa langsung membagikan keseruan pernikahan di Instagram Story saat acara berlangsung.
-          </p>
+          <p class="text-sm text-brand-muted leading-relaxed">Tidak perlu menunggu lama. Kamu dan keluarga bisa langsung membagikan keseruan pernikahan di Instagram Story saat acara berlangsung.</p>
         </div>
-
-        <div class="bg-brand-cream p-8 rounded-2xl border border-brand-sand/70 shadow-sm">
-          <div class="w-12 h-12 rounded-xl bg-brand-warm flex items-center justify-center text-brand-gold mb-6">
-            <i data-lucide="camera" class="w-6 h-6"></i>
-          </div>
+        <div class="reveal bg-brand-cream p-7 sm:p-8 rounded-2xl border border-brand-sand/70 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-brand-warm flex items-center justify-center text-brand-gold mb-6"><i data-lucide="camera" class="w-6 h-6"></i></div>
           <h3 class="text-2xl font-bold mb-3">Foto Aesthetic Dazz Cam</h3>
-          <p class="text-sm text-brand-muted leading-relaxed">
-            Dilengkapi sentuhan foto estetik *vintage/candid* ala Dazz Cam untuk nuansa kenangan yang hangat dan berkarakter.
-          </p>
+          <p class="text-sm text-brand-muted leading-relaxed">Dilengkapi sentuhan foto estetik <em>vintage/candid</em> ala Dazz Cam untuk nuansa kenangan yang hangat dan berkarakter.</p>
         </div>
-
-        <div class="bg-brand-cream p-8 rounded-2xl border border-brand-sand/70 shadow-sm">
-          <div class="w-12 h-12 rounded-xl bg-brand-warm flex items-center justify-center text-brand-gold mb-6">
-            <i data-lucide="sparkles" class="w-6 h-6"></i>
-          </div>
+        <div class="reveal bg-brand-cream p-7 sm:p-8 rounded-2xl border border-brand-sand/70 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-brand-warm flex items-center justify-center text-brand-gold mb-6"><i data-lucide="sparkles" class="w-6 h-6"></i></div>
           <h3 class="text-2xl font-bold mb-3">Request Tren TikTok/IG</h3>
-          <p class="text-sm text-brand-muted leading-relaxed">
-            Bisa request tren dan transisi video TikTok/Reels favorit yang ingin Anda buat bersama pasangan dan *bridesmaids/groomsmen*.
-          </p>
+          <p class="text-sm text-brand-muted leading-relaxed">Bisa request tren dan transisi video TikTok/Reels favorit yang ingin kamu buat bersama pasangan dan <em>bridesmaids/groomsmen</em>.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= INSTAGRAM HIGHLIGHTS & STORY SECTION ================= -->
-  <section id="gallery" class="py-20 bg-brand-cream border-b border-brand-sand/50">
+  <!-- ================= YANG KAMU DAPATKAN ================= -->
+  <section id="hasil" class="py-20 bg-brand-cream scroll-mt-20">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      
-      <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Wedding Stories</span>
-        <h2 class="text-3xl sm:text-5xl font-bold mt-2 text-brand-charcoal">Highlights Hari Bahagia</h2>
-        <p class="text-brand-muted mt-3 text-sm">Klik lingkaran highlight di bawah untuk menonton video cuplikan ala Instagram Story.</p>
+      <div class="reveal text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Hasil Dokumentasi</span>
+        <h2 class="text-3xl sm:text-5xl font-bold mt-2 text-brand-charcoal">Yang Kamu Dapatkan</h2>
+        <p class="text-brand-muted mt-3 text-sm sm:text-base">Semua hasil dikemas siap posting — tinggal pilih dan bagikan.</p>
       </div>
 
-      <!-- Wrapper dengan Tombol Panah Kiri & Kanan -->
+      <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-5" id="deliverables"></div>
+
+      <!-- Alur hari H -->
+      <div class="mt-14 grid md:grid-cols-3 gap-4">
+        <div class="reveal bg-brand-warm/70 border border-brand-sand rounded-2xl p-6">
+          <div class="text-[10px] font-bold uppercase tracking-widest text-brand-gold">Sebelum Hari H</div>
+          <h3 class="text-lg font-bold mt-1">Ngobrolin konsep</h3>
+          <p class="text-sm text-brand-muted mt-2">Kita bahas susunan acara, momen yang wajib direkam, dan tren TikTok/Reels yang mau kamu buat.</p>
+        </div>
+        <div class="reveal bg-brand-warm/70 border border-brand-sand rounded-2xl p-6">
+          <div class="text-[10px] font-bold uppercase tracking-widest text-brand-gold">Saat Acara</div>
+          <h3 class="text-lg font-bold mt-1">Rekam & edit langsung</h3>
+          <p class="text-sm text-brand-muted mt-2">Momen spontan direkam dari HP, diedit sederhana, lalu story dikirim ke kamu selama acara berlangsung.</p>
+        </div>
+        <div class="reveal bg-brand-warm/70 border border-brand-sand rounded-2xl p-6">
+          <div class="text-[10px] font-bold uppercase tracking-widest text-brand-gold">Setelah Acara</div>
+          <h3 class="text-lg font-bold mt-1">Video recap & semua file</h3>
+          <p class="text-sm text-brand-muted mt-2">Video recap, hasil tren, dan semua foto & video dikirim lewat Google Drive.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HIGHLIGHTS & TESTIMONI ================= -->
+  <section id="gallery" class="py-20 bg-brand-warm/40 border-y border-brand-sand/50 scroll-mt-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="reveal text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Wedding Stories</span>
+        <h2 class="text-3xl sm:text-5xl font-bold mt-2 text-brand-charcoal">Highlights & Cerita Klien</h2>
+        <p class="text-brand-muted mt-3 text-sm">Ketuk lingkaran di bawah untuk menonton cuplikan ala Instagram Story.</p>
+      </div>
+
       <div class="relative max-w-5xl mx-auto">
-        <!-- Tombol Geser Kiri (Desktop) -->
-        <button onclick="scrollHighlights('left')" aria-label="Geser Kiri" class="hidden md:flex absolute -left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/95 shadow-lg border border-brand-sand items-center justify-center text-brand-charcoal hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all cursor-pointer">
+        <button onclick="scrollHighlights('left')" aria-label="Geser kiri" class="hidden md:flex absolute -left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/95 shadow-lg border border-brand-sand items-center justify-center text-brand-charcoal hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all">
           <i data-lucide="chevron-left" class="w-5 h-5"></i>
         </button>
-
-        <!-- Deretan Lingkaran Highlight (Sudah diperbaiki: justify-start & support Drag) -->
-        <div class="flex gap-6 sm:gap-8 overflow-x-auto pb-6 pt-2 px-2 justify-start no-scrollbar scroll-smooth cursor-grab active:cursor-grabbing select-none" id="highlightsList">
-          <!-- Diisi otomatis oleh JavaScript -->
-        </div>
-
-        <!-- Tombol Geser Kanan (Desktop) -->
-        <button onclick="scrollHighlights('right')" aria-label="Geser Kanan" class="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/95 shadow-lg border border-brand-sand items-center justify-center text-brand-charcoal hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all cursor-pointer">
+        <div class="flex gap-6 sm:gap-8 overflow-x-auto pb-6 pt-2 px-2 justify-start no-scrollbar scroll-smooth cursor-grab active:cursor-grabbing select-none" id="highlightsList"></div>
+        <button onclick="scrollHighlights('right')" aria-label="Geser kanan" class="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/95 shadow-lg border border-brand-sand items-center justify-center text-brand-charcoal hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all">
           <i data-lucide="chevron-right" class="w-5 h-5"></i>
         </button>
       </div>
 
+      <!-- Testimoni klien (diisi dari kolom "testimoni" di clients.js) -->
+      <div id="testimonials" class="hidden mt-8 flex gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2"></div>
+
       <div class="text-center mt-10">
         <a href="gallery.html" class="inline-flex items-center gap-2 px-8 py-3.5 bg-brand-charcoal hover:bg-brand-gold text-white text-xs uppercase tracking-widest font-semibold rounded-full transition-all shadow-md">
           <i data-lucide="grid" class="w-4 h-4"></i>
-          <span>Buka Galeri Foto & Video Klien Lengkap</span>
+          <span>Lihat Selengkapnya</span>
           <i data-lucide="arrow-right" class="w-4 h-4"></i>
         </a>
       </div>
-
     </div>
   </section>
 
-  <!-- ================= PRICELIST SECTION ================= -->
-  <section id="pricelist" class="py-24 bg-brand-warm/50">
+  <!-- ================= PRICELIST ================= -->
+  <section id="pricelist" class="py-24 bg-brand-warm/50 scroll-mt-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="text-center max-w-2xl mx-auto mb-16">
+      <div class="reveal text-center max-w-2xl mx-auto mb-16">
         <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Pricelist & Paket Layanan</span>
         <h2 class="text-3xl sm:text-5xl font-bold mt-2 text-brand-charcoal">Pilihan Paket Dokumentasi</h2>
         <p class="text-brand-muted mt-3 text-sm sm:text-base">Pilih paket Wedding Content Creator yang paling sesuai dengan susunan acaramu.</p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
-        
-        <!-- Paket 1: Story Package (2 Jam) -->
-        <div class="bg-brand-cream rounded-3xl p-6 border border-brand-sand/80 flex flex-col justify-between shadow-sm hover:border-brand-gold transition-all">
-          <div>
-            <div class="text-[11px] font-bold uppercase tracking-widest text-brand-muted mb-2">Short Session</div>
-            <h3 class="text-2xl font-bold text-brand-charcoal">Story Package</h3>
-            <div class="inline-block mt-2 px-3 py-1 bg-brand-warm rounded-full text-xs font-semibold text-brand-gold">
-              Durasi: 2 Jam
-            </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch" id="packageGrid"></div>
 
-            <ul class="space-y-3 text-xs text-brand-charcoal my-6 pt-4 border-t border-brand-sand/60">
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span><strong>6 – 8 Story Instagram</strong></span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span>Story IG Same Day Simple Edit</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span><strong>1 Video Recap</strong> (30–90 detik)</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span><strong>1 Tren TikTok/IG</strong> (Request)</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span>Random Foto Aesthetic (Raw/Dazzcam)</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span>Semua Foto & Video via Google Drive</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span>Free Transport ≤ 5 KM</span>
-              </li>
-            </ul>
-          </div>
-          <button onclick="selectPackage('Story Package (Durasi 2 Jam)')" class="w-full py-3 text-xs uppercase tracking-widest font-semibold rounded-full border border-brand-charcoal hover:bg-brand-charcoal hover:text-white transition-all text-center">
-            Pilih Paket Ini
-          </button>
+      <p class="text-center text-xs text-brand-muted mt-10 max-w-xl mx-auto leading-relaxed">
+        Semua paket sudah termasuk transport gratis hingga 5 KM. Untuk lokasi lebih jauh, biaya transport menyesuaikan jarak — tanyakan saat booking ya.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= KONSULTASI WHATSAPP ================= -->
+  <section id="konsultasi" class="py-20 scroll-mt-20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="reveal bg-brand-charcoal text-white rounded-3xl p-6 sm:p-12 grid md:grid-cols-2 gap-8 items-center overflow-hidden relative">
+        <div class="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-brand-gold/40 blur-3xl"></div>
+        <div class="relative">
+          <span class="text-xs font-semibold tracking-widest text-red-200 uppercase">Konsultasi Gratis</span>
+          <h2 class="text-3xl sm:text-4xl font-bold mt-2">Masih bingung pilih paket?</h2>
+          <p class="text-brand-sand/80 text-sm mt-3 leading-relaxed">Ngobrol langsung dengan admin lewat WhatsApp. Ceritakan susunan acaramu, kami bantu pilihkan paket yang paling pas.</p>
+          <a href="https://wa.me/6285128007096" id="consultMainBtn" target="_blank" rel="noopener" class="mt-6 inline-flex items-center gap-2 px-6 py-3.5 bg-[#25D366] hover:bg-[#1ebc57] rounded-full text-sm font-semibold shadow-lg">
+            <i data-lucide="message-circle" class="w-5 h-5"></i> Chat Admin 085128007096
+          </a>
         </div>
-
-        <!-- Paket 2: Memory Package (4 Jam) -->
-        <div class="bg-brand-cream rounded-3xl p-6 border border-brand-sand/80 flex flex-col justify-between shadow-sm hover:border-brand-gold transition-all">
-          <div>
-            <div class="text-[11px] font-bold uppercase tracking-widest text-brand-muted mb-2">Medium Session</div>
-            <h3 class="text-2xl font-bold text-brand-charcoal">Memory Package</h3>
-            <div class="inline-block mt-2 px-3 py-1 bg-brand-warm rounded-full text-xs font-semibold text-brand-gold">
-              Durasi: 4 Jam
-            </div>
-
-            <ul class="space-y-3 text-xs text-brand-charcoal my-6 pt-4 border-t border-brand-sand/60">
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span><strong>8 – 10 Story Instagram</strong></span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span>Story IG Same Day Simple Edit</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span><strong>1 Video Recap</strong> (45–90 detik)</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span><strong>1–2 Tren TikTok/IG</strong> (Request)</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span>Random Foto Aesthetic (Raw/Dazzcam)</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span>Semua Foto & Video via Google Drive</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span>Free Transport ≤ 5 KM</span>
-              </li>
-            </ul>
-          </div>
-          <button onclick="selectPackage('Memory Package (Durasi 4 Jam)')" class="w-full py-3 text-xs uppercase tracking-widest font-semibold rounded-full border border-brand-charcoal hover:bg-brand-charcoal hover:text-white transition-all text-center">
-            Pilih Paket Ini
-          </button>
-        </div>
-
-        <!-- Paket 3: Vow Package (Akad ±4 Jam) -->
-        <div class="bg-brand-cream rounded-3xl p-6 border border-brand-sand/80 flex flex-col justify-between shadow-sm hover:border-brand-gold transition-all">
-          <div>
-            <div class="text-[11px] font-bold uppercase tracking-widest text-brand-muted mb-2">Khusus Akad</div>
-            <h3 class="text-2xl font-bold text-brand-charcoal">Vow Package</h3>
-            <div class="inline-block mt-2 px-3 py-1 bg-brand-warm rounded-full text-xs font-semibold text-brand-gold">
-              Durasi: ± 4 Jam
-            </div>
-
-            <ul class="space-y-3 text-xs text-brand-charcoal my-6 pt-4 border-t border-brand-sand/60">
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span><strong>8 – 12 Story Instagram</strong></span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span>Story IG Same Day Simple Edit</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span><strong>1 Video Recap</strong> (30–60 detik)</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span><strong>1–2 Tren TikTok/IG</strong> (Request)</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span>Random Foto Aesthetic (Raw/Dazzcam)</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span>Semua Foto & Video via Google Drive</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span>Free Transport ≤ 5 KM</span>
-              </li>
-            </ul>
-          </div>
-          <button onclick="selectPackage('Vow Package (Akad - ±4 Jam)')" class="w-full py-3 text-xs uppercase tracking-widest font-semibold rounded-full border border-brand-charcoal hover:bg-brand-charcoal hover:text-white transition-all text-center">
-            Pilih Paket Ini
-          </button>
-        </div>
-
-        <!-- Paket 4: Eternal Package (Akad + Resepsi ±8 Jam) -->
-        <div class="bg-brand-charcoal text-white rounded-3xl p-6 border-2 border-brand-gold flex flex-col justify-between shadow-xl relative lg:-translate-y-2 z-10">
-          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-gold text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full whitespace-nowrap">
-            Akad + Resepsi
-          </div>
-          <div>
-            <div class="text-[11px] font-bold uppercase tracking-widest text-brand-sand/80 mb-2">Paket Lengkap</div>
-            <h3 class="text-2xl font-bold text-white">Eternal Package</h3>
-            <div class="inline-block mt-2 px-3 py-1 bg-white/15 rounded-full text-xs font-semibold text-white">
-              Durasi: ± 8 Jam
-            </div>
-
-            <ul class="space-y-3 text-xs text-brand-sand my-6 pt-4 border-t border-white/20">
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span><strong>14 – 17 Story Instagram</strong></span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span>Story IG Same Day Simple Edit</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span><strong>1 Video Recap</strong> (1–2 Menit)</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span><strong>1–3 Tren TikTok/IG</strong> (Request)</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span>Random Foto Aesthetic (Raw/Dazzcam)</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span>Semua Foto & Video via Google Drive</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>
-                <span>Free Transport ≤ 5 KM</span>
-              </li>
-            </ul>
-          </div>
-          <button onclick="selectPackage('Eternal Package (Akad + Resepsi - ±8 Jam)')" class="w-full py-3.5 text-xs uppercase tracking-widest font-semibold rounded-full bg-brand-gold hover:bg-brand-goldDark text-white transition-all text-center">
-            Pilih Paket Populer
-          </button>
+        <div class="relative space-y-2.5">
+          <div class="text-[11px] uppercase tracking-widest text-brand-sand/60 font-semibold">Atau ketuk pertanyaan cepat:</div>
+          <div id="quickQuestions" class="space-y-2"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= BOOKING & CALENDAR SECTION ================= -->
-  <section id="booking" class="py-24">
+  <!-- ================= BOOKING & CALENDAR ================= -->
+  <section id="booking" class="py-24 scroll-mt-20">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      
-      <div class="text-center max-w-2xl mx-auto mb-16">
+      <div class="reveal text-center max-w-2xl mx-auto mb-14">
         <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Reservasi Jadwal</span>
         <h2 class="text-3xl sm:text-5xl font-bold mt-2 text-brand-charcoal">Cek Tanggal & Booking</h2>
-        <p class="text-brand-muted mt-3 text-sm sm:text-base">Pilih tanggal pernikahanmu pada kalender dan isi formulir pemesanan di bawah.</p>
+        <p class="text-brand-muted mt-3 text-sm sm:text-base">Pilih tanggal pernikahanmu di kalender, isi formulir, lalu kirim lewat WhatsApp. Kami akan konfirmasi ketersediaannya.</p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 bg-brand-warm/60 p-6 sm:p-10 rounded-3xl border border-brand-sand">
-        
-        <!-- Kalender Interaktif -->
-        <div class="lg:col-span-5 bg-brand-cream p-6 rounded-2xl border border-brand-sand/80 shadow-sm flex flex-col justify-between">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 bg-brand-warm/60 p-4 sm:p-10 rounded-3xl border border-brand-sand">
+        <!-- Kalender -->
+        <div id="calendarCard" class="lg:col-span-5 bg-brand-cream p-5 sm:p-6 rounded-2xl border border-brand-sand/80 shadow-sm flex flex-col justify-between transition-shadow">
           <div>
             <div class="flex items-center justify-between mb-6">
-              <h3 class="text-xl font-bold" id="calMonthYear">September 2026</h3>
+              <h3 class="text-xl font-bold" id="calMonthYear" aria-live="polite"></h3>
               <div class="flex gap-1">
-                <button onclick="prevMonth()" class="p-2 rounded-lg hover:bg-brand-sand text-brand-charcoal"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
-                <button onclick="nextMonth()" class="p-2 rounded-lg hover:bg-brand-sand text-brand-charcoal"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                <button id="calPrev" type="button" onclick="prevMonth()" aria-label="Bulan sebelumnya" class="p-2 rounded-lg hover:bg-brand-sand text-brand-charcoal disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                <button type="button" onclick="nextMonth()" aria-label="Bulan berikutnya" class="p-2 rounded-lg hover:bg-brand-sand text-brand-charcoal"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
               </div>
             </div>
-
             <div class="grid grid-cols-7 text-center text-xs font-semibold text-brand-muted mb-3">
               <span>Min</span><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span>
             </div>
-
             <div id="calendarGrid" class="grid grid-cols-7 gap-1 text-center text-xs"></div>
           </div>
 
-          <div class="mt-8 pt-4 border-t border-brand-sand text-xs text-brand-muted space-y-2">
-            <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-brand-gold"></span>
-              <span>Tanggal Terpilih</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-brand-sand"></span>
-              <span>Tersedia untuk Booking</span>
-            </div>
+          <div class="mt-8 pt-4 border-t border-brand-sand text-xs text-brand-muted flex flex-wrap gap-x-5 gap-y-2">
+            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-brand-gold"></span><span>Tanggal dipilih</span></div>
+            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full ring-2 ring-brand-gold/40"></span><span>Hari ini</span></div>
+            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-red-100 border border-red-300"></span><span>Sudah terisi</span></div>
+            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-brand-sand/60"></span><span>Sudah lewat</span></div>
           </div>
         </div>
 
-        <!-- Formulir Booking WhatsApp -->
-        <div class="lg:col-span-7 bg-brand-cream p-6 sm:p-8 rounded-2xl border border-brand-sand/80 shadow-sm">
-          <form id="bookingForm" onsubmit="handleBookingSubmit(event)" class="space-y-4">
-            
+        <!-- Formulir Booking -->
+        <div class="lg:col-span-7 bg-brand-cream p-5 sm:p-8 rounded-2xl border border-brand-sand/80 shadow-sm">
+          <form id="bookingForm" onsubmit="handleBookingSubmit(event)" class="space-y-4" novalidate>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Nama Pasangan Pengantin *</label>
+                <label for="clientName" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Nama Pasangan Pengantin *</label>
                 <input type="text" id="clientName" required placeholder="Contoh: Moniqa & Naufal" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
               </div>
               <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Nomor WhatsApp Kamu *</label>
-                <input type="tel" id="clientPhone" required placeholder="Contoh: 08123456789" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+                <label for="clientPhone" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Nomor WhatsApp Kamu *</label>
+                <input type="tel" id="clientPhone" required inputmode="tel" placeholder="Contoh: 08123456789" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
               </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Tanggal Pernikahan *</label>
-                <input type="text" id="weddingDate" required readonly placeholder="Pilih dari kalender" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-brand-warm/60 text-sm font-medium text-brand-charcoal cursor-pointer">
+                <label for="weddingDate" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Tanggal Pernikahan *</label>
+                <input type="text" id="weddingDate" readonly placeholder="Pilih dari kalender" onclick="focusCalendar()" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-brand-warm/60 text-sm font-medium text-brand-charcoal cursor-pointer">
               </div>
               <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Kota & Lokasi / Venue *</label>
-                <input type="text" id="weddingVenue" required placeholder="Contoh: Gedung Merdeka, Bandung" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+                <label for="weddingVenue" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Kota & Lokasi / Venue *</label>
+                <input type="text" id="weddingVenue" required placeholder="Contoh: Gedung Assakinah, Cianjur" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
               </div>
             </div>
 
             <div>
-              <label class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Pilihan Paket Layanan *</label>
-              <select id="selectedPackage" required class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
-                <option value="">-- Pilih Paket Layanan --</option>
-                <option value="Story Package (Durasi 2 Jam)">Story Package (Durasi 2 Jam)</option>
-                <option value="Memory Package (Durasi 4 Jam)">Memory Package (Durasi 4 Jam)</option>
-                <option value="Vow Package (Akad - ±4 Jam)">Vow Package (Akad - ±4 Jam)</option>
-                <option value="Eternal Package (Akad + Resepsi - ±8 Jam)">Eternal Package (Akad + Resepsi - ±8 Jam)</option>
-              </select>
+              <label for="selectedPackage" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Pilihan Paket Layanan *</label>
+              <select id="selectedPackage" required class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold"></select>
             </div>
 
             <div>
-              <label class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Catatan Tambahan (Opsional)</label>
-              <textarea id="clientNotes" rows="3" placeholder="Ceritakan konsep pernikahan, lagu favorit, atau pertanyaan lain..." class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold"></textarea>
+              <label for="clientNotes" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Catatan Tambahan (Opsional)</label>
+              <textarea id="clientNotes" rows="3" placeholder="Ceritakan konsep pernikahan, jam akad/resepsi, tren yang ingin dibuat, atau pertanyaan lain..." class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold"></textarea>
             </div>
+
+            <p id="bookingError" class="hidden text-xs font-semibold text-red-700 bg-red-50 border border-red-200 rounded-xl px-4 py-2.5" role="alert"></p>
 
             <button type="submit" class="w-full py-4 bg-[#25D366] hover:bg-[#1ebc57] text-white font-semibold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
               <i data-lucide="message-circle" class="w-5 h-5"></i>
               <span>Kirim Booking via WhatsApp</span>
             </button>
             <p class="text-[11px] text-center text-brand-muted">
-              Pesan akan otomatis diteruskan langsung ke WhatsApp resmi <strong>di.raya.in</strong> (085128007096).
+              Pesan akan terbuka di WhatsApp resmi <strong>di.raya.in</strong> (085128007096).
             </p>
           </form>
         </div>
-
       </div>
+    </div>
+  </section>
+
+  <!-- ================= PARTNER: di.buat.in ================= -->
+  <section id="undangan" class="py-20 bg-brand-warm/60 border-t border-brand-sand scroll-mt-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-10 items-center">
+      <div class="reveal text-center lg:text-left">
+        <span class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest bg-brand-gold text-white px-3 py-1 rounded-full"><i data-lucide="sparkles" class="w-3 h-3"></i> Partner: di.buat.in</span>
+        <h2 class="text-3xl sm:text-5xl font-bold mt-4">Sekalian buat undangan digitalnya</h2>
+        <p class="text-brand-muted text-sm sm:text-base mt-3 leading-relaxed">30 pilihan desain, nama tamu di sampul, musik latar, peta lokasi, amplop digital, dan RSVP langsung ke WhatsApp. Lihat pratinjaunya dulu, bayar, lalu link resmi dikirim admin.</p>
+        <div class="flex flex-col sm:flex-row gap-3 mt-7 justify-center lg:justify-start">
+          <a href="dibuatin.html#tema" class="px-6 py-3.5 bg-brand-charcoal hover:bg-brand-gold text-white text-xs uppercase tracking-widest font-semibold rounded-full inline-flex items-center justify-center gap-2"><i data-lucide="grid" class="w-4 h-4"></i> Lihat 30 Desain</a>
+          <a href="dibuatin.html#order" class="px-6 py-3.5 bg-white border border-brand-sand hover:border-brand-gold text-xs uppercase tracking-widest font-semibold rounded-full inline-flex items-center justify-center gap-2">Mulai Rp49rb <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+        </div>
+      </div>
+      <div id="themePeek" class="grid grid-cols-3 gap-3"></div>
     </div>
   </section>
 
   <!-- ================= FOOTER ================= -->
   <footer class="bg-brand-charcoal text-brand-sand py-12 border-t border-brand-sand/20 text-center">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="text-3xl font-bold text-white mb-2 font-sans">di.raya.in<span class="text-brand-gold"></span></div>
+      <div class="text-3xl font-bold text-white mb-2 font-sans">di.raya.in</div>
       <p class="text-xs text-brand-sand/70 mb-6">Documenting your unscripted love stories with aesthetic precision.</p>
-      
-      <!-- Logo-Only Social Media Links -->
+
       <div class="flex justify-center items-center gap-4 mb-8">
-        <!-- Instagram -->
-        <a href="https://instagram.com/di.raya.in" target="_blank" aria-label="Instagram" class="w-10 h-10 rounded-full bg-white/5 border border-white/15 flex items-center justify-center text-brand-sand hover:text-brand-gold hover:border-brand-gold hover:scale-110 transition-all">
-          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-          </svg>
+        <a href="https://instagram.com/di.raya.in" target="_blank" rel="noopener" aria-label="Instagram di.raya.in" class="w-10 h-10 rounded-full bg-white/5 border border-white/15 flex items-center justify-center text-brand-sand hover:text-white hover:border-white hover:scale-110 transition-all">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         </a>
-
-        <!-- TikTok -->
-        <a href="https://tiktok.com/@di.raya.in" target="_blank" aria-label="TikTok" class="w-10 h-10 rounded-full bg-white/5 border border-white/15 flex items-center justify-center text-brand-sand hover:text-brand-gold hover:border-brand-gold hover:scale-110 transition-all">
-          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3 15.28a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V9.05a8.27 8.27 0 0 0 4.91 1.6V7.2a4.84 4.84 0 0 1-1-.51z"/>
-          </svg>
+        <a href="https://tiktok.com/@di.raya.in" target="_blank" rel="noopener" aria-label="TikTok di.raya.in" class="w-10 h-10 rounded-full bg-white/5 border border-white/15 flex items-center justify-center text-brand-sand hover:text-white hover:border-white hover:scale-110 transition-all">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3 15.28a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V9.05a8.27 8.27 0 0 0 4.91 1.6V7.2a4.84 4.84 0 0 1-1-.51z"/></svg>
         </a>
-
-        <!-- WhatsApp -->
-        <a href="https://wa.me/6285128007096" target="_blank" aria-label="WhatsApp" class="w-10 h-10 rounded-full bg-white/5 border border-white/15 flex items-center justify-center text-brand-sand hover:text-brand-gold hover:border-brand-gold hover:scale-110 transition-all">
-          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-          </svg>
+        <a href="https://wa.me/6285128007096" target="_blank" rel="noopener" aria-label="WhatsApp di.raya.in" class="w-10 h-10 rounded-full bg-white/5 border border-white/15 flex items-center justify-center text-brand-sand hover:text-white hover:border-white hover:scale-110 transition-all">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
         </a>
       </div>
 
       <div class="text-[11px] text-brand-sand/50">
-        &copy; 2026 di.raya.in — Wedding Content Creator. Seluruh hak cipta dilindungi.
+        &copy; <span id="yearNow">2026</span> di.raya.in — Wedding Content Creator. Seluruh hak cipta dilindungi.
       </div>
     </div>
   </footer>
 
-  <!-- ================= FLOATING WHATSAPP BUTTON ================= -->
-  <a id="floatingWaBtn" href="#" target="_blank" class="fixed bottom-6 right-6 z-40 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center">
+  <!-- ================= FLOATING WHATSAPP ================= -->
+  <a id="floatingWaBtn" href="https://wa.me/6285128007096" target="_blank" rel="noopener" aria-label="Chat WhatsApp" class="fixed bottom-5 right-5 z-40 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center">
     <i data-lucide="message-circle" class="w-6 h-6"></i>
   </a>
 
-  <!-- ================= MODAL INSTAGRAM STORY VIEWER ================= -->
-  <div id="storyModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md hidden items-center justify-center p-0 sm:p-4 select-none">
-    <div class="relative w-full h-full sm:h-[90vh] sm:max-w-sm aspect-[9/16] bg-brand-charcoal sm:rounded-3xl overflow-hidden shadow-2xl flex flex-col justify-between border sm:border-white/15">
-      
-      <!-- Top Bar: Profil & Tombol Tutup -->
-      <div class="absolute top-0 inset-x-0 z-30 p-4 bg-gradient-to-b from-black/80 via-black/30 to-transparent flex items-center justify-between text-white">
+  <!-- ================= MODAL STORY VIEWER ================= -->
+  <div id="storyModal" role="dialog" aria-modal="true" aria-label="Highlight story" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md hidden items-center justify-center p-0 sm:p-4 select-none">
+    <div class="relative w-full h-full sm:h-[90vh] sm:max-w-sm sm:aspect-[9/16] bg-brand-charcoal sm:rounded-3xl overflow-hidden shadow-2xl flex flex-col justify-between sm:border sm:border-white/15">
+      <!-- Garis progres ala IG -->
+      <div id="storyProgress" class="absolute top-2 inset-x-3 z-40 flex gap-1"></div>
+
+      <div class="absolute top-3 inset-x-0 z-30 p-4 pt-5 bg-gradient-to-b from-black/80 via-black/30 to-transparent flex items-center justify-between text-white">
         <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-full border border-brand-gold overflow-hidden bg-brand-sand">
-            <img id="storyAvatar" src="" class="w-full h-full object-cover">
+          <div class="w-8 h-8 rounded-full border border-white/70 overflow-hidden bg-brand-sand">
+            <img id="storyAvatar" src="" alt="" class="w-full h-full object-cover">
           </div>
           <div>
-            <div class="text-xs font-bold leading-tight" id="storyTitle">Sarah & Dimas</div>
-            <div class="text-[10px] text-brand-sand/80" id="storySubtitle">Akad & Resepsi</div>
+            <div class="text-xs font-bold leading-tight" id="storyTitle"></div>
+            <div class="text-[10px] text-brand-sand/80" id="storySubtitle"></div>
           </div>
         </div>
-
-        <button onclick="closeStory()" class="p-1.5 rounded-full bg-black/50 hover:bg-black text-white transition-all">
+        <button onclick="closeStory()" aria-label="Tutup" class="p-1.5 rounded-full bg-black/50 hover:bg-black text-white transition-all">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <!-- Iframe Pemutar Video Google Drive -->
       <div class="relative w-full h-full flex items-center justify-center bg-black">
-        <iframe id="storyVideo" src="" class="w-full h-full border-0" allow="autoplay; fullscreen"></iframe>
+        <iframe id="storyVideo" src="" title="Video highlight" class="w-full h-full border-0" allow="autoplay; fullscreen"></iframe>
       </div>
 
-      <!-- Bottom Action Bar -->
       <div class="absolute bottom-0 inset-x-0 z-30 p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent space-y-3">
         <div class="flex justify-between items-center px-2">
-          <button onclick="prevStory()" class="px-3 py-1 bg-white/20 hover:bg-white/30 text-white rounded-full text-xs flex items-center gap-1">
+          <button id="storyPrevBtn" onclick="prevStory()" class="px-3 py-1 bg-white/20 hover:bg-white/30 text-white rounded-full text-xs flex items-center gap-1 disabled:opacity-30">
             <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i> <span>Sebelumnya</span>
           </button>
           <button onclick="nextStory()" class="px-3 py-1 bg-white/20 hover:bg-white/30 text-white rounded-full text-xs flex items-center gap-1">
-            <span>Selanjutnya</span> <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+            <span id="storyNextLabel">Selanjutnya</span> <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
           </button>
         </div>
-
-        <a id="storyWaBtn" href="#" target="_blank" class="w-full py-3 bg-brand-gold hover:bg-brand-goldDark text-white font-semibold rounded-full text-xs flex items-center justify-center gap-2 transition-all shadow-lg">
-          <i data-lucide="message-circle" class="w-4 h-4 text-[#25D366]"></i>
-          <span>Tanya Jadwal Tanggal Ini</span>
-        </a>
+        <p id="storyQuote" class="hidden text-white text-sm italic leading-relaxed px-2"></p>
+        <div class="grid grid-cols-2 gap-2">
+          <a id="storyMoreBtn" href="gallery.html" class="py-3 bg-white/15 hover:bg-white/25 text-white font-semibold rounded-full text-xs flex items-center justify-center gap-1.5 transition-all">
+            <i data-lucide="grid" class="w-4 h-4"></i> Lihat Selengkapnya
+          </a>
+          <a id="storyWaBtn" href="#" target="_blank" rel="noopener" class="py-3 bg-brand-gold hover:bg-brand-goldDark text-white font-semibold rounded-full text-xs flex items-center justify-center gap-1.5 transition-all shadow-lg">
+            <i data-lucide="calendar-check" class="w-4 h-4"></i> Cek Jadwal
+          </a>
+        </div>
       </div>
-
     </div>
   </div>
 
-  <!-- ================= LOGIKA JAVASCRIPT ================= -->
-  <!-- Memanggil Data Master Klien -->
+  <!-- ================= JAVASCRIPT ================= -->
   <script src="clients.js"></script>
-
+  <script src="jadwal.js"></script>
+  <script src="tema.js"></script>
   <script>
-    lucide.createIcons();
-
     const WA_NUMBER = "6285128007096";
-    document.getElementById('floatingWaBtn').href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("Halo di.raya.in, saya ingin konsultasi mengenai paket Wedding Content Creator.")}`;
+    const BOOKED = new Set((typeof JADWAL_TERISI !== 'undefined' ? JADWAL_TERISI : []).map(s => String(s).trim()));
+    const isoOf = dt => `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
 
+    // ============================================================
+    // ⚙️ HARGA PAKET — isi agar harga tampil di kartu paket.
+    // Contoh: story: 'Rp750.000'. Biarkan '' jika tidak ingin ditampilkan.
+    // ============================================================
+    const HARGA_PAKET = { story: '', memory: '', vow: '', eternal: '' };
+
+    const PACKAGES = [
+      { key: 'story',   label: 'Short Session',  name: 'Story Package',   dur: '2 Jam',   value: 'Story Package (Durasi 2 Jam)',
+        items: ['<strong>6 – 8 Story Instagram</strong>', 'Story IG Same Day Simple Edit', '<strong>1 Video Recap</strong> (30–90 detik)', '<strong>1 Tren TikTok/IG</strong> (request)', 'Random Foto Aesthetic (Raw/Dazzcam)', 'Semua Foto & Video via Google Drive', 'Free Transport ≤ 5 KM'] },
+      { key: 'memory',  label: 'Medium Session', name: 'Memory Package',  dur: '4 Jam',   value: 'Memory Package (Durasi 4 Jam)',
+        items: ['<strong>8 – 10 Story Instagram</strong>', 'Story IG Same Day Simple Edit', '<strong>1 Video Recap</strong> (45–90 detik)', '<strong>1–2 Tren TikTok/IG</strong> (request)', 'Random Foto Aesthetic (Raw/Dazzcam)', 'Semua Foto & Video via Google Drive', 'Free Transport ≤ 5 KM'] },
+      { key: 'vow',     label: 'Khusus Akad',    name: 'Vow Package',     dur: '± 4 Jam', value: 'Vow Package (Akad - ±4 Jam)',
+        items: ['<strong>8 – 12 Story Instagram</strong>', 'Story IG Same Day Simple Edit', '<strong>1 Video Recap</strong> (30–60 detik)', '<strong>1–2 Tren TikTok/IG</strong> (request)', 'Random Foto Aesthetic (Raw/Dazzcam)', 'Semua Foto & Video via Google Drive', 'Free Transport ≤ 5 KM'] },
+      { key: 'eternal', label: 'Paket Lengkap',  name: 'Eternal Package', dur: '± 8 Jam', value: 'Eternal Package (Akad + Resepsi - ±8 Jam)', featured: true,
+        items: ['<strong>14 – 17 Story Instagram</strong>', 'Story IG Same Day Simple Edit', '<strong>1 Video Recap</strong> (1–2 menit)', '<strong>1–3 Tren TikTok/IG</strong> (request)', 'Random Foto Aesthetic (Raw/Dazzcam)', 'Semua Foto & Video via Google Drive', 'Free Transport ≤ 5 KM'] }
+    ];
+
+    const waLink = text => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+    const clients = (typeof getClientsSorted === 'function') ? getClientsSorted() : [];
+
+    document.getElementById('yearNow').textContent = new Date().getFullYear();
+    document.getElementById('floatingWaBtn').href = waLink("Halo di.raya.in, saya ingin konsultasi mengenai paket Wedding Content Creator.");
+
+    // ---------- Menu HP ----------
+    function setMenuIcon(open) {
+      document.getElementById('menuIconWrap').innerHTML = `<i data-lucide="${open ? 'x' : 'menu'}" class="w-6 h-6"></i>`;
+      document.getElementById('mobileMenuBtn').setAttribute('aria-expanded', open);
+      lucide.createIcons();
+    }
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
       menu.classList.toggle('hidden');
-      lucide.createIcons();
+      setMenuIcon(!menu.classList.contains('hidden'));
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobileMenu').classList.add('hidden');
+      setMenuIcon(false);
     }
 
-    // GENERATE STORY HIGHLIGHTS OTOMATIS DARI clientsData (clients.js)
-    const storyHighlights = (typeof clientsData !== 'undefined') ? clientsData.map((client, index) => ({
-      id: index + 1,
-      title: client.name,
-      subtitle: client.packageName,
-      cover: client.cover,
-      videoUrl: (client.editedVideos && client.editedVideos.length > 0) ? client.editedVideos[0].url : ''
-    })) : [];
+    // ---------- Hero: kolase & jumlah klien ----------
+    (function renderHero() {
+      if (clients.length) document.getElementById('statClients').textContent = clients.length + '+';
+      const picks = clients.filter((c, i, arr) => arr.findIndex(x => x.cover === c.cover) === i).slice(0, 6);
+      const box = document.getElementById('heroCollage');
+      picks.forEach((c, i) => {
+        const a = document.createElement('button');
+        a.type = 'button';
+        a.onclick = () => openStory(clients.indexOf(c));
+        a.className = `relative rounded-2xl overflow-hidden bg-brand-sand aspect-[3/4] shadow-sm group ${i % 3 === 1 ? 'translate-y-5' : ''}`;
+        a.innerHTML = `
+          <img src="${c.cover}" alt="${c.name}" loading="${i < 3 ? 'eager' : 'lazy'}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.style.display='none'">
+          <span class="absolute inset-x-0 bottom-0 p-2 text-[10px] sm:text-xs font-semibold text-white text-left bg-gradient-to-t from-black/70 to-transparent">${c.name}</span>`;
+        box.appendChild(a);
+      });
+    })();
 
-    let currentStoryIndex = 0;
+    // ---------- Kartu paket ----------
+    (function renderPackages() {
+      const grid = document.getElementById('packageGrid');
+      const select = document.getElementById('selectedPackage');
+      select.innerHTML = '<option value="">-- Pilih Paket Layanan --</option>' +
+        PACKAGES.map(p => `<option value="${p.value}">${p.name} (${p.dur})</option>`).join('');
 
-    // VARIABEL GLOBAL UNTUK MENDETEKSI DRAG
+      PACKAGES.forEach(p => {
+        const f = !!p.featured;
+        const price = HARGA_PAKET[p.key];
+        const card = document.createElement('div');
+        card.className = f
+          ? 'reveal bg-brand-charcoal text-white rounded-3xl p-6 border-2 border-brand-gold flex flex-col justify-between shadow-xl relative lg:-translate-y-2 z-10'
+          : 'reveal bg-brand-cream rounded-3xl p-6 border border-brand-sand/80 flex flex-col justify-between shadow-sm hover:border-brand-gold transition-all';
+        card.innerHTML = `
+          ${f ? '<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-gold text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full whitespace-nowrap">Akad + Resepsi</div>' : ''}
+          <div>
+            <div class="text-[11px] font-bold uppercase tracking-widest ${f ? 'text-brand-sand/80' : 'text-brand-muted'} mb-2">${p.label}</div>
+            <h3 class="text-2xl font-bold">${p.name}</h3>
+            ${price ? `<div class="mt-2 text-2xl font-termes ${f ? 'text-white' : 'text-brand-gold'}">${price}</div>` : ''}
+            <div class="inline-block mt-2 px-3 py-1 ${f ? 'bg-white/15 text-white' : 'bg-brand-warm text-brand-gold'} rounded-full text-xs font-semibold">Durasi: ${p.dur}</div>
+            <ul class="space-y-3 text-xs ${f ? 'text-brand-sand border-white/20' : 'text-brand-charcoal border-brand-sand/60'} my-6 pt-4 border-t">
+              ${p.items.map(it => `<li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 ${f ? 'text-red-300' : 'text-brand-gold'} shrink-0 mt-0.5"></i><span>${it}</span></li>`).join('')}
+            </ul>
+          </div>
+          <button type="button" class="w-full py-3 text-xs uppercase tracking-widest font-semibold rounded-full transition-all ${f ? 'bg-brand-gold hover:bg-brand-goldDark text-white py-3.5' : 'border border-brand-charcoal hover:bg-brand-charcoal hover:text-white'}">
+            ${price ? 'Pilih Paket Ini' : 'Pilih & Tanya Harga'}
+          </button>`;
+        card.querySelector('button').onclick = () => selectPackage(p.value);
+        grid.appendChild(card);
+      });
+    })();
+
+    // ---------- Yang kamu dapatkan ----------
+    document.getElementById('deliverables').innerHTML = [
+      ['smartphone', 'Story Instagram', '6–17 story same-day edit, siap kamu posting saat acara.'],
+      ['film', 'Video Recap', 'Ringkasan momen terbaik berdurasi 30 detik hingga 2 menit.'],
+      ['music-2', 'Tren TikTok/Reels', 'Request tren & transisi favorit bareng pasangan dan sahabat.'],
+      ['camera', 'Foto Aesthetic', 'Foto candid random ala Dazzcam & versi raw.'],
+      ['folder-down', 'Semua File', 'Seluruh foto & video dikirim lewat Google Drive.']
+    ].map(([icon, title, desc]) => `
+      <div class="reveal bg-white border border-brand-sand rounded-2xl p-5 ${title === 'Semua File' ? 'col-span-2 lg:col-span-1' : ''}">
+        <div class="w-10 h-10 rounded-xl bg-brand-warm text-brand-gold flex items-center justify-center mb-4"><i data-lucide="${icon}" class="w-5 h-5"></i></div>
+        <h3 class="font-bold">${title}</h3>
+        <p class="text-xs text-brand-muted mt-1.5 leading-relaxed">${desc}</p>
+      </div>`).join('');
+
+    // ---------- Testimoni (hanya tampil kalau kolom testimoni di clients.js diisi) ----------
+    (function renderTestimonials() {
+      const withQuote = clients.filter(c => c.testimoni && c.testimoni.trim());
+      if (!withQuote.length) return;
+      const box = document.getElementById('testimonials');
+      box.classList.remove('hidden');
+      withQuote.forEach(c => {
+        const card = document.createElement('figure');
+        card.className = 'snap-start shrink-0 w-[85%] sm:w-[360px] bg-white border border-brand-sand rounded-3xl p-6 flex flex-col justify-between';
+        card.innerHTML = `
+          <blockquote class="font-termes text-lg leading-relaxed text-brand-charcoal"></blockquote>
+          <figcaption class="flex items-center gap-3 mt-5">
+            <img src="${c.cover}" alt="" loading="lazy" class="w-10 h-10 rounded-full object-cover">
+            <div class="text-xs"><div class="font-bold"></div><div class="text-brand-muted">${c.packageName}</div></div>
+            <a href="gallery.html#${c.id}" class="ml-auto text-[11px] font-semibold text-brand-gold whitespace-nowrap">Lihat karya →</a>
+          </figcaption>`;
+        card.querySelector('blockquote').textContent = `“${c.testimoni.trim()}”`;
+        card.querySelector('figcaption .font-bold').textContent = c.name;
+        box.appendChild(card);
+      });
+    })();
+
+    // ---------- Pertanyaan cepat WhatsApp ----------
+    document.getElementById('consultMainBtn').href = waLink('Halo di.raya.in, saya ingin konsultasi soal Wedding Content Creator untuk pernikahan saya.');
+    document.getElementById('quickQuestions').innerHTML = [
+      ['calendar', 'Apakah tanggal pernikahan saya masih tersedia?', 'Halo di.raya.in, saya ingin cek ketersediaan tanggal. Pernikahan saya tanggal: '],
+      ['tag', 'Berapa harga tiap paket?', 'Halo di.raya.in, boleh minta pricelist lengkap paket Wedding Content Creator?'],
+      ['sparkles', 'Saya mau konsultasi konsep & tren', 'Halo di.raya.in, saya ingin konsultasi konsep dan tren TikTok/Reels untuk pernikahan saya.'],
+      ['map-pin', 'Apakah bisa ke lokasi saya?', 'Halo di.raya.in, apakah bisa melayani acara di lokasi: ']
+    ].map(([icon, q, msg]) => `
+      <a href="${waLink(msg)}" target="_blank" rel="noopener" class="flex items-center gap-3 bg-white/10 hover:bg-white/20 border border-white/15 rounded-2xl px-4 py-3 text-sm transition-colors">
+        <i data-lucide="${icon}" class="w-4 h-4 text-red-200 shrink-0"></i><span>${q}</span><i data-lucide="arrow-up-right" class="w-4 h-4 ml-auto opacity-60 shrink-0"></i>
+      </a>`).join('');
+
+    // ---------- Intip desain undangan di.buat.in ----------
+    (function renderThemePeek() {
+      if (typeof DAFTAR_TEMA === 'undefined') return;
+      const picks = ['maroon', 'monochrome', 'sage', 'javanese', 'emerald', 'navy'].map(getTema);
+      document.getElementById('themePeek').innerHTML = picks.map(t => `
+        <a href="undangan.html?demo=${t.id}" target="_blank" rel="noopener" class="group rounded-2xl overflow-hidden border border-brand-sand shadow-sm hover:shadow-lg transition-all">
+          <div class="aspect-[3/4] flex flex-col items-center justify-center text-center p-2" style="background:${t.bg};${t.pattern ? `background-image:${t.pattern};` : ''}color:${t.text}">
+            <div class="text-[10px]" style="color:${t.accent}">${t.orn}</div>
+            <div class="text-[7px] uppercase tracking-[0.2em] font-bold mt-1" style="color:${t.accent}">The Wedding Of</div>
+            <div class="font-termes text-base sm:text-lg leading-tight mt-1">Sarah<br>& Rizky</div>
+            <div class="mt-2 w-12 h-3 rounded-full" style="background:${t.accent}"></div>
+          </div>
+          <div class="bg-white text-[10px] sm:text-[11px] font-semibold px-2 py-1.5 truncate group-hover:text-brand-gold">${t.name}</div>
+        </a>`).join('');
+    })();
+
+    function selectPackage(value) {
+      document.getElementById('selectedPackage').value = value;
+      document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // ---------- Highlights story ----------
     let isDragging = false;
+    let currentStoryIndex = 0;
 
     function renderHighlights() {
       const container = document.getElementById('highlightsList');
-      if (!container) return;
-      container.innerHTML = '';
-
-      storyHighlights.forEach((item, index) => {
-        const bubble = document.createElement('div');
-        bubble.className = "flex flex-col items-center group cursor-pointer shrink-0";
-        
-        // Hanya buka story jika tidak sedang menggeser/drag
-        bubble.onclick = () => {
-          if (!isDragging) {
-            openStory(index);
-          }
-        };
-
+      clients.forEach((c, index) => {
+        const bubble = document.createElement('button');
+        bubble.type = 'button';
+        bubble.className = "flex flex-col items-center group shrink-0";
+        bubble.setAttribute('aria-label', 'Tonton highlight ' + c.name);
+        bubble.onclick = () => { if (!isDragging) openStory(index); };
         bubble.innerHTML = `
           <div class="w-20 h-20 sm:w-24 sm:h-24 p-[3px] rounded-full bg-gradient-to-tr from-brand-goldDark via-brand-gold to-red-400 group-hover:scale-105 transition-transform shadow-md">
             <div class="w-full h-full rounded-full border-2 border-brand-cream overflow-hidden bg-brand-sand">
-              <img src="${item.cover}" alt="${item.title}" class="w-full h-full object-cover pointer-events-none">
+              <img src="${c.cover}" alt="" loading="lazy" class="w-full h-full object-cover pointer-events-none">
             </div>
           </div>
-          <span class="text-xs font-semibold mt-2.5 text-brand-charcoal group-hover:text-brand-gold text-center truncate max-w-[90px]">${item.title}</span>
-        `;
+          <span class="text-xs font-semibold mt-2.5 text-brand-charcoal group-hover:text-brand-gold text-center truncate max-w-[90px]">${c.name}</span>`;
         container.appendChild(bubble);
       });
-
-      setupHighlightsInteraction();
+      setupDragScroll(container);
     }
 
-    // FUNGSI TOMBOL PANAH KIRI & KANAN
     function scrollHighlights(direction) {
-      const container = document.getElementById('highlightsList');
-      const scrollAmount = 280;
-      if (direction === 'left') {
-        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-      } else {
-        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-      }
+      document.getElementById('highlightsList').scrollBy({ left: direction === 'left' ? -280 : 280, behavior: 'smooth' });
     }
 
-    // FITUR GESER DENGAN MOUSE (DRAG TO SCROLL & RODA MOUSE)
-    function setupHighlightsInteraction() {
-      const slider = document.getElementById('highlightsList');
-      if (!slider) return;
-
-      let isDown = false;
-      let startX;
-      let scrollLeft;
-
-      slider.addEventListener('mousedown', (e) => {
-        isDown = true;
-        isDragging = false;
-        startX = e.pageX - slider.offsetLeft;
-        scrollLeft = slider.scrollLeft;
-      });
-
-      slider.addEventListener('mouseleave', () => {
-        isDown = false;
-      });
-
-      slider.addEventListener('mouseup', () => {
-        setTimeout(() => { isDown = false; isDragging = false; }, 50);
-      });
-
-      slider.addEventListener('mousemove', (e) => {
+    function setupDragScroll(slider) {
+      let isDown = false, startX = 0, scrollLeft = 0;
+      slider.addEventListener('mousedown', e => { isDown = true; isDragging = false; startX = e.pageX; scrollLeft = slider.scrollLeft; });
+      slider.addEventListener('mouseleave', () => { isDown = false; });
+      slider.addEventListener('mouseup', () => { isDown = false; setTimeout(() => { isDragging = false; }, 50); });
+      slider.addEventListener('mousemove', e => {
         if (!isDown) return;
-        const x = e.pageX - slider.offsetLeft;
-        const walk = (x - startX) * 1.5; // Kecepatan geser
-        if (Math.abs(walk) > 5) {
-          isDragging = true;
-        }
+        const walk = (e.pageX - startX) * 1.5;
+        if (Math.abs(walk) > 5) isDragging = true;
         slider.scrollLeft = scrollLeft - walk;
       });
-
-      // Dukungan scroll roda mouse horizontal
-      slider.addEventListener('wheel', (e) => {
-        if (e.deltaY !== 0) {
-          e.preventDefault();
-          slider.scrollLeft += e.deltaY;
-        }
+      // Roda mouse vertikal -> geser horizontal (hanya kalau masih bisa digeser, supaya halaman tetap bisa di-scroll)
+      slider.addEventListener('wheel', e => {
+        if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+        const atStart = slider.scrollLeft <= 0 && e.deltaY < 0;
+        const atEnd = slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 1 && e.deltaY > 0;
+        if (atStart || atEnd) return;
+        e.preventDefault();
+        slider.scrollLeft += e.deltaY;
       }, { passive: false });
     }
 
     function openStory(index) {
+      if (index < 0 || !clients[index]) return;
       currentStoryIndex = index;
       const modal = document.getElementById('storyModal');
       modal.classList.remove('hidden');
       modal.classList.add('flex');
+      document.body.classList.add('modal-open');
       loadStoryContent();
     }
 
     function loadStoryContent() {
-      const story = storyHighlights[currentStoryIndex];
-      if (!story) return;
-
-      const video = document.getElementById('storyVideo');
-      const avatar = document.getElementById('storyAvatar');
-      const title = document.getElementById('storyTitle');
-      const subtitle = document.getElementById('storySubtitle');
-      const waBtn = document.getElementById('storyWaBtn');
-
-      avatar.src = story.cover;
-      title.innerText = story.title;
-      subtitle.innerText = story.subtitle;
-      video.src = story.videoUrl;
-      
-      waBtn.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Halo di.raya.in, saya melihat highlight portofolio ${story.title} (${story.subtitle}) dan ingin tanya ketersediaan tanggal.`)}`;
-
-      lucide.createIcons();
+      const c = clients[currentStoryIndex];
+      const v = (c.editedVideos && c.editedVideos[0]) || {};
+      document.getElementById('storyAvatar').src = c.cover;
+      document.getElementById('storyTitle').textContent = c.name;
+      document.getElementById('storySubtitle').textContent = `${c.packageName} • ${c.date}`;
+      document.getElementById('storyVideo').src = v.url || '';
+      document.getElementById('storyPrevBtn').disabled = currentStoryIndex === 0;
+      document.getElementById('storyNextLabel').textContent = currentStoryIndex < clients.length - 1 ? 'Selanjutnya' : 'Selesai';
+      document.getElementById('storyWaBtn').href = waLink(`Halo di.raya.in, saya melihat highlight ${c.name} (${c.packageName}) dan ingin tanya ketersediaan tanggal.`);
+      document.getElementById('storyMoreBtn').href = `gallery.html#${encodeURIComponent(c.id)}`;
+      const q = document.getElementById('storyQuote');
+      q.textContent = c.testimoni ? `“${c.testimoni.trim()}”` : '';
+      q.classList.toggle('hidden', !c.testimoni);
+      document.getElementById('storyProgress').innerHTML = clients.map((_, i) =>
+        `<span class="h-0.5 flex-1 rounded-full ${i <= currentStoryIndex ? 'bg-white' : 'bg-white/30'}"></span>`).join('');
     }
 
     function nextStory() {
-      if (currentStoryIndex < storyHighlights.length - 1) {
-        currentStoryIndex++;
-        loadStoryContent();
-      } else {
-        closeStory();
-      }
+      if (currentStoryIndex < clients.length - 1) { currentStoryIndex++; loadStoryContent(); }
+      else closeStory();
     }
-
     function prevStory() {
-      if (currentStoryIndex > 0) {
-        currentStoryIndex--;
-        loadStoryContent();
-      }
+      if (currentStoryIndex > 0) { currentStoryIndex--; loadStoryContent(); }
     }
-
     function closeStory() {
       const modal = document.getElementById('storyModal');
-      const video = document.getElementById('storyVideo');
-      video.src = '';
+      document.getElementById('storyVideo').src = '';
       modal.classList.remove('flex');
       modal.classList.add('hidden');
+      document.body.classList.remove('modal-open');
     }
+    // Klik area gelap untuk menutup, tombol Esc / panah keyboard
+    document.getElementById('storyModal').addEventListener('click', e => { if (e.target.id === 'storyModal') closeStory(); });
+    document.addEventListener('keydown', e => {
+      if (document.getElementById('storyModal').classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeStory();
+      if (e.key === 'ArrowRight') nextStory();
+      if (e.key === 'ArrowLeft') prevStory();
+    });
 
     renderHighlights();
 
-    // KALENDER INTERAKTIF
-    let currentDate = new Date(2026, 8, 1);
-    let selectedDay = null;
-
-    const monthNames = [
-      "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-      "Juli", "Agustus", "September", "Oktober", "November", "Desember"
-    ];
+    // ---------- Kalender (mulai bulan ini, tanggal lewat tidak bisa dipilih) ----------
+    const monthNames = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+    const dayNames = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const firstMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    let viewDate = new Date(firstMonth);
+    let selectedDate = null;
 
     function renderCalendar() {
-      const year = currentDate.getFullYear();
-      const month = currentDate.getMonth();
-
-      document.getElementById('calMonthYear').innerText = `${monthNames[month]} ${year}`;
-
-      const firstDayIndex = new Date(year, month, 1).getDay();
-      const totalDays = new Date(year, month + 1, 0).getDate();
+      const year = viewDate.getFullYear(), month = viewDate.getMonth();
+      document.getElementById('calMonthYear').textContent = `${monthNames[month]} ${year}`;
+      document.getElementById('calPrev').disabled = viewDate <= firstMonth;
 
       const grid = document.getElementById('calendarGrid');
       grid.innerHTML = '';
+      const firstDayIndex = new Date(year, month, 1).getDay();
+      const totalDays = new Date(year, month + 1, 0).getDate();
 
-      for (let i = 0; i < firstDayIndex; i++) {
-        const emptyCell = document.createElement('div');
-        emptyCell.className = "py-2.5";
-        grid.appendChild(emptyCell);
-      }
+      for (let i = 0; i < firstDayIndex; i++) grid.appendChild(document.createElement('div'));
 
       for (let day = 1; day <= totalDays; day++) {
+        const date = new Date(year, month, day);
         const cell = document.createElement('button');
         cell.type = 'button';
-        cell.innerText = day;
-        cell.className = "py-2.5 rounded-lg font-medium transition-all hover:bg-brand-sand/60";
+        cell.textContent = day;
+        const isPast = date < today;
+        const isToday = date.getTime() === today.getTime();
+        const isSelected = selectedDate && date.getTime() === selectedDate.getTime();
+        const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+        const isBooked = BOOKED.has(isoOf(date));
 
-        if (selectedDay && selectedDay.day === day && selectedDay.month === month && selectedDay.year === year) {
-          cell.className += " bg-brand-gold text-white font-bold shadow-sm";
+        let cls = "py-2.5 rounded-lg font-medium transition-all ";
+        if (isPast) { cls += "text-brand-muted/40 line-through cursor-not-allowed"; cell.disabled = true; }
+        else if (isBooked) { cls += "bg-red-50 text-red-400 border border-red-200 cursor-not-allowed relative"; cell.disabled = true; cell.title = 'Sudah terisi'; }
+        else if (isSelected) cls += "bg-brand-gold text-white font-bold shadow-sm";
+        else cls += `hover:bg-brand-sand/60 ${isWeekend ? 'text-brand-gold' : ''}`;
+        if (isToday && !isSelected) cls += " ring-2 ring-brand-gold/40";
+        cell.className = cls;
+        cell.setAttribute('aria-label', `${dayNames[date.getDay()]}, ${day} ${monthNames[month]} ${year}${isBooked ? ' (sudah terisi)' : ''}`);
+        if (isBooked) cell.innerHTML = `${day}<span class="block text-[8px] leading-none font-semibold">Penuh</span>`;
+
+        if (!isPast && !isBooked) {
+          cell.onclick = () => {
+            selectedDate = date;
+            document.getElementById('weddingDate').value = `${dayNames[date.getDay()]}, ${day} ${monthNames[month]} ${year}`;
+            document.getElementById('bookingError').classList.add('hidden');
+            renderCalendar();
+          };
         }
-
-        cell.onclick = () => {
-          selectedDay = { day, month, year };
-          const formattedDate = `${day} ${monthNames[month]} ${year}`;
-          document.getElementById('weddingDate').value = formattedDate;
-          renderCalendar();
-        };
-
         grid.appendChild(cell);
       }
     }
-
-    function prevMonth() {
-      currentDate.setMonth(currentDate.getMonth() - 1);
-      renderCalendar();
+    function prevMonth() { if (viewDate > firstMonth) { viewDate.setMonth(viewDate.getMonth() - 1); renderCalendar(); } }
+    function nextMonth() { viewDate.setMonth(viewDate.getMonth() + 1); renderCalendar(); }
+    function focusCalendar() {
+      const card = document.getElementById('calendarCard');
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      card.classList.add('ring-4', 'ring-brand-gold/30');
+      setTimeout(() => card.classList.remove('ring-4', 'ring-brand-gold/30'), 1200);
     }
-
-    function nextMonth() {
-      currentDate.setMonth(currentDate.getMonth() + 1);
-      renderCalendar();
-    }
-
     renderCalendar();
 
-    function selectPackage(packageName) {
-      const select = document.getElementById('selectedPackage');
-      select.value = packageName;
-      document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+    // ---------- Kirim booking ----------
+    function showBookingError(msg) {
+      const el = document.getElementById('bookingError');
+      el.textContent = msg;
+      el.classList.remove('hidden');
     }
 
     function handleBookingSubmit(e) {
       e.preventDefault();
-
       const name = document.getElementById('clientName').value.trim();
       const phone = document.getElementById('clientPhone').value.trim();
       const date = document.getElementById('weddingDate').value.trim();
       const venue = document.getElementById('weddingVenue').value.trim();
-      const packageSelected = document.getElementById('selectedPackage').value;
+      const pkg = document.getElementById('selectedPackage').value;
       const notes = document.getElementById('clientNotes').value.trim();
 
-      const message = 
+      if (!name) return showBookingError('Nama pasangan pengantin belum diisi.');
+      if (phone.replace(/\D/g, '').length < 9) return showBookingError('Nomor WhatsApp belum diisi dengan benar.');
+      if (!date) { focusCalendar(); return showBookingError('Pilih tanggal pernikahan di kalender dulu ya.'); }
+      if (!venue) return showBookingError('Kota & lokasi acara belum diisi.');
+      if (!pkg) return showBookingError('Pilih salah satu paket layanan.');
+      document.getElementById('bookingError').classList.add('hidden');
+
+      const message =
 `Halo Kak Admin *di.raya.in*, saya ingin booking Wedding Content Creator:
 
 - *Nama Pasangan:* ${name}
 - *WhatsApp:* ${phone}
 - *Tanggal Acara:* ${date}
 - *Lokasi/Venue:* ${venue}
-- *Pilihan Paket:* ${packageSelected}
+- *Pilihan Paket:* ${pkg}
 - *Catatan/Konsep:* ${notes || "-"}
 
 Apakah jadwal di tanggal tersebut masih tersedia? Terima kasih!`;
 
-      const encodedUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
-      window.open(encodedUrl, '_blank');`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
-      window.open(encodedUrl, '_blank');
+      window.open(waLink(message), '_blank');
     }
+
+    // ---------- Animasi muncul saat scroll ----------
+    const io = new IntersectionObserver(entries => entries.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add('show'); io.unobserve(en.target); }
+    }), { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    lucide.createIcons();
   </script>
 </body>
 </html>
