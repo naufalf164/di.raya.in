@@ -14,7 +14,7 @@
   <script src="https://unpkg.com/lucide@0.525.0"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@600;700&family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@600;700&family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
@@ -24,14 +24,15 @@
           },
           fontFamily: {
             termes: ['"TeX Gyre Termes"', '"Times New Roman"', 'Times', 'serif'],
-            sans: ['"Helvetica World"', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+            sans: ['Jost', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
           }
         }
       }
     }
   </script>
   <style>
-    body { background-color: #FAF8F5; color: #23201E; font-family: 'Helvetica World', 'Helvetica Neue', Helvetica, Arial, sans-serif; overflow-x: hidden; }
+    body { background-color: #FAF8F5; color: #23201E;  overflow-x: hidden; }
     body.modal-open { overflow: hidden; }
     .font-termes { font-family: 'TeX Gyre Termes', 'Times New Roman', Times, serif; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -44,6 +45,20 @@
     .lbl { display: block; font-size: 11px; font-weight: 600; color: #716B67; margin-bottom: .25rem; }
     .f-serif { font-family: 'Cormorant Garamond', serif; } .f-royal { font-family: 'Cinzel', serif; } .f-edit { font-family: 'Space Grotesk', sans-serif; }
     .f-script { font-family: 'Caveat', cursive; } .f-cursive { font-family: 'Alex Brush', cursive; } .f-sans { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    /* ===== Gaya elegan wedding ===== */
+    body { font-family: 'Jost', 'Helvetica Neue', Arial, sans-serif; letter-spacing: .01em; }
+    h1, h2, h3, .font-display, .font-termes { font-family: 'Cormorant Garamond', Georgia, serif; letter-spacing: -.005em; }
+    h1.font-bold, h2.font-bold, h3.font-bold { font-weight: 600; }
+    h2 { line-height: 1.08; }
+    .eyebrow { display: inline-flex; align-items: center; gap: .8rem; letter-spacing: .32em !important; }
+    .eyebrow::before, .eyebrow::after { content: ""; width: 2.2rem; height: 1px; background: currentColor; opacity: .45; }
+    .text-center > h2::after, .text-center > h1::after {
+      content: ""; display: block; width: 140px; height: 14px; margin: 1rem auto 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 16'%3E%3Cg fill='none' stroke='%23B08D57' stroke-width='1'%3E%3Cpath d='M0 8h62M98 8h62'/%3E%3Cpath d='M80 1l7 7-7 7-7-7z'/%3E%3C/g%3E%3Cg fill='%23B08D57'%3E%3Ccircle cx='66' cy='8' r='1.6'/%3E%3Ccircle cx='94' cy='8' r='1.6'/%3E%3Ccircle cx='80' cy='8' r='2'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+    }
+    .logo-script { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 600; letter-spacing: -.01em; }
+    ::selection { background: #662626; color: #fff; }
   </style>
 </head>
 <body class="bg-brand-cream text-brand-charcoal antialiased flex flex-col min-h-screen">
@@ -58,7 +73,7 @@
   <header class="sticky top-0 z-40 bg-brand-cream/95 backdrop-blur-md border-b border-brand-sand/60">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
       <div class="flex items-center gap-2">
-        <a href="dibuatin.html" class="text-2xl sm:text-3xl font-bold tracking-tight text-brand-charcoal">di.buat.in<span class="text-brand-gold">.</span></a>
+        <a href="dibuatin.html" class="logo-script text-3xl sm:text-4xl text-brand-charcoal">di.buat.in<span class="text-brand-gold">.</span></a>
         <span class="hidden sm:inline text-[10px] font-bold uppercase tracking-wider bg-brand-warm border border-brand-sand px-2 py-0.5 rounded text-brand-gold">by di.raya.in</span>
       </div>
       <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-brand-muted">
@@ -102,6 +117,18 @@
     </div>
   </section>
 
+  <!-- Best Choice by Client (muncul bila TEMA_FAVORIT di tema.js diisi) -->
+  <section id="favorit" class="hidden pb-16 px-4 sm:px-6 scroll-mt-20">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center max-w-xl mx-auto mb-8">
+        <span class="eyebrow text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Best Choice by Client</span>
+        <h2 class="text-2xl sm:text-4xl font-bold mt-1">Desain Paling Banyak Dipilih</h2>
+        <p class="text-xs sm:text-sm text-brand-muted mt-2">Pilihan favorit pasangan yang sudah memesan di di.buat.in.</p>
+      </div>
+      <div id="favGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-5"></div>
+    </div>
+  </section>
+
   <!-- Cara Pesan -->
   <section id="cara" class="pb-16 px-4 sm:px-6 scroll-mt-20">
     <div class="max-w-5xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4" id="stepsGrid"></div>
@@ -111,7 +138,7 @@
   <section id="tema" class="py-16 bg-brand-warm/60 border-y border-brand-sand px-4 sm:px-6 scroll-mt-16">
     <div class="max-w-6xl mx-auto">
       <div class="text-center max-w-xl mx-auto mb-8">
-        <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Katalog Template</span>
+        <span class="eyebrow text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Katalog Template</span>
         <h2 class="text-2xl sm:text-4xl font-bold mt-1 text-brand-charcoal">30 Desain Undangan</h2>
         <p class="text-xs sm:text-sm text-brand-muted mt-2">Ketuk <strong>Lihat Contoh</strong> untuk membuka undangan contoh lengkap, persis seperti yang akan diterima tamu.</p>
       </div>
@@ -124,11 +151,10 @@
   <section id="paket" class="py-16 px-4 sm:px-6 scroll-mt-16">
     <div class="max-w-3xl mx-auto">
       <div class="text-center mb-8">
-        <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Harga</span>
-        <h2 class="text-2xl sm:text-4xl font-bold mt-1">Pilih Paket Undangan</h2>
+        <span class="eyebrow text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Harga</span>
+        <h2 class="text-2xl sm:text-4xl font-bold mt-1">Satu Harga, Semua Fitur</h2>
       </div>
-      <div class="grid sm:grid-cols-2 gap-4" id="paketGrid"></div>
-      <p class="text-[11px] text-brand-muted text-center mt-4">Semua paket: 30 pilihan desain, nama tamu tanpa batas, musik latar, peta lokasi, hitung mundur, amplop digital, dan RSVP ke WhatsApp.</p>
+      <div id="paketGrid" class="max-w-md mx-auto"></div>
     </div>
   </section>
 
@@ -136,22 +162,22 @@
   <section id="order" class="py-16 px-4 sm:px-6 bg-brand-warm/40 border-y border-brand-sand scroll-mt-16">
     <div class="max-w-2xl mx-auto">
       <div class="text-center mb-8">
-        <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Formulir Pemesanan</span>
+        <span class="eyebrow text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Formulir Pemesanan</span>
         <h2 class="text-2xl sm:text-3xl font-bold mt-1">Isi Data Undanganmu</h2>
         <p class="text-xs text-brand-muted mt-1">Tanda * wajib diisi. Kamu bisa lihat pratinjau sebelum membayar.</p>
       </div>
 
       <form id="orderForm" onsubmit="submitOrder(event)" novalidate class="bg-brand-cream p-5 sm:p-8 rounded-3xl border border-brand-sand space-y-6 shadow-sm">
 
-        <!-- Desain & paket -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
+        <!-- Desain -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
+          <div class="sm:col-span-2">
             <label class="lbl" for="f_theme">Desain Template *</label>
             <select id="f_theme" class="fld"></select>
           </div>
-          <div>
-            <label class="lbl" for="f_pkg">Paket *</label>
-            <select id="f_pkg" class="fld" onchange="syncEvents()"></select>
+          <div class="text-center sm:text-right bg-brand-warm rounded-xl px-3 py-2 border border-brand-sand">
+            <div class="text-[10px] text-brand-muted uppercase tracking-wider">Harga</div>
+            <div class="font-display text-xl font-semibold text-brand-gold" id="f_price"></div>
           </div>
         </div>
 
@@ -175,7 +201,7 @@
 
         <!-- Kontak -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-brand-sand">
-          <div><label class="lbl" for="f_contact_name">Nama Pemesan *</label><input id="f_contact_name" class="fld" placeholder="Contoh: Sarah Amanda"></div>
+          <div><label class="lbl" for="f_contact_name">Nama Pemesan *</label><input id="f_contact_name" class="fld" placeholder="Contoh: Moniqa"></div>
           <div><label class="lbl" for="f_contact_wa">Nomor WhatsApp *</label><input id="f_contact_wa" type="tel" inputmode="tel" class="fld" placeholder="08123456789">
             <p class="text-[10px] text-brand-muted mt-1">Link undangan dikirim ke nomor ini. Konfirmasi RSVP tamu juga masuk ke sini.</p></div>
         </div>
@@ -222,13 +248,13 @@
   <section id="tamu" class="py-16 px-4 sm:px-6 scroll-mt-16">
     <div class="max-w-2xl mx-auto">
       <div class="text-center mb-8">
-        <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Untuk yang sudah punya undangan</span>
+        <span class="eyebrow text-[10px] font-semibold tracking-widest text-brand-gold uppercase">Untuk yang sudah punya undangan</span>
         <h2 class="text-2xl sm:text-3xl font-bold mt-1">Buat Link Nama Tamu</h2>
         <p class="text-xs text-brand-muted mt-1">Nama tamu akan tampil di sampul undangan. Gratis & tanpa batas.</p>
       </div>
       <div class="bg-brand-warm/60 p-5 sm:p-8 rounded-3xl border border-brand-sand space-y-4">
         <div><label class="lbl" for="g_link">Link undangan dari admin</label><input id="g_link" type="url" class="fld" placeholder="https://dirayain.vercel.app/undangan.html?u=..."></div>
-        <div><label class="lbl" for="g_names">Nama tamu (satu nama per baris)</label><textarea id="g_names" rows="5" class="fld" placeholder="Bapak Hendra & Keluarga&#10;Anisa Putri&#10;Teman-teman Kantor"></textarea></div>
+        <div><label class="lbl" for="g_names">Nama tamu (satu nama per baris)</label><textarea id="g_names" rows="5" class="fld" placeholder="Bapak Ahmad & Keluarga&#10;Ibu Siti&#10;Teman-teman Kantor"></textarea></div>
         <div><label class="lbl" for="g_msg">Pesan pembuka (opsional)</label>
           <textarea id="g_msg" rows="4" class="fld">Assalamu'alaikum Wr. Wb.
 Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernikahan kami. Berikut link undangannya:</textarea>
@@ -305,12 +331,13 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
 
   <footer class="bg-brand-charcoal text-brand-sand py-8 mt-auto text-center text-xs">
     <div class="max-w-4xl mx-auto px-4">
-      <div class="text-xl font-bold text-white mb-1">di.buat.in<span class="text-brand-gold">.</span></div>
+      <div class="logo-script text-3xl text-white mb-1">di.buat.in<span class="text-brand-gold">.</span></div>
       <p class="text-[10px] text-brand-sand/70 mb-3">Undangan Digital by di.raya.in • WhatsApp <a id="footerWa" class="underline" href="#">089647946725</a></p>
       <div class="text-[9px] text-brand-sand/40">&copy; <span id="yearNow"></span> di.buat.in — bagian dari di.raya.in</div>
     </div>
   </footer>
 
+  <script src="pako.min.js"></script>
   <script src="tema.js"></script>
   <script src="qrcode.js"></script>
   <script>
@@ -454,7 +481,7 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
           ${t.motif ? `<div class="mb-1">${motifSVG(t, t.motif === 'gunungan' ? 'w-10 h-12' : 'w-20 h-8')}</div>` : block}
           <div class="relative">
             <div class="text-[7px] uppercase tracking-[0.25em] font-bold" style="color:${t.accent}">${t.salam || 'The Wedding Of'}</div>
-            <div class="${F[t.nameFont]} ${nameSize} leading-tight my-1 ${t.nameFont === 'edit' ? 'uppercase font-bold' : ''}">Sarah <span style="color:${t.accent}">&</span> Rizky</div>
+            <div class="${F[t.nameFont]} ${nameSize} leading-tight my-1 ${t.nameFont === 'edit' ? 'uppercase font-bold' : ''}">Moniqa <span style="color:${t.accent}">&</span> Fauzi</div>
             <div class="text-[7px] opacity-70">Sabtu, 24 Oktober</div>
             <div class="mt-2 mx-auto w-16 h-3.5 rounded-full text-[6px] font-bold flex items-center justify-center" style="background:${t.accent};color:${t.onAccent}">BUKA</div>
           </div>
@@ -498,21 +525,24 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
     }
 
     // ---------- Paket ----------
-    $('paketGrid').innerHTML = PAKET.map(p => `
-      <div class="relative rounded-3xl p-6 border ${p.best ? 'bg-brand-charcoal text-white border-brand-gold border-2' : 'bg-white border-brand-sand'}">
-        ${p.best ? '<span class="absolute -top-3 left-6 bg-brand-gold text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">Paling Lengkap</span>' : ''}
-        <div class="text-sm font-bold uppercase tracking-wider ${p.best ? 'text-brand-sand' : 'text-brand-muted'}">${p.name}</div>
-        <div class="font-termes text-4xl mt-1">${rupiah(p.price)}</div>
-        <p class="text-xs mt-2 ${p.best ? 'text-brand-sand/80' : 'text-brand-muted'}">${p.desc}</p>
-        <button type="button" onclick="pickPkg('${p.key}')" class="mt-5 w-full py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider ${p.best ? 'bg-brand-gold hover:bg-brand-goldDark' : 'border border-brand-charcoal hover:bg-brand-charcoal hover:text-white'}">Pilih ${p.name}</button>
-      </div>`).join('');
-    function pickPkg(key) { $('f_pkg').value = key; syncEvents(); $('order').scrollIntoView({ behavior: 'smooth' }); }
+    const P = PAKET[0];
+    $('paketGrid').innerHTML = `
+      <div class="relative rounded-[2rem] p-8 bg-brand-charcoal text-white border border-brand-gold/60 text-center shadow-xl overflow-hidden">
+        <div class="absolute inset-3 rounded-[1.6rem] border border-white/10 pointer-events-none"></div>
+        <div class="text-[11px] font-semibold uppercase tracking-[0.3em] text-brand-sand/80">${P.name}</div>
+        <div class="font-display text-6xl mt-3">${rupiah(P.price)}</div>
+        <p class="text-xs mt-2 text-brand-sand/80">${P.desc}</p>
+        <ul class="text-left text-sm space-y-2 mt-6 max-w-xs mx-auto text-brand-sand">
+          ${['Pilih 1 dari 30 desain (termasuk 8 desain adat)', 'Akad & resepsi dalam satu undangan', 'Nama tamu di sampul, tanpa batas', 'Musik pilihan sendiri', 'Peta lokasi & hitung mundur', 'Amplop digital & RSVP ke WhatsApp', 'Pratinjau dulu sebelum bayar']
+            .map(x => `<li class="flex gap-2"><span class="text-[#D9B98A]">✓</span>${x}</li>`).join('')}
+        </ul>
+        <a href="#order" class="mt-7 inline-block w-full py-3 rounded-full bg-brand-gold hover:bg-brand-goldDark text-xs font-semibold uppercase tracking-[0.2em]">Buat Undangan Sekarang</a>
+      </div>`;
 
     // ---------- Form ----------
     $('f_theme').innerHTML = KATEGORI_TEMA.map(c =>
       `<optgroup label="${c.label}">${DAFTAR_TEMA.filter(t => t.cat === c.key).map(t => `<option value="${t.id}">${DAFTAR_TEMA.indexOf(t) + 1}. ${t.name}</option>`).join('')}</optgroup>`).join('');
-    $('f_pkg').innerHTML = PAKET.map(p => `<option value="${p.key}">${p.name} — ${rupiah(p.price)}</option>`).join('');
-    $('f_pkg').value = 'full';
+    $('f_price').textContent = rupiah(P.price);
 
     const temaParam = new URLSearchParams(location.search).get('tema');
     if (temaParam && TEMA_BY_ID[temaParam]) $('f_theme').value = temaParam;
@@ -521,7 +551,7 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
       <div class="space-y-2">
         <div class="text-xs font-bold uppercase text-brand-gold tracking-wider">${label}</div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div><label class="lbl" for="f_${k}">Nama lengkap & gelar *</label><input id="f_${k}" class="fld" placeholder="Contoh: Sarah Amanda, S.Kom"></div>
+          <div><label class="lbl" for="f_${k}">Nama lengkap & gelar *</label><input id="f_${k}" class="fld" placeholder="${k === 'bride' ? 'Contoh: Moniqa' : 'Contoh: Fauzi'}"></div>
           <div><label class="lbl" for="f_${k}_parents">Nama orang tua *</label><input id="f_${k}_parents" class="fld" placeholder="${ph}"></div>
           <div><label class="lbl" for="f_${k}_photo">Link foto (opsional)</label><input id="f_${k}_photo" type="url" class="fld" placeholder="https://..."></div>
           <div><label class="lbl" for="f_${k}_ig">Instagram (opsional)</label><input id="f_${k}_ig" class="fld" placeholder="@username"></div>
@@ -544,17 +574,21 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
             <div><label class="lbl" for="e${i}_name">Nama acara *</label><input id="e${i}_name" class="fld" value="${defName}"></div>
             <div><label class="lbl" for="e${i}_date">Tanggal *</label><input id="e${i}_date" type="date" min="${minDate}" class="fld"></div>
             <div><label class="lbl" for="e${i}_time">Jam *</label><input id="e${i}_time" class="fld" placeholder="Contoh: 08.00 – 10.00 WIB"></div>
-            <div><label class="lbl" for="e${i}_venue">Tempat / alamat *</label><input id="e${i}_venue" class="fld" placeholder="Nama gedung, alamat"></div>
+            <div><label class="lbl" for="e${i}_venue">Tempat / alamat *</label><input id="e${i}_venue" class="fld" placeholder="Contoh: Hotel Cianjur"></div>
           </div>
           <div><label class="lbl" for="e${i}_maps">Link Google Maps (opsional — kalau kosong dibuat otomatis dari alamat)</label><input id="e${i}_maps" type="url" class="fld" placeholder="https://maps.app.goo.gl/..."></div>
         </div>`;
     }
-    $('eventFields').innerHTML = eventBlock(1, 'Akad Nikah') + eventBlock(2, 'Resepsi');
+    $('eventFields').innerHTML = eventBlock(1, 'Akad & Resepsi') + `
+      <label class="flex items-start gap-2 text-xs bg-white border border-dashed border-brand-sand rounded-2xl p-3 cursor-pointer">
+        <input type="checkbox" id="f_two" class="mt-0.5 accent-[#662626]" onchange="syncEvents()">
+        <span><strong>Ada acara kedua?</strong> Misalnya akad dan resepsi di jam atau tempat berbeda. <span class="text-brand-muted">Tidak ada biaya tambahan.</span></span>
+      </label>` + eventBlock(2, 'Resepsi');
     function syncEvents() {
-      const p = PAKET.find(x => x.key === $('f_pkg').value);
-      document.querySelector('[data-ev="2"]').classList.toggle('hidden', p.events < 2);
-      if (p.events < 2 && $('e1_name').value === 'Akad Nikah') $('e1_name').value = 'Akad & Resepsi';
-      if (p.events >= 2 && $('e1_name').value === 'Akad & Resepsi') $('e1_name').value = 'Akad Nikah';
+      const two = $('f_two').checked;
+      document.querySelector('[data-ev="2"]').classList.toggle('hidden', !two);
+      if (two && $('e1_name').value === 'Akad & Resepsi') $('e1_name').value = 'Akad Nikah';
+      if (!two && $('e1_name').value === 'Akad Nikah') $('e1_name').value = 'Akad & Resepsi';
     }
     syncEvents();
 
@@ -576,9 +610,9 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
     // ---------- Kumpulkan data ----------
     const val = id => ($(id) ? $(id).value.trim() : '');
     function collect() {
-      const p = PAKET.find(x => x.key === $('f_pkg').value);
+      const p = P;
       const events = [];
-      for (let i = 1; i <= p.events; i++) {
+      for (let i = 1; i <= ($('f_two').checked ? 2 : 1); i++) {
         events.push({ name: val(`e${i}_name`) || 'Acara', iso: val(`e${i}_date`), date: formatTanggalPanjang(val(`e${i}_date`)), time: val(`e${i}_time`), venue: val(`e${i}_venue`), mapsUrl: val(`e${i}_maps`) });
       }
       const gifts = [1, 2].map(i => ({ bank: val(`f_bank${i}`), acc: val(`f_acc${i}`), holder: val(`f_holder${i}`) })).filter(g => g.acc);
@@ -658,21 +692,26 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
       if (!activeOrder) return;
       const o = activeOrder, inv = o.inv;
       const adminLink = `${BASE}admin.html#o=${encodePesanan(o)}`;
-      const acara = inv.events.map(ev => `  • ${ev.name}: ${ev.date}, ${ev.time} — ${ev.venue}`).join('\n');
+      const acara = inv.events.map(ev => `- ${ev.name}: ${ev.date}, ${ev.time}, ${ev.venue}`).join('\n');
+      const lampiran = ['bukti pembayaran'];
+      if (o.musicNote.startsWith('File MP3')) lampiran.push('file MP3');
+      if (!inv.bridePhoto || !inv.groomPhoto || !inv.coverPhoto) lampiran.push('foto mempelai/sampul');
       const text =
-`*PESANAN UNDANGAN DIGITAL — ${o.id}*
-- *Pasangan:* ${inv.bride} & ${inv.groom}
-- *Paket:* ${o.pkgName}
-- *Desain:* ${getTema(inv.theme).name}
-- *Musik:* ${o.musicNote}
-- *Acara:*
+`*PESANAN UNDANGAN DIGITAL*
+No. Pesanan: *${o.id}*
+
+Pasangan: ${inv.bride} & ${inv.groom}
+Desain: ${getTema(inv.theme).name}
+Musik: ${o.musicNote}
+Acara:
 ${acara}
-- *Total Bayar:* ${rupiah(o.price)} via ${payMethod === 'qris' ? 'QRIS ' + QRIS.nama : 'Transfer ' + PEMBAYARAN.bank}
-- *Pemesan:* ${o.contact} (${o.wa})
 
-Bukti pembayaran saya lampirkan di chat ini.${o.musicNote.startsWith('File MP3') ? '\nFile MP3 juga saya kirim di sini.' : ''}${!inv.bridePhoto || !inv.groomPhoto || !inv.coverPhoto ? '\nFoto mempelai/sampul saya kirim di sini.' : ''}
+Total bayar: *${rupiah(o.price)}* (${payMethod === 'qris' ? 'QRIS ' + QRIS.nama : 'Transfer ' + PEMBAYARAN.bank})
+Pemesan: ${o.contact} (${o.wa})
 
-🔐 Link verifikasi admin:
+Saya lampirkan ${lampiran.join(', ')} di chat ini.
+
+Link verifikasi (khusus admin):
 ${adminLink}`;
       window.open(`https://wa.me/${WA_ADMIN}?text=${encodeURIComponent(text)}`, '_blank');
       closePay();
@@ -705,6 +744,25 @@ ${adminLink}`;
         out.appendChild(row);
       });
     }
+
+    // ---------- Best Choice by Client ----------
+    (function renderFavorit() {
+      const fav = (typeof TEMA_FAVORIT !== 'undefined' ? TEMA_FAVORIT : []).map(id => TEMA_BY_ID[id]).filter(Boolean).slice(0, 5);
+      if (!fav.length) return;
+      $('favorit').classList.remove('hidden');
+      $('favGrid').innerHTML = fav.map((t, i) => `
+        <div class="relative bg-brand-cream rounded-2xl overflow-hidden border-2 ${i === 0 ? 'border-brand-gold' : 'border-brand-sand'} shadow-sm hover:shadow-xl transition-all flex flex-col">
+          <span class="absolute top-2 left-2 z-10 bg-brand-gold text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow">#${i + 1} Best Choice</span>
+          <a href="undangan.html?demo=${t.id}" target="_blank" rel="noopener" aria-label="Lihat contoh ${t.name}">${mockThumb(t)}</a>
+          <div class="p-3 flex-1 flex flex-col">
+            <h3 class="text-sm font-bold leading-snug">${t.name}</h3>
+            <div class="mt-auto pt-3 grid grid-cols-2 gap-1.5">
+              <a href="undangan.html?demo=${t.id}" target="_blank" rel="noopener" class="text-center py-1.5 rounded-full border border-brand-sand text-[11px] font-semibold hover:border-brand-gold">Lihat Contoh</a>
+              <button type="button" onclick="pickTheme('${t.id}')" class="py-1.5 rounded-full bg-brand-gold hover:bg-brand-goldDark text-white text-[11px] font-semibold">Pilih</button>
+            </div>
+          </div>
+        </div>`).join('');
+    })();
 
     renderCats();
     renderThemes();
