@@ -68,12 +68,19 @@
       pasang foto/musik bila klien mengirim lewat chat → tekan <strong>Konfirmasi Lunas & Terbitkan</strong> → tekan tombol hijau untuk mengirim link ke klien.
     </div>
 
+    <!-- Desain terlaris → Best Choice by Client -->
+    <details id="statBox" class="bg-brand-cream border border-brand-sand rounded-2xl p-4 text-xs">
+      <summary class="cursor-pointer font-semibold text-brand-gold">Desain Terlaris (untuk "Best Choice by Client")</summary>
+      <div id="statBody" class="mt-3 space-y-2"></div>
+    </details>
+
     <div class="flex gap-2 flex-wrap" id="tabs"></div>
     <div id="adminList" class="space-y-4"></div>
   </div>
 
   <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden bg-brand-charcoal text-white text-xs font-semibold px-4 py-2.5 rounded-full shadow-xl text-center max-w-[90vw]"></div>
 
+  <script src="pako.min.js"></script>
   <script src="tema.js"></script>
   <script>
     // Peringatan bila tema.js lama / belum ter-upload (penyebab halaman error)
@@ -269,6 +276,7 @@
       if (!PRIV) return;
       renderSecurity();
       renderTabs();
+      renderStats();
       const list = Object.values(load())
         .filter(o => activeTab === 'semua' || o.status === activeTab)
         .sort((a, b) => (b.received || b.created || '').localeCompare(a.received || a.created || ''));
@@ -279,6 +287,20 @@
       const links = await Promise.all(list.map(signedLink));
       $('adminList').innerHTML = list.map((o, i) => cardHTML(o, links[i])).join('');
       lucide.createIcons();
+    }
+
+    function renderStats() {
+      const paid = Object.values(load()).filter(o => o.status === 'aktif');
+      const count = {};
+      paid.forEach(o => { const t = o.inv && o.inv.theme; if (TEMA_BY_ID[t]) count[t] = (count[t] || 0) + 1; });
+      const top = Object.entries(count).sort((a, b) => b[1] - a[1]).slice(0, 5);
+      const now = (typeof TEMA_FAVORIT !== 'undefined' ? TEMA_FAVORIT : []).map(id => (TEMA_BY_ID[id] || {}).name || id).join(', ') || '(belum diisi)';
+      $('statBody').innerHTML = top.length ? `
+        <p class="text-brand-muted">Dihitung dari ${paid.length} pesanan lunas di perangkat ini.</p>
+        <ol class="space-y-1">${top.map(([id, n], i) => `<li class="flex justify-between bg-white border border-brand-sand rounded-lg px-3 py-1.5"><span>#${i + 1} ${e(TEMA_BY_ID[id].name)}</span><strong>${n} pesanan</strong></li>`).join('')}</ol>
+        <button onclick="copyText(\`const TEMA_FAVORIT = [${top.map(([id]) => `'${id}'`).join(', ')}];\`, 'Disalin — tempel menggantikan baris TEMA_FAVORIT di tema.js')" class="px-3 py-1.5 bg-brand-charcoal text-white rounded-lg font-semibold">Salin untuk tema.js</button>
+        <p class="text-brand-muted">Tampil sekarang di website: ${e(now)}</p>`
+        : '<p class="text-brand-muted">Belum ada pesanan lunas. Daftar terlaris akan muncul setelah ada pesanan yang dikonfirmasi.</p>';
     }
 
     function cardHTML(o, link) {
@@ -382,19 +404,20 @@
       const o = load()[id];
       const link = await signedLink(o);
       const text =
-`Halo Kak *${o.contact}* 👋
+`Halo Kak *${o.contact}*,
 
-Pembayaran pesanan *${o.id}* sudah kami terima, terima kasih! Undangan digital ${String(o.inv.bride).split(',')[0]} & ${String(o.inv.groom).split(',')[0]} sudah *aktif*:
+Pembayaran pesanan *${o.id}* sudah kami terima, terima kasih! Undangan digital ${String(o.inv.bride).split(',')[0]} & ${String(o.inv.groom).split(',')[0]} sudah *aktif*.
 
+*Link undangan:*
 ${link}
 
-✨ *Agar nama tamu tampil di sampul*, buat link per tamu di sini (gratis, tanpa batas):
+*Agar nama tamu tampil di sampul*, buat link per tamu di sini (gratis, tanpa batas):
 ${BASE}dibuatin.html#tamu
 
-⚠️ Mohon jangan mengubah isi link, karena link yang diubah otomatis tidak bisa dibuka.
-Konfirmasi kehadiran (RSVP) dari tamu akan masuk ke WhatsApp ini. Kalau ada yang ingin diubah, balas chat ini ya.
+Catatan: mohon jangan mengubah isi link, karena link yang diubah tidak bisa dibuka. Konfirmasi kehadiran (RSVP) dari tamu akan masuk ke WhatsApp ini.
 
-— di.buat.in by di.raya.in`;
+Salam hangat,
+di.buat.in by di.raya.in`;
       window.open(`https://wa.me/${normalizeWa(o.wa)}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
       const db = load(); db[id].sentAt = new Date().toISOString(); save(db);
     }
