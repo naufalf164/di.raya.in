@@ -200,7 +200,7 @@ const PAKET_UNDANGAN = [
 // Cara mengisi: buka admin.html → buat kunci → salin "Kunci Publik" → tempel di sini.
 // Selama masih kosong, keamanan BELUM aktif (link tanpa tanda tangan tetap diterima).
 // ============================================================
-const ADMIN_PUBLIC_KEY = '';
+const ADMIN_PUBLIC_KEY = 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEdf2PnPCcmAzKjl1PCk__Wusr1hfXCpCYA7FwORk6IPryZfyaC-2l3Zhw0eut123T0XV5XakHS-KTx-JComROiw';
 
 const _b64uToBytes = s => {
   s = String(s || '').replace(/-/g, '+').replace(/_/g, '/');
