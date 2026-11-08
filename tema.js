@@ -243,6 +243,12 @@ function decodePesanan(s) {
 }
 
 // Helper umum
+// Link share Google Drive → link gambar langsung (file harus "Siapa saja yang memiliki link")
+function fotoUrl(u) {
+  u = String(u || '').trim();
+  const m = u.match(/^https:\/\/(?:drive|docs)\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=|thumbnail\?id=)([\w-]{20,})/);
+  return m ? `https://lh3.googleusercontent.com/d/${m[1]}` : u;
+}
 function escapeHTML(s) {
   return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
