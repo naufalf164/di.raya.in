@@ -11,7 +11,7 @@
   <meta name="theme-color" content="#662626">
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@0.525.0"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@600;700&family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -87,7 +87,7 @@
   <section class="py-12 sm:py-20 px-4 sm:px-6 text-center">
     <div class="max-w-4xl mx-auto">
       <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-warm border border-brand-sand text-[10px] sm:text-xs font-semibold tracking-wider uppercase text-brand-gold mb-4">
-        <i data-lucide="sparkles" class="w-3 h-3"></i><span>30 Desain • Nama Tamu di Sampul • RSVP ke WhatsApp</span>
+        <i data-lucide="sparkles" class="w-3 h-3"></i><span>30 Desain • 8 Desain Adat • RSVP ke WhatsApp</span>
       </div>
       <h1 class="font-termes text-3xl sm:text-5xl md:text-6xl leading-tight text-brand-charcoal mb-4">
         Undangan pernikahan digital yang <span class="italic font-semibold text-brand-gold">elegan & siap disebar</span>.
@@ -158,23 +158,19 @@
         <!-- Musik -->
         <div class="pt-4 border-t border-brand-sand space-y-3">
           <div class="text-xs font-bold uppercase text-brand-gold tracking-wider">Musik Latar</div>
-          <div class="grid grid-cols-3 gap-1.5 p-1 bg-white border border-brand-sand rounded-xl text-[11px] font-semibold text-center">
-            <button type="button" data-mode="preset" class="mtab py-1.5 rounded-lg">Pilihan Kami</button>
+          <p class="text-[11px] text-brand-muted">Pilih lagu sendiri (opsional): tulis judulnya, atau kirim file MP3 kamu. Kosongkan jika tidak ingin memakai musik.</p>
+
+          <div class="grid grid-cols-2 gap-1.5 p-1 bg-white border border-brand-sand rounded-xl text-[11px] font-semibold text-center">
             <button type="button" data-mode="request" class="mtab py-1.5 rounded-lg">Request Lagu</button>
             <button type="button" data-mode="upload" class="mtab py-1.5 rounded-lg">File Sendiri</button>
           </div>
-          <div id="mPane-preset" class="mpane flex gap-2">
-            <select id="f_music_preset" onchange="stopPreview()" class="fld flex-1"></select>
-            <button type="button" onclick="togglePreview()" id="btnPreview" class="px-3.5 py-2 bg-brand-charcoal text-white rounded-xl text-xs font-medium flex items-center gap-1.5 shrink-0 hover:bg-brand-gold"><i data-lucide="play" class="w-3.5 h-3.5"></i><span>Dengar</span></button>
-          </div>
-          <div id="mPane-request" class="mpane hidden space-y-2">
+          <div id="mPane-request" class="mpane space-y-2">
             <input type="text" id="f_music_request" placeholder="Judul lagu – Penyanyi (contoh: Perfect – Ed Sheeran)" class="fld">
             <p class="text-[11px] text-brand-muted">Admin akan memasangkan lagu ini ke undanganmu.</p>
           </div>
           <div id="mPane-upload" class="mpane hidden">
             <p class="text-[11px] text-brand-muted bg-white border border-dashed border-brand-sand rounded-xl p-3">Setelah pesanan dikirim, lampirkan file MP3 kamu di chat WhatsApp admin. Admin yang akan memasangnya.</p>
           </div>
-          <p id="previewMsg" class="hidden text-[11px] text-amber-700"></p>
         </div>
 
         <!-- Kontak -->
@@ -304,10 +300,7 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
       noRek: "1234567890",                       // ⚠️ GANTI dengan nomor rekening asli sebelum website dipakai!
       atasNama: "Muhamad Naufal Fauzi"
     };
-    const PAKET = [
-      { key: 'single', name: 'Single Event', price: 49000, events: 1, desc: 'Untuk 1 acara (akad saja atau resepsi saja).' },
-      { key: 'full',   name: 'Full Event',   price: 79000, events: 2, desc: 'Untuk 2 acara (akad + resepsi) dalam satu undangan.', best: true }
-    ];
+    const PAKET = PAKET_UNDANGAN;                // harga paket diatur di tema.js
     // ============================================================
 
     const rupiah = n => 'Rp' + Number(n).toLocaleString('id-ID');
@@ -360,10 +353,10 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
         klasik: `<div class="text-sm mb-1" style="color:${t.accent}">${t.orn}</div>`
       }[t.layout];
       return `
-        <div class="relative aspect-[3/4] overflow-hidden flex flex-col items-center justify-center text-center p-3" style="background:${t.bg};${t.pattern ? `background-image:${t.pattern};` : ''}${t.patternSize ? `background-size:${t.patternSize};` : ''}color:${t.text}">
-          ${block}
+        <div class="relative aspect-[3/4] overflow-hidden flex flex-col items-center justify-center text-center p-3" style="background:${t.bg};${(t.motif ? motifPattern(t) : t.pattern) ? `background-image:${t.motif ? motifPattern(t) : t.pattern};` : ''}${t.patternSize && !t.motif ? `background-size:${t.patternSize};` : ''}color:${t.text}">
+          ${t.motif ? `<div class="mb-1">${motifSVG(t, t.motif === 'gunungan' ? 'w-10 h-12' : 'w-20 h-8')}</div>` : block}
           <div class="relative">
-            <div class="text-[7px] uppercase tracking-[0.25em] font-bold" style="color:${t.accent}">The Wedding Of</div>
+            <div class="text-[7px] uppercase tracking-[0.25em] font-bold" style="color:${t.accent}">${t.salam || 'The Wedding Of'}</div>
             <div class="${F[t.nameFont]} ${nameSize} leading-tight my-1 ${t.nameFont === 'edit' ? 'uppercase font-bold' : ''}">Sarah <span style="color:${t.accent}">&</span> Rizky</div>
             <div class="text-[7px] opacity-70">Sabtu, 24 Oktober</div>
             <div class="mt-2 mx-auto w-16 h-3.5 rounded-full text-[6px] font-bold flex items-center justify-center" style="background:${t.accent};color:${t.onAccent}">BUKA</div>
@@ -423,7 +416,6 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
       `<optgroup label="${c.label}">${DAFTAR_TEMA.filter(t => t.cat === c.key).map(t => `<option value="${t.id}">${DAFTAR_TEMA.indexOf(t) + 1}. ${t.name}</option>`).join('')}</optgroup>`).join('');
     $('f_pkg').innerHTML = PAKET.map(p => `<option value="${p.key}">${p.name} — ${rupiah(p.price)}</option>`).join('');
     $('f_pkg').value = 'full';
-    $('f_music_preset').innerHTML = MUSIK_PRESET.map((m, i) => `<option value="${m.key}">${i + 1}. ${m.title}</option>`).join('');
 
     const temaParam = new URLSearchParams(location.search).get('tema');
     if (temaParam && TEMA_BY_ID[temaParam]) $('f_theme').value = temaParam;
@@ -470,7 +462,8 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
     syncEvents();
 
     // ---------- Musik ----------
-    let musicMode = 'preset';
+    // Musik dipilih klien sendiri: request judul lagu atau kirim file MP3.
+    let musicMode = 'request';
     const audio = $('previewAudio');
     let playing = false;
     function setMusicMode(m) {
@@ -479,22 +472,9 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
       document.querySelectorAll('.mpane').forEach(p => p.classList.toggle('hidden', p.id !== 'mPane-' + m));
     }
     document.querySelectorAll('.mtab').forEach(b => b.onclick = () => setMusicMode(b.dataset.mode));
-    setMusicMode('preset');
+    setMusicMode('request');
 
-    function setPreviewBtn(on) {
-      $('btnPreview').innerHTML = on ? '<i data-lucide="square" class="w-3.5 h-3.5"></i><span>Stop</span>' : '<i data-lucide="play" class="w-3.5 h-3.5"></i><span>Dengar</span>';
-      lucide.createIcons();
-    }
-    function togglePreview() {
-      if (playing) return stopPreview();
-      $('previewMsg').classList.add('hidden');
-      audio.src = musikUrl($('f_music_preset').value);
-      audio.play().then(() => { playing = true; setPreviewBtn(true); }).catch(() => {
-        $('previewMsg').textContent = 'Contoh lagu belum bisa diputar. Lagu tetap bisa dipilih.';
-        $('previewMsg').classList.remove('hidden');
-      });
-    }
-    function stopPreview() { audio.pause(); playing = false; setPreviewBtn(false); }
+    function stopPreview() { audio.pause(); playing = false; }
 
     // ---------- Kumpulkan data ----------
     const val = id => ($(id) ? $(id).value.trim() : '');
@@ -505,10 +485,12 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
         events.push({ name: val(`e${i}_name`) || 'Acara', iso: val(`e${i}_date`), date: formatTanggalPanjang(val(`e${i}_date`)), time: val(`e${i}_time`), venue: val(`e${i}_venue`), mapsUrl: val(`e${i}_maps`) });
       }
       const gifts = [1, 2].map(i => ({ bank: val(`f_bank${i}`), acc: val(`f_acc${i}`), holder: val(`f_holder${i}`) })).filter(g => g.acc);
-      let musicUrl = '', musicNote = '';
-      if (musicMode === 'preset') { musicUrl = musikUrl($('f_music_preset').value); musicNote = MUSIK_PRESET.find(m => m.key === $('f_music_preset').value).title; }
-      if (musicMode === 'request') musicNote = 'Request: ' + (val('f_music_request') || '(belum diisi)');
+      const req = val('f_music_request');
+      const musicUrl = ''; // admin memasang file lagu sesuai request / file klien
+      let musicNote;
       if (musicMode === 'upload') musicNote = 'File MP3 dari klien (dikirim via WhatsApp)';
+      else if (req) musicNote = 'Request: ' + req;
+      else musicNote = 'Tanpa musik';
       return {
         pkg: p,
         contact: val('f_contact_name'), wa: val('f_contact_wa'), musicNote,
