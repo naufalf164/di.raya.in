@@ -14,34 +14,43 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@600;700&family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Amiri:wght@400;700&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Caveat:wght@600;700&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Jost:wght@300;400;500;600&family=Pinyon+Script&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
+    body { font-family: 'Jost', sans-serif; overflow-x: hidden; }
     body.locked { overflow: hidden; }
     .fh { font-family: var(--fh); }
     .fn { font-family: var(--fn); }
+    .fa { font-family: 'Amiri', serif; }
     .th { background: var(--bg); color: var(--text); }
     .t-surface { background: var(--surface); border: var(--bw, 1px) var(--bs, solid) var(--border); }
+    .t-plain { background: var(--surface); }
     .t-muted { color: var(--muted); }
     .t-accent { color: var(--accent); }
+    .t-bg-accent { background: var(--accent); }
     .t-btn { background: var(--accent); color: var(--on); }
     .t-btn:hover { filter: brightness(1.08); }
     .t-outline { border: 1px solid var(--accent); color: var(--accent); }
     .t-line { border-color: var(--border); }
+    .t-bd { border: 1px solid var(--border); }
+    .t-bda { border: 1px solid var(--accent); }
     .t-input { background: var(--bg); border: 1px solid var(--border); color: var(--text); }
     .t-input::placeholder { color: var(--muted); opacity: .8; }
     .t-input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
     .t-ring { border: 2px solid var(--accent); }
+    .eyebrow { font-size: 10px; letter-spacing: .38em; text-transform: uppercase; font-weight: 600; color: var(--accent); }
+    .rule { display: flex; align-items: center; gap: .9rem; justify-content: center; }
+    .rule::before, .rule::after { content: ""; height: 1px; width: 2.6rem; background: var(--accent); opacity: .55; }
+    .photo-ph { background: color-mix(in srgb, var(--accent) 14%, var(--bg)); }
+    .no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { scrollbar-width: none; }
 
     @keyframes spinDisc { to { transform: rotate(360deg); } }
     .vinyl-spin { animation: spinDisc 5s linear infinite; }
-    @keyframes floatSoft { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-    .animate-float { animation: floatSoft 4s ease-in-out infinite; }
+    @keyframes floatSoft { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    .animate-float { animation: floatSoft 5s ease-in-out infinite; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
     .fade-up { animation: fadeUp .9s ease both; }
-
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
     .reveal.revealed { opacity: 1; transform: none; }
     @media (prefers-reduced-motion: reduce) {
       .reveal, .fade-up, .animate-float, .vinyl-spin { animation: none; transition: none; opacity: 1; transform: none; }
@@ -59,106 +68,106 @@
     <aside class="hidden lg:flex lg:w-1/2 bg-[#18181B] text-white p-12 flex-col justify-between overflow-hidden sticky top-0 h-screen border-r border-white/10">
       <img id="desktopBg" src="" alt="" class="absolute inset-0 w-full h-full object-cover opacity-35">
       <div class="absolute inset-0 bg-gradient-to-t from-[#18181B] via-[#18181B]/60 to-transparent"></div>
-      <div class="relative z-10">
-        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-amber-300 bg-black/40 px-3 py-1 rounded-full border border-white/10">Undangan Digital</span>
-      </div>
+      <div class="relative z-10"><span class="text-[10px] font-semibold uppercase tracking-[0.3em] text-amber-200">Undangan Digital</span></div>
       <div class="relative z-10 space-y-4">
-        <span class="text-sm italic text-amber-200" style="font-family:'Cormorant Garamond',serif">The Wedding of</span>
-        <h1 id="desktopNames" class="text-6xl leading-none tracking-tight" style="font-family:'Cormorant Garamond',serif"></h1>
-        <p id="desktopDate" class="text-xs text-stone-300 tracking-widest uppercase"></p>
+        <span class="text-base italic text-amber-200" style="font-family:'Cormorant Garamond',serif">The Wedding of</span>
+        <h1 id="desktopNames" class="text-7xl leading-none" style="font-family:'Cormorant Garamond',serif"></h1>
+        <p id="desktopDate" class="text-xs text-stone-300 tracking-[0.3em] uppercase"></p>
         <div class="pt-4 border-t border-white/20 flex items-center gap-3 text-xs text-stone-300">
-          <i data-lucide="map-pin" class="w-4 h-4 text-amber-300"></i>
-          <span id="desktopVenue"></span>
+          <i data-lucide="map-pin" class="w-4 h-4 text-amber-200"></i><span id="desktopVenue"></span>
         </div>
       </div>
       <div class="relative z-10 text-[11px] text-stone-400">di.buat.in <span class="text-stone-500">by di.raya.in</span></div>
     </aside>
 
     <!-- LEMBAR UNDANGAN -->
-    <main id="themeRoot" class="th w-full lg:w-1/2 max-w-[480px] min-h-screen relative flex flex-col pb-24 mx-auto shadow-2xl">
-
-      <!-- Banner mode pratinjau -->
-      <div id="previewBanner" class="hidden sticky top-0 z-[45] bg-amber-400 text-black text-[11px] font-semibold text-center px-3 py-2 leading-snug">
-        👀 PRATINJAU — undangan ini belum aktif. Link resmi dikirim admin setelah pembayaran dikonfirmasi.
+    <main id="themeRoot" class="th w-full lg:w-1/2 max-w-[480px] min-h-screen relative flex flex-col pb-24 mx-auto shadow-2xl overflow-x-hidden">
+      <div id="previewBanner" class="hidden sticky top-0 z-[45] bg-amber-300 text-black text-[11px] font-semibold text-center px-3 py-2 leading-snug">
+        PRATINJAU — undangan ini belum aktif. Link resmi dikirim admin setelah pembayaran dikonfirmasi.
       </div>
       <div id="demoBanner" class="hidden sticky top-0 z-[45] bg-black/85 text-white text-[11px] text-center px-3 py-2">
-        Contoh template <strong id="demoThemeName"></strong> •
-        <a href="dibuatin.html#order" id="demoOrderLink" class="underline font-semibold text-amber-300">Pakai desain ini</a>
+        Contoh desain <strong id="demoThemeName"></strong> •
+        <a href="dibuatin.html#order" id="demoOrderLink" class="underline font-semibold text-amber-200">Pakai desain ini</a>
       </div>
       <div id="watermark" class="hidden pointer-events-none fixed inset-0 z-[44] watermark"></div>
 
-      <!-- Cover -->
+      <!-- Sampul pembuka -->
       <div id="coverModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 transition-opacity duration-700">
-        <div id="coverCard" class="fade-up th w-full max-w-sm rounded-3xl p-7 text-center shadow-2xl flex flex-col items-center gap-4" style="border:1px solid var(--border)"></div>
+        <div id="coverCard" class="fade-up th w-full max-w-sm rounded-[2rem] px-7 py-9 text-center shadow-2xl flex flex-col items-center gap-4 relative overflow-hidden" style="border:1px solid var(--border)"></div>
       </div>
 
-      <!-- Tombol musik -->
       <button id="musicChip" type="button" onclick="toggleMusic()" aria-label="Putar / jeda musik" class="hidden fixed top-4 z-40 items-center gap-2 bg-black/80 backdrop-blur-md p-1.5 pr-3 rounded-full text-white border border-white/20 shadow-xl active:scale-95" style="right:max(1rem, calc(50% - 240px + 1rem))">
-        <span id="vinylDisc" class="w-7 h-7 rounded-full bg-stone-900 border border-stone-500 flex items-center justify-center"><span class="w-2 h-2 rounded-full bg-amber-400"></span></span>
+        <span id="vinylDisc" class="w-7 h-7 rounded-full bg-stone-900 border border-stone-500 flex items-center justify-center"><span class="w-2 h-2 rounded-full bg-amber-300"></span></span>
         <span class="text-[9px] font-bold uppercase tracking-wider" id="musicLabel">Musik</span>
       </button>
 
       <div id="templateRoot" class="w-full flex flex-col"></div>
 
-      <!-- Navigasi bawah -->
       <nav id="bottomNav" class="fixed bottom-3 inset-x-0 z-30 max-w-[390px] mx-auto px-4">
         <div id="bottomNavInner" class="bg-black/85 backdrop-blur-md text-white border border-white/20 rounded-full py-2 px-3 flex items-center justify-around shadow-2xl text-[9px]"></div>
       </nav>
     </main>
   </div>
 
-  <!-- Toast -->
+  <!-- Penampil foto galeri -->
+  <div id="lightbox" class="hidden fixed inset-0 z-[70] bg-black/95 items-center justify-center p-4" onclick="closeLightbox(event)">
+    <img id="lightboxImg" src="" alt="Foto galeri" class="max-w-full max-h-full object-contain rounded-lg">
+    <button type="button" onclick="closeLightbox()" aria-label="Tutup" class="absolute top-4 right-4 w-11 h-11 rounded-full bg-white/15 text-white flex items-center justify-center"><i data-lucide="x" class="w-5 h-5"></i></button>
+  </div>
+
   <div id="toast" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-[60] hidden bg-black text-white text-xs font-semibold px-4 py-2.5 rounded-full shadow-xl"></div>
 
+  <script src="kunci-admin.js" onerror="void 0"></script>
   <script src="pako.min.js"></script>
   <script src="tema.js"></script>
   <script>
-    // Peringatan bila tema.js lama / belum ter-upload (penyebab halaman error)
-    if (typeof DAFTAR_TEMA === 'undefined' || typeof PAKET_UNDANGAN === 'undefined' || typeof motifSVG !== 'function' || typeof verifyUndangan !== 'function') {
-      document.body.insertAdjacentHTML('afterbegin', '<div style="position:sticky;top:0;z-index:99;background:#B91C1C;color:#fff;font:600 13px/1.5 sans-serif;padding:12px 16px;text-align:center">⚠️ File <b>tema.js</b> belum diperbarui atau tidak ditemukan. Upload <b>tema.js</b> versi terbaru ke folder yang sama dengan halaman ini.</div>');
+    // Peringatan bila tema.js lama / belum ter-upload
+    if (typeof DAFTAR_TEMA === 'undefined' || typeof GAYA_TEMA === 'undefined' || typeof motifSVG !== 'function' || typeof verifyUndangan !== 'function') {
+      document.body.insertAdjacentHTML('afterbegin', '<div style="position:sticky;top:0;z-index:99;background:#B91C1C;color:#fff;font:600 13px/1.5 sans-serif;padding:12px 16px;text-align:center">File <b>tema.js</b> belum diperbarui atau tidak ditemukan. Upload <b>tema.js</b> versi terbaru ke folder yang sama dengan halaman ini.</div>');
       throw new Error('tema.js versi lama / tidak ditemukan');
     }
   </script>
-  <!-- Opsional: daftar undangan berlink pendek (undangan.html?id=slug). Boleh tidak ada. -->
   <script src="undangan-data.js" onerror="void 0"></script>
   <script>
     // ============================================================
     // 1. AMBIL DATA UNDANGAN
-    //    ?u=...        -> link resmi dari admin (data ada di dalam link)
-    //    ?id=slug      -> link pendek dari undangan-data.js (opsional)
-    //    ?preview=1    -> pratinjau klien sebelum bayar (tersimpan di HP klien saja)
-    //    ?demo=tema    -> contoh template
-    //    &to=Nama      -> nama tamu di sampul
+    //    ?u=...&s=...  link resmi dari admin (bertanda tangan)
+    //    ?id=slug      link pendek dari undangan-data.js (opsional)
+    //    ?preview=1    pratinjau klien sebelum bayar
+    //    ?demo=tema    contoh desain        &to=Nama  nama tamu di sampul
     // ============================================================
     const params = new URLSearchParams(location.search);
-    const UNS = id => `https://images.unsplash.com/${id}?w=700&auto=format&fit=crop&q=80`;
+    const UNS = (id, w = 900) => `https://images.unsplash.com/${id}?w=${w}&auto=format&fit=crop&q=80`;
     const DEMO_COVERS = ['photo-1583939003579-730e3918a45a','photo-1519741497674-611481863552','photo-1511285560929-80b456fea0bc','photo-1532712938310-34cb3982ef74','photo-1520854221256-17451cc331bf','photo-1469371670807-013ccf25f16a','photo-1606800052052-a08af7148866','photo-1522673607200-164d1b6ce486','photo-1544077960-604201fe74bc','photo-1518895949257-7621c3c786d7'];
-    // Semua contoh template memakai pasangan yang sama: Moniqa & Fauzi
-    const DEMO_PASANGAN = [
-      ['Moniqa', 'Putri dari Bpk. Ahmad & Ibu Siti', 'photo-1494790108377-be9c29b29330', 'Fauzi', 'Putra dari Bpk. Hasan & Ibu Aminah', 'photo-1507003211169-0a1dd7228f2d']
-    ];
 
     function demoData(themeId) {
       const idx = Math.max(0, DAFTAR_TEMA.findIndex(t => t.id === themeId));
-      const p = DEMO_PASANGAN[idx % DEMO_PASANGAN.length];
       const d = new Date(); d.setDate(d.getDate() + 45);
-      while (d.getDay() !== 6) d.setDate(d.getDate() + 1); // hari Sabtu
+      while (d.getDay() !== 6) d.setDate(d.getDate() + 1);
       const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      const y = d.getFullYear();
       return {
         theme: themeId,
-        bride: p[0], brideParents: p[1], bridePhoto: UNS(p[2]), brideIg: '',
-        groom: p[3], groomParents: p[4], groomPhoto: UNS(p[5]), groomIg: '',
+        bride: 'Moniqa', brideParents: 'Putri dari Bpk. Ahmad & Ibu Siti', bridePhoto: UNS('photo-1494790108377-be9c29b29330', 600), brideIg: 'moniqa',
+        groom: 'Fauzi', groomParents: 'Putra dari Bpk. Hasan & Ibu Aminah', groomPhoto: UNS('photo-1507003211169-0a1dd7228f2d', 600), groomIg: 'fauzi',
         coverPhoto: UNS(DEMO_COVERS[idx % DEMO_COVERS.length]),
         events: [
           { name: 'Akad Nikah', iso, date: formatTanggalPanjang(iso), time: '08.00 – 10.00 WIB', venue: 'Hotel Cianjur', mapsUrl: '' },
           { name: 'Resepsi', iso, date: formatTanggalPanjang(iso), time: '11.00 – 15.00 WIB', venue: 'Hotel Cianjur', mapsUrl: '' }
         ],
-        gifts: [{ bank: 'Bank Contoh', acc: '1234567890', holder: p[3].split(',')[0] }],
+        gifts: [{ bank: 'Bank Contoh', acc: '1234567890', holder: 'Fauzi' }],
+        story: [
+          { year: String(y - 6), title: 'Pertama Bertemu', text: 'Berawal dari satu kelas yang sama di kampus, kami mulai saling mengenal.' },
+          { year: String(y - 1), title: 'Lamaran', text: 'Dengan restu kedua keluarga, kami memutuskan melangkah lebih serius.' },
+          { year: String(y), title: 'Hari Bahagia', text: 'Kami memulai babak baru, bersama — dan ingin berbagi bahagia denganmu.' }
+        ],
+        gallery: [0, 2, 4, 6, 8, 1].map(i => UNS(DEMO_COVERS[(idx + i) % DEMO_COVERS.length], 600)),
+        dress: 'Nuansa earth tone / pastel',
+        stream: '',
+        turut: 'Keluarga Besar Bpk. Ahmad\nKeluarga Besar Bpk. Hasan',
         musicUrl: '', wa: ''
       };
     }
-
-    // Kompatibel dengan data lama (date/time/venue tunggal, bankName/bankAcc)
     function upgradeLegacy(o) {
       if (!o) return o;
       if (!o.events && (o.date || o.venue)) o.events = [{ name: 'Akad & Resepsi', date: o.date, time: o.time, venue: o.venue, mapsUrl: o.mapsUrl }];
@@ -168,365 +177,708 @@
 
     let MODE = 'demo', RAW = null;
     if (params.get('u')) { RAW = decodeUndangan(params.get('u')); if (RAW) MODE = 'live'; }
-    if (!RAW && params.get('id') && typeof UNDANGAN_DATA !== 'undefined' && UNDANGAN_DATA[params.get('id')]) {
-      RAW = upgradeLegacy({ ...UNDANGAN_DATA[params.get('id')] }); MODE = 'live';
-    }
-    if (!RAW && params.get('preview')) {
-      try { RAW = JSON.parse(localStorage.getItem('dbi_preview')); if (RAW) MODE = 'preview'; } catch (e) {}
-    }
+    if (!RAW && params.get('id') && typeof UNDANGAN_DATA !== 'undefined' && UNDANGAN_DATA[params.get('id')]) { RAW = upgradeLegacy({ ...UNDANGAN_DATA[params.get('id')] }); MODE = 'live'; }
+    if (!RAW && params.get('preview')) { try { RAW = JSON.parse(localStorage.getItem('dbi_preview')); if (RAW) MODE = 'preview'; } catch (e) {} }
     if (!RAW) RAW = demoData(params.get('demo') || params.get('theme') || 'maroon');
 
     const T = getTema(RAW.theme);
-    const SALAM = escapeHTML(T.salam || 'The Wedding Of');
     const GUEST = (params.get('to') || '').trim().slice(0, 60);
 
     // ============================================================
-    // 2. SIAPKAN DATA AMAN UNTUK DITAMPILKAN (anti sisipan kode)
+    // 2. DATA AMAN UNTUK DITAMPILKAN
     // ============================================================
+    const e = escapeHTML;
     const safeUrl = u => { u = String(u || '').trim(); return /^(https?:\/\/|musik\/)/i.test(u) ? u : ''; };
     const nick = s => String(s || '').split(',')[0].trim();
     const firstName = s => nick(s).split(/\s+/)[0] || '';
     const mapsSearch = v => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(v || '');
+    const ROMAWI = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+    const BULAN_PENDEK = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
 
     function avatar(name) {
-      const ch = (firstName(name)[0] || '?').toUpperCase();
-      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="${T.surface.startsWith('rgba') ? T.bg : T.surface}"/><text x="50" y="62" font-size="44" text-anchor="middle" font-family="Georgia,serif" fill="${T.accent}">${ch.replace(/[<&>]/g, '')}</text></svg>`;
+      const ch = (firstName(name)[0] || '?').toUpperCase().replace(/[<&>]/g, '');
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="${T.dark ? '#2A2A33' : '#EFE9E1'}"/><text x="50" y="64" font-size="44" text-anchor="middle" font-family="Georgia,serif" fill="${T.accent}">${ch}</text></svg>`;
       return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
     }
 
     function prep(r) {
-      const e = escapeHTML;
       const events = (r.events || []).filter(ev => ev && (ev.venue || ev.date || ev.iso)).map(ev => ({
-        name: e(ev.name || 'Acara'),
-        date: e(ev.date || formatTanggalPanjang(ev.iso)),
-        iso: ev.iso || '',
-        time: e(ev.time || ''),
-        venue: e(ev.venue || ''),
-        maps: e(safeUrl(ev.mapsUrl) || mapsSearch(ev.venue))
+        name: e(ev.name || 'Acara'), date: e(ev.date || formatTanggalPanjang(ev.iso)), iso: ev.iso || '',
+        time: e(ev.time || ''), venue: e(ev.venue || ''), maps: e(safeUrl(ev.mapsUrl) || mapsSearch(ev.venue)),
+        start: e(((ev.time || '').match(/\d{1,2}[.:]\d{2}/) || [''])[0].replace(':', '.'))
       }));
+      const iso = events[0] && events[0].iso;
+      let dt = null;
+      if (iso) { const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/); if (m) dt = new Date(+m[1], +m[2] - 1, +m[3]); }
       return {
-        bride: e(nick(r.bride) || 'Mempelai Wanita'), brideFull: e(r.bride || 'Mempelai Wanita'), brideNick: e(firstName(r.bride)),
-        groom: e(nick(r.groom) || 'Mempelai Pria'), groomFull: e(r.groom || 'Mempelai Pria'), groomNick: e(firstName(r.groom)),
+        brideNick: e(firstName(r.bride) || 'Mempelai'), groomNick: e(firstName(r.groom) || 'Mempelai'),
+        brideFull: e(nick(r.bride) || 'Mempelai Wanita'), groomFull: e(nick(r.groom) || 'Mempelai Pria'),
         brideParents: e(r.brideParents || ''), groomParents: e(r.groomParents || ''),
-        bridePhoto: e(safeUrl(r.bridePhoto) || avatar(r.bride)),
-        groomPhoto: e(safeUrl(r.groomPhoto) || avatar(r.groom)),
-        brideIg: e(String(r.brideIg || '').replace(/^@/, '').trim()),
-        groomIg: e(String(r.groomIg || '').replace(/^@/, '').trim()),
+        bridePhoto: e(safeUrl(r.bridePhoto) || avatar(r.bride)), groomPhoto: e(safeUrl(r.groomPhoto) || avatar(r.groom)),
+        brideIg: e(String(r.brideIg || '').replace(/^@/, '').trim()), groomIg: e(String(r.groomIg || '').replace(/^@/, '').trim()),
+        ini: e(((firstName(r.bride)[0] || '') + (firstName(r.groom)[0] || '')).toUpperCase()),
         cover: e(safeUrl(r.coverPhoto) || safeUrl(r.bridePhoto) || UNS(DEMO_COVERS[0])),
         events,
+        venues: [...new Set(events.map(x => x.venue).filter(Boolean))],
         gifts: (r.gifts || []).filter(g => g && g.acc).map(g => ({ bank: e(g.bank || 'Rekening'), acc: e(g.acc), holder: e(g.holder || '') })),
-        firstDate: events[0] ? events[0].date : '',
-        firstVenue: events[0] ? events[0].venue : ''
+        story: (r.story || []).filter(s => s && (s.title || s.text)).map(s => ({ year: e(s.year), title: e(s.title), text: e(s.text) })),
+        gallery: (r.gallery || []).map(safeUrl).filter(Boolean).slice(0, 9).map(e),
+        dress: e(r.dress || ''), stream: e(safeUrl(r.stream)),
+        turut: String(r.turut || '').split('\n').map(x => x.trim()).filter(Boolean).map(e),
+        dt,
+        dateLong: events[0] ? events[0].date : '',
+        day: dt ? String(dt.getDate()).padStart(2, '0') : '', mon: dt ? String(dt.getMonth() + 1).padStart(2, '0') : '',
+        monName: dt ? NAMA_BULAN[dt.getMonth()] : '', monShort: dt ? BULAN_PENDEK[dt.getMonth()] : '',
+        roman: dt ? ROMAWI[dt.getMonth()] : '', year: dt ? dt.getFullYear() : '', weekday: dt ? NAMA_HARI[dt.getDay()] : ''
       };
     }
     const d = prep(RAW);
 
     // ============================================================
-    // 3. GAYA TEMA
+    // 3. GAYA TEMA & BAHASA
     // ============================================================
-    const FONTS = { serif: "'Cormorant Garamond', serif", royal: "'Cinzel', serif", edit: "'Space Grotesk', sans-serif", script: "'Caveat', cursive", cursive: "'Alex Brush', cursive", sans: "'Plus Jakarta Sans', sans-serif" };
-    const NAME_SIZE = { cursive: 'text-5xl', script: 'text-5xl font-bold', royal: 'text-3xl tracking-wide', edit: 'text-4xl font-bold uppercase tracking-tighter', serif: 'text-4xl', sans: 'text-4xl font-semibold' };
-    const nameCls = `fn ${NAME_SIZE[T.nameFont] || 'text-4xl'} leading-tight`;
-
+    const FONTS = { serif: "'Cormorant Garamond', serif", royal: "'Cinzel', serif", edit: "'Space Grotesk', sans-serif", script: "'Caveat', cursive", cursive: "'Alex Brush', cursive", sans: "'Jost', sans-serif", pinyon: "'Pinyon Script', cursive", vibes: "'Great Vibes', cursive", bodoni: "'Bodoni Moda', serif" };
+    const SCRIPTY = ['cursive', 'script', 'pinyon', 'vibes'].includes(T.nameFont);
     (function applyTheme() {
-      const root = document.getElementById('themeRoot');
-      const vars = { '--bg': T.bg, '--surface': T.surface, '--text': T.text, '--muted': T.muted, '--accent': T.accent, '--on': T.onAccent, '--border': T.border, '--fh': FONTS[T.head], '--fn': FONTS[T.nameFont], '--bs': T.dashed ? 'dashed' : 'solid', '--bw': T.dashed ? '2px' : '1px' };
+      const vars = { '--bg': T.bg, '--surface': T.surface, '--text': T.text, '--muted': T.muted, '--accent': T.accent, '--on': T.onAccent, '--border': T.border, '--fh': FONTS[T.head] || FONTS.serif, '--fn': FONTS[T.nameFont] || FONTS.serif, '--bs': T.dashed ? 'dashed' : 'solid', '--bw': T.dashed ? '2px' : '1px' };
       Object.entries(vars).forEach(([k, v]) => document.documentElement.style.setProperty(k, v));
       const pat = T.motif ? motifPattern(T) : T.pattern;
+      const root = document.getElementById('themeRoot');
       if (pat) { root.style.backgroundImage = pat; if (T.patternSize && !T.motif) root.style.backgroundSize = T.patternSize; }
-      document.querySelector('meta[name="theme-color"]') || document.head.insertAdjacentHTML('beforeend', `<meta name="theme-color" content="${T.bg}">`);
+      document.head.insertAdjacentHTML('beforeend', `<meta name="theme-color" content="${T.bg}">`);
     })();
 
-    const QUOTES = {
-      quran: { text: '“Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang.”', src: 'QS. Ar-Rum: 21' },
-      cinta: { text: '“Dua jiwa, satu cerita. Dengan penuh rasa syukur, kami ingin berbagi kebahagiaan di hari yang paling berarti dalam hidup kami.”', src: '' }
+    const VOICES = {
+      islami: { badge: "Walimatul 'Ursy", open: "Assalamu'alaikum Warahmatullahi Wabarakatuh", intro: 'Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami:', couple: 'Mempelai', events: 'Rangkaian Acara', count: 'Menuju Hari Bahagia', story: 'Kisah Kami', gallery: 'Galeri', gift: 'Tanda Kasih', giftText: 'Doa restu Anda adalah karunia terindah bagi kami. Bagi yang berkenan memberikan tanda kasih secara digital:', rsvp: 'Doa & Restu', turut: 'Turut Mengundang', closing: 'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.', closeSalam: "Wassalamu'alaikum Warahmatullahi Wabarakatuh", sign: 'Kami yang berbahagia', thanks: 'Terima Kasih' },
+      formal: { badge: 'The Wedding of', open: 'Together with their families', intro: 'Bersama keluarga, kami mengundang Bapak/Ibu/Saudara/i untuk hadir merayakan pernikahan kami.', couple: 'The Couple', events: 'Save the Date', count: 'Counting the Days', story: 'Our Story', gallery: 'Moments', gift: 'Wedding Gift', giftText: 'Kehadiran dan doa Anda sudah lebih dari cukup. Bagi yang ingin memberikan hadiah:', rsvp: 'RSVP & Wishes', turut: 'Turut Mengundang', closing: 'Your presence and blessings would mean the world to us.', closeSalam: '', sign: 'With love', thanks: 'Thank You' },
+      modern: { badge: "We're Getting Married", open: 'Hai, kamu diundang!', intro: 'Dengan penuh sukacita, kami ingin merayakan hari bahagia kami bersamamu.', couple: 'Bride & Groom', events: 'Save the Date', count: 'Hitung Mundur', story: 'Cerita Kami', gallery: 'Galeri', gift: 'Wedding Gift', giftText: 'Doa dan kehadiranmu adalah hadiah terbaik. Kalau ingin mengirim hadiah:', rsvp: 'Kirim Ucapan', turut: 'Turut Mengundang', closing: 'Kehadiran dan doamu adalah hadiah terindah bagi kami.', closeSalam: '', sign: 'See you there!', thanks: 'Terima kasih' },
+      hangat: { badge: 'Kami Akan Menikah', open: 'Dengan izin Allah & restu orang tua', intro: 'Kami ingin berbagi kebahagiaan di hari pernikahan kami, dan berharap kamu bisa hadir.', couple: 'Kami Berdua', events: 'Hari Bahagia', count: 'Sebentar Lagi', story: 'Perjalanan Kami', gallery: 'Momen Kami', gift: 'Kado Digital', giftText: 'Doa restu darimu sudah sangat berarti. Untuk yang ingin memberi kado:', rsvp: 'Ucapan & Doa', turut: 'Turut Mengundang', closing: 'Terima kasih sudah menjadi bagian dari cerita kami.', closeSalam: '', sign: 'Dengan cinta', thanks: 'Terima kasih' },
+      sunda:  { badge: 'Wilujeng Sumping', open: 'Sampurasun', intro: 'Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami:', couple: 'Pangantén', events: 'Rangkaian Acara', count: 'Menuju Hari Bahagia', story: 'Kisah Kami', gallery: 'Galeri', gift: 'Tanda Kasih', giftText: 'Doa restu Bapak/Ibu adalah karunia terindah bagi kami. Bagi yang berkenan memberikan tanda kasih:', rsvp: 'Doa & Restu', turut: 'Turut Mengundang', closing: 'Merupakan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.', closeSalam: "Wassalamu'alaikum Warahmatullahi Wabarakatuh", sign: 'Kami yang berbahagia', thanks: 'Hatur Nuhun' },
+      jawa:   { badge: 'Sugeng Rawuh', open: "Assalamu'alaikum Warahmatullahi Wabarakatuh", intro: 'Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami:', couple: 'Mempelai', events: 'Rangkaian Acara', count: 'Menuju Hari Bahagia', story: 'Kisah Kami', gallery: 'Galeri', gift: 'Tanda Kasih', giftText: 'Doa restu Bapak/Ibu adalah karunia terindah bagi kami. Bagi yang berkenan memberikan tanda kasih:', rsvp: 'Doa & Restu', turut: 'Turut Mengundang', closing: 'Merupakan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.', closeSalam: "Wassalamu'alaikum Warahmatullahi Wabarakatuh", sign: 'Kami yang berbahagia', thanks: 'Matur Nuwun' },
+      betawi: { badge: 'Pengantin Betawi', open: "Assalamu'alaikum Warahmatullahi Wabarakatuh", intro: 'Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami:', couple: 'Tuan & Nyai Pengantin', events: 'Rangkaian Acara', count: 'Menuju Hari Bahagia', story: 'Kisah Kami', gallery: 'Galeri', gift: 'Tanda Kasih', giftText: 'Doa restu Bapak/Ibu adalah karunia terindah bagi kami. Bagi yang berkenan memberikan tanda kasih:', rsvp: 'Doa & Restu', turut: 'Turut Mengundang', closing: 'Merupakan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.', closeSalam: "Wassalamu'alaikum Warahmatullahi Wabarakatuh", sign: 'Kami yang berbahagia', thanks: 'Terima Kasih' },
+      minang: { badge: 'Baralek Gadang', open: "Assalamu'alaikum Warahmatullahi Wabarakatuh", intro: 'Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami:', couple: 'Anak Daro & Marapulai', events: 'Rangkaian Acara', count: 'Menuju Hari Bahagia', story: 'Kisah Kami', gallery: 'Galeri', gift: 'Tanda Kasih', giftText: 'Doa restu Bapak/Ibu adalah karunia terindah bagi kami. Bagi yang berkenan memberikan tanda kasih:', rsvp: 'Doa & Restu', turut: 'Turut Mengundang', closing: 'Merupakan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.', closeSalam: "Wassalamu'alaikum Warahmatullahi Wabarakatuh", sign: 'Kami yang berbahagia', thanks: 'Tarimo Kasih' },
+      batak:  { badge: 'Horas!', open: 'Horas!', intro: 'Dengan penuh sukacita, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari pernikahan kami:', couple: 'Mempelai', events: 'Rangkaian Acara', count: 'Menuju Hari Bahagia', story: 'Kisah Kami', gallery: 'Galeri', gift: 'Tanda Kasih', giftText: 'Doa dan restu Bapak/Ibu adalah karunia terindah bagi kami. Bagi yang berkenan memberikan tanda kasih:', rsvp: 'Ucapan & Doa', turut: 'Turut Mengundang', closing: 'Merupakan kehormatan dan sukacita bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.', closeSalam: '', sign: 'Kami yang berbahagia', thanks: 'Mauliate' }
+    };
+    const V = VOICES[T.voice] || VOICES.hangat;
+    const SALAM = e(T.salam || V.badge);
+    const isDark = !!T.dark;
+
+    const QURAN = {
+      ar: 'وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً',
+      id: 'Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang.',
+      src: 'QS. Ar-Rum : 21'
+    };
+    const CINTA = { id: 'Dua jiwa, satu cerita. Dengan penuh rasa syukur, kami ingin berbagi kebahagiaan di hari yang paling berarti dalam hidup kami.', src: '' };
+
+    // ============================================================
+    // 4. KOMPONEN KECIL
+    // ============================================================
+    const img = (src, cls, alt = '') => `<img src="${src}" alt="${alt}" loading="lazy" class="${cls}">`;
+    const nameCls = T.nameFont === 'bodoni' ? 'fn leading-[.9] tracking-tight' : SCRIPTY ? 'fn leading-none' : T.nameFont === 'royal' ? 'fn tracking-[0.12em] uppercase leading-none' : 'fn leading-none';
+    const S = (px, scriptBoost = 1.25) => `font-size:${Math.round(SCRIPTY ? px * scriptBoost : px)}px`;
+    const divider = () => T.motif ? `<div class="flex justify-center opacity-90">${motifSVG(T, 'w-28 h-9')}</div>`
+      : `<svg class="mx-auto" width="140" height="16" viewBox="0 0 140 16" aria-hidden="true"><g fill="none" stroke="${T.accent}" stroke-width="1"><path d="M0 8h54M86 8h54"/><path d="M70 1l7 7-7 7-7-7z"/></g><circle cx="58" cy="8" r="1.6" fill="${T.accent}"/><circle cx="82" cy="8" r="1.6" fill="${T.accent}"/></svg>`;
+    const head = (eyebrow, title, extraCls = '') => `
+      <div class="reveal text-center mb-8 ${extraCls}">
+        ${eyebrow ? `<p class="eyebrow">${eyebrow}</p>` : ''}
+        <h2 class="fh text-[2.1rem] leading-tight mt-2">${title}</h2>
+      </div>`;
+    const igLink = ig => ig ? `<a href="https://instagram.com/${ig}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-[11px] t-accent mt-2 hover:underline"><i data-lucide="instagram" class="w-3.5 h-3.5"></i>@${ig}</a>` : '';
+    const leaf = (cls, flip = false) => `<svg class="${cls}" viewBox="0 0 170 220" fill="none" aria-hidden="true" ${flip ? 'style="transform:scaleX(-1)"' : ''}><path d="M10 210C40 150 70 90 160 10" stroke="${T.accent}" stroke-width="1.3"/><path d="M40 160c-22-4-34-20-34-36 18 2 32 16 34 36zM60 125c22-8 30-26 28-42-18 6-28 22-28 42zM78 98c-20-6-30-22-28-38 16 4 28 18 28 38zM98 72c20-10 26-28 22-44-16 8-24 26-22 44zM118 50c-18-6-26-20-24-34 14 4 24 16 24 34z" fill="${T.accent}" fill-opacity=".16" stroke="${T.accent}" stroke-width="1"/></svg>`;
+    const fanSVG = (w = 170) => `<svg width="${w}" height="${w / 2}" viewBox="0 0 160 80" fill="none" aria-hidden="true"><path d="M80 78V6" stroke="${T.accent}"/><path d="M80 78 46 12M80 78l34-66M80 78 20 30M80 78l60-48M80 78 6 58M80 78l74-20" stroke="${T.accent}" stroke-width=".8" opacity=".85"/><path d="M10 78a70 70 0 0 1 140 0M34 78a46 46 0 0 1 92 0" stroke="${T.accent}"/><path d="m80 0 5 5-5 5-5-5z" fill="${T.accent}"/></svg>`;
+    const calLink = ev => {
+      if (!ev.iso) return '';
+      const unesc = s => { const t = document.createElement('textarea'); t.innerHTML = s; return t.value; };
+      const day = ev.iso.replace(/-/g, ''); const nx = new Date(ev.iso + 'T00:00:00'); nx.setDate(nx.getDate() + 1);
+      const end = `${nx.getFullYear()}${String(nx.getMonth() + 1).padStart(2, '0')}${String(nx.getDate()).padStart(2, '0')}`;
+      const p = new URLSearchParams({ action: 'TEMPLATE', text: `${unesc(ev.name)} ${unesc(d.brideNick)} & ${unesc(d.groomNick)}`, dates: `${day}/${end}`, location: unesc(ev.venue), details: `${unesc(ev.time)}\n${location.href}` });
+      return e('https://calendar.google.com/calendar/render?' + p.toString());
+    };
+    const btnMaps = (ev, cls = 't-btn rounded-full') => `<a href="${ev.maps}" target="_blank" rel="noopener" class="${cls} inline-flex items-center justify-center gap-1.5 min-h-[44px] px-5 text-[11px] font-semibold tracking-[0.12em] uppercase"><i data-lucide="navigation" class="w-3.5 h-3.5"></i>Petunjuk Lokasi</a>`;
+    const btnCal = (ev, cls = 't-outline rounded-full') => ev.iso ? `<a href="${calLink(ev)}" target="_blank" rel="noopener" class="${cls} inline-flex items-center justify-center gap-1.5 min-h-[44px] px-5 text-[11px] font-semibold tracking-[0.12em] uppercase"><i data-lucide="calendar-plus" class="w-3.5 h-3.5"></i>Simpan</a>` : '';
+    const sameVenue = d.venues.length <= 1;
+
+    // ============================================================
+    // 5. BAGIAN: SAMPUL (9 gaya)
+    // ============================================================
+    const HERO = {
+      royal: () => `
+        <section id="sec-hero" class="relative px-9 pt-20 pb-16 text-center">
+          <div class="absolute inset-3 pointer-events-none t-bda opacity-60"></div>
+          <div class="absolute inset-[18px] pointer-events-none t-bd"></div>
+          <p class="reveal eyebrow">${SALAM}</p>
+          <div class="reveal mx-auto mt-7 w-[136px] h-[136px] rounded-full t-bda flex items-center justify-center relative">
+            <div class="absolute inset-[6px] rounded-full t-bd"></div>
+            <span class="fh italic text-[54px] leading-none">${d.ini[0] || ''}<span class="t-accent text-[34px] px-0.5">&amp;</span>${d.ini[1] || ''}</span>
+          </div>
+          <div class="reveal mt-6">${divider()}</div>
+          <h1 class="reveal ${nameCls} mt-6" style="${S(54)}">${d.brideNick}</h1>
+          <p class="reveal fh italic text-2xl t-accent my-1">&amp;</p>
+          <h1 class="reveal ${nameCls}" style="${S(54)}">${d.groomNick}</h1>
+          ${d.dt ? `<p class="reveal mt-7 font-['Cinzel'] tracking-[0.3em] text-[15px]" style="font-family:'Cinzel',serif">${d.day} · ${d.roman} · ${d.year}</p>` : ''}
+          <p class="reveal mt-2 text-[11px] tracking-[0.24em] uppercase t-muted">${e(d.weekday)}${d.venues[0] ? ` · ${d.venues[0]}` : ''}</p>
+          <div class="reveal mt-10 mx-auto w-[240px] h-[300px] relative">
+            <div class="absolute -inset-2.5 rounded-t-full rounded-b-md t-bda opacity-70"></div>
+            ${img(d.cover, 'w-full h-full object-cover rounded-t-full rounded-b-sm')}
+          </div>
+        </section>`,
+
+      editorial: () => `
+        <section id="sec-hero">
+          <div class="relative h-[86vh] min-h-[540px] text-white flex flex-col justify-between px-6 pt-14 pb-8 overflow-hidden">
+            ${img(d.cover, 'absolute inset-0 w-full h-full object-cover grayscale-[35%]')}
+            <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.05) 40%,rgba(0,0,0,.6))"></div>
+            <div class="relative flex justify-between text-[10px] tracking-[0.3em] border-b border-white/40 pb-2.5"><span>VOL. ${d.year ? String(d.year).slice(2) : '01'}</span><span>THE WEDDING ISSUE</span><span>${d.year || ''}</span></div>
+            <div class="relative">
+              <h1 class="${nameCls}" style="font-size:78px">${d.brideNick}</h1>
+              <h1 class="${nameCls} italic" style="font-size:78px">&amp; ${d.groomNick}</h1>
+            </div>
+          </div>
+          <div class="px-6 pt-8 pb-10 border-b-2" style="border-color:var(--text)">
+            <div class="reveal flex items-end justify-between">
+              <p class="fh leading-[.8] tracking-tight" style="font-size:100px">${d.day}.${d.mon}</p>
+              <p class="text-right text-[11px] tracking-[0.24em] leading-loose uppercase">${e(d.weekday)}<br>${d.year}<br>${d.venues[0] || ''}</p>
+            </div>
+            <p class="reveal mt-6 text-sm leading-relaxed t-muted">${V.intro}</p>
+          </div>
+        </section>`,
+
+      botanical: () => `
+        <section id="sec-hero" class="relative px-7 pt-16 pb-10">
+          ${leaf('absolute -left-6 -top-2 w-40 h-52 opacity-90')}
+          ${leaf('absolute -right-8 top-[420px] w-36 h-48 opacity-70', true)}
+          <div class="reveal relative t-plain rounded-t-[200px] rounded-b-[28px] px-6 pt-14 pb-9 text-center shadow-[0_24px_50px_-28px_rgba(0,0,0,.35)]">
+            <p class="eyebrow">${SALAM}</p>
+            <div class="mx-auto mt-5 w-[170px] h-[215px] rounded-t-full rounded-b-2xl overflow-hidden">${img(d.cover, 'w-full h-full object-cover')}</div>
+            <h1 class="${nameCls} mt-6" style="${S(46)}">${d.brideNick} <span class="t-accent">&amp;</span> ${d.groomNick}</h1>
+            <p class="fh italic text-lg t-muted mt-2">${d.dateLong}</p>
+            <div class="w-14 h-px t-bg-accent mx-auto my-4"></div>
+            <p class="text-xs t-muted leading-relaxed">${V.intro}</p>
+          </div>
+        </section>`,
+
+      deco: () => `
+        <section id="sec-hero" class="relative px-9 pt-20 pb-14 text-center">
+          <div class="absolute inset-3.5 pointer-events-none t-bda opacity-50"></div>
+          ${['left-3.5 top-3.5 border-r border-b', 'right-3.5 top-3.5 border-l border-b', 'left-3.5 bottom-3.5 border-r border-t', 'right-3.5 bottom-3.5 border-l border-t'].map(c => `<div class="absolute ${c} w-9 h-9" style="border-color:var(--accent)"></div>`).join('')}
+          <div class="reveal flex justify-center">${fanSVG()}</div>
+          <p class="reveal eyebrow mt-5">${SALAM}</p>
+          <h1 class="reveal ${nameCls} mt-6" style="${S(44, 1.3)}">${d.brideNick}</h1>
+          <p class="reveal fh italic t-accent text-4xl leading-none my-1">&amp;</p>
+          <h1 class="reveal ${nameCls}" style="${S(44, 1.3)}">${d.groomNick}</h1>
+          <div class="reveal flex items-center justify-center gap-3.5 mt-7"><span class="w-10 h-px t-bg-accent"></span><span style="font-family:'Cinzel',serif" class="tracking-[0.3em] text-sm">${d.day} . ${d.mon} . ${d.year}</span><span class="w-10 h-px t-bg-accent"></span></div>
+          <p class="reveal mt-2 text-[11px] tracking-[0.26em] uppercase t-muted">${d.venues[0] || ''}</p>
+          <div class="reveal mx-auto mt-10 w-[230px] h-[290px] p-2 t-bda">
+            <div class="w-full h-full overflow-hidden" style="clip-path:polygon(18% 0,82% 0,100% 12%,100% 88%,82% 100%,18% 100%,0 88%,0 12%)">${img(d.cover, 'w-full h-full object-cover')}</div>
+          </div>
+        </section>`,
+
+      sinema: () => `
+        <section id="sec-hero" class="relative min-h-[92vh] flex flex-col justify-end text-center px-7 pb-14 overflow-hidden">
+          ${img(d.cover, 'absolute inset-0 w-full h-full object-cover')}
+          <div class="absolute inset-0" style="background:linear-gradient(to top, var(--bg) 0%, rgba(0,0,0,.5) 42%, rgba(0,0,0,.12) 100%)"></div>
+          <div class="relative text-white">
+            <p class="reveal text-[10px] tracking-[0.4em] uppercase opacity-90">${SALAM}</p>
+            <h1 class="reveal ${nameCls} mt-4 drop-shadow-lg" style="${S(50)}">${d.brideNick} <span class="opacity-80">&amp;</span> ${d.groomNick}</h1>
+            <div class="reveal mx-auto mt-5 w-16 h-px bg-white/70"></div>
+            <p class="reveal mt-4 text-xs tracking-[0.3em] uppercase opacity-90">${e(d.weekday)}, ${d.day} ${d.monName} ${d.year}</p>
+          </div>
+        </section>`,
+
+      polaroid: () => `
+        <section id="sec-hero" class="px-7 pt-16 pb-12 text-center">
+          <p class="reveal fn t-accent" style="font-size:30px">${V.badge}</p>
+          <div class="reveal relative bg-white p-3 pb-14 shadow-xl -rotate-3 max-w-[270px] mx-auto mt-7">
+            <span class="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-7 bg-white/70 border border-black/5 rotate-3"></span>
+            ${img(d.cover, 'w-full aspect-square object-cover')}
+            <span class="absolute bottom-3 inset-x-0 text-center text-2xl text-stone-700" style="font-family:'Caveat',cursive">${d.brideNick} & ${d.groomNick} ♡</span>
+          </div>
+          <div class="reveal relative bg-white p-2 pb-8 shadow-lg rotate-6 w-28 -mt-16 ml-auto mr-2">${img(d.bridePhoto, 'w-full aspect-square object-cover')}</div>
+          <h1 class="reveal ${nameCls} mt-6" style="${S(44)}">${d.brideNick} &amp; ${d.groomNick}</h1>
+          <p class="reveal text-sm t-muted mt-2">${d.dateLong}</p>
+        </section>`,
+
+      adat: () => `
+        <section id="sec-hero" class="relative px-8 pt-16 pb-14 text-center">
+          <div class="reveal flex justify-center animate-float">${motifSVG(T, T.motif === 'gunungan' ? 'w-28 h-32' : 'w-52 h-20')}</div>
+          <p class="reveal eyebrow mt-5">${SALAM}</p>
+          <div class="reveal mx-auto mt-7 w-[230px] h-[290px] relative">
+            <div class="absolute -inset-3 rounded-t-full t-bda"></div>
+            <div class="absolute -inset-1.5 rounded-t-full t-bd"></div>
+            ${img(d.cover, 'w-full h-full object-cover rounded-t-full')}
+          </div>
+          <h1 class="reveal ${nameCls} mt-9" style="${S(46)}">${d.brideNick} <span class="t-accent">&amp;</span> ${d.groomNick}</h1>
+          <div class="reveal mt-4">${divider()}</div>
+          <p class="reveal mt-4 text-xs tracking-[0.26em] uppercase t-muted">${e(d.weekday)} · ${d.day} ${d.monName} ${d.year}</p>
+        </section>`,
+
+      mono: () => `
+        <section id="sec-hero" class="px-8 pt-20 pb-12">
+          <p class="reveal eyebrow text-center">${SALAM}</p>
+          <div class="reveal flex items-center justify-center gap-6 mt-8">
+            <span class="fh leading-none" style="font-size:132px">${d.ini[0] || ''}</span>
+            <span class="w-px h-36 t-bg-accent"></span>
+            <span class="fh italic leading-none t-accent" style="font-size:132px">${d.ini[1] || ''}</span>
+          </div>
+          <p class="reveal text-center text-[11px] tracking-[0.42em] uppercase mt-6">${d.brideNick} &nbsp;&amp;&nbsp; ${d.groomNick}</p>
+          <p class="reveal text-center fh text-xl mt-2 t-muted">${d.dateLong}</p>
+          <div class="reveal mt-10 -mx-8 h-56 overflow-hidden">${img(d.cover, 'w-full h-full object-cover')}</div>
+          <p class="reveal mt-8 text-sm leading-relaxed text-center t-muted">${V.intro}</p>
+        </section>`,
+
+      ticket: () => `
+        <section id="sec-hero" class="px-6 pt-16 pb-12">
+          <p class="reveal text-center fn t-accent" style="font-size:28px">${V.badge}</p>
+          <div class="reveal mt-6 rounded-[22px] overflow-hidden shadow-xl t-plain" style="border:1px solid var(--border)">
+            <div class="t-btn px-5 py-3 flex justify-between items-center text-[10px] tracking-[0.28em] font-semibold"><span>BOARDING PASS</span><span>${d.ini}${d.day}${d.mon}</span></div>
+            <div class="px-5 py-6">
+              <div class="flex items-center justify-between">
+                <div><p class="text-[9px] tracking-[0.25em] t-muted">BRIDE</p><p class="fh text-3xl leading-tight">${d.brideNick}</p></div>
+                <div class="flex-1 mx-3 border-t-2 border-dashed relative t-line"><i data-lucide="heart" class="w-5 h-5 t-accent absolute left-1/2 -translate-x-1/2 -top-[11px] bg-[var(--surface)] px-0.5"></i></div>
+                <div class="text-right"><p class="text-[9px] tracking-[0.25em] t-muted">GROOM</p><p class="fh text-3xl leading-tight">${d.groomNick}</p></div>
+              </div>
+              <div class="grid grid-cols-3 gap-2 mt-6 text-left">
+                <div><p class="text-[9px] tracking-[0.2em] t-muted">TANGGAL</p><p class="text-sm font-semibold mt-0.5">${d.day} ${d.monShort} ${d.year}</p></div>
+                <div><p class="text-[9px] tracking-[0.2em] t-muted">JAM</p><p class="text-sm font-semibold mt-0.5">${d.events[0] ? d.events[0].start || '-' : '-'}</p></div>
+                <div><p class="text-[9px] tracking-[0.2em] t-muted">GATE</p><p class="text-sm font-semibold mt-0.5 truncate">${d.venues[0] || '-'}</p></div>
+              </div>
+            </div>
+            <div class="relative border-t-2 border-dashed t-line mx-5"></div>
+            <div class="px-5 py-4 flex items-center justify-between">
+              <div class="flex gap-[3px] h-9 items-end" aria-hidden="true">${Array.from({ length: 26 }, (_, i) => `<span style="width:${[2, 1, 3, 1, 2][i % 5]}px;height:${100 - (i % 4) * 8}%" class="t-bg-accent opacity-80"></span>`).join('')}</div>
+              <p class="text-[10px] tracking-[0.2em] t-muted">SEAT: VIP</p>
+            </div>
+          </div>
+          <div class="reveal mt-8 rounded-[22px] overflow-hidden h-64">${img(d.cover, 'w-full h-full object-cover')}</div>
+        </section>`
     };
 
     // ============================================================
-    // 4. BAGIAN-BAGIAN UNDANGAN
+    // 6. KUTIPAN (4 gaya)
     // ============================================================
-    const yearOf = () => (d.events[0] && d.events[0].iso ? d.events[0].iso.slice(0, 4) : new Date().getFullYear());
-
-    function countdownHTML(style) {
-      if (!d.events[0] || !d.events[0].iso) return '';
-      const box = style === 'glass'
-        ? 'bg-white/15 backdrop-blur-md border border-white/30 text-white'
-        : 't-surface';
-      const unit = (id, label) => `<div class="${box} rounded-2xl py-3 text-center"><span id="${id}" class="fh text-2xl font-bold block leading-none tabular-nums ${style === 'glass' ? '' : 't-accent'}">00</span><span class="text-[9px] uppercase tracking-wider mt-1 block opacity-75">${label}</span></div>`;
-      return `<div id="countdownWrap" class="grid grid-cols-4 gap-2 max-w-xs mx-auto mt-7">${unit('cdD', 'Hari')}${unit('cdH', 'Jam')}${unit('cdM', 'Menit')}${unit('cdS', 'Detik')}</div>
-              <p id="eventPassed" class="hidden max-w-xs mx-auto mt-6 text-xs t-muted">Alhamdulillah, acara telah berlangsung. Terima kasih atas doa dan kehadirannya.</p>`;
-    }
-
-    function heroHTML() {
-      const L = T.layout;
-      if (L === 'lengkung') return `
-        <section id="sec-hero" class="pt-16 pb-12 px-6 text-center border-b t-line">
-          ${T.motif ? `<div class="reveal flex justify-center mb-3">${motifSVG(T, 'w-44 h-16')}</div>` : ''}
-          <div class="reveal w-56 h-72 mx-auto rounded-t-full overflow-hidden p-1.5 t-ring shadow-lg"><img src="${d.cover}" alt="" class="w-full h-full object-cover rounded-t-full"></div>
-          <div class="reveal text-[10px] uppercase tracking-[0.3em] font-bold t-accent mt-7">${SALAM}</div>
-          <h1 class="reveal ${nameCls} my-3">${d.brideNick} <span class="t-accent">&</span> ${d.groomNick}</h1>
-          <p class="reveal text-xs t-muted tracking-wider">${d.firstDate}</p>
-          ${countdownHTML()}
-        </section>`;
-
-      if (L === 'majalah') return `
-        <section id="sec-hero" class="pt-14 px-6 pb-8 border-b-[3px]" style="border-color:var(--border)">
-          <div class="flex justify-between text-[10px] font-bold tracking-widest border-b-2 pb-2 fh" style="border-color:var(--border)">
-            <span>EST. ${yearOf()}</span><span>THE WEDDING ISSUE</span><span>${T.orn}</span>
+    const useQuran = T.quote === 'arabic' || T.quote_src === 'quran' || (T.quote !== 'editorial' && ['islami', 'sunda', 'jawa', 'betawi', 'minang'].includes(T.voice));
+    const Q = useQuran ? QURAN : CINTA;
+    const QUOTE = {
+      center: () => `
+        <section class="px-9 py-14 text-center">
+          ${divider()}
+          <p class="reveal fh italic text-[19px] leading-relaxed t-muted mt-6">“${Q.id}”</p>
+          ${Q.src ? `<p class="reveal eyebrow mt-4">${Q.src}</p>` : ''}
+        </section>`,
+      editorial: () => `
+        <section class="px-6 py-12 border-b" style="border-color:var(--text)">
+          <p class="reveal fh t-accent leading-none" style="font-size:96px;height:52px">“</p>
+          <p class="reveal fh italic text-[26px] leading-snug">${Q.id}</p>
+          ${Q.src ? `<p class="reveal mt-4 text-[10px] tracking-[0.3em] uppercase t-muted">— ${Q.src}</p>` : ''}
+        </section>`,
+      boxed: () => `
+        <section class="px-7 py-12">
+          <div class="reveal relative t-surface rounded-[28px] px-7 py-10 text-center">
+            <span class="absolute left-1/2 -translate-x-1/2 -top-4 px-3 th fh text-3xl t-accent leading-none">❝</span>
+            <p class="fh italic text-lg leading-relaxed">${Q.id}</p>
+            ${Q.src ? `<p class="eyebrow mt-4">${Q.src}</p>` : ''}
           </div>
-          <h1 class="reveal ${nameCls} text-5xl mt-5 leading-[.95]">${d.brideNick}<br>& ${d.groomNick}</h1>
-          <div class="reveal mt-5 p-1 border-2 shadow-[6px_6px_0_var(--accent)]" style="border-color:var(--border)"><img src="${d.cover}" alt="" class="w-full aspect-[4/5] object-cover ${T.id === 'monochrome' || T.id === 'slate' ? 'grayscale contrast-125' : ''}"></div>
-          <p class="reveal mt-4 text-xs uppercase font-bold tracking-widest t-muted">${d.firstDate} • ${d.firstVenue}</p>
-          ${countdownHTML()}
-        </section>`;
+        </section>`,
+      arabic: () => `
+        <section class="px-8 py-14 text-center">
+          <p class="reveal fa text-[28px] t-accent leading-none">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+          <div class="reveal my-6">${divider()}</div>
+          ${useQuran ? `<p class="reveal fa text-[22px] leading-[2.1]" dir="rtl" lang="ar">${QURAN.ar}</p>` : ''}
+          <p class="reveal fh italic text-[17px] leading-relaxed t-muted mt-5">“${Q.id}”</p>
+          ${Q.src ? `<p class="reveal eyebrow mt-4">${Q.src}</p>` : ''}
+        </section>`
+    };
 
-      if (L === 'polaroid') return `
-        <section id="sec-hero" class="pt-16 pb-12 px-6 text-center border-b t-line">
-          <div class="reveal fn text-3xl t-accent">Our Love Story Begins</div>
-          <div class="reveal relative bg-white p-3 pb-10 shadow-xl rotate-[-3deg] max-w-[250px] mx-auto mt-6">
-            <span class="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-white/70 border border-black/5 rotate-[4deg]"></span>
-            <img src="${d.cover}" alt="" class="w-full aspect-square object-cover">
-            <span class="absolute bottom-2 inset-x-0 text-center text-xl text-stone-700" style="font-family:'Caveat',cursive">${d.brideNick} & ${d.groomNick}</span>
+    // ============================================================
+    // 7. MEMPELAI (7 gaya)
+    // ============================================================
+    const P = who => ({ photo: d[who + 'Photo'], full: d[who + 'Full'], nick: d[who + 'Nick'], parents: d[who + 'Parents'], ig: d[who + 'Ig'] });
+    const B = P('bride'), G = P('groom');
+    const intro = `<p class="reveal text-[13px] leading-relaxed text-center t-muted max-w-xs mx-auto mb-10">${V.open && T.voice !== 'formal' ? `<span class="block fh italic text-lg mb-2" style="color:var(--text)">${V.open}</span>` : ''}${V.intro}</p>`;
+    const COUPLE = {
+      arch: () => `
+        <section id="sec-couple" class="px-7 py-14">${head('', V.couple)}${intro}
+          <div class="grid grid-cols-2 gap-5">${[B, G].map(p => `
+            <div class="reveal text-center">
+              <div class="mx-auto w-full aspect-[3/4] rounded-t-full rounded-b-md overflow-hidden p-1 t-bda">${img(p.photo, 'w-full h-full object-cover rounded-t-full rounded-b-sm', p.full)}</div>
+              <p class="${nameCls} mt-4" style="${S(30)}">${p.nick}</p>
+              <p class="text-[12px] font-medium mt-1">${p.full}</p>
+              <p class="text-[11px] leading-snug t-muted mt-1">${p.parents}</p>${igLink(p.ig)}
+            </div>`).join('')}
           </div>
-          <h1 class="reveal ${nameCls} mt-8">${d.brideNick} <span class="t-accent">&</span> ${d.groomNick}</h1>
-          <p class="reveal text-xs t-muted mt-2">${d.firstDate}</p>
-          ${countdownHTML()}
-        </section>`;
-
-      if (L === 'sinema') return `
-        <section id="sec-hero" class="relative min-h-[88vh] flex flex-col justify-end text-center px-6 pb-12 overflow-hidden">
-          <img src="${d.cover}" alt="" class="absolute inset-0 w-full h-full object-cover">
-          <div class="absolute inset-0" style="background:linear-gradient(to top, var(--bg) 0%, rgba(0,0,0,.45) 45%, rgba(0,0,0,.15) 100%)"></div>
-          <div class="relative text-white">
-            <span class="reveal inline-block text-[10px] uppercase font-bold tracking-[0.3em] bg-white/15 backdrop-blur-md border border-white/30 px-3.5 py-1 rounded-full">${SALAM}</span>
-            <h1 class="reveal ${nameCls} my-4 drop-shadow-lg">${d.brideNick} & ${d.groomNick}</h1>
-            <p class="reveal text-xs tracking-widest uppercase opacity-90">${d.firstDate}</p>
-            ${countdownHTML('glass')}
+        </section>`,
+      columns: () => `
+        <section id="sec-couple" class="border-b" style="border-color:var(--text)">
+          <div class="px-6 pt-12">${intro}</div>
+          <div class="grid grid-cols-2 border-t" style="border-color:var(--text)">${[['THE BRIDE', B], ['THE GROOM', G]].map(([lab, p], i) => `
+            <div class="reveal p-5 ${i === 0 ? 'border-r' : ''}" style="border-color:var(--text)">
+              <p class="text-[9px] tracking-[0.3em] t-muted">${lab}</p>
+              <div class="mt-3 aspect-[3/4] overflow-hidden">${img(p.photo, 'w-full h-full object-cover', p.full)}</div>
+              <p class="fh text-[28px] leading-none mt-4">${p.nick}</p>
+              <p class="text-[11px] mt-2 leading-snug t-muted">${p.full}<br>${p.parents}</p>${igLink(p.ig)}
+            </div>`).join('')}
           </div>
-        </section>`;
-
-      // klasik
-      return `
-        <section id="sec-hero" class="pt-20 pb-14 px-6 text-center border-b t-line">
-          ${T.motif ? `<div class="reveal flex justify-center animate-float">${motifSVG(T, T.motif === 'gunungan' ? 'w-24 h-28' : 'w-44 h-16')}</div>` : `<div class="reveal text-lg tracking-[0.4em] t-accent animate-float">${T.orn}</div>`}
-          <div class="reveal text-[10px] uppercase tracking-[0.3em] font-bold t-accent mt-4">${SALAM}</div>
-          <h1 class="reveal ${nameCls} my-4">${d.brideNick}<br><span class="t-accent text-2xl">&</span><br>${d.groomNick}</h1>
-          <p class="reveal text-xs t-muted tracking-wider">${d.firstDate}</p>
-          ${countdownHTML()}
-        </section>`;
-    }
-
-    function quoteHTML() {
-      const q = QUOTES[T.quote] || QUOTES.cinta;
-      return `
-        <section class="py-12 px-8 text-center border-b t-line">
-          <p class="reveal fh italic text-base leading-relaxed t-muted max-w-sm mx-auto">${q.text}</p>
-          ${q.src ? `<p class="reveal text-xs font-semibold mt-3 t-accent">${q.src}</p>` : ''}
-        </section>`;
-    }
-
-    function personHTML(who) {
-      const photo = d[who + 'Photo'], full = d[who + 'Full'], parents = d[who + 'Parents'], ig = d[who + 'Ig'];
-      const igLink = ig ? `<a href="https://instagram.com/${ig}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs t-accent font-semibold mt-2 hover:underline"><i data-lucide="instagram" class="w-3.5 h-3.5"></i> @${ig}</a>` : '';
-      const L = T.layout;
-      if (L === 'majalah') return `
-        <div class="p-4 space-y-2">
-          <div class="border-2 p-1 shadow-[4px_4px_0_var(--accent)]" style="border-color:var(--border)"><img src="${photo}" alt="${full}" loading="lazy" class="w-full aspect-[3/4] object-cover"></div>
-          <h3 class="fh font-bold text-sm uppercase leading-snug">${full}</h3>
-          <p class="text-[10px] t-muted">${parents}</p>${igLink}
-        </div>`;
-      if (L === 'polaroid') return `
-        <div class="reveal bg-white p-3 pb-5 shadow-lg ${who === 'bride' ? 'rotate-[-2deg]' : 'rotate-[2deg]'} max-w-[260px] mx-auto text-stone-800">
-          <img src="${photo}" alt="${full}" loading="lazy" class="w-full aspect-square object-cover">
-          <h3 class="fn text-3xl mt-3" style="color:${T.accent}">${full}</h3>
-          <p class="text-xs text-stone-500">${parents}</p>${igLink}
-        </div>`;
-      if (L === 'sinema') return `
-        <div class="reveal t-surface backdrop-blur-md p-4 rounded-3xl flex items-center gap-4 text-left">
-          <img src="${photo}" alt="${full}" loading="lazy" class="w-20 h-24 rounded-2xl object-cover shrink-0">
-          <div><h3 class="fn text-2xl leading-tight">${full}</h3><p class="text-xs t-muted mt-1">${parents}</p>${igLink}</div>
-        </div>`;
-      const shape = L === 'lengkung' ? 'w-32 h-40 rounded-t-full' : 'w-28 h-28 rounded-full';
-      return `
-        <div class="reveal flex flex-col items-center">
-          <div class="${shape} overflow-hidden p-1 t-ring shadow-md mb-4"><img src="${photo}" alt="${full}" loading="lazy" class="w-full h-full object-cover ${L === 'lengkung' ? 'rounded-t-full' : 'rounded-full'}"></div>
-          <h3 class="fn text-3xl">${full}</h3>
-          <p class="text-xs t-muted mt-1">${parents}</p>${igLink}
-        </div>`;
-    }
-
-    function coupleHTML() {
-      const intro = `<p class="reveal text-xs t-muted max-w-xs mx-auto leading-relaxed">Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami:</p>`;
-      const introUmum = `<p class="reveal text-xs t-muted max-w-xs mx-auto leading-relaxed">Dengan penuh sukacita, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari pernikahan kami:</p>`;
-      const head = T.quote === 'quran' ? intro : introUmum;
-      if (T.layout === 'majalah') return `
-        <section id="sec-couple" class="border-b-[3px] text-center" style="border-color:var(--border)">
-          <div class="px-6 pt-10 pb-4">${head}</div>
-          <div class="grid grid-cols-2 divide-x-[3px] text-left" style="border-color:var(--border)">${personHTML('bride')}${personHTML('groom')}</div>
-        </section>`;
-      return `
-        <section id="sec-couple" class="py-14 px-6 text-center space-y-8 border-b t-line">
-          ${head}
-          ${personHTML('bride')}
-          <div class="reveal fn text-4xl t-accent">&</div>
-          ${personHTML('groom')}
-        </section>`;
-    }
-
-    function calendarLink(ev) {
-      if (!ev.iso) return '';
-      const day = ev.iso.replace(/-/g, '');
-      const next = new Date(ev.iso + 'T00:00:00'); next.setDate(next.getDate() + 1);
-      const dayEnd = `${next.getFullYear()}${String(next.getMonth() + 1).padStart(2, '0')}${String(next.getDate()).padStart(2, '0')}`;
-      const tmp = document.createElement('textarea');
-      const plain = s => { tmp.innerHTML = s; return tmp.value; };
-      const p = new URLSearchParams({ action: 'TEMPLATE', text: `${plain(ev.name)} ${plain(d.bride)} & ${plain(d.groom)}`, dates: `${day}/${dayEnd}`, location: plain(ev.venue), details: `${plain(ev.time)}\n${location.href}` });
-      return escapeHTML('https://calendar.google.com/calendar/render?' + p.toString());
-    }
-
-    function eventsHTML() {
-      if (!d.events.length) return '';
-      const majalah = T.layout === 'majalah';
-      const cards = d.events.map(ev => `
-        <div class="reveal ${majalah ? 'border-2 border-dashed' : 't-surface rounded-3xl'} p-6 space-y-3 text-xs" ${majalah ? 'style="border-color:var(--border)"' : ''}>
-          <h3 class="fh text-xl font-semibold t-accent">${ev.name}</h3>
-          <div class="space-y-2">
-            ${ev.date ? `<div class="flex items-center gap-2"><i data-lucide="calendar" class="w-4 h-4 t-accent shrink-0"></i><span>${ev.date}</span></div>` : ''}
-            ${ev.time ? `<div class="flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4 t-accent shrink-0"></i><span>${ev.time}</span></div>` : ''}
-            ${ev.venue ? `<div class="flex items-start gap-2"><i data-lucide="map-pin" class="w-4 h-4 t-accent shrink-0 mt-0.5"></i><strong>${ev.venue}</strong></div>` : ''}
+        </section>`,
+      cards: () => `
+        <section id="sec-couple" class="px-7 py-14">${head('', V.couple)}${intro}
+          ${[B, G].map((p, i) => `
+            ${i === 1 ? `<p class="reveal ${nameCls} text-center t-accent my-3" style="${S(34)}">&amp;</p>` : ''}
+            <div class="reveal flex items-center gap-4 t-plain rounded-[26px] p-4 ${i === 1 ? 'flex-row-reverse text-right' : ''}">
+              <div class="w-24 h-28 rounded-t-full rounded-b-2xl overflow-hidden shrink-0">${img(p.photo, 'w-full h-full object-cover', p.full)}</div>
+              <div><p class="${nameCls}" style="${S(32)}">${p.nick}</p><p class="text-[12px] font-medium mt-1">${p.full}</p><p class="text-[11px] t-muted mt-0.5 leading-snug">${p.parents}</p>${igLink(p.ig)}</div>
+            </div>`).join('')}
+        </section>`,
+      diamond: () => `
+        <section id="sec-couple" class="px-7 py-14">${head('', V.couple)}${intro}
+          <div class="grid grid-cols-2 gap-4 text-center">${[B, G].map(p => `
+            <div class="reveal flex flex-col items-center">
+              <div class="w-[118px] h-[118px] rotate-45 p-1.5 t-bda mt-5"><div class="w-full h-full overflow-hidden">${img(p.photo, 'w-[142%] h-[142%] max-w-none object-cover -rotate-45 -translate-x-[15%] -translate-y-[15%]', p.full)}</div></div>
+              <p class="${nameCls} mt-10" style="${S(22, 1.5)}">${p.nick}</p>
+              <p class="text-[11px] t-muted mt-2 leading-snug">${p.full}<br>${p.parents}</p>${igLink(p.ig)}
+            </div>`).join('')}
           </div>
-          <div class="grid ${ev.iso ? 'grid-cols-2' : 'grid-cols-1'} gap-2 pt-1">
-            <a href="${ev.maps}" target="_blank" rel="noopener" class="t-btn inline-flex items-center justify-center gap-1.5 py-2.5 ${majalah ? '' : 'rounded-xl'} font-bold"><i data-lucide="navigation" class="w-3.5 h-3.5"></i> Buka Maps</a>
-            ${ev.iso ? `<a href="${calendarLink(ev)}" target="_blank" rel="noopener" class="t-outline inline-flex items-center justify-center gap-1.5 py-2.5 ${majalah ? '' : 'rounded-xl'} font-bold"><i data-lucide="calendar-plus" class="w-3.5 h-3.5"></i> Simpan</a>` : ''}
+        </section>`,
+      polaroid: () => `
+        <section id="sec-couple" class="px-7 py-14">${head('', V.couple)}${intro}
+          ${[B, G].map((p, i) => `
+            <div class="reveal bg-white p-3 pb-5 shadow-lg ${i ? 'rotate-2 -mt-2 ml-auto' : '-rotate-2'} w-[78%] text-stone-800 ${i ? 'text-right' : ''}">
+              ${img(p.photo, 'w-full aspect-[4/3] object-cover', p.full)}
+              <p class="mt-3 text-[30px] leading-none" style="font-family:'Caveat',cursive;color:${T.accent}">${p.nick}</p>
+              <p class="text-[11px] text-stone-500">${p.full} · ${p.parents}</p>
+            </div>`).join('')}
+        </section>`,
+      circle: () => `
+        <section id="sec-couple" class="px-8 py-14 text-center">${head('', V.couple)}${intro}
+          ${[B, G].map((p, i) => `
+            ${i === 1 ? `<div class="reveal my-8">${divider()}</div>` : ''}
+            <div class="reveal flex flex-col items-center">
+              <div class="w-40 h-40 rounded-full p-1.5 t-bda">${img(p.photo, 'w-full h-full object-cover rounded-full', p.full)}</div>
+              <p class="${nameCls} mt-5" style="${S(36)}">${p.full}</p>
+              <p class="text-[12px] t-muted mt-2">${p.parents}</p>${igLink(p.ig)}
+            </div>`).join('')}
+        </section>`,
+      overlap: () => `
+        <section id="sec-couple" class="px-7 py-14">${head('', V.couple)}${intro}
+          <div class="reveal relative h-[330px]">
+            <div class="absolute left-0 top-0 w-[58%] h-[270px] overflow-hidden rounded-xl shadow-lg">${img(B.photo, 'w-full h-full object-cover', B.full)}</div>
+            <div class="absolute right-0 bottom-0 w-[58%] h-[270px] overflow-hidden rounded-xl shadow-lg ring-8" style="--tw-ring-color:var(--bg)">${img(G.photo, 'w-full h-full object-cover', G.full)}</div>
+            <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full t-btn flex items-center justify-center fh text-3xl italic shadow-lg">&amp;</span>
           </div>
-        </div>`).join('');
-      return `
-        <section id="sec-event" class="py-14 px-6 border-b t-line space-y-5">
-          <div class="reveal text-center"><span class="text-[10px] uppercase tracking-[0.3em] font-bold t-accent">Save The Date</span><h2 class="fh text-3xl mt-1">Rangkaian Acara</h2></div>
-          ${cards}
-        </section>`;
-    }
+          <div class="grid grid-cols-2 gap-4 mt-6">${[B, G].map((p, i) => `
+            <div class="reveal ${i ? 'text-right' : ''}"><p class="${nameCls}" style="${S(28)}">${p.nick}</p><p class="text-[11px] t-muted mt-1 leading-snug">${p.full}<br>${p.parents}</p>${igLink(p.ig)}</div>`).join('')}
+          </div>
+        </section>`
+    };
+
+    // ============================================================
+    // 8. ACARA (6 gaya)
+    // ============================================================
+    const venueBlock = (cls = '') => sameVenue && d.events[0] ? `
+      <div class="reveal ${cls} text-center">
+        <p class="text-sm font-medium">${d.events[0].venue}</p>
+        <div class="flex flex-wrap justify-center gap-2 mt-4">${btnMaps(d.events[0])}${btnCal(d.events[0])}</div>
+      </div>` : '';
+    const EVENT = {
+      royal: () => `
+        <section id="sec-event" class="px-7 py-14">
+          <div class="reveal t-surface px-6 py-10 text-center">
+            <p class="eyebrow">${V.events}</p>
+            ${d.dt ? `<div class="flex items-center justify-center gap-4 mt-6">
+              <span class="text-[11px] tracking-[0.22em] uppercase t-muted">${e(d.weekday)}</span>
+              <span class="fh leading-none px-4" style="font-size:64px;border-left:1px solid var(--accent);border-right:1px solid var(--accent)">${d.day}</span>
+              <span class="text-[11px] tracking-[0.22em] uppercase t-muted">${d.monShort} ${d.year}</span></div>` : ''}
+            <div class="grid ${d.events.length > 1 ? 'grid-cols-2' : 'grid-cols-1'} mt-7 border-t t-line">${d.events.map((ev, i) => `
+              <div class="pt-5 px-2 ${i % 2 === 0 && d.events.length > 1 ? 'border-r t-line' : ''}">
+                <p class="fh text-[22px]">${ev.name}</p><p class="text-xs t-muted mt-1">${ev.time}</p>
+                ${!sameVenue ? `<p class="text-xs mt-2">${ev.venue}</p><div class="mt-3">${btnMaps(ev, 't-outline rounded-full')}</div>` : ''}
+              </div>`).join('')}
+            </div>
+            ${venueBlock('mt-7')}
+          </div>
+        </section>`,
+      table: () => `
+        <section id="sec-event" class="px-6 py-12">
+          <p class="reveal text-[10px] tracking-[0.3em] uppercase t-muted mb-4">${V.events}</p>
+          ${d.events.map((ev, i) => `
+            <div class="reveal grid grid-cols-[92px_minmax(0,1fr)] gap-2 py-4 border-t ${i === d.events.length - 1 ? 'border-b' : ''}" style="border-color:var(--text)">
+              <span class="fh text-[28px] leading-none">${ev.start || '—'}</span>
+              <div><p class="text-[15px] font-medium">${ev.name}</p><p class="text-xs t-muted mt-0.5">${ev.date} · ${ev.time}</p><p class="text-xs t-muted">${ev.venue}</p></div>
+            </div>`).join('')}
+          ${d.events[0] ? `<div class="reveal grid grid-cols-2 gap-2.5 mt-5">${btnMaps(d.events[0], 'border rounded-none')}${btnCal(d.events[0], 'border rounded-none') || ''}</div>` : ''}
+        </section>`,
+      icons: () => `
+        <section id="sec-event" class="px-7 py-14">${head('', V.events)}
+          <div class="grid ${d.events.length > 1 ? 'grid-cols-2' : 'grid-cols-1'} gap-3">${d.events.map((ev, i) => `
+            <div class="reveal t-plain rounded-[24px] px-4 py-6 text-center">
+              <span class="mx-auto w-12 h-12 rounded-full flex items-center justify-center photo-ph"><i data-lucide="${i === 0 ? 'heart-handshake' : 'party-popper'}" class="w-5 h-5 t-accent"></i></span>
+              <p class="fh text-[21px] font-semibold mt-3">${ev.name}</p><p class="text-xs t-muted mt-1">${ev.time}</p>
+              ${!sameVenue ? `<p class="text-xs mt-2">${ev.venue}</p>` : ''}
+            </div>`).join('')}
+          </div>
+          ${d.events[0] ? `<div class="reveal t-plain rounded-[24px] p-4 mt-3 flex items-center gap-3">
+            <span class="w-11 h-11 rounded-full photo-ph flex items-center justify-center shrink-0"><i data-lucide="map-pin" class="w-5 h-5 t-accent"></i></span>
+            <div class="flex-1 min-w-0"><p class="text-sm font-medium truncate">${d.venues.join(' & ')}</p><p class="text-xs t-muted">${d.dateLong}</p></div>
+            <a href="${d.events[0].maps}" target="_blank" rel="noopener" class="t-outline rounded-full min-h-[44px] px-4 inline-flex items-center text-xs font-semibold">Maps</a>
+          </div>` : ''}
+        </section>`,
+      deco: () => `
+        <section id="sec-event" class="px-7 py-14">
+          <div class="reveal relative px-6 py-10 text-center t-bda">
+            ${['-left-px -top-px border-r border-b', '-right-px -top-px border-l border-b', '-left-px -bottom-px border-r border-t', '-right-px -bottom-px border-l border-t'].map(c => `<div class="absolute ${c} w-6 h-6" style="border-color:var(--accent)"></div>`).join('')}
+            <p class="eyebrow">${V.events}</p>
+            <p class="fh text-2xl mt-3">${d.dateLong}</p>
+            <div class="grid ${d.events.length > 1 ? 'grid-cols-2' : 'grid-cols-1'} gap-3 mt-6">${d.events.map(ev => `
+              <div class="border-t pt-3 t-line"><p style="font-family:'Cinzel',serif" class="text-[13px] tracking-[0.16em] uppercase">${ev.name}</p><p class="text-xs t-muted mt-1">${ev.time}</p>${!sameVenue ? `<p class="text-xs mt-1">${ev.venue}</p>` : ''}</div>`).join('')}
+            </div>
+            ${venueBlock('mt-7')}
+          </div>
+        </section>`,
+      ticket: () => `
+        <section id="sec-event" class="px-6 py-12">${head('', V.events)}
+          ${d.events.map(ev => `
+            <div class="reveal flex rounded-[20px] overflow-hidden mb-3 t-plain" style="border:1px solid var(--border)">
+              <div class="t-btn w-24 shrink-0 flex flex-col items-center justify-center py-4"><span class="fh text-4xl leading-none">${ev.iso ? ev.iso.slice(8) : '--'}</span><span class="text-[10px] tracking-[0.2em] uppercase mt-1">${d.monShort}</span></div>
+              <div class="flex-1 px-4 py-4 border-l-2 border-dashed t-line">
+                <p class="text-[9px] tracking-[0.25em] t-muted">ACARA</p><p class="fh text-xl leading-tight">${ev.name}</p>
+                <p class="text-xs mt-1">${ev.time}</p><p class="text-xs t-muted truncate">${ev.venue}</p>
+                <a href="${ev.maps}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-[11px] font-semibold t-accent mt-2 min-h-[32px]"><i data-lucide="navigation" class="w-3.5 h-3.5"></i>Petunjuk lokasi</a>
+              </div>
+            </div>`).join('')}
+        </section>`,
+      timeline: () => `
+        <section id="sec-event" class="px-8 py-14">${head('', V.events)}
+          <p class="reveal text-center fh text-xl -mt-4 mb-8 t-muted">${d.dateLong}</p>
+          <div class="relative pl-8">
+            <div class="absolute left-[11px] top-2 bottom-2 w-px t-bg-accent opacity-50"></div>
+            ${d.events.map(ev => `
+              <div class="reveal relative pb-8">
+                <span class="absolute -left-8 top-1 w-[23px] h-[23px] rounded-full th t-bda flex items-center justify-center"><span class="w-2 h-2 rounded-full t-bg-accent"></span></span>
+                <p class="text-xs tracking-[0.2em] t-accent font-semibold">${ev.time}</p>
+                <p class="fh text-2xl mt-1">${ev.name}</p>
+                <p class="text-xs t-muted mt-0.5">${ev.venue}</p>
+                <div class="flex flex-wrap gap-2 mt-3">${btnMaps(ev, 't-outline rounded-full')}${btnCal(ev, 't-outline rounded-full')}</div>
+              </div>`).join('')}
+          </div>
+        </section>`
+    };
+
+    // ============================================================
+    // 9. HITUNG MUNDUR (5 gaya)
+    // ============================================================
+    const hasCount = !!(d.events[0] && d.events[0].iso);
+    const unit = [['cdD', 'Hari'], ['cdH', 'Jam'], ['cdM', 'Menit'], ['cdS', 'Detik']];
+    const passed = `<p id="eventPassed" class="hidden text-center text-sm t-muted px-8">Alhamdulillah, acara telah berlangsung. Terima kasih atas doa dan kehadirannya.</p>`;
+    const COUNT = {
+      box: () => `<section class="px-7 py-12">${head('', V.count)}<div id="countdownWrap" class="reveal grid grid-cols-4 gap-2.5 text-center">${unit.map(([id, l]) => `<div class="t-bd py-3"><p id="${id}" class="fh text-[30px] leading-none tabular-nums">00</p><p class="text-[9px] tracking-[0.24em] uppercase t-muted mt-1.5">${l}</p></div>`).join('')}</div>${passed}</section>`,
+      rules: () => `<section class="px-6 py-10 border-b" style="border-color:var(--text)"><p class="text-[10px] tracking-[0.3em] uppercase t-muted mb-4">${V.count}</p><div id="countdownWrap" class="reveal grid grid-cols-4">${unit.map(([id, l]) => `<div class="border-l pl-3" style="border-color:var(--text)"><p id="${id}" class="fh text-[38px] leading-none tabular-nums">00</p><p class="text-[9px] tracking-[0.24em] uppercase t-muted mt-1">${l}</p></div>`).join('')}</div>${passed}</section>`,
+      pill: () => `<section class="px-7 py-12">${head('', V.count)}<div id="countdownWrap" class="reveal grid grid-cols-4 gap-2.5 text-center">${unit.map(([id, l]) => `<div class="t-btn rounded-[20px] py-3.5"><p id="${id}" class="fh text-[28px] font-semibold leading-none tabular-nums">00</p><p class="text-[9px] tracking-[0.2em] uppercase mt-1.5 opacity-90">${l}</p></div>`).join('')}</div>${passed}</section>`,
+      ring: () => `<section class="px-7 py-12">${head('', V.count)}<div id="countdownWrap" class="reveal grid grid-cols-4 gap-2 text-center">${unit.map(([id, l]) => `<div class="mx-auto w-[70px] h-[70px] rounded-full t-bda flex flex-col items-center justify-center"><p id="${id}" class="fh text-2xl leading-none tabular-nums">00</p><p class="text-[8px] tracking-[0.2em] uppercase t-muted mt-1">${l}</p></div>`).join('')}</div>${passed}</section>`,
+      inline: () => `<section class="px-8 py-12 text-center"><div id="countdownWrap" class="reveal"><p class="eyebrow">${V.count}</p><p class="fh text-[30px] leading-snug mt-3">Tinggal <span id="cdD" class="t-accent">00</span> hari lagi</p><p class="text-xs t-muted mt-2 tabular-nums"><span id="cdH">00</span> jam · <span id="cdM">00</span> menit · <span id="cdS">00</span> detik</p></div>${passed}</section>`
+    };
+
+    // ============================================================
+    // 10. BAGIAN TAMBAHAN (muncul bila diisi klien)
+    // ============================================================
+    const STORY = {
+      timeline: () => `
+        <section id="sec-story" class="px-8 py-14">${head('', V.story)}
+          <div class="relative">
+            <div class="absolute left-1/2 top-0 bottom-0 w-px t-bg-accent opacity-40"></div>
+            ${d.story.map((s, i) => `
+              <div class="reveal relative grid grid-cols-2 gap-6 pb-9">
+                <div class="${i % 2 ? 'order-2 text-left' : 'text-right'}"><p class="fh text-3xl t-accent leading-none">${s.year}</p></div>
+                <div class="${i % 2 ? 'order-1 text-right' : 'text-left'}"><p class="font-medium text-sm">${s.title}</p><p class="text-xs t-muted leading-relaxed mt-1">${s.text}</p></div>
+                <span class="absolute left-1/2 -translate-x-1/2 top-2 w-3 h-3 rounded-full t-bg-accent ring-4" style="--tw-ring-color:var(--bg)"></span>
+              </div>`).join('')}
+          </div>
+        </section>`,
+      chapters: () => `
+        <section id="sec-story" class="px-7 py-14">${head('', V.story)}
+          <div class="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory -mx-7 px-7 pb-2">${d.story.map((s, i) => `
+            <div class="reveal snap-start shrink-0 w-[78%] t-surface rounded-[24px] p-6">
+              <p class="text-[10px] tracking-[0.3em] uppercase t-muted">Bab ${i + 1}</p>
+              <p class="fh text-5xl t-accent leading-none mt-2">${s.year}</p>
+              <p class="fh text-xl mt-3">${s.title}</p>
+              <p class="text-xs t-muted leading-relaxed mt-2">${s.text}</p>
+            </div>`).join('')}
+          </div>
+        </section>`
+    };
+    const GALLERY = {
+      grid: () => `
+        <section id="sec-gallery" class="px-7 py-14">${head('', V.gallery)}
+          <div class="grid grid-cols-2 gap-2.5">${d.gallery.map((g, i) => `
+            <button type="button" onclick="openLightbox('${i}')" class="reveal overflow-hidden rounded-xl ${i === 0 ? 'col-span-2 aspect-[16/10]' : 'aspect-square'}" aria-label="Lihat foto ${i + 1}">${img(g, 'w-full h-full object-cover hover:scale-105 transition-transform duration-700')}</button>`).join('')}
+          </div>
+        </section>`,
+      film: () => `
+        <section id="sec-gallery" class="py-14">${head('', V.gallery, 'px-7')}
+          <div class="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory px-7 pb-2">${d.gallery.map((g, i) => `
+            <button type="button" onclick="openLightbox('${i}')" class="snap-center shrink-0 w-[62%] aspect-[3/4] overflow-hidden ${i % 2 ? 'rounded-b-full rounded-t-xl mt-8' : 'rounded-t-full rounded-b-xl'}" aria-label="Lihat foto ${i + 1}">${img(g, 'w-full h-full object-cover')}</button>`).join('')}
+          </div>
+        </section>`
+    };
+    const EXTRA = {
+      dress: () => d.dress ? `
+        <section class="px-7 py-10">
+          <div class="reveal t-surface rounded-[24px] p-6 flex items-center gap-4">
+            <span class="w-12 h-12 rounded-full photo-ph flex items-center justify-center shrink-0"><i data-lucide="shirt" class="w-5 h-5 t-accent"></i></span>
+            <div><p class="eyebrow">Dress Code</p><p class="fh text-xl mt-1">${d.dress}</p></div>
+          </div>
+        </section>` : '',
+      stream: () => d.stream ? `
+        <section class="px-7 py-10 text-center">
+          <div class="reveal t-surface rounded-[24px] p-6">
+            <i data-lucide="video" class="w-6 h-6 t-accent mx-auto"></i>
+            <p class="fh text-2xl mt-2">Live Streaming</p>
+            <p class="text-xs t-muted mt-1">Tidak bisa hadir? Saksikan momen bahagia kami secara langsung.</p>
+            <a href="${d.stream}" target="_blank" rel="noopener" class="t-btn rounded-full inline-flex items-center justify-center gap-2 min-h-[44px] px-6 mt-4 text-[11px] font-semibold tracking-[0.14em] uppercase"><i data-lucide="play" class="w-4 h-4"></i>Tonton Live</a>
+          </div>
+        </section>` : '',
+      turut: () => d.turut.length ? `
+        <section class="px-8 py-12 text-center">
+          <p class="reveal eyebrow">${V.turut}</p>
+          <div class="reveal mt-4 space-y-1.5 text-sm">${d.turut.map(t => `<p>${t}</p>`).join('')}</div>
+        </section>` : ''
+    };
 
     function giftHTML() {
       if (!d.gifts.length) return '';
       return `
-        <section id="sec-gift" class="py-14 px-6 border-b t-line text-center space-y-5">
-          <div class="reveal"><span class="text-[10px] uppercase tracking-[0.3em] font-bold t-accent">Tanda Kasih</span><h2 class="fh text-3xl mt-1">Amplop Digital</h2>
-            <p class="text-xs t-muted max-w-xs mx-auto mt-2 leading-relaxed">Doa restu Anda adalah karunia terindah bagi kami. Bagi yang ingin memberikan tanda kasih secara digital:</p></div>
+        <section id="sec-gift" class="px-7 py-14 text-center">${head('', V.gift)}
+          <p class="reveal text-xs t-muted max-w-xs mx-auto -mt-4 mb-6 leading-relaxed">${V.giftText}</p>
           ${d.gifts.map(g => `
-            <div class="reveal t-surface rounded-2xl p-5 text-left text-xs">
+            <div class="reveal t-surface rounded-[20px] p-5 text-left mb-3">
               <div class="flex justify-between items-center gap-3">
-                <span class="font-bold uppercase tracking-wider t-accent">${g.bank}</span>
-                <button type="button" data-acc="${g.acc}" onclick="copyAcc(this)" class="t-outline inline-flex items-center gap-1 px-3 py-1 rounded-lg text-[11px] font-semibold"><i data-lucide="copy" class="w-3 h-3"></i> Salin</button>
+                <span class="text-[11px] font-semibold tracking-[0.2em] uppercase t-accent">${g.bank}</span>
+                <button type="button" data-acc="${g.acc}" onclick="copyAcc(this)" class="t-outline inline-flex items-center gap-1 px-3 min-h-[36px] rounded-full text-[11px] font-semibold"><i data-lucide="copy" class="w-3 h-3"></i> Salin</button>
               </div>
-              <div class="font-mono text-lg font-bold tracking-wider my-1">${g.acc}</div>
-              ${g.holder ? `<div class="t-muted">a.n. ${g.holder}</div>` : ''}
+              <p class="font-mono text-lg font-semibold tracking-wider mt-2">${g.acc}</p>
+              ${g.holder ? `<p class="text-xs t-muted">a.n. ${g.holder}</p>` : ''}
             </div>`).join('')}
         </section>`;
     }
-
     function rsvpHTML() {
       return `
-        <section id="sec-rsvp" class="py-14 px-6 space-y-5 text-xs">
-          <div class="reveal text-center"><span class="text-[10px] uppercase tracking-[0.3em] font-bold t-accent">Konfirmasi & Doa</span><h2 class="fh text-3xl mt-1">Buku Tamu & RSVP</h2></div>
-          <form onsubmit="handleWish(event)" class="reveal t-surface rounded-3xl p-5 space-y-3">
-            <label class="block"><span class="font-semibold">Nama</span><input id="wName" required maxlength="60" placeholder="Tuliskan nama Anda" class="t-input w-full p-2.5 rounded-xl mt-1"></label>
+        <section id="sec-rsvp" class="px-7 py-14 text-xs">${head('', V.rsvp)}
+          <form onsubmit="handleWish(event)" class="reveal t-surface rounded-[24px] p-5 space-y-3">
+            <label class="block"><span class="font-semibold">Nama</span><input id="wName" required maxlength="60" placeholder="Tuliskan nama Anda" class="t-input w-full p-3 rounded-xl mt-1"></label>
             <label class="block"><span class="font-semibold">Kehadiran</span>
-              <select id="wStatus" class="t-input w-full p-2.5 rounded-xl mt-1"><option value="Hadir">Insya Allah hadir</option><option value="Tidak Hadir">Mohon maaf, tidak bisa hadir</option><option value="Masih Ragu">Masih ragu</option></select></label>
-            <label class="block"><span class="font-semibold">Ucapan & doa</span><textarea id="wMsg" required rows="3" maxlength="500" placeholder="Tuliskan ucapan dan doa terbaik..." class="t-input w-full p-2.5 rounded-xl mt-1 resize-none"></textarea></label>
-            <button class="t-btn w-full py-3 rounded-xl font-bold uppercase tracking-wider">Kirim Ucapan</button>
+              <select id="wStatus" class="t-input w-full p-3 rounded-xl mt-1"><option value="Hadir">Insya Allah hadir</option><option value="Tidak Hadir">Mohon maaf, tidak bisa hadir</option><option value="Masih Ragu">Masih ragu</option></select></label>
+            <label class="block"><span class="font-semibold">Ucapan & doa</span><textarea id="wMsg" required rows="3" maxlength="500" placeholder="Tuliskan ucapan dan doa terbaik..." class="t-input w-full p-3 rounded-xl mt-1 resize-none"></textarea></label>
+            <button class="t-btn w-full min-h-[48px] rounded-full font-semibold uppercase tracking-[0.18em] text-[11px]">Kirim Ucapan</button>
           </form>
-          <div id="rsvpNotice"></div>
-          <div id="wishesBox" class="space-y-2 max-h-80 overflow-y-auto pr-1" aria-live="polite"></div>
+          <div id="rsvpNotice" class="mt-3"></div>
+          <div id="wishesBox" class="space-y-2 max-h-80 overflow-y-auto pr-1 mt-3" aria-live="polite"></div>
         </section>`;
     }
 
-    function footerHTML() {
-      return `
-        <footer class="pt-6 pb-10 px-6 text-center">
-          ${T.motif ? `<div class="flex justify-center mb-4 opacity-80">${motifSVG(T, 'w-32 h-12')}</div>` : ''}
-          <p class="fh italic text-lg">${T.cat === 'adat' && T.salam === 'Wilujeng Sumping' ? 'Hatur nuhun' : T.salam === 'Sugeng Rawuh' || T.salam === 'Pahargyan Dhaup' ? 'Matur nuwun' : T.salam === 'Horas!' ? 'Mauliate' : 'Terima kasih'}</p>
-          <p class="fn text-3xl t-accent mt-1">${d.brideNick} & ${d.groomNick}</p>
-          <p class="text-[10px] t-muted mt-6">Undangan digital oleh <a href="dibuatin.html" class="font-bold t-accent">di.buat.in</a> • by di.raya.in</p>
-        </footer>`;
-    }
+    // ============================================================
+    // 11. PENUTUP (3 gaya)
+    // ============================================================
+    const CLOSING = {
+      script: () => `
+        <footer class="px-8 pt-10 pb-12 text-center">
+          ${divider()}
+          <p class="reveal text-sm t-muted leading-relaxed mt-6 max-w-xs mx-auto">${V.closing}</p>
+          <p class="reveal ${nameCls} t-accent mt-6" style="${S(40)}">${d.brideNick} &amp; ${d.groomNick}</p>
+          <p class="text-[10px] t-muted mt-8">Undangan digital oleh <a href="dibuatin.html" class="font-semibold t-accent">di.buat.in</a></p>
+        </footer>`,
+      formal: () => `
+        <footer class="px-8 pt-10 pb-12 text-center">
+          ${divider()}
+          <p class="reveal text-sm leading-relaxed mt-6 max-w-xs mx-auto">${V.closing}</p>
+          ${V.closeSalam ? `<p class="reveal fh italic text-lg mt-5">${V.closeSalam}</p>` : ''}
+          <p class="reveal eyebrow mt-8">${V.sign}</p>
+          <p class="reveal ${nameCls} mt-3" style="${S(40)}">${d.brideNick} &amp; ${d.groomNick}</p>
+          <p class="reveal fh text-xl t-accent mt-5">${V.thanks}</p>
+          <p class="text-[10px] t-muted mt-8">Undangan digital oleh <a href="dibuatin.html" class="font-semibold t-accent">di.buat.in</a></p>
+        </footer>`,
+      editorial: () => `
+        <footer class="px-6 pt-12 pb-12">
+          <p class="reveal fh italic text-[34px] leading-tight">${V.closing}</p>
+          <p class="reveal mt-5 text-[10px] tracking-[0.34em] uppercase t-muted">${d.brideNick} &amp; ${d.groomNick} — ${d.year}</p>
+          <p class="text-[10px] t-muted mt-10">Undangan digital oleh <a href="dibuatin.html" class="font-semibold t-accent">di.buat.in</a></p>
+        </footer>`
+    };
 
     // ============================================================
-    // 5. RENDER
+    // 12. RAKIT HALAMAN SESUAI URUTAN DESAIN
     // ============================================================
+    const RENDER = {
+      hero: () => (HERO[T.hero] || HERO.royal)(),
+      quote: () => (QUOTE[T.quote] || QUOTE.center)(),
+      couple: () => (COUPLE[T.couple] || COUPLE.arch)(),
+      events: () => d.events.length ? (EVENT[T.event] || EVENT.royal)() : '',
+      count: () => hasCount ? (COUNT[T.count] || COUNT.box)() : '',
+      story: () => d.story.length ? (STORY[T.story] || STORY.timeline)() : '',
+      gallery: () => d.gallery.length ? (GALLERY[T.gallery] || GALLERY.grid)() : '',
+      dress: EXTRA.dress, stream: EXTRA.stream, turut: EXTRA.turut,
+      gift: giftHTML, rsvp: rsvpHTML,
+      closing: () => (CLOSING[T.closing] || CLOSING.script)()
+    };
+
     function render() {
-      document.getElementById('templateRoot').innerHTML =
-        heroHTML() + quoteHTML() + coupleHTML() + eventsHTML() + giftHTML() + rsvpHTML() + footerHTML();
+      const order = (URUTAN[T.order] || URUTAN.islami);
+      document.getElementById('templateRoot').innerHTML = order.map(k => (RENDER[k] ? RENDER[k]() : '')).join('');
 
       const names = `${d.brideNick} & ${d.groomNick}`;
-      const tmp = document.createElement('textarea'); tmp.innerHTML = names;
-      document.title = `The Wedding of ${tmp.value}`;
+      const unesc = s => { const t = document.createElement('textarea'); t.innerHTML = s; return t.value; };
+      document.title = `The Wedding of ${unesc(names)}`;
 
-      // Sampul
+      // Sampul pembuka
       document.getElementById('coverCard').innerHTML = `
-        ${T.motif ? motifSVG(T, T.motif === 'gunungan' ? 'w-16 h-20' : 'w-36 h-12') : ''}
-        <span class="text-[10px] uppercase tracking-[0.3em] font-bold t-accent">${SALAM}</span>
-        <h1 class="${nameCls}">${names}</h1>
-        <div class="w-28 h-28 rounded-full overflow-hidden p-1 t-ring shadow-lg"><img src="${d.cover}" alt="" class="w-full h-full object-cover rounded-full"></div>
+        <div class="absolute inset-2.5 rounded-[1.6rem] pointer-events-none t-bd"></div>
+        ${T.motif ? motifSVG(T, T.motif === 'gunungan' ? 'w-16 h-20' : 'w-40 h-12') : T.hero === 'deco' ? fanSVG(120) : ''}
+        <p class="eyebrow">${SALAM}</p>
+        <div class="w-28 h-28 rounded-full overflow-hidden p-1 t-ring">${img(d.cover, 'w-full h-full object-cover rounded-full')}</div>
+        <h1 class="${nameCls}" style="${S(38, 1.3)}">${names}</h1>
+        ${d.dt ? `<p class="text-[11px] tracking-[0.3em] uppercase t-muted -mt-1">${d.day} · ${d.mon} · ${d.year}</p>` : ''}
         <div class="w-full">
-          <p class="text-xs t-muted mb-1.5">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
-          <div class="t-surface px-4 py-2.5 rounded-2xl text-sm font-bold break-words t-accent">${GUEST ? escapeHTML(GUEST) : 'Tamu Undangan'}</div>
+          <p class="text-[11px] t-muted mb-1.5">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+          <div class="px-4 py-3 rounded-2xl fh text-xl font-semibold break-words" style="border-top:1px solid var(--border);border-bottom:1px solid var(--border)">${GUEST ? e(GUEST) : 'Tamu Undangan'}</div>
           ${GUEST ? '<p class="text-[10px] t-muted mt-1.5">Mohon maaf apabila ada kesalahan penulisan nama/gelar</p>' : ''}
         </div>
-        <button type="button" onclick="openInvitation()" class="t-btn w-full py-3.5 rounded-full font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg">
+        <button type="button" onclick="openInvitation()" class="t-btn w-full min-h-[50px] rounded-full font-semibold text-[11px] uppercase tracking-[0.3em] flex items-center justify-center gap-2 shadow-lg">
           <i data-lucide="mail-open" class="w-4 h-4"></i> Buka Undangan
         </button>`;
 
-      // Panel kiri desktop
-      const unesc = s => { const t = document.createElement('textarea'); t.innerHTML = s; return t.value; };
       document.getElementById('desktopBg').src = unesc(d.cover);
       document.getElementById('desktopNames').innerHTML = names;
-      document.getElementById('desktopDate').innerHTML = d.firstDate;
-      document.getElementById('desktopVenue').innerHTML = d.firstVenue;
+      document.getElementById('desktopDate').innerHTML = d.dateLong;
+      document.getElementById('desktopVenue').innerHTML = d.venues.join(' & ');
 
-      // Navigasi bawah (hanya bagian yang ada)
-      const NAV = [['sec-hero', 'home', 'Sampul'], ['sec-couple', 'heart', 'Mempelai'], ['sec-event', 'calendar', 'Acara'], ['sec-gift', 'gift', 'Amplop'], ['sec-rsvp', 'message-circle', 'Ucapan']];
-      document.getElementById('bottomNavInner').innerHTML = NAV.filter(n => document.getElementById(n[0]))
-        .map(n => `<a href="#${n[0]}" class="flex flex-col items-center gap-0.5 px-1 hover:text-amber-300 transition-colors"><i data-lucide="${n[1]}" class="w-4 h-4"></i><span>${n[2]}</span></a>`).join('');
+      const NAV = [['sec-hero', 'home', 'Sampul'], ['sec-couple', 'heart', 'Mempelai'], ['sec-event', 'calendar', 'Acara'], ['sec-gallery', 'image', 'Galeri'], ['sec-gift', 'gift', 'Amplop'], ['sec-rsvp', 'message-circle', 'Ucapan']];
+      document.getElementById('bottomNavInner').innerHTML = NAV.filter(n => document.getElementById(n[0])).slice(0, 5)
+        .map(n => `<a href="#${n[0]}" class="flex flex-col items-center gap-0.5 px-1 min-w-[44px] hover:text-amber-200 transition-colors"><i data-lucide="${n[1]}" class="w-4 h-4"></i><span>${n[2]}</span></a>`).join('');
 
-      // Mode
-      if (MODE === 'preview') {
-        document.getElementById('previewBanner').classList.remove('hidden');
-        document.getElementById('watermark').classList.remove('hidden');
-      }
+      if (MODE === 'preview') { document.getElementById('previewBanner').classList.remove('hidden'); document.getElementById('watermark').classList.remove('hidden'); }
       if (MODE === 'demo') {
         document.getElementById('demoBanner').classList.remove('hidden');
         document.getElementById('demoThemeName').textContent = T.name;
         document.getElementById('demoOrderLink').href = `dibuatin.html?tema=${encodeURIComponent(T.id)}#order`;
       }
-      if (GUEST) {
-        const w = document.getElementById('wName'); if (w) w.value = GUEST;
-      }
+      if (GUEST) { const w = document.getElementById('wName'); if (w) w.value = GUEST; }
 
       lucide.createIcons();
       renderWishes();
       startCountdown();
-      const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('revealed'); io.unobserve(en.target); } }), { threshold: 0.1 });
+      const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('revealed'); io.unobserve(en.target); } }), { threshold: 0.08 });
       document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     }
 
     // ============================================================
-    // 6. INTERAKSI
+    // 13. INTERAKSI
     // ============================================================
-    // Hitung mundur ke acara pertama
     function startCountdown() {
       const ev = d.events[0];
       if (!ev || !ev.iso || !document.getElementById('cdD')) return;
-      const tm = (RAW.events[0].time || '').match(/(\d{1,2})[.:](\d{2})/);
+      const tm = String((RAW.events[0] || {}).time || '').match(/(\d{1,2})[.:](\d{2})/);
       const target = new Date(`${ev.iso}T${tm ? tm[1].padStart(2, '0') + ':' + tm[2] : '08:00'}:00+07:00`).getTime();
       const pad = n => String(n).padStart(2, '0');
       const tick = () => {
         const diff = target - Date.now();
-        if (diff <= 0) {
-          document.getElementById('countdownWrap').classList.add('hidden');
-          document.getElementById('eventPassed').classList.remove('hidden');
-          clearInterval(timer); return;
-        }
+        if (diff <= 0) { document.getElementById('countdownWrap').classList.add('hidden'); document.getElementById('eventPassed').classList.remove('hidden'); clearInterval(timer); return; }
         document.getElementById('cdD').textContent = pad(Math.floor(diff / 864e5));
         document.getElementById('cdH').textContent = pad(Math.floor(diff % 864e5 / 36e5));
         document.getElementById('cdM').textContent = pad(Math.floor(diff % 36e5 / 6e4));
@@ -535,112 +887,100 @@
       const timer = setInterval(tick, 1000); tick();
     }
 
-    // Musik
-    const bgMusic = document.getElementById('bgMusic');
-    const MUSIC_SRC = safeUrl(RAW.musicUrl); // musik hanya dari pilihan klien (dipasang admin)
-    let isPlaying = false, pausedByHide = false;
+    // Galeri
+    function openLightbox(i) {
+      const u = d.gallery[+i]; if (!u) return;
+      const t = document.createElement('textarea'); t.innerHTML = u;
+      document.getElementById('lightboxImg').src = t.value;
+      const lb = document.getElementById('lightbox'); lb.classList.remove('hidden'); lb.classList.add('flex');
+    }
+    function closeLightbox(ev) {
+      if (ev && ev.target && ev.target.id === 'lightboxImg') return;
+      const lb = document.getElementById('lightbox'); lb.classList.add('hidden'); lb.classList.remove('flex');
+    }
+    document.addEventListener('keydown', ev => { if (ev.key === 'Escape') closeLightbox(); });
 
+    // Musik (hanya bila klien memilih lagu)
+    const bgMusic = document.getElementById('bgMusic');
+    const MUSIC_SRC = safeUrl(RAW.musicUrl);
+    let isPlaying = false, pausedByHide = false;
     function setMusicUI() {
       document.getElementById('vinylDisc').classList.toggle('vinyl-spin', isPlaying);
       document.getElementById('musicLabel').textContent = isPlaying ? 'Musik ON' : 'Musik OFF';
     }
     function playMusic() {
+      if (!MUSIC_SRC) return;
       if (!bgMusic.src) bgMusic.src = MUSIC_SRC;
       bgMusic.play().then(() => { isPlaying = true; setMusicUI(); }).catch(() => { isPlaying = false; setMusicUI(); });
     }
-    function toggleMusic() {
-      if (isPlaying) { bgMusic.pause(); isPlaying = false; setMusicUI(); } else playMusic();
-    }
+    function toggleMusic() { if (isPlaying) { bgMusic.pause(); isPlaying = false; setMusicUI(); } else playMusic(); }
     bgMusic.addEventListener('error', () => { document.getElementById('musicChip').classList.add('hidden'); isPlaying = false; });
     document.addEventListener('visibilitychange', () => {
       if (document.hidden && isPlaying) { bgMusic.pause(); isPlaying = false; pausedByHide = true; setMusicUI(); }
       else if (!document.hidden && pausedByHide) { pausedByHide = false; playMusic(); }
     });
-
     function openInvitation() {
       const modal = document.getElementById('coverModal');
       modal.classList.add('opacity-0', 'pointer-events-none');
       setTimeout(() => modal.classList.add('hidden'), 700);
       document.body.classList.remove('locked');
-      const chip = document.getElementById('musicChip');
-      if (MUSIC_SRC) { chip.classList.remove('hidden'); chip.classList.add('flex'); playMusic(); }
+      if (MUSIC_SRC) { const chip = document.getElementById('musicChip'); chip.classList.remove('hidden'); chip.classList.add('flex'); playMusic(); }
     }
 
     // Salin rekening
     function toast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg; t.classList.remove('hidden');
+      const t = document.getElementById('toast'); t.textContent = msg; t.classList.remove('hidden');
       clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.add('hidden'), 2200);
     }
     function copyAcc(btn) {
-      const text = btn.dataset.acc;
-      const ok = () => toast('Nomor rekening disalin ✓');
+      const text = btn.dataset.acc; const ok = () => toast('Nomor rekening disalin');
       if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(ok).catch(() => fallbackCopy(text) && ok());
       else if (fallbackCopy(text)) ok();
     }
     function fallbackCopy(text) {
-      const ta = document.createElement('textarea');
-      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
-      document.body.appendChild(ta); ta.select();
-      let ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
-      ta.remove(); return ok;
+      const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select(); let ok = false; try { ok = document.execCommand('copy'); } catch (err) {} ta.remove(); return ok;
     }
 
     // Buku tamu
-    let wishes = MODE === 'demo'
-      ? [{ name: 'Keluarga Besar', status: 'Hadir', msg: 'Barakallahu lakuma, semoga menjadi keluarga yang sakinah, mawaddah, warahmah.' }]
-      : [];
+    let wishes = MODE === 'demo' ? [{ name: 'Keluarga Besar', status: 'Hadir', msg: 'Barakallahu lakuma, semoga menjadi keluarga yang sakinah, mawaddah, warahmah.' }] : [];
     const STATUS_CLS = { 'Hadir': 'bg-emerald-100 text-emerald-800', 'Tidak Hadir': 'bg-red-100 text-red-800', 'Masih Ragu': 'bg-amber-100 text-amber-800' };
-
     function renderWishes() {
-      const box = document.getElementById('wishesBox');
-      if (!box) return;
+      const box = document.getElementById('wishesBox'); if (!box) return;
       box.innerHTML = wishes.map(w => `
         <div class="t-surface rounded-xl p-3 space-y-1">
           <div class="flex justify-between items-center gap-2"><strong class="break-words">${escapeHTML(w.name)}</strong><span class="shrink-0 text-[10px] px-2 py-0.5 rounded font-bold ${STATUS_CLS[w.status] || ''}">${escapeHTML(w.status)}</span></div>
           <p class="t-muted break-words">${escapeHTML(w.msg)}</p>
         </div>`).join('');
     }
-
-    function handleWish(e) {
-      e.preventDefault();
-      const name = document.getElementById('wName').value.trim();
-      const status = document.getElementById('wStatus').value;
-      const msg = document.getElementById('wMsg').value.trim();
+    function handleWish(ev) {
+      ev.preventDefault();
+      const name = document.getElementById('wName').value.trim(), status = document.getElementById('wStatus').value, msg = document.getElementById('wMsg').value.trim();
       if (!name || !msg) return;
-      wishes.unshift({ name, status, msg });
-      renderWishes();
-      document.getElementById('wMsg').value = '';
-
-      // Kirim juga ke WhatsApp mempelai, supaya konfirmasi tamu tidak hilang
-      const notice = document.getElementById('rsvpNotice');
-      const wa = normalizeWa(RAW.wa);
+      wishes.unshift({ name, status, msg }); renderWishes(); document.getElementById('wMsg').value = '';
+      const notice = document.getElementById('rsvpNotice'); const wa = normalizeWa(RAW.wa);
       if (MODE === 'live' && wa.length >= 10) {
         const text = `Assalamu'alaikum, saya *${name}* ingin konfirmasi kehadiran di pernikahan ${firstName(RAW.bride)} & ${firstName(RAW.groom)}.\n\nKehadiran: *${status}*\nUcapan: ${msg}`;
-        notice.innerHTML = `<a href="https://wa.me/${wa}?text=${encodeURIComponent(text)}" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 w-full py-3 rounded-xl font-bold text-white bg-[#25D366]"><i data-lucide="send" class="w-4 h-4"></i> Kirim konfirmasi ke WhatsApp mempelai</a>`;
+        notice.innerHTML = `<a href="https://wa.me/${wa}?text=${encodeURIComponent(text)}" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 w-full min-h-[48px] rounded-full font-semibold text-white bg-[#25D366]"><i data-lucide="send" class="w-4 h-4"></i> Kirim konfirmasi ke WhatsApp mempelai</a>`;
         lucide.createIcons();
-      } else {
-        notice.innerHTML = `<p class="text-center t-muted">Terima kasih atas ucapannya! 🤍</p>`;
-      }
+      } else notice.innerHTML = `<p class="text-center t-muted">Terima kasih atas ucapannya!</p>`;
     }
 
     // ============================================================
-    // 7. CEK KEASLIAN LINK SEBELUM MENAMPILKAN
+    // 14. CEK KEASLIAN LINK SEBELUM MENAMPILKAN
     // ============================================================
     function showInvalid() {
       document.body.classList.remove('locked');
       document.body.innerHTML = `
-        <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#FAF8F5;font-family:'Plus Jakarta Sans',sans-serif;color:#23201E">
+        <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#FAF8F5;font-family:'Jost',sans-serif;color:#23201E">
           <div style="max-width:360px;text-align:center;background:#fff;border:1px solid #E8DFD8;border-radius:24px;padding:28px">
-            <div style="font-size:36px">🔒</div>
-            <h1 style="font-size:20px;font-weight:700;margin:8px 0">Link undangan tidak valid</h1>
+            <h1 style="font-size:20px;font-weight:600;margin:0 0 8px">Link undangan tidak valid</h1>
             <p style="font-size:13px;color:#716B67;line-height:1.6">Link ini tidak lengkap atau isinya telah diubah. Mohon minta link resmi langsung kepada mempelai.</p>
             <a href="dibuatin.html" style="display:inline-block;margin-top:16px;font-size:12px;color:#662626;font-weight:700">di.buat.in</a>
           </div>
         </div>`;
       document.title = 'Link undangan tidak valid';
     }
-
     (async function init() {
       if (params.get('u')) {
         if (!RAW || MODE !== 'live') return showInvalid();
