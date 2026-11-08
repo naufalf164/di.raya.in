@@ -249,26 +249,48 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
       <div class="my-4 bg-brand-warm p-4 rounded-2xl border border-brand-sand text-left text-xs space-y-2">
         <div class="flex justify-between"><span class="text-brand-muted">Paket</span><strong id="m_pkg"></strong></div>
         <div class="flex justify-between"><span class="text-brand-muted">Desain</span><strong id="m_theme"></strong></div>
-        <div class="flex justify-between items-center py-2 border-y border-brand-sand">
-          <div><div class="text-[10px] text-brand-muted">Total transfer (harus persis, termasuk 3 digit unik):</div><strong id="m_price" class="text-brand-gold text-lg font-mono"></strong></div>
+        <div class="flex justify-between items-center py-2 border-t border-brand-sand">
+          <div><div class="text-[10px] text-brand-muted">Total bayar (sudah termasuk 3 digit kode unik):</div><strong id="m_price" class="text-brand-gold text-lg font-mono"></strong></div>
           <button type="button" onclick="copyText(document.getElementById('m_price').dataset.raw, 'Nominal disalin')" class="px-2.5 py-1 bg-white text-[10px] font-semibold rounded border border-brand-sand">Salin</button>
-        </div>
-        <div class="pt-1 space-y-1.5">
-          <div class="font-semibold">Transfer ke:</div>
-          <div class="bg-white p-2.5 rounded-xl border border-brand-sand flex items-center justify-between">
-            <div>
-              <div class="text-[9px] font-bold text-brand-gold uppercase" id="payBank"></div>
-              <div class="font-mono font-bold text-sm" id="payAcc"></div>
-              <div class="text-[10px] text-brand-muted" id="payHolder"></div>
-            </div>
-            <button type="button" onclick="copyText(PEMBAYARAN.noRek, 'Nomor rekening disalin')" class="px-2.5 py-1 bg-brand-warm text-[10px] font-semibold rounded border border-brand-sand">Salin</button>
-          </div>
         </div>
       </div>
 
-      <ol class="text-left text-[11px] text-brand-muted space-y-1 mb-4 list-decimal pl-4">
-        <li>Transfer sesuai nominal di atas.</li>
-        <li>Tekan tombol hijau, lalu kirim pesan + foto bukti transfer.</li>
+      <!-- Pilihan metode -->
+      <div id="payTabs" class="grid grid-cols-2 gap-1.5 p-1 bg-white border border-brand-sand rounded-xl text-[11px] font-semibold mb-3">
+        <button type="button" data-pay="qris" class="ptab py-2 rounded-lg">QRIS</button>
+        <button type="button" data-pay="bank" class="ptab py-2 rounded-lg">Transfer Bank</button>
+      </div>
+
+      <!-- QRIS -->
+      <div id="pay-qris" class="ppane space-y-2">
+        <div class="bg-white rounded-2xl border border-brand-sand p-4">
+          <div class="text-[10px] font-bold tracking-widest text-brand-muted">QRIS • NOMINAL OTOMATIS</div>
+          <div id="qrisBox" class="w-56 h-56 mx-auto my-2"></div>
+          <div class="text-xs">Nama merchant: <strong id="qrisName"></strong></div>
+          <div class="text-[10px] text-brand-muted">Bisa dibayar dari semua m-banking & e-wallet berlogo QRIS</div>
+        </div>
+        <button type="button" onclick="downloadQris()" class="w-full py-2.5 bg-brand-charcoal hover:bg-brand-gold text-white text-xs font-semibold rounded-xl flex items-center justify-center gap-1.5">
+          <i data-lucide="download" class="w-4 h-4"></i> Simpan Gambar QRIS
+        </button>
+        <p class="text-[10px] text-brand-muted text-left leading-relaxed">Bayar dari HP yang sama? Simpan gambar QRIS, lalu di aplikasi bank/e-wallet pilih <em>Scan → ambil dari Galeri</em>. Nominal sudah terisi otomatis; jangan diubah.</p>
+      </div>
+
+      <!-- Transfer bank -->
+      <div id="pay-bank" class="ppane hidden">
+        <div class="bg-white p-3 rounded-2xl border border-brand-sand flex items-center justify-between text-left">
+          <div>
+            <div class="text-[9px] font-bold text-brand-gold uppercase" id="payBank"></div>
+            <div class="font-mono font-bold text-sm" id="payAcc"></div>
+            <div class="text-[10px] text-brand-muted" id="payHolder"></div>
+          </div>
+          <button type="button" onclick="copyText(PEMBAYARAN.noRek, 'Nomor rekening disalin')" class="px-2.5 py-1 bg-brand-warm text-[10px] font-semibold rounded border border-brand-sand">Salin</button>
+        </div>
+        <p class="text-[10px] text-brand-muted text-left mt-2">Transfer <strong>persis</strong> sesuai total di atas, termasuk 3 digit terakhir.</p>
+      </div>
+
+      <ol class="text-left text-[11px] text-brand-muted space-y-1 my-4 list-decimal pl-4">
+        <li>Bayar sesuai total di atas.</li>
+        <li>Tekan tombol hijau, lalu kirim pesan + screenshot bukti bayar.</li>
         <li>Admin cek pembayaran, lalu link undangan resmi dikirim ke WhatsApp kamu.</li>
       </ol>
 
@@ -290,6 +312,7 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
   </footer>
 
   <script src="tema.js"></script>
+  <script src="qrcode.js"></script>
   <script>
     // Peringatan bila tema.js lama / belum ter-upload (penyebab halaman error)
     if (typeof DAFTAR_TEMA === 'undefined' || typeof PAKET_UNDANGAN === 'undefined' || typeof motifSVG !== 'function' || typeof verifyUndangan !== 'function') {
@@ -302,9 +325,15 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
     // ⚙️ PENGATURAN — ubah di sini
     // ============================================================
     const WA_ADMIN = "6289647946725";            // WhatsApp admin di.buat.in
+    // QRIS merchant (dibaca dari QRIS statis KannaStore). Nominal diisi otomatis per pesanan.
+    const QRIS = {
+      nama: "KannaStore",
+      payload: "00020101021126620010ID.OVO.WWW01189360091200023708010215HcnHnMsTuOoBd0a0303UMI27570011ID.DANA.WWW011893600915073802392602097380239260303UMI28650013ID.CO.BCA.WWW011893600014000249267902150008850024926790303UMI51440014ID.CO.QRIS.WWW0215ID10243406548610303UMI5204727853033605802ID5910KannaStore6007Cianjur61054321562070703A016304928E"
+    };
+    // Transfer bank (opsional). Selama noRek masih "1234567890", pilihan transfer bank disembunyikan.
     const PEMBAYARAN = {
       bank: "Bank Raya / BCA",
-      noRek: "1234567890",                       // ⚠️ GANTI dengan nomor rekening asli sebelum website dipakai!
+      noRek: "1234567890",
       atasNama: "Muhamad Naufal Fauzi"
     };
     const PAKET = PAKET_UNDANGAN;                // harga paket diatur di tema.js
@@ -319,6 +348,67 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
     $('payBank').textContent = PEMBAYARAN.bank;
     $('payAcc').textContent = PEMBAYARAN.noRek;
     $('payHolder').textContent = 'a.n. ' + PEMBAYARAN.atasNama;
+    $('qrisName').textContent = QRIS.nama;
+    const BANK_AKTIF = !!PEMBAYARAN.noRek && PEMBAYARAN.noRek !== '1234567890';
+    if (!BANK_AKTIF) $('payTabs').classList.add('hidden');
+
+    // ---------- QRIS dinamis (nominal otomatis) ----------
+    function crc16(str) {
+      let crc = 0xFFFF;
+      for (const b of new TextEncoder().encode(str)) {
+        crc ^= b << 8;
+        for (let i = 0; i < 8; i++) crc = (crc & 0x8000) ? ((crc << 1) ^ 0x1021) & 0xFFFF : (crc << 1) & 0xFFFF;
+      }
+      return crc.toString(16).toUpperCase().padStart(4, '0');
+    }
+    // QRIS statis -> QRIS bernominal: ubah tag 01 jadi 12 (dinamis), sisipkan tag 54 (nominal), hitung ulang CRC
+    function qrisDenganNominal(payload, amount) {
+      const body = payload.slice(0, -8).replace('010211', '010212');   // buang "6304XXXX"
+      const nominal = String(Math.round(amount));
+      const tag54 = '54' + String(nominal.length).padStart(2, '0') + nominal;
+      const at = body.indexOf('5802ID');
+      const withAmount = body.slice(0, at) + tag54 + body.slice(at);
+      return withAmount + '6304' + crc16(withAmount + '6304');
+    }
+    let qrisCanvas = null;
+    function renderQris(amount) {
+      const data = qrisDenganNominal(QRIS.payload, amount);
+      const qr = new QRCodeLib.QRCode(-1, QRCodeLib.QRErrorCorrectLevel.M);
+      qr.addData(data); qr.make();
+      const n = qr.getModuleCount(), q = 4, cell = 8, size = (n + q * 2) * cell;
+      const cv = document.createElement('canvas');
+      cv.width = cv.height = size;
+      const g = cv.getContext('2d');
+      g.fillStyle = '#fff'; g.fillRect(0, 0, size, size); g.fillStyle = '#000';
+      for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (qr.isDark(r, c)) g.fillRect((c + q) * cell, (r + q) * cell, cell, cell);
+      cv.className = 'w-full h-full'; cv.style.imageRendering = 'pixelated';
+      cv.setAttribute('aria-label', `QRIS ${QRIS.nama} sebesar ${rupiah(amount)}`);
+      $('qrisBox').innerHTML = ''; $('qrisBox').appendChild(cv);
+      qrisCanvas = cv;
+      return data;
+    }
+    function downloadQris() {
+      if (!qrisCanvas || !activeOrder) return;
+      // gambar unduhan diberi keterangan nominal & ID pesanan
+      const pad = 90, out = document.createElement('canvas');
+      out.width = qrisCanvas.width; out.height = qrisCanvas.height + pad;
+      const g = out.getContext('2d');
+      g.fillStyle = '#fff'; g.fillRect(0, 0, out.width, out.height);
+      g.drawImage(qrisCanvas, 0, 0);
+      g.fillStyle = '#23201E'; g.textAlign = 'center';
+      g.font = 'bold 30px sans-serif'; g.fillText(`${QRIS.nama} • ${rupiah(activeOrder.price)}`, out.width / 2, qrisCanvas.height + 30);
+      g.font = '22px sans-serif'; g.fillText(`Pesanan ${activeOrder.id} — di.buat.in`, out.width / 2, qrisCanvas.height + 66);
+      const a = document.createElement('a');
+      a.href = out.toDataURL('image/png'); a.download = `QRIS-${activeOrder.id}.png`; a.click();
+    }
+    let payMethod = 'qris';
+    function setPay(m) {
+      payMethod = m;
+      document.querySelectorAll('.ptab').forEach(b => b.className = `ptab py-2 rounded-lg ${b.dataset.pay === m ? 'bg-brand-charcoal text-white' : 'text-brand-muted'}`);
+      document.querySelectorAll('.ppane').forEach(p => p.classList.toggle('hidden', p.id !== 'pay-' + m));
+    }
+    document.querySelectorAll('.ptab').forEach(b => b.onclick = () => setPay(b.dataset.pay));
+    setPay('qris');
 
     function toggleMenu() { $('mMenu').classList.toggle('hidden'); }
     function toast(msg) {
@@ -550,6 +640,9 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
       $('m_theme').textContent = getTema(c.inv.theme).name;
       $('m_price').textContent = rupiah(activeOrder.price);
       $('m_price').dataset.raw = activeOrder.price;
+      try { renderQris(activeOrder.price); }
+      catch (err) { $('qrisBox').innerHTML = '<p class="text-xs text-red-700 pt-16">QRIS gagal dimuat. Hubungi admin lewat WhatsApp.</p>'; }
+      setPay('qris');
       $('payModal').classList.remove('hidden'); $('payModal').classList.add('flex');
       document.body.classList.add('modal-open');
       lucide.createIcons();
@@ -574,10 +667,10 @@ Tanpa mengurangi rasa hormat, kami mengundang {nama} untuk hadir di acara pernik
 - *Musik:* ${o.musicNote}
 - *Acara:*
 ${acara}
-- *Total Transfer:* ${rupiah(o.price)}
+- *Total Bayar:* ${rupiah(o.price)} via ${payMethod === 'qris' ? 'QRIS ' + QRIS.nama : 'Transfer ' + PEMBAYARAN.bank}
 - *Pemesan:* ${o.contact} (${o.wa})
 
-Bukti transfer saya lampirkan di chat ini.${o.musicNote.startsWith('File MP3') ? '\nFile MP3 juga saya kirim di sini.' : ''}${!inv.bridePhoto || !inv.groomPhoto || !inv.coverPhoto ? '\nFoto mempelai/sampul saya kirim di sini.' : ''}
+Bukti pembayaran saya lampirkan di chat ini.${o.musicNote.startsWith('File MP3') ? '\nFile MP3 juga saya kirim di sini.' : ''}${!inv.bridePhoto || !inv.groomPhoto || !inv.coverPhoto ? '\nFoto mempelai/sampul saya kirim di sini.' : ''}
 
 🔐 Link verifikasi admin:
 ${adminLink}`;
