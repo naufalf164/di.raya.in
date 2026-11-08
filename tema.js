@@ -60,6 +60,72 @@ const DAFTAR_TEMA = [
   { id: 'midnight-floral', name: 'Midnight Floral',  cat: 'mewah',  layout: 'polaroid', dark: true, bg: '#1C1A24', surface: '#26232F', text: '#F3E9EE', muted: '#B5A7B0', accent: '#E8B4C8', onAccent: '#1C1A24', border: 'rgba(232,180,200,.35)', head: 'serif', nameFont: 'cursive', orn: '✿', quote: 'cinta' }
 ];
 
+// ============================================================
+// 🧩 SUSUNAN & GAYA TIAP DESAIN (bukan cuma beda warna)
+// hero    : royal | editorial | botanical | deco | sinema | polaroid | adat | mono | ticket
+// couple  : arch | columns | cards | diamond | polaroid | circle | overlap
+// event   : royal | table | icons | deco | ticket | timeline
+// count   : box | rules | pill | ring | inline
+// quote   : center | editorial | boxed | arabic
+// story   : timeline | chapters        gallery : grid | film
+// closing : script | formal | editorial
+// voice   : islami | formal | modern | hangat | sunda | jawa | betawi | minang | batak
+// order   : urutan bagian (lihat URUTAN di bawah)
+// ============================================================
+const URUTAN = {
+  islami:    ['hero', 'quote', 'couple', 'events', 'count', 'story', 'gallery', 'dress', 'stream', 'gift', 'rsvp', 'turut', 'closing'],
+  editorial: ['hero', 'count', 'quote', 'couple', 'events', 'gallery', 'story', 'dress', 'stream', 'rsvp', 'gift', 'turut', 'closing'],
+  romantis:  ['hero', 'couple', 'story', 'quote', 'events', 'count', 'gallery', 'dress', 'stream', 'gift', 'rsvp', 'turut', 'closing'],
+  adat:      ['hero', 'quote', 'couple', 'events', 'count', 'turut', 'story', 'gallery', 'dress', 'stream', 'gift', 'rsvp', 'closing'],
+  santai:    ['hero', 'count', 'couple', 'story', 'events', 'gallery', 'dress', 'rsvp', 'gift', 'stream', 'turut', 'closing']
+};
+const GAYA_TEMA = {
+  // klasik
+  'maroon':          { hero: 'royal',     couple: 'arch',     event: 'royal',    count: 'box',    quote: 'arabic',    story: 'timeline', gallery: 'grid', closing: 'formal',    voice: 'islami', order: 'islami',    nameFont: 'pinyon' },
+  'ivory-gold':      { hero: 'deco',      couple: 'diamond',  event: 'deco',     count: 'box',    quote: 'center',    story: 'chapters', gallery: 'film', closing: 'script',    voice: 'formal', order: 'romantis',  nameFont: 'pinyon' },
+  'dusty-blue':      { hero: 'mono',      couple: 'circle',   event: 'timeline', count: 'inline', quote: 'center',    story: 'chapters', gallery: 'grid', closing: 'script',    voice: 'modern', order: 'romantis' },
+  'champagne':       { hero: 'botanical', couple: 'cards',    event: 'icons',    count: 'pill',   quote: 'boxed',     story: 'timeline', gallery: 'grid', closing: 'script',    voice: 'hangat', order: 'romantis',  nameFont: 'vibes' },
+  'burgundy':        { hero: 'sinema',    couple: 'arch',     event: 'royal',    count: 'ring',   quote: 'arabic',    story: 'chapters', gallery: 'film', closing: 'formal',    voice: 'islami', order: 'islami' },
+  // modern
+  'monochrome':      { hero: 'editorial', couple: 'columns',  event: 'table',    count: 'rules',  quote: 'editorial', story: 'chapters', gallery: 'grid', closing: 'editorial', voice: 'modern', order: 'editorial', nameFont: 'bodoni', head: 'bodoni' },
+  'sand-dune':       { hero: 'ticket',    couple: 'columns',  event: 'ticket',   count: 'rules',  quote: 'editorial', story: 'timeline', gallery: 'film', closing: 'editorial', voice: 'hangat', order: 'santai' },
+  'mocha':           { hero: 'mono',      couple: 'overlap',  event: 'table',    count: 'inline', quote: 'editorial', story: 'chapters', gallery: 'grid', closing: 'editorial', voice: 'modern', order: 'editorial', nameFont: 'bodoni' },
+  // floral & boho
+  'sage':            { hero: 'botanical', couple: 'cards',    event: 'icons',    count: 'pill',   quote: 'center',    story: 'timeline', gallery: 'grid', closing: 'script',    voice: 'hangat', order: 'romantis',  nameFont: 'vibes' },
+  'blush':           { hero: 'polaroid',  couple: 'polaroid', event: 'icons',    count: 'pill',   quote: 'center',    story: 'chapters', gallery: 'film', closing: 'script',    voice: 'hangat', order: 'santai' },
+  'rustic':          { hero: 'polaroid',  couple: 'cards',    event: 'timeline', count: 'ring',   quote: 'boxed',     story: 'timeline', gallery: 'grid', closing: 'script',    voice: 'hangat', order: 'romantis' },
+  'lavender':        { hero: 'botanical', couple: 'circle',   event: 'royal',    count: 'box',    quote: 'center',    story: 'chapters', gallery: 'film', closing: 'script',    voice: 'modern', order: 'romantis',  nameFont: 'vibes' },
+  // adat
+  'sunda-siger':     { hero: 'adat',      couple: 'arch',     event: 'royal',    count: 'box',    quote: 'arabic',    story: 'timeline', gallery: 'grid', closing: 'formal',    voice: 'sunda',  order: 'adat' },
+  'lilac':           { hero: 'adat',      couple: 'circle',   event: 'icons',    count: 'pill',   quote: 'center',    story: 'chapters', gallery: 'film', closing: 'formal',    voice: 'sunda',  order: 'adat' },
+  'javanese':        { hero: 'adat',      couple: 'circle',   event: 'deco',     count: 'box',    quote: 'arabic',    story: 'timeline', gallery: 'grid', closing: 'formal',    voice: 'jawa',   order: 'adat' },
+  'jawa-paes':       { hero: 'adat',      couple: 'diamond',  event: 'deco',     count: 'ring',   quote: 'arabic',    story: 'chapters', gallery: 'film', closing: 'formal',    voice: 'jawa',   order: 'adat' },
+  'cirebon':         { hero: 'adat',      couple: 'arch',     event: 'timeline', count: 'box',    quote: 'boxed',     story: 'timeline', gallery: 'grid', closing: 'formal',    voice: 'jawa',   order: 'adat' },
+  'betawi':          { hero: 'adat',      couple: 'cards',    event: 'icons',    count: 'pill',   quote: 'center',    story: 'chapters', gallery: 'grid', closing: 'formal',    voice: 'betawi', order: 'adat' },
+  'minang':          { hero: 'adat',      couple: 'arch',     event: 'royal',    count: 'box',    quote: 'arabic',    story: 'timeline', gallery: 'film', closing: 'formal',    voice: 'minang', order: 'adat' },
+  'batak':           { hero: 'adat',      couple: 'columns',  event: 'table',    count: 'rules',  quote: 'center',    story: 'chapters', gallery: 'grid', closing: 'formal',    voice: 'batak',  order: 'adat' },
+  // islami
+  'islami-hijau':    { hero: 'royal',     couple: 'circle',   event: 'timeline', count: 'ring',    quote: 'arabic',    story: 'timeline', gallery: 'grid', closing: 'formal',    voice: 'islami', order: 'islami' },
+  'emerald':         { hero: 'deco',      couple: 'diamond',  event: 'deco',     count: 'ring',   quote: 'arabic',    story: 'chapters', gallery: 'film', closing: 'formal',    voice: 'islami', order: 'islami' },
+  'arabesque':       { hero: 'mono',      couple: 'circle',   event: 'timeline', count: 'box',    quote: 'arabic',    story: 'timeline', gallery: 'grid', closing: 'formal',    voice: 'islami', order: 'islami' },
+  'sakinah':         { hero: 'botanical', couple: 'cards',    event: 'icons',    count: 'pill',   quote: 'arabic',    story: 'chapters', gallery: 'grid', closing: 'formal',    voice: 'islami', order: 'islami',    nameFont: 'vibes' },
+  'noor':            { hero: 'sinema',    couple: 'arch',     event: 'deco',     count: 'ring',   quote: 'arabic',    story: 'timeline', gallery: 'film', closing: 'formal',    voice: 'islami', order: 'islami' },
+  // mewah & malam
+  'navy':            { hero: 'deco',      couple: 'diamond',  event: 'deco',     count: 'box',    quote: 'center',    story: 'chapters', gallery: 'grid', closing: 'editorial', voice: 'formal', order: 'editorial' },
+  'celestial':       { hero: 'sinema',    couple: 'circle',   event: 'timeline', count: 'ring',   quote: 'center',    story: 'timeline', gallery: 'film', closing: 'script',    voice: 'modern', order: 'romantis' },
+  'black-gold':      { hero: 'editorial', couple: 'columns',  event: 'table',    count: 'rules',  quote: 'editorial', story: 'chapters', gallery: 'grid', closing: 'editorial', voice: 'formal', order: 'editorial', nameFont: 'bodoni', head: 'bodoni' },
+  'wine':            { hero: 'sinema',    couple: 'overlap',  event: 'royal',    count: 'pill',   quote: 'center',    story: 'timeline', gallery: 'film', closing: 'script',    voice: 'hangat', order: 'romantis',  nameFont: 'pinyon' },
+  'midnight-floral': { hero: 'polaroid',  couple: 'polaroid', event: 'timeline', count: 'ring',   quote: 'center',    story: 'chapters', gallery: 'grid', closing: 'script',    voice: 'modern', order: 'santai' }
+};
+DAFTAR_TEMA.forEach(t => Object.assign(t, GAYA_TEMA[t.id] || {}));
+
+// Label untuk katalog
+const LABEL_GAYA = {
+  hero: { royal: 'Monogram klasik', editorial: 'Sampul majalah', botanical: 'Kartu lengkung & daun', deco: 'Kipas art-deco', sinema: 'Foto layar penuh', polaroid: 'Polaroid', adat: 'Ornamen adat', mono: 'Inisial minimalis', ticket: 'Tiket boarding pass' },
+  voice: { islami: 'Islami formal', formal: 'Formal (English)', modern: 'Modern santai', hangat: 'Hangat & akrab', sunda: 'Sapaan Sunda', jawa: 'Sapaan Jawa', betawi: 'Sapaan Betawi', minang: 'Sapaan Minang', batak: 'Sapaan Batak' },
+  quote: { center: 'Kutipan', editorial: 'Kutipan besar', boxed: 'Kutipan berbingkai', arabic: 'Ayat Arab + arti' }
+};
+
 // ⭐ BEST CHOICE BY CLIENT — desain yang paling banyak dipilih klien (maks. 5, urut dari #1).
 // Tidak perlu menebak: buka admin.html → "Desain Terlaris" → tekan "Salin untuk tema.js", lalu tempel di sini.
 // Selama kosong, bagian Best Choice tidak ditampilkan di di.buat.in.
@@ -107,8 +173,18 @@ function _invToArr(o) {
     _str(o.coverPhoto),
     (o.events || []).map(x => _trim([x.name, x.iso, x.time, x.venue, x.mapsUrl, x.iso ? '' : x.date])),
     (o.gifts || []).map(x => _trim([x.bank, x.acc, x.holder])),
-    _str(o.musicUrl), _str(o.wa)
+    _str(o.musicUrl), _str(o.wa),
+    // tambahan opsional: kisah, galeri, dress code, live streaming, turut mengundang
+    _trimExtra([
+      (o.story || []).map(x => _trim([x.year, x.title, x.text])),
+      (o.gallery || []).map(_str).filter(Boolean),
+      _str(o.dress), _str(o.stream), _str(o.turut)
+    ])
   ];
+}
+function _trimExtra(arr) {
+  while (arr.length && (arr[arr.length - 1] === '' || (Array.isArray(arr[arr.length - 1]) && !arr[arr.length - 1].length))) arr.pop();
+  return arr;
 }
 function _arrToInv(p) {
   const b = p[1] || [], g = p[2] || [];
@@ -119,7 +195,10 @@ function _arrToInv(p) {
     coverPhoto: p[3] || '',
     events: (p[4] || []).map(x => ({ name: x[0] || 'Acara', iso: x[1] || '', time: x[2] || '', venue: x[3] || '', mapsUrl: x[4] || '', date: x[1] ? formatTanggalPanjang(x[1]) : (x[5] || '') })),
     gifts: (p[5] || []).map(x => ({ bank: x[0] || '', acc: x[1] || '', holder: x[2] || '' })),
-    musicUrl: p[6] || '', wa: p[7] || ''
+    musicUrl: p[6] || '', wa: p[7] || '',
+    story: ((p[8] || [])[0] || []).map(x => ({ year: x[0] || '', title: x[1] || '', text: x[2] || '' })),
+    gallery: (p[8] || [])[1] || [],
+    dress: (p[8] || [])[2] || '', stream: (p[8] || [])[3] || '', turut: (p[8] || [])[4] || ''
   };
 }
 
@@ -197,10 +276,11 @@ const PAKET_UNDANGAN = [
 // Undangan memeriksa tanda tangan dengan KUNCI PUBLIK di bawah ini,
 // sehingga link palsu / link yang isinya diubah otomatis ditolak.
 //
-// Cara mengisi: buka admin.html → buat kunci → salin "Kunci Publik" → tempel di sini.
+// Cara mengisi: buka admin.html → buat kunci → salin "Kunci Publik" → tempel di kunci-admin.js.
 // Selama masih kosong, keamanan BELUM aktif (link tanpa tanda tangan tetap diterima).
 // ============================================================
-const ADMIN_PUBLIC_KEY = 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEdf2PnPCcmAzKjl1PCk__Wusr1hfXCpCYA7FwORk6IPryZfyaC-2l3Zhw0eut123T0XV5XakHS-KTx-JComROiw';
+// Kunci publik disimpan di file terpisah (kunci-admin.js) agar tidak hilang saat tema.js diperbarui.
+const ADMIN_PUBLIC_KEY = (typeof KUNCI_PUBLIK_ADMIN !== 'undefined' ? String(KUNCI_PUBLIK_ADMIN).trim() : '');
 
 const _b64uToBytes = s => {
   s = String(s || '').replace(/-/g, '+').replace(/_/g, '/');
