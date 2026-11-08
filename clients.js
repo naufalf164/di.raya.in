@@ -27,9 +27,19 @@
 //    ])
 //  },
 //
-// Urutan di galeri otomatis dari tanggal terbaru, jadi posisi tempel bebas.
+// Urutan di galeri & highlights otomatis dari tanggal terbaru, jadi posisi tempel bebas.
 // Thumbnail video dibuat otomatis dari Google Drive (tidak wajib isi "cover" video).
+// Video/foto belum ada? Kosongkan saja: editedVideos: [] atau randomPhotos: [] —
+// website otomatis menampilkan "menyusul". Kalau "cover" kosong, foto pertama dipakai.
 // ============================================================
+
+// ⭐ KLIEN UNGGULAN — tampil di bagian paling atas beranda (urut sesuai daftar).
+// Isi dengan "id" klien yang hasil foto, video & dekornya paling bagus (maks. 6).
+// Kalau dikosongkan, beranda menampilkan klien terbaru.
+const KLIEN_UNGGULAN = [
+  // "velin-devan",
+  // "aldi-syifa",
+];
 
 const drivePhoto  = id => `https://lh3.googleusercontent.com/d/${id}`;
 const driveVideo  = id => `https://drive.google.com/file/d/${id}/preview`;
@@ -280,34 +290,3 @@ const clientsData = [
     ])
   }
 ];
-
-// ============================================================
-// FUNGSI BANTUAN (dipakai index.html & gallery.html — tidak perlu diubah)
-// ============================================================
-const BULAN_ID = { januari:0, februari:1, maret:2, april:3, mei:4, juni:5, juli:6, agustus:7, september:8, oktober:9, november:10, desember:11 };
-
-// "03 Juni 2026" -> angka waktu, untuk mengurutkan dari yang terbaru
-function parseTanggalID(str) {
-  const m = String(str || '').trim().toLowerCase().match(/(\d{1,2})\s+([a-z]+)\s+(\d{4})/);
-  if (!m || !(m[2] in BULAN_ID)) return 0;
-  return new Date(+m[3], BULAN_ID[m[2]], +m[1]).getTime();
-}
-
-// Ambil ID file dari link Google Drive
-function driveIdFromUrl(url) {
-  const s = String(url || '');
-  const m = s.match(/\/d\/([A-Za-z0-9_-]+)/) || s.match(/[?&]id=([A-Za-z0-9_-]+)/);
-  return m ? m[1] : '';
-}
-
-// Thumbnail video: pakai "cover" kalau diisi, kalau tidak dibuat otomatis dari Drive
-function videoThumb(v) {
-  if (v && v.cover && !/^LINK_/.test(v.cover)) return v.cover;
-  const id = driveIdFromUrl(v && v.url);
-  return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w480` : '';
-}
-
-// Daftar klien, terbaru di atas
-function getClientsSorted() {
-  return clientsData.slice().sort((a, b) => parseTanggalID(b.date) - parseTanggalID(a.date));
-}
