@@ -14,6 +14,9 @@
   <meta property="og:image" content="https://lh3.googleusercontent.com/d/1CpMkvX4iUKk179CGZg77SU0KtHZc75xY">
   <meta name="theme-color" content="#662626">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
@@ -36,7 +39,8 @@
           },
           fontFamily: {
             termes: ['"TeX Gyre Termes"', '"Times New Roman"', 'Times', 'serif'],
-            sans: ['"Helvetica World"', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+            sans: ['Jost', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
           }
         }
       }
@@ -47,7 +51,7 @@
     body {
       background-color: #FAF8F5;
       color: #23201E;
-      font-family: 'Helvetica World', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      
     }
     body.modal-open { overflow: hidden; }
     .font-termes { font-family: 'TeX Gyre Termes', 'Times New Roman', Times, serif; }
@@ -56,6 +60,21 @@
     .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
     .reveal.show { opacity: 1; transform: none; }
     @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+    /* ===== Gaya elegan wedding ===== */
+    body { font-family: 'Jost', 'Helvetica Neue', Arial, sans-serif; letter-spacing: .01em; }
+    h1, h2, h3, .font-display, .font-termes { font-family: 'Cormorant Garamond', Georgia, serif; letter-spacing: -.005em; }
+    h1.font-bold, h2.font-bold, h3.font-bold { font-weight: 600; }
+    h2 { line-height: 1.08; }
+    .eyebrow { display: inline-flex; align-items: center; gap: .8rem; letter-spacing: .32em !important; }
+    .eyebrow::before, .eyebrow::after { content: ""; width: 2.2rem; height: 1px; background: currentColor; opacity: .45; }
+    .text-center > h2::after, .text-center > h1::after {
+      content: ""; display: block; width: 140px; height: 14px; margin: 1rem auto 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 16'%3E%3Cg fill='none' stroke='%23B08D57' stroke-width='1'%3E%3Cpath d='M0 8h62M98 8h62'/%3E%3Cpath d='M80 1l7 7-7 7-7-7z'/%3E%3C/g%3E%3Cg fill='%23B08D57'%3E%3Ccircle cx='66' cy='8' r='1.6'/%3E%3Ccircle cx='94' cy='8' r='1.6'/%3E%3Ccircle cx='80' cy='8' r='2'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+    }
+    .logo-script { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 600; letter-spacing: -.01em; }
+    ::selection { background: #662626; color: #fff; }
+    @media (min-width: 1024px) { .lg\:text-left > h1::after { margin-left: 0; } }
   </style>
 </head>
 <body class="bg-brand-cream text-brand-charcoal antialiased">
@@ -68,7 +87,7 @@
   <!-- ================= NAVBAR ================= -->
   <header class="sticky top-0 z-40 bg-brand-cream/95 backdrop-blur-md border-b border-brand-sand/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
-      <a href="#top" class="text-2xl sm:text-4xl font-bold tracking-tight text-brand-charcoal font-sans">
+      <a href="#top" class="logo-script text-3xl sm:text-4xl text-brand-charcoal">
         di.raya.in
       </a>
 
@@ -123,23 +142,24 @@
   </header>
 
   <!-- ================= HERO ================= -->
-  <section id="top" class="relative overflow-hidden">
+  <section id="top" class="relative overflow-hidden" style="background:radial-gradient(ellipse at 15% 0%, #F4EAE0 0%, transparent 55%), radial-gradient(ellipse at 100% 100%, #F3E7E4 0%, transparent 50%)">
+    <!-- hiasan daun tipis -->
+    <div class="pointer-events-none absolute -left-6 top-24 w-24 sm:w-32 opacity-40 -rotate-12"><svg viewBox="0 0 120 220" fill="none" stroke="#B08D57" stroke-width="1.2" aria-hidden="true"><path d="M60 215C58 160 62 100 60 10"/><path d="M60 180c-18-6-30-20-34-38 16 2 30 14 34 38zM60 150c18-6 30-20 34-38-16 2-30 14-34 38zM60 118c-16-6-26-18-29-34 14 2 26 13 29 34zM60 88c16-6 26-18 29-34-14 2-26 13-29 34zM60 58c-12-5-20-15-22-28 11 2 20 10 22 28zM60 32c10-5 16-13 18-24-9 2-16 9-18 24z"/></svg></div>
+    <div class="pointer-events-none absolute -right-4 bottom-10 w-20 sm:w-28 opacity-30 rotate-[170deg]"><svg viewBox="0 0 120 220" fill="none" stroke="#B08D57" stroke-width="1.2" aria-hidden="true"><path d="M60 215C58 160 62 100 60 10"/><path d="M60 180c-18-6-30-20-34-38 16 2 30 14 34 38zM60 150c18-6 30-20 34-38-16 2-30 14-34 38zM60 118c-16-6-26-18-29-34 14 2 26 13 29 34zM60 88c16-6 26-18 29-34-14 2-26 13-29 34zM60 58c-12-5-20-15-22-28 11 2 20 10 22 28zM60 32c10-5 16-13 18-24-9 2-16 9-18 24z"/></svg></div>
     <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-20 pb-10 grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
       <div class="text-center lg:text-left">
-        <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-warm border border-brand-sand text-[10px] sm:text-xs font-semibold tracking-widest uppercase text-brand-gold">
-          <i data-lucide="heart" class="w-3 h-3"></i> Wedding Content Creator
-        </span>
-        <h1 class="font-termes text-4xl sm:text-6xl leading-[1.05] text-brand-charcoal mt-5">
+        <span class="eyebrow text-[10px] sm:text-xs font-semibold uppercase text-brand-gold">Wedding Content Creator</span>
+        <h1 class="font-termes font-medium text-[2.6rem] sm:text-7xl leading-[1.02] text-brand-charcoal mt-5">
           Hari bahagiamu, <span class="italic text-brand-gold">tayang di Story</span> hari itu juga.
         </h1>
         <p class="text-brand-muted text-sm sm:text-base mt-5 max-w-lg mx-auto lg:mx-0 leading-relaxed">
           Kami menangkap momen spontan di balik layar — tawa, haru, dan tren seru bareng sahabat — lalu langsung mengeditnya supaya kamu dan keluarga bisa membagikannya saat acara masih berlangsung.
         </p>
         <div class="flex flex-col sm:flex-row gap-3 mt-8 justify-center lg:justify-start">
-          <a href="#booking" class="px-7 py-3.5 bg-brand-gold hover:bg-brand-goldDark text-white text-xs uppercase tracking-widest font-semibold rounded-full transition-all shadow-md inline-flex items-center justify-center gap-2">
+          <a href="#booking" class="px-8 py-4 bg-brand-gold hover:bg-brand-goldDark text-white text-[11px] uppercase tracking-[0.25em] font-medium rounded-full transition-all shadow-lg shadow-brand-gold/20 inline-flex items-center justify-center gap-2">
             <i data-lucide="calendar-check" class="w-4 h-4"></i> Cek Tanggal Kosong
           </a>
-          <a href="gallery.html" class="px-7 py-3.5 bg-white border border-brand-sand hover:border-brand-gold text-brand-charcoal text-xs uppercase tracking-widest font-semibold rounded-full transition-all inline-flex items-center justify-center gap-2">
+          <a href="gallery.html" class="px-8 py-4 bg-white/70 backdrop-blur border border-brand-sand hover:border-brand-gold text-brand-charcoal text-[11px] uppercase tracking-[0.25em] font-medium rounded-full transition-all inline-flex items-center justify-center gap-2">
             <i data-lucide="play-circle" class="w-4 h-4 text-brand-gold"></i> Lihat Hasil Karya
           </a>
         </div>
@@ -151,7 +171,10 @@
       </div>
 
       <!-- Kolase foto klien (diambil otomatis dari clients.js) -->
-      <div id="heroCollage" class="grid grid-cols-3 gap-2.5 sm:gap-3 max-w-md mx-auto lg:max-w-none w-full"></div>
+      <div class="relative">
+        <div class="absolute -inset-3 sm:-inset-5 rounded-t-[999px] border border-[#B08D57]/40 pointer-events-none hidden sm:block"></div>
+        <div id="heroCollage" class="grid grid-cols-3 gap-2.5 sm:gap-3 max-w-md mx-auto lg:max-w-none w-full"></div>
+      </div>
     </div>
 
     <div class="pb-14"></div>
@@ -161,7 +184,7 @@
   <section id="about" class="py-20 bg-brand-warm/60 border-y border-brand-sand/50 scroll-mt-20">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="reveal text-center max-w-2xl mx-auto mb-14">
-        <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Kenapa Harus di.raya.in?</span>
+        <span class="eyebrow text-xs font-semibold tracking-widest text-brand-gold uppercase">Kenapa Harus di.raya.in?</span>
         <h2 class="text-3xl sm:text-5xl font-bold mt-2 text-brand-charcoal">Bukan Pengganti, Tapi Pelengkap Momen</h2>
         <p class="text-brand-muted mt-3 text-sm sm:text-base">
           Fotografer utama fokus pada dokumentasi formal, sedangkan kami menangkap momen spontan di balik layar yang siap kamu pamerkan ke media sosial hari itu juga.
@@ -192,7 +215,7 @@
   <section id="hasil" class="py-20 bg-brand-cream scroll-mt-20">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="reveal text-center max-w-2xl mx-auto mb-12">
-        <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Hasil Dokumentasi</span>
+        <span class="eyebrow text-xs font-semibold tracking-widest text-brand-gold uppercase">Hasil Dokumentasi</span>
         <h2 class="text-3xl sm:text-5xl font-bold mt-2 text-brand-charcoal">Yang Kamu Dapatkan</h2>
         <p class="text-brand-muted mt-3 text-sm sm:text-base">Semua hasil dikemas siap posting — tinggal pilih dan bagikan.</p>
       </div>
@@ -224,7 +247,7 @@
   <section id="gallery" class="py-20 bg-brand-warm/40 border-y border-brand-sand/50 scroll-mt-20">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="reveal text-center max-w-2xl mx-auto mb-12">
-        <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Wedding Stories</span>
+        <span class="eyebrow text-xs font-semibold tracking-widest text-brand-gold uppercase">Wedding Stories</span>
         <h2 class="text-3xl sm:text-5xl font-bold mt-2 text-brand-charcoal">Highlights & Cerita Klien</h2>
         <p class="text-brand-muted mt-3 text-sm">Ketuk lingkaran di bawah untuk menonton cuplikan ala Instagram Story.</p>
       </div>
@@ -256,7 +279,7 @@
   <section id="pricelist" class="py-24 bg-brand-warm/50 scroll-mt-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="reveal text-center max-w-2xl mx-auto mb-16">
-        <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Pricelist & Paket Layanan</span>
+        <span class="eyebrow text-xs font-semibold tracking-widest text-brand-gold uppercase">Pricelist & Paket Layanan</span>
         <h2 class="text-3xl sm:text-5xl font-bold mt-2 text-brand-charcoal">Pilihan Paket Dokumentasi</h2>
         <p class="text-brand-muted mt-3 text-sm sm:text-base">Pilih paket Wedding Content Creator yang paling sesuai dengan susunan acaramu.</p>
       </div>
@@ -294,7 +317,7 @@
   <section id="booking" class="py-24 scroll-mt-20">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="reveal text-center max-w-2xl mx-auto mb-14">
-        <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Reservasi Jadwal</span>
+        <span class="eyebrow text-xs font-semibold tracking-widest text-brand-gold uppercase">Reservasi Jadwal</span>
         <h2 class="text-3xl sm:text-5xl font-bold mt-2 text-brand-charcoal">Cek Tanggal & Booking</h2>
         <p class="text-brand-muted mt-3 text-sm sm:text-base">Pilih tanggal pernikahanmu di kalender, isi formulir, lalu kirim lewat WhatsApp. Kami akan konfirmasi ketersediaannya.</p>
       </div>
@@ -332,7 +355,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label for="clientName" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Nama Pasangan Pengantin *</label>
-                <input type="text" id="clientName" required placeholder="Contoh: Moniqa & Naufal" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+                <input type="text" id="clientName" required placeholder="Contoh: Moniqa & Fauzi" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
               </div>
               <div>
                 <label for="clientPhone" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Nomor WhatsApp Kamu *</label>
@@ -347,7 +370,7 @@
               </div>
               <div>
                 <label for="weddingVenue" class="block text-xs font-semibold uppercase tracking-wider text-brand-muted mb-1.5">Kota & Lokasi / Venue *</label>
-                <input type="text" id="weddingVenue" required placeholder="Contoh: Gedung Assakinah, Cianjur" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
+                <input type="text" id="weddingVenue" required placeholder="Contoh: Hotel Cianjur" class="w-full px-4 py-3 rounded-xl border border-brand-sand bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold">
               </div>
             </div>
 
@@ -395,7 +418,7 @@
   <!-- ================= FOOTER ================= -->
   <footer class="bg-brand-charcoal text-brand-sand py-12 border-t border-brand-sand/20 text-center">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="text-3xl font-bold text-white mb-2 font-sans">di.raya.in</div>
+      <div class="logo-script text-4xl text-white mb-2">di.raya.in</div>
       <p class="text-xs text-brand-sand/70 mb-6">Documenting your unscripted love stories with aesthetic precision.</p>
 
       <div class="flex justify-center items-center gap-4 mb-8">
@@ -529,7 +552,7 @@
         const a = document.createElement('button');
         a.type = 'button';
         a.onclick = () => openStory(clients.indexOf(c));
-        a.className = `relative rounded-2xl overflow-hidden bg-brand-sand aspect-[3/4] shadow-sm group ${i % 3 === 1 ? 'translate-y-5' : ''}`;
+        a.className = `relative overflow-hidden bg-brand-sand aspect-[3/4] shadow-md group ring-1 ring-white rounded-t-[999px] rounded-b-2xl ${i % 3 === 1 ? 'translate-y-5' : ''}`;
         a.innerHTML = `
           <img src="${c.cover}" alt="${c.name}" loading="${i < 3 ? 'eager' : 'lazy'}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.style.display='none'">
           <span class="absolute inset-x-0 bottom-0 p-2 text-[10px] sm:text-xs font-semibold text-white text-left bg-gradient-to-t from-black/70 to-transparent">${c.name}</span>`;
@@ -627,7 +650,7 @@
           <div class="aspect-[3/4] flex flex-col items-center justify-center text-center p-2" style="background:${t.bg};${(t.motif ? motifPattern(t) : t.pattern) ? `background-image:${t.motif ? motifPattern(t) : t.pattern};` : ''}color:${t.text}">
             ${t.motif ? motifSVG(t, t.motif === 'gunungan' ? 'w-8 h-10' : 'w-16 h-6') : `<div class="text-[10px]" style="color:${t.accent}">${t.orn}</div>`}
             <div class="text-[7px] uppercase tracking-[0.2em] font-bold mt-1" style="color:${t.accent}">${t.salam || 'The Wedding Of'}</div>
-            <div class="font-termes text-base sm:text-lg leading-tight mt-1">Sarah<br>& Rizky</div>
+            <div class="font-termes text-base sm:text-lg leading-tight mt-1">Moniqa<br>& Fauzi</div>
             <div class="mt-2 w-12 h-3 rounded-full" style="background:${t.accent}"></div>
           </div>
           <div class="bg-white text-[10px] sm:text-[11px] font-semibold px-2 py-1.5 truncate group-hover:text-brand-gold">${t.name}</div>
