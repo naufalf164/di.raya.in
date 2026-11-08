@@ -314,11 +314,13 @@
               <span>Min</span><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span>
             </div>
             <div id="calendarGrid" class="grid grid-cols-7 gap-1 text-center text-xs"></div>
+            <div id="calClients" class="mt-4"></div>
           </div>
 
           <div class="mt-8 pt-4 border-t border-brand-sand text-xs text-brand-muted flex flex-wrap gap-x-5 gap-y-2">
             <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-brand-gold"></span><span>Tanggal dipilih</span></div>
             <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full ring-2 ring-brand-gold/40"></span><span>Hari ini</span></div>
+            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-brand-gold/70 ring-2 ring-brand-gold"></span><span>Klien kami (ketuk → galeri)</span></div>
             <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-red-100 border border-red-300"></span><span>Sudah terisi</span></div>
             <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-brand-sand/60"></span><span>Sudah lewat</span></div>
           </div>
@@ -442,6 +444,12 @@
 
       <div class="relative w-full h-full flex items-center justify-center bg-black">
         <iframe id="storyVideo" src="" title="Video highlight" class="w-full h-full border-0" allow="autoplay; fullscreen"></iframe>
+        <img id="storyImg" src="" alt="" class="hidden w-full h-full object-contain">
+        <div id="storyEmpty" class="hidden absolute inset-0 flex flex-col items-center justify-center text-center text-white/80 px-8">
+          <div class="text-4xl mb-2">📷</div>
+          <p class="text-sm font-semibold">Foto & video sedang disiapkan</p>
+          <p class="text-xs text-white/60 mt-1">Hasil dokumentasi klien ini segera menyusul.</p>
+        </div>
       </div>
 
       <div class="absolute bottom-0 inset-x-0 z-30 p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent space-y-3">
@@ -454,20 +462,18 @@
           </button>
         </div>
         <p id="storyQuote" class="hidden text-white text-sm italic leading-relaxed px-2"></p>
-        <div class="grid grid-cols-2 gap-2">
-          <a id="storyMoreBtn" href="gallery.html" class="py-3 bg-white/15 hover:bg-white/25 text-white font-semibold rounded-full text-xs flex items-center justify-center gap-1.5 transition-all">
-            <i data-lucide="grid" class="w-4 h-4"></i> Lihat Selengkapnya
-          </a>
-          <a id="storyWaBtn" href="#" target="_blank" rel="noopener" class="py-3 bg-brand-gold hover:bg-brand-goldDark text-white font-semibold rounded-full text-xs flex items-center justify-center gap-1.5 transition-all shadow-lg">
-            <i data-lucide="calendar-check" class="w-4 h-4"></i> Cek Jadwal
-          </a>
-        </div>
       </div>
     </div>
   </div>
 
   <!-- ================= JAVASCRIPT ================= -->
   <script src="clients.js"></script>
+  <script src="klien-helper.js"></script>
+  <script>
+    if (typeof getClientsSorted !== 'function' || typeof clientsData === 'undefined') {
+      document.body.insertAdjacentHTML('afterbegin', '<div style="position:sticky;top:0;z-index:99;background:#B91C1C;color:#fff;font:600 13px/1.5 sans-serif;padding:12px 16px;text-align:center">⚠️ File <b>clients.js</b> atau <b>klien-helper.js</b> belum ter-upload / ada salah ketik di clients.js.</div>');
+    }
+  </script>
   <script src="jadwal.js"></script>
   <script src="tema.js"></script>
   <script>
@@ -517,7 +523,7 @@
     // ---------- Hero: kolase & jumlah klien ----------
     (function renderHero() {
       if (clients.length) document.getElementById('statClients').textContent = clients.length + '+';
-      const picks = clients.filter((c, i, arr) => arr.findIndex(x => x.cover === c.cover) === i).slice(0, 6);
+      const picks = getBestClients(clients, 6); // diatur di clients.js → KLIEN_UNGGULAN
       const box = document.getElementById('heroCollage');
       picks.forEach((c, i) => {
         const a = document.createElement('button');
@@ -647,7 +653,7 @@
         bubble.innerHTML = `
           <div class="w-20 h-20 sm:w-24 sm:h-24 p-[3px] rounded-full bg-gradient-to-tr from-brand-goldDark via-brand-gold to-red-400 group-hover:scale-105 transition-transform shadow-md">
             <div class="w-full h-full rounded-full border-2 border-brand-cream overflow-hidden bg-brand-sand">
-              <img src="${c.cover}" alt="" loading="lazy" class="w-full h-full object-cover pointer-events-none">
+              ${c.cover ? `<img src="${c.cover}" alt="" loading="lazy" class="w-full h-full object-cover pointer-events-none">` : `<span class="w-full h-full flex items-center justify-center font-termes text-2xl text-brand-gold">${c.name.split('&').map(x => x.trim()[0] || '').join('&')}</span>`}
             </div>
           </div>
           <span class="text-xs font-semibold mt-2.5 text-brand-charcoal group-hover:text-brand-gold text-center truncate max-w-[90px]">${c.name}</span>`;
@@ -682,25 +688,24 @@
       }, { passive: false });
     }
 
-    // Satu highlight = satu klien. Tombol berikut/sebelum hanya berpindah
-    // antar-video milik klien tersebut, tidak pindah ke klien lain.
-    let storyClient = null;
-    let storyVideoIdx = 0;
+    // Satu highlight = satu klien. Isinya: semua video klien, lalu galeri fotonya.
+    // Tombol berikut/sebelum hanya berpindah di dalam klien itu, tidak ke klien lain.
+    let storyClient = null, storyItems = [], storyIdx = 0;
 
     function openStory(index) {
       if (index < 0 || !clients[index]) return;
-      storyClient = clients[index];
-      storyVideoIdx = 0;
+      const c = storyClient = clients[index];
+      storyItems = [
+        ...c.editedVideos.map((v, i) => ({ type: 'video', url: v.url, label: v.title || `Video ${i + 1}` })),
+        ...c.randomPhotos.map((p, i) => ({ type: 'foto', url: p.url, label: p.title || `Foto ${i + 1}` }))
+      ];
+      storyIdx = 0;
       const modal = document.getElementById('storyModal');
       modal.classList.remove('hidden');
       modal.classList.add('flex');
       document.body.classList.add('modal-open');
-
-      const c = storyClient;
       document.getElementById('storyAvatar').src = c.cover;
       document.getElementById('storyTitle').textContent = c.name;
-      document.getElementById('storyWaBtn').href = waLink(`Halo di.raya.in, saya melihat highlight ${c.name} (${c.packageName}) dan ingin tanya ketersediaan tanggal.`);
-      document.getElementById('storyMoreBtn').href = `gallery.html#${encodeURIComponent(c.id)}`;
       const q = document.getElementById('storyQuote');
       q.textContent = c.testimoni ? `“${c.testimoni.trim()}”` : '';
       q.classList.toggle('hidden', !c.testimoni);
@@ -708,30 +713,34 @@
     }
 
     function loadStoryContent() {
-      const c = storyClient;
-      const videos = c.editedVideos || [];
-      const v = videos[storyVideoIdx] || {};
-      const total = videos.length;
-      document.getElementById('storySubtitle').textContent = total > 1
-        ? `${v.title || 'Video ' + (storyVideoIdx + 1)} • ${storyVideoIdx + 1} dari ${total}`
+      const c = storyClient, total = storyItems.length, it = storyItems[storyIdx];
+      const video = document.getElementById('storyVideo'), img = document.getElementById('storyImg');
+      document.getElementById('storyEmpty').classList.toggle('hidden', total > 0);
+      video.classList.toggle('hidden', !it || it.type !== 'video');
+      img.classList.toggle('hidden', !it || it.type !== 'foto');
+      video.src = it && it.type === 'video' ? it.url : '';
+      img.src = it && it.type === 'foto' ? it.url : '';
+      document.getElementById('storySubtitle').textContent = total
+        ? `${it.label} • ${storyIdx + 1} dari ${total}`
         : `${c.packageName} • ${c.date}`;
-      document.getElementById('storyVideo').src = v.url || '';
-      document.getElementById('storyPrevBtn').disabled = storyVideoIdx === 0;
-      document.getElementById('storyNextLabel').textContent = storyVideoIdx < total - 1 ? 'Video berikutnya' : 'Selesai';
-      document.getElementById('storyProgress').innerHTML = videos.map((_, i) =>
-        `<span class="h-0.5 flex-1 rounded-full ${i <= storyVideoIdx ? 'bg-white' : 'bg-white/30'}"></span>`).join('');
+      document.getElementById('storyPrevBtn').disabled = storyIdx === 0;
+      const next = storyItems[storyIdx + 1];
+      document.getElementById('storyNextLabel').textContent = !next ? 'Selesai' : next.type === 'foto' && it && it.type === 'video' ? 'Lihat foto' : 'Berikutnya';
+      document.getElementById('storyProgress').innerHTML = storyItems.map((_, i) =>
+        `<span class="h-0.5 flex-1 rounded-full ${i <= storyIdx ? 'bg-white' : 'bg-white/30'}"></span>`).join('');
     }
 
     function nextStory() {
-      if (storyClient && storyVideoIdx < (storyClient.editedVideos || []).length - 1) { storyVideoIdx++; loadStoryContent(); }
+      if (storyIdx < storyItems.length - 1) { storyIdx++; loadStoryContent(); }
       else closeStory();
     }
     function prevStory() {
-      if (storyVideoIdx > 0) { storyVideoIdx--; loadStoryContent(); }
+      if (storyIdx > 0) { storyIdx--; loadStoryContent(); }
     }
     function closeStory() {
       const modal = document.getElementById('storyModal');
       document.getElementById('storyVideo').src = '';
+      document.getElementById('storyImg').src = '';
       modal.classList.remove('flex');
       modal.classList.add('hidden');
       document.body.classList.remove('modal-open');
@@ -747,18 +756,29 @@
 
     renderHighlights();
 
-    // ---------- Kalender (mulai bulan ini, tanggal lewat tidak bisa dipilih) ----------
+    // ---------- Kalender (bisa mundur ke bulan klien lama; tanggal lewat tidak bisa dibooking) ----------
     const monthNames = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
     const dayNames = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
     const today = new Date(); today.setHours(0, 0, 0, 0);
-    const firstMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-    let viewDate = new Date(firstMonth);
+    const thisMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    // Tanggal pernikahan klien (dari clients.js) → tanda di kalender
+    const CLIENT_DATES = {};
+    clients.forEach(c => { if (c._iso) (CLIENT_DATES[c._iso] = CLIENT_DATES[c._iso] || []).push(c); });
+    const clientMonths = clients.filter(c => c._date).map(c => new Date(c._date.getFullYear(), c._date.getMonth(), 1));
+    const firstMonth = clientMonths.length ? new Date(Math.min(thisMonth, ...clientMonths)) : thisMonth;
+    let viewDate = new Date(thisMonth);
     let selectedDate = null;
 
     function renderCalendar() {
       const year = viewDate.getFullYear(), month = viewDate.getMonth();
       document.getElementById('calMonthYear').textContent = `${monthNames[month]} ${year}`;
       document.getElementById('calPrev').disabled = viewDate <= firstMonth;
+      // Daftar klien di bulan ini
+      const inMonth = clients.filter(c => c._date && c._date.getFullYear() === year && c._date.getMonth() === month);
+      document.getElementById('calClients').innerHTML = inMonth.length
+        ? `<div class="text-[11px] font-semibold text-brand-muted mb-1.5">Klien kami di bulan ini:</div><div class="flex flex-wrap gap-1.5">${inMonth.map(c =>
+            `<a href="gallery.html#${encodeURIComponent(c.id)}" class="inline-flex items-center gap-1.5 pl-1 pr-2.5 py-1 rounded-full bg-brand-warm border border-brand-sand text-[11px] font-semibold hover:border-brand-gold">${c.cover ? `<img src="${c.cover}" alt="" class="w-5 h-5 rounded-full object-cover">` : ''}${c.name} <span class="text-brand-muted font-normal">${c._date.getDate()}</span></a>`).join('')}</div>`
+        : '';
 
       const grid = document.getElementById('calendarGrid');
       grid.innerHTML = '';
@@ -777,6 +797,20 @@
         const isSelected = selectedDate && date.getTime() === selectedDate.getTime();
         const isWeekend = date.getDay() === 0 || date.getDay() === 6;
         const isBooked = BOOKED.has(isoOf(date));
+        const klien = CLIENT_DATES[isoOf(date)];
+
+        if (klien) {
+          // Tanggal klien: tanda foto, klik → galeri klien tersebut
+          const c = klien[0];
+          const mark = document.createElement('a');
+          mark.href = `gallery.html#${encodeURIComponent(c.id)}`;
+          mark.title = klien.map(k => k.name).join(', ') + ' — lihat galeri';
+          mark.setAttribute('aria-label', `${day} ${monthNames[month]} ${year}: ${mark.title}`);
+          mark.className = 'relative block py-2.5 rounded-lg font-bold text-white overflow-hidden ring-2 ring-brand-gold shadow-sm hover:scale-105 transition-transform';
+          mark.innerHTML = `${c.cover ? `<img src="${c.cover}" alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover">` : ''}<span class="absolute inset-0 bg-brand-gold/60"></span><span class="relative">${day}</span>`;
+          grid.appendChild(mark);
+          continue;
+        }
 
         let cls = "py-2.5 rounded-lg font-medium transition-all ";
         if (isPast) { cls += "text-brand-muted/40 line-through cursor-not-allowed"; cell.disabled = true; }
