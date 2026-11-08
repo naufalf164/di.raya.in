@@ -177,8 +177,13 @@
 
     let MODE = 'demo', RAW = null;
     if (params.get('u')) { RAW = decodeUndangan(params.get('u')); if (RAW) MODE = 'live'; }
-    if (!RAW && params.get('id') && typeof UNDANGAN_DATA !== 'undefined' && UNDANGAN_DATA[params.get('id')]) { RAW = upgradeLegacy({ ...UNDANGAN_DATA[params.get('id')] }); MODE = 'live'; }
+    // link tetap: undangan-data.js berisi "slug": ["isi", "tanda tangan"] dari admin.html
+    let SIGNED = params.get('u') ? { u: params.get('u'), s: params.get('s') } : null;
+    const ENTRI = !RAW && params.get('id') && typeof UNDANGAN_DATA !== 'undefined' ? UNDANGAN_DATA[params.get('id')] : null;
+    if (Array.isArray(ENTRI)) { SIGNED = { u: ENTRI[0], s: ENTRI[1] }; RAW = decodeUndangan(ENTRI[0]); if (RAW) MODE = 'live'; }
+    else if (ENTRI) { RAW = upgradeLegacy({ ...ENTRI }); MODE = 'live'; }
     if (!RAW && params.get('preview')) { try { RAW = JSON.parse(localStorage.getItem('dbi_preview')); if (RAW) MODE = 'preview'; } catch (e) {} }
+    const ID_HILANG = !!params.get('id') && !RAW;   // link tetap belum di-upload / salah ketik
     if (!RAW) RAW = demoData(params.get('demo') || params.get('theme') || 'maroon');
 
     const T = getTema(RAW.theme);
@@ -189,6 +194,7 @@
     // ============================================================
     const e = escapeHTML;
     const safeUrl = u => { u = String(u || '').trim(); return /^(https?:\/\/|musik\/)/i.test(u) ? u : ''; };
+    const safeImg = u => safeUrl(fotoUrl(u));   // link Google Drive otomatis jadi link gambar
     const nick = s => String(s || '').split(',')[0].trim();
     const firstName = s => nick(s).split(/\s+/)[0] || '';
     const mapsSearch = v => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(v || '');
@@ -214,15 +220,15 @@
         brideNick: e(firstName(r.bride) || 'Mempelai'), groomNick: e(firstName(r.groom) || 'Mempelai'),
         brideFull: e(nick(r.bride) || 'Mempelai Wanita'), groomFull: e(nick(r.groom) || 'Mempelai Pria'),
         brideParents: e(r.brideParents || ''), groomParents: e(r.groomParents || ''),
-        bridePhoto: e(safeUrl(r.bridePhoto) || avatar(r.bride)), groomPhoto: e(safeUrl(r.groomPhoto) || avatar(r.groom)),
+        bridePhoto: e(safeImg(r.bridePhoto) || avatar(r.bride)), groomPhoto: e(safeImg(r.groomPhoto) || avatar(r.groom)),
         brideIg: e(String(r.brideIg || '').replace(/^@/, '').trim()), groomIg: e(String(r.groomIg || '').replace(/^@/, '').trim()),
         ini: e(((firstName(r.bride)[0] || '') + (firstName(r.groom)[0] || '')).toUpperCase()),
-        cover: e(safeUrl(r.coverPhoto) || safeUrl(r.bridePhoto) || UNS(DEMO_COVERS[0])),
+        cover: e(safeImg(r.coverPhoto) || safeImg(r.bridePhoto) || UNS(DEMO_COVERS[0])),
         events,
         venues: [...new Set(events.map(x => x.venue).filter(Boolean))],
         gifts: (r.gifts || []).filter(g => g && g.acc).map(g => ({ bank: e(g.bank || 'Rekening'), acc: e(g.acc), holder: e(g.holder || '') })),
         story: (r.story || []).filter(s => s && (s.title || s.text)).map(s => ({ year: e(s.year), title: e(s.title), text: e(s.text) })),
-        gallery: (r.gallery || []).map(safeUrl).filter(Boolean).slice(0, 9).map(e),
+        gallery: (r.gallery || []).map(safeImg).filter(Boolean).slice(0, 9).map(e),
         dress: e(r.dress || ''), stream: e(safeUrl(r.stream)),
         turut: String(r.turut || '').split('\n').map(x => x.trim()).filter(Boolean).map(e),
         dt,
@@ -969,22 +975,23 @@
     // ============================================================
     // 14. CEK KEASLIAN LINK SEBELUM MENAMPILKAN
     // ============================================================
-    function showInvalid() {
+    function showInvalid(judul = 'Link undangan tidak valid', isi = 'Link ini tidak lengkap atau isinya telah diubah. Mohon minta link resmi langsung kepada mempelai.') {
       document.body.classList.remove('locked');
       document.body.innerHTML = `
         <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#FAF8F5;font-family:'Jost',sans-serif;color:#23201E">
           <div style="max-width:360px;text-align:center;background:#fff;border:1px solid #E8DFD8;border-radius:24px;padding:28px">
-            <h1 style="font-size:20px;font-weight:600;margin:0 0 8px">Link undangan tidak valid</h1>
-            <p style="font-size:13px;color:#716B67;line-height:1.6">Link ini tidak lengkap atau isinya telah diubah. Mohon minta link resmi langsung kepada mempelai.</p>
+            <h1 style="font-size:20px;font-weight:600;margin:0 0 8px">${judul}</h1>
+            <p style="font-size:13px;color:#716B67;line-height:1.6">${isi}</p>
             <a href="dibuatin.html" style="display:inline-block;margin-top:16px;font-size:12px;color:#662626;font-weight:700">di.buat.in</a>
           </div>
         </div>`;
-      document.title = 'Link undangan tidak valid';
+      document.title = judul;
     }
     (async function init() {
-      if (params.get('u')) {
+      if (ID_HILANG) return showInvalid('Undangan belum tersedia', 'Undangan ini sedang disiapkan atau alamatnya salah ketik. Silakan coba lagi nanti, atau minta link langsung kepada mempelai.');
+      if (SIGNED) {
         if (!RAW || MODE !== 'live') return showInvalid();
-        const status = await verifyUndangan(params.get('u'), params.get('s'));
+        const status = await verifyUndangan(SIGNED.u, SIGNED.s);
         if (status === 'invalid') return showInvalid();
       }
       render();
