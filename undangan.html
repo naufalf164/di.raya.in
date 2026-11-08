@@ -110,6 +110,7 @@
   <!-- Toast -->
   <div id="toast" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-[60] hidden bg-black text-white text-xs font-semibold px-4 py-2.5 rounded-full shadow-xl"></div>
 
+  <script src="pako.min.js"></script>
   <script src="tema.js"></script>
   <script>
     // Peringatan bila tema.js lama / belum ter-upload (penyebab halaman error)
@@ -132,12 +133,9 @@
     const params = new URLSearchParams(location.search);
     const UNS = id => `https://images.unsplash.com/${id}?w=700&auto=format&fit=crop&q=80`;
     const DEMO_COVERS = ['photo-1583939003579-730e3918a45a','photo-1519741497674-611481863552','photo-1511285560929-80b456fea0bc','photo-1532712938310-34cb3982ef74','photo-1520854221256-17451cc331bf','photo-1469371670807-013ccf25f16a','photo-1606800052052-a08af7148866','photo-1522673607200-164d1b6ce486','photo-1544077960-604201fe74bc','photo-1518895949257-7621c3c786d7'];
+    // Semua contoh template memakai pasangan yang sama: Moniqa & Fauzi
     const DEMO_PASANGAN = [
-      ['Sarah Amanda, S.Kom', 'Putri dari Bpk. Hendra & Ibu Rina', 'photo-1534528741775-53994a69daeb', 'Rizky Pratama, S.T', 'Putra dari Bpk. Bambang & Ibu Dewi', 'photo-1506794778202-cad84cf45f1d'],
-      ['Nadia Larasati', 'Putri dari Bpk. Suryo & Ibu Wati', 'photo-1524504388940-b1c1722653e1', 'Bagas Wicaksono', 'Putra dari Bpk. Hartono & Ibu Sri', 'photo-1492562080023-ab3db95bfbce'],
-      ['Putri Aurelia', 'Putri dari Bpk. Danu & Ibu Maya', 'photo-1544005313-94ddf0286df2', 'Reza Mahendra', 'Putra dari Bpk. Aris & Ibu Rini', 'photo-1519085360753-af0119f7cbe7'],
-      ['Moniqa Anindya', 'Putri dari Bpk. Anton & Ibu Siska', 'photo-1494790108377-be9c29b29330', 'Fauzi Hidayat', 'Putra dari Bpk. Rahman & Ibu Nur', 'photo-1507003211169-0a1dd7228f2d'],
-      ['Dinda Salsabila', 'Putri dari Bpk. H. Asep & Ibu Hj. Eni', 'photo-1517841905240-472988babdf9', 'Gilang Permana', 'Putra dari Bpk. H. Cecep & Ibu Hj. Teti', 'photo-1500648767791-00dcc994a43e']
+      ['Moniqa', 'Putri dari Bpk. Ahmad & Ibu Siti', 'photo-1494790108377-be9c29b29330', 'Fauzi', 'Putra dari Bpk. Hasan & Ibu Aminah', 'photo-1507003211169-0a1dd7228f2d']
     ];
 
     function demoData(themeId) {
@@ -152,8 +150,8 @@
         groom: p[3], groomParents: p[4], groomPhoto: UNS(p[5]), groomIg: '',
         coverPhoto: UNS(DEMO_COVERS[idx % DEMO_COVERS.length]),
         events: [
-          { name: 'Akad Nikah', iso, date: formatTanggalPanjang(iso), time: '08.00 – 10.00 WIB', venue: 'Masjid Agung Cianjur', mapsUrl: '' },
-          { name: 'Resepsi', iso, date: formatTanggalPanjang(iso), time: '11.00 – 15.00 WIB', venue: 'Gedung Serbaguna, Cianjur', mapsUrl: '' }
+          { name: 'Akad Nikah', iso, date: formatTanggalPanjang(iso), time: '08.00 – 10.00 WIB', venue: 'Hotel Cianjur', mapsUrl: '' },
+          { name: 'Resepsi', iso, date: formatTanggalPanjang(iso), time: '11.00 – 15.00 WIB', venue: 'Hotel Cianjur', mapsUrl: '' }
         ],
         gifts: [{ bank: 'Bank Contoh', acc: '1234567890', holder: p[3].split(',')[0] }],
         musicUrl: '', wa: ''
