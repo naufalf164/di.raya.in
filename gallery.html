@@ -127,6 +127,11 @@
       </div>
 
       <div class="p-5 sm:p-8 min-h-[300px] max-h-[62vh] overflow-y-auto">
+        <div id="emptyMedia" class="hidden text-center py-14 text-brand-muted">
+          <div class="text-4xl mb-2">📷</div>
+          <p class="text-sm font-semibold text-brand-charcoal">Foto & video sedang disiapkan</p>
+          <p class="text-xs mt-1">Hasil dokumentasi klien ini segera menyusul.</p>
+        </div>
         <div id="videoTab" class="tab-pane">
           <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4" id="modalVideoList"></div>
         </div>
@@ -169,6 +174,12 @@
   </div>
 
   <script src="clients.js"></script>
+  <script src="klien-helper.js"></script>
+  <script>
+    if (typeof getClientsSorted !== 'function' || typeof clientsData === 'undefined') {
+      document.body.insertAdjacentHTML('afterbegin', '<div style="position:sticky;top:0;z-index:99;background:#B91C1C;color:#fff;font:600 13px/1.5 sans-serif;padding:12px 16px;text-align:center">⚠️ File <b>clients.js</b> atau <b>klien-helper.js</b> belum ter-upload / ada salah ketik di clients.js.</div>');
+    }
+  </script>
   <script>
     const WA_NUMBER = "6285128007096";
     const clients = getClientsSorted();
@@ -219,7 +230,7 @@
         card.onclick = () => openClientDetail(client.id);
         card.innerHTML = `
           <div class="relative aspect-[4/3] overflow-hidden bg-brand-sand w-full">
-            <img src="${client.cover}" alt="${client.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            ${client.cover ? `<img src="${client.cover}" alt="${client.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : `<div class="w-full h-full flex flex-col items-center justify-center text-brand-muted"><span class="text-3xl">📷</span><span class="text-xs mt-1">Foto menyusul</span></div>`}
             <div class="absolute top-3 left-3 bg-brand-charcoal/80 backdrop-blur-md text-brand-sand text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">${client.packageName}</div>
           </div>
           <div class="p-6 flex-1 flex flex-col justify-between w-full">
@@ -231,7 +242,7 @@
               </div>
             </div>
             <div class="mt-6 pt-4 border-t border-brand-sand/60 flex items-center justify-between text-xs font-semibold text-brand-gold">
-              <span>${client.editedVideos.length} Video • ${client.randomPhotos.length} Foto</span>
+              <span>${client.editedVideos.length ? client.editedVideos.length + ' Video' : 'Video menyusul'} • ${client.randomPhotos.length ? client.randomPhotos.length + ' Foto' : 'Foto menyusul'}</span>
               <span class="inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">Lihat Karya <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
             </div>
           </div>`;
@@ -305,7 +316,13 @@
         photoContainer.appendChild(item);
       });
 
-      switchContentTab('videoTab');
+      // Tab kosong disembunyikan; kalau dua-duanya kosong tampil "menyusul"
+      const hasV = client.editedVideos.length > 0, hasP = client.randomPhotos.length > 0;
+      document.getElementById('btnTabVideo').classList.toggle('hidden', !hasV);
+      document.getElementById('btnTabPhoto').classList.toggle('hidden', !hasP);
+      document.getElementById('emptyMedia').classList.toggle('hidden', hasV || hasP);
+      if (hasV || hasP) switchContentTab(hasV ? 'videoTab' : 'photoTab');
+      else document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
       const modal = document.getElementById('clientDetailModal');
       modal.classList.remove('hidden');
       modal.classList.add('flex');
@@ -391,7 +408,9 @@
     // Buka langsung klien tertentu lewat link, contoh: gallery.html#velin-devan
     renderFilters();
     renderClients();
-    if (location.hash) openClientDetail(decodeURIComponent(location.hash.slice(1)));
+    const openFromHash = () => { if (location.hash.length > 1) openClientDetail(decodeURIComponent(location.hash.slice(1))); };
+    openFromHash();
+    window.addEventListener('hashchange', openFromHash);
   </script>
 </body>
 </html>
