@@ -80,6 +80,7 @@
 
   <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden bg-brand-charcoal text-white text-xs font-semibold px-4 py-2.5 rounded-full shadow-xl text-center max-w-[90vw]"></div>
 
+  <script src="kunci-admin.js" onerror="void 0"></script>
   <script src="pako.min.js"></script>
   <script src="tema.js"></script>
   <script>
@@ -225,7 +226,7 @@
             ${mismatch ? 'Kunci di website BERBEDA dengan kunci di perangkat ini — undangan baru akan ditolak!' : 'Keamanan belum aktif (1 langkah lagi)'}</div>
           <ol class="list-decimal pl-4 space-y-0.5">
             <li>Salin kunci publik di bawah.</li>
-            <li>Buka <code>tema.js</code>, tempel di <code>const ADMIN_PUBLIC_KEY = '...'</code>.</li>
+            <li>Buka <code>kunci-admin.js</code>, tempel di antara tanda kutip <code>const KUNCI_PUBLIK_ADMIN = '...'</code>.</li>
             <li>Upload ulang website. Setelah itu kotak ini berubah hijau.</li>
           </ol>
           <div class="flex gap-2"><input readonly class="fld font-mono text-[10px]" value="${e(rec.pub)}"><button onclick="copyText(getKeyRec().pub,'Kunci publik disalin')" class="px-3 bg-white border border-current rounded-lg font-semibold shrink-0">Salin</button></div>
