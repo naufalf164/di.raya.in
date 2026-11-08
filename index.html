@@ -18,34 +18,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
   <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@0.525.0"></script>
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              cream: '#FAF8F5',
-              warm: '#F4EFEA',
-              sand: '#E8DFD8',
-              gold: '#662626',      /* Merah Marun Utama */
-              goldDark: '#4D1B1B',  /* Merah Marun Gelap */
-              charcoal: '#23201E',
-              muted: '#716B67'
-            }
-          },
-          fontFamily: {
-            termes: ['"TeX Gyre Termes"', '"Times New Roman"', 'Times', 'serif'],
-            sans: ['Jost', '"Helvetica Neue"', 'Arial', 'sans-serif'],
-            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
-          }
-        }
-      }
-    }
-  </script>
 
   <style>
     body {
@@ -76,6 +50,7 @@
     ::selection { background: #662626; color: #fff; }
     @media (min-width: 1024px) { .lg\:text-left > h1::after { margin-left: 0; } }
   </style>
+  <link rel="stylesheet" href="site.css">
 </head>
 <body class="bg-brand-cream text-brand-charcoal antialiased">
 
