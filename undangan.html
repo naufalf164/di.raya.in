@@ -10,7 +10,7 @@
   <meta property="og:image" content="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1200&auto=format&fit=crop&q=80">
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@0.525.0"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -149,7 +149,7 @@
           { name: 'Resepsi', iso, date: formatTanggalPanjang(iso), time: '11.00 – 15.00 WIB', venue: 'Gedung Serbaguna, Cianjur', mapsUrl: '' }
         ],
         gifts: [{ bank: 'Bank Contoh', acc: '1234567890', holder: p[3].split(',')[0] }],
-        musicUrl: musikUrl('romantic-piano'), wa: ''
+        musicUrl: '', wa: ''
       };
     }
 
@@ -172,6 +172,7 @@
     if (!RAW) RAW = demoData(params.get('demo') || params.get('theme') || 'maroon');
 
     const T = getTema(RAW.theme);
+    const SALAM = escapeHTML(T.salam || 'The Wedding Of');
     const GUEST = (params.get('to') || '').trim().slice(0, 60);
 
     // ============================================================
@@ -226,7 +227,8 @@
       const root = document.getElementById('themeRoot');
       const vars = { '--bg': T.bg, '--surface': T.surface, '--text': T.text, '--muted': T.muted, '--accent': T.accent, '--on': T.onAccent, '--border': T.border, '--fh': FONTS[T.head], '--fn': FONTS[T.nameFont], '--bs': T.dashed ? 'dashed' : 'solid', '--bw': T.dashed ? '2px' : '1px' };
       Object.entries(vars).forEach(([k, v]) => document.documentElement.style.setProperty(k, v));
-      if (T.pattern) { root.style.backgroundImage = T.pattern; if (T.patternSize) root.style.backgroundSize = T.patternSize; }
+      const pat = T.motif ? motifPattern(T) : T.pattern;
+      if (pat) { root.style.backgroundImage = pat; if (T.patternSize && !T.motif) root.style.backgroundSize = T.patternSize; }
       document.querySelector('meta[name="theme-color"]') || document.head.insertAdjacentHTML('beforeend', `<meta name="theme-color" content="${T.bg}">`);
     })();
 
@@ -254,8 +256,9 @@
       const L = T.layout;
       if (L === 'lengkung') return `
         <section id="sec-hero" class="pt-16 pb-12 px-6 text-center border-b t-line">
+          ${T.motif ? `<div class="reveal flex justify-center mb-3">${motifSVG(T, 'w-44 h-16')}</div>` : ''}
           <div class="reveal w-56 h-72 mx-auto rounded-t-full overflow-hidden p-1.5 t-ring shadow-lg"><img src="${d.cover}" alt="" class="w-full h-full object-cover rounded-t-full"></div>
-          <div class="reveal text-[10px] uppercase tracking-[0.3em] font-bold t-accent mt-7">The Wedding Of</div>
+          <div class="reveal text-[10px] uppercase tracking-[0.3em] font-bold t-accent mt-7">${SALAM}</div>
           <h1 class="reveal ${nameCls} my-3">${d.brideNick} <span class="t-accent">&</span> ${d.groomNick}</h1>
           <p class="reveal text-xs t-muted tracking-wider">${d.firstDate}</p>
           ${countdownHTML()}
@@ -290,7 +293,7 @@
           <img src="${d.cover}" alt="" class="absolute inset-0 w-full h-full object-cover">
           <div class="absolute inset-0" style="background:linear-gradient(to top, var(--bg) 0%, rgba(0,0,0,.45) 45%, rgba(0,0,0,.15) 100%)"></div>
           <div class="relative text-white">
-            <span class="reveal inline-block text-[10px] uppercase font-bold tracking-[0.3em] bg-white/15 backdrop-blur-md border border-white/30 px-3.5 py-1 rounded-full">The Wedding Of</span>
+            <span class="reveal inline-block text-[10px] uppercase font-bold tracking-[0.3em] bg-white/15 backdrop-blur-md border border-white/30 px-3.5 py-1 rounded-full">${SALAM}</span>
             <h1 class="reveal ${nameCls} my-4 drop-shadow-lg">${d.brideNick} & ${d.groomNick}</h1>
             <p class="reveal text-xs tracking-widest uppercase opacity-90">${d.firstDate}</p>
             ${countdownHTML('glass')}
@@ -300,8 +303,8 @@
       // klasik
       return `
         <section id="sec-hero" class="pt-20 pb-14 px-6 text-center border-b t-line">
-          <div class="reveal text-lg tracking-[0.4em] t-accent animate-float">${T.orn}</div>
-          <div class="reveal text-[10px] uppercase tracking-[0.3em] font-bold t-accent mt-4">The Wedding Of</div>
+          ${T.motif ? `<div class="reveal flex justify-center animate-float">${motifSVG(T, T.motif === 'gunungan' ? 'w-24 h-28' : 'w-44 h-16')}</div>` : `<div class="reveal text-lg tracking-[0.4em] t-accent animate-float">${T.orn}</div>`}
+          <div class="reveal text-[10px] uppercase tracking-[0.3em] font-bold t-accent mt-4">${SALAM}</div>
           <h1 class="reveal ${nameCls} my-4">${d.brideNick}<br><span class="t-accent text-2xl">&</span><br>${d.groomNick}</h1>
           <p class="reveal text-xs t-muted tracking-wider">${d.firstDate}</p>
           ${countdownHTML()}
@@ -436,7 +439,8 @@
     function footerHTML() {
       return `
         <footer class="pt-6 pb-10 px-6 text-center">
-          <p class="fh italic text-lg">Terima kasih</p>
+          ${T.motif ? `<div class="flex justify-center mb-4 opacity-80">${motifSVG(T, 'w-32 h-12')}</div>` : ''}
+          <p class="fh italic text-lg">${T.cat === 'adat' && T.salam === 'Wilujeng Sumping' ? 'Hatur nuhun' : T.salam === 'Sugeng Rawuh' || T.salam === 'Pahargyan Dhaup' ? 'Matur nuwun' : T.salam === 'Horas!' ? 'Mauliate' : 'Terima kasih'}</p>
           <p class="fn text-3xl t-accent mt-1">${d.brideNick} & ${d.groomNick}</p>
           <p class="text-[10px] t-muted mt-6">Undangan digital oleh <a href="dibuatin.html" class="font-bold t-accent">di.buat.in</a> • by di.raya.in</p>
         </footer>`;
@@ -455,7 +459,8 @@
 
       // Sampul
       document.getElementById('coverCard').innerHTML = `
-        <span class="text-[10px] uppercase tracking-[0.3em] font-bold t-accent">The Wedding Of</span>
+        ${T.motif ? motifSVG(T, T.motif === 'gunungan' ? 'w-16 h-20' : 'w-36 h-12') : ''}
+        <span class="text-[10px] uppercase tracking-[0.3em] font-bold t-accent">${SALAM}</span>
         <h1 class="${nameCls}">${names}</h1>
         <div class="w-28 h-28 rounded-full overflow-hidden p-1 t-ring shadow-lg"><img src="${d.cover}" alt="" class="w-full h-full object-cover rounded-full"></div>
         <div class="w-full">
@@ -527,7 +532,7 @@
 
     // Musik
     const bgMusic = document.getElementById('bgMusic');
-    const MUSIC_SRC = safeUrl(RAW.musicUrl) || musikUrl('romantic-piano');
+    const MUSIC_SRC = safeUrl(RAW.musicUrl); // musik hanya dari pilihan klien (dipasang admin)
     let isPlaying = false, pausedByHide = false;
 
     function setMusicUI() {
@@ -553,8 +558,7 @@
       setTimeout(() => modal.classList.add('hidden'), 700);
       document.body.classList.remove('locked');
       const chip = document.getElementById('musicChip');
-      chip.classList.remove('hidden'); chip.classList.add('flex');
-      playMusic();
+      if (MUSIC_SRC) { chip.classList.remove('hidden'); chip.classList.add('flex'); playMusic(); }
     }
 
     // Salin rekening
@@ -615,7 +619,31 @@
       }
     }
 
-    render();
+    // ============================================================
+    // 7. CEK KEASLIAN LINK SEBELUM MENAMPILKAN
+    // ============================================================
+    function showInvalid() {
+      document.body.classList.remove('locked');
+      document.body.innerHTML = `
+        <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#FAF8F5;font-family:'Plus Jakarta Sans',sans-serif;color:#23201E">
+          <div style="max-width:360px;text-align:center;background:#fff;border:1px solid #E8DFD8;border-radius:24px;padding:28px">
+            <div style="font-size:36px">🔒</div>
+            <h1 style="font-size:20px;font-weight:700;margin:8px 0">Link undangan tidak valid</h1>
+            <p style="font-size:13px;color:#716B67;line-height:1.6">Link ini tidak lengkap atau isinya telah diubah. Mohon minta link resmi langsung kepada mempelai.</p>
+            <a href="dibuatin.html" style="display:inline-block;margin-top:16px;font-size:12px;color:#662626;font-weight:700">di.buat.in</a>
+          </div>
+        </div>`;
+      document.title = 'Link undangan tidak valid';
+    }
+
+    (async function init() {
+      if (params.get('u')) {
+        if (!RAW || MODE !== 'live') return showInvalid();
+        const status = await verifyUndangan(params.get('u'), params.get('s'));
+        if (status === 'invalid') return showInvalid();
+      }
+      render();
+    })();
   </script>
 </body>
 </html>
