@@ -46,6 +46,21 @@
     .rule::before, .rule::after { content: ""; height: 1px; width: 2.6rem; background: var(--accent); opacity: .55; }
     .photo-ph { background: color-mix(in srgb, var(--accent) 14%, var(--bg)); }
     .no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { scrollbar-width: none; }
+    /* Carousel (galeri film & kisah bab): panah + seret mouse untuk desktop */
+    .car { position: relative; }
+    .car-track { cursor: grab; scroll-padding-inline: 1.75rem; }
+    .car-track.dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+    .car-track.dragging img { pointer-events: none; }
+    .car-btn { position: absolute; top: 50%; transform: translateY(-50%); z-index: 5; width: 42px; height: 42px; border-radius: 999px;
+      display: flex; align-items: center; justify-content: center; border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      background: color-mix(in srgb, var(--bg) 88%, transparent); color: var(--accent); box-shadow: 0 6px 18px -8px rgba(0,0,0,.35);
+      backdrop-filter: blur(6px); transition: opacity .25s; cursor: pointer; }
+    .car-btn[hidden] { display: flex; opacity: 0; pointer-events: none; }
+    .car-btn.prev { left: 10px; } .car-btn.next { right: 10px; }
+    .car-btn svg { width: 18px; height: 18px; }
+    .car-dots { display: flex; justify-content: center; gap: 6px; margin-top: 14px; }
+    .car-dots span { width: 6px; height: 6px; border-radius: 999px; background: var(--accent); opacity: .25; transition: all .3s; }
+    .car-dots span.on { opacity: .9; width: 18px; }
 
     @keyframes spinDisc { to { transform: rotate(360deg); } }
     .vinyl-spin { animation: spinDisc 5s linear infinite; }
@@ -704,14 +719,14 @@
         </section>`,
       chapters: () => `
         <section id="sec-story" class="px-7 py-14">${head('', V.story)}
-          <div class="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory -mx-7 px-7 pb-2">${d.story.map((s, i) => `
+          <div class="car -mx-7"><div class="car-track flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory px-7 pb-2">${d.story.map((s, i) => `
             <div class="reveal snap-start shrink-0 w-[78%] t-surface rounded-[24px] p-6">
               <p class="text-[10px] tracking-[0.3em] uppercase t-muted">Bab ${i + 1}</p>
               <p class="fh text-5xl t-accent leading-none mt-2">${s.year}</p>
               <p class="fh text-xl mt-3">${s.title}</p>
               <p class="text-xs t-muted leading-relaxed mt-2">${s.text}</p>
             </div>`).join('')}
-          </div>
+          </div></div>
         </section>`
     };
     const GALLERY = {
@@ -723,9 +738,9 @@
         </section>`,
       film: () => `
         <section id="sec-gallery" class="py-14">${head('', V.gallery, 'px-7')}
-          <div class="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory px-7 pb-2">${d.gallery.map((g, i) => `
+          <div class="car"><div class="car-track flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory px-7 pb-2">${d.gallery.map((g, i) => `
             <button type="button" onclick="openLightbox('${i}')" class="snap-center shrink-0 w-[62%] aspect-[3/4] overflow-hidden ${i % 2 ? 'rounded-b-full rounded-t-xl mt-8' : 'rounded-t-full rounded-b-xl'}" aria-label="Lihat foto ${i + 1}">${img(g, 'w-full h-full object-cover')}</button>`).join('')}
-          </div>
+          </div></div>
         </section>`
     };
     const EXTRA = {
@@ -828,9 +843,59 @@
       closing: () => (CLOSING[T.closing] || CLOSING.script)()
     };
 
+    // Geser samping: tombol panah, seret mouse, dan titik penanda (bekerja di HP & desktop)
+    function setupCarousels() {
+      const arrow = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="${d}"/></svg>`;
+      document.querySelectorAll('.car').forEach(car => {
+        const track = car.querySelector('.car-track');
+        const items = [...track.children];
+        if (items.length < 2) return;
+        const prev = Object.assign(document.createElement('button'), { type: 'button', className: 'car-btn prev', innerHTML: arrow('M15 18l-6-6 6-6') });
+        const next = Object.assign(document.createElement('button'), { type: 'button', className: 'car-btn next', innerHTML: arrow('M9 18l6-6-6-6') });
+        prev.setAttribute('aria-label', 'Sebelumnya'); next.setAttribute('aria-label', 'Berikutnya');
+        const dots = document.createElement('div'); dots.className = 'car-dots';
+        dots.innerHTML = items.map(() => '<span></span>').join('');
+        car.append(prev, next, dots);
+        const step = () => (items[1].offsetLeft - items[0].offsetLeft) || track.clientWidth * 0.7;
+        prev.onclick = () => track.scrollBy({ left: -step(), behavior: 'smooth' });
+        next.onclick = () => track.scrollBy({ left: step(), behavior: 'smooth' });
+        const update = () => {
+          const max = track.scrollWidth - track.clientWidth - 4;
+          prev.hidden = track.scrollLeft <= 4; next.hidden = track.scrollLeft >= max;
+          const mid = track.scrollLeft + track.clientWidth / 2;
+          let cur = 0; items.forEach((it, i) => { if (it.offsetLeft <= mid) cur = i; });
+          if (track.scrollLeft >= max) cur = items.length - 1;
+          [...dots.children].forEach((dt, i) => dt.classList.toggle('on', i === cur));
+        };
+        track.addEventListener('scroll', update, { passive: true }); window.addEventListener('resize', update); update();
+        // seret dengan mouse
+        let down = false, sx = 0, sl = 0, moved = false;
+        track.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') return; down = true; moved = false; sx = e.clientX; sl = track.scrollLeft; });
+        window.addEventListener('pointermove', e => { if (!down) return; const dx = e.clientX - sx; if (Math.abs(dx) > 5) { moved = true; track.classList.add('dragging'); } if (moved) track.scrollLeft = sl - dx; });
+        window.addEventListener('pointerup', () => {
+          if (!down) return; down = false;
+          if (moved) { track.classList.remove('dragging'); const i = Math.round(track.scrollLeft / step()); track.scrollTo({ left: i * step(), behavior: 'smooth' }); }
+        });
+        track.addEventListener('click', e => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+        track.addEventListener('dragstart', e => e.preventDefault());
+      });
+    }
+
+    // Menu bawah, tombol musik & notifikasi selalu sejajar kolom undangan (di desktop tidak menutupi panel kiri)
+    function alignFixed() {
+      const r = document.getElementById('themeRoot').getBoundingClientRect();
+      const nav = document.getElementById('bottomNav'), chip = document.getElementById('musicChip'), toast = document.getElementById('toast');
+      if (nav) { nav.style.left = r.left + 'px'; nav.style.right = Math.max(0, innerWidth - r.right) + 'px'; }
+      if (chip) chip.style.right = Math.max(16, innerWidth - r.right + 16) + 'px';
+      if (toast) toast.style.left = (r.left + r.width / 2) + 'px';
+    }
+    window.addEventListener('resize', alignFixed);
+
     function render() {
       const order = (URUTAN[T.order] || URUTAN.islami);
       document.getElementById('templateRoot').innerHTML = order.map(k => (RENDER[k] ? RENDER[k]() : '')).join('');
+      setupCarousels();
+      alignFixed();
 
       const names = `${d.brideNick} & ${d.groomNick}`;
       const unesc = s => { const t = document.createElement('textarea'); t.innerHTML = s; return t.value; };
